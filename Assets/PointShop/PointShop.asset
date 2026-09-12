@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc43e4983a160e543856e5ba0421c9e1, type: 3}
+  m_Name: PointShop
+  m_EditorClassIdentifier: 
+  metadata:
+    guid: 41cca58433454eddb4c27d360f8d3b06
+    name: PointShop
+    displayName: 
+    skipSafetyChecks: 0
+    disableScripts: 0
+    accessesExtraAssemblies: 1
+    disableHarmonyPatching: 0
+    requiredOn: 3
+    files:
+    - path: Scripts/Scripts/Zone.cs
+      guid: 4003bdc4263dd8e47925a71183d9e63c
+    - path: Scripts/Scripts/UIZoneSlot.cs
+      guid: 2880cae3cda6d434eaac5c8dfc530330
+    - path: Scripts/Scripts/UIZonePanel.cs
+      guid: 03ca40d02d27dc64188ac2b16ca3b47b
+    - path: Scripts/Scripts/UIShopSlot.cs
+      guid: 76a362882323aab4d871647c0ed4a7fa
+    - path: Scripts/Scripts/UILocator.cs
+      guid: 328559547f033e14497084cd6e548f67
+    - path: Scripts/Scripts/ShopSwitchUI.cs
+      guid: 86846664b9d06c54e97d8a98b55b33e2
+    - path: Scripts/Scripts/ShopSwitch.cs
+      guid: 6da20bba8e53ae3419b744adfa5fb2b9
+    - path: Scripts/Scripts/ShopInfo.cs
+      guid: 52a28ad13b7665e47bdbbb1c3a9f4273
+    - path: Scripts/Scripts/ShopData.cs
+      guid: 82d997e184a8e1249922bc5fa18299fe
+    - path: Scripts/Scripts/PointShopUI.cs
+      guid: cf2a5d10b535c1c4e8856317937ece4a
+    - path: Scripts/Scripts/PointShopSystem.cs
+      guid: 3ce997709d1b34f46b52db2872c43520
+    - path: Scripts/Scripts/GridLayoutUIComponent.cs
+      guid: 713140ae1f3da6c41b1fc31b7a98c5f7
+    - path: Scripts/Scripts/DropPointSystem.cs
+      guid: 535262b2d6cf2404d9fc27ee427dc786
+    - path: Scripts/PointShop.cs
+      guid: 17b9590c60c6ffb44bfd9ffcc35425ae
+    - path: Bundles/PointShop_Windows.assetbundle
+      guid: 
+    - path: Bundles/PointShop_Windows.assetbundle.manifest
+      guid: 
+    - path: Bundles/PointShop_Linux.assetbundle
+      guid: 
+    - path: Bundles/PointShop_Linux.assetbundle.manifest
+      guid: 
+    dependencies:
+    - modName: CoreLib
+      required: 1
+  modPath: Assets\PointShop
+  forceReimport: 1
+  buildBundles: 1
+  cacheBundles: 0
+  buildLinux: 1
+  assets:
+  - path: Assets/PointShop/Currency.prefab
+    hash: CC6D55994389AE11B33B49ECDD989AE2E7EA3A87828EE053E92CD61D89720009
+  - path: Assets/PointShop/Data/PointShop.asset
+    hash: A3AFE1B12465EB8CB988A7F2D46F7AD731E3CB566D72205B836993B05DBE2538
+  - path: Assets/PointShop/Data/TextDataBlock/ControlMapper/PointShop_Open.asset
+    hash: C9550233ACAE58BA952A9CA0A9FCB79F9825CBD12C2343E5056FA480DC296477
+  - path: Assets/PointShop/Data/TextDataBlock/ControlMapper/PointShop_Scale.asset
+    hash: 8489D8DF932CD96BBBBDC8D823E83B6B82BFA789850B8BF3DD15EB2C5FB6B517
+  - path: Assets/PointShop/Data/TextDataBlock/ItemCategory/Environment_AlienBiome.asset
+    hash: 91C599FEC73E78172E81B00D70E1CE4DFE4F635862E27F044BB7E9655EB9BA16
+  - path: Assets/PointShop/Data/TextDataBlock/ItemCategory/Environment_LarvaHiveBiome.asset
+    hash: D9B49F8453C2E564BF72A7A6FD737AC0B934260D6BF568C6892FEDADC21405FE
+  - path: Assets/PointShop/Data/TextDataBlock/ItemCategory/Environment_NoneBiome.asset
+    hash: 7DC814A4E2D6C3AF9CC5AD0B7A4DEEAC235F4EB27CC009A257D5820BC0B27752
+  - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_Currency.asset
+    hash: C7698F90007615EF6AF5D9977B3E06D833A3506A4DD5405D61AC12EE172658EA
+  - path: Assets/PointShop/Data/TextDataBlock/PointShop/Config.asset
+    hash: 220C6A4EFAA2C38ACF9794A9574045FBA7CB25CBF63A93746076DCCD9E4E8D5D
+  - path: Assets/PointShop/Data/TextDataBlock/PointShop/NeedDefeat.asset
+    hash: 52871EAAE0401AD3CC0A513F14ED6D8B7D55E50D7BB08F211945814AE501C874
+  - path: Assets/PointShop/Data/TextDataBlock/PointShop_Config/General.asset
+    hash: C5344A22BF2DDC44CD05FF56CA68CF73C6A87213657D0BEE1F531911A4A38D72
+  - path: Assets/PointShop/Data/TextDataBlock/PointShop_Config_General/ShowSwitch.asset
+    hash: 6B2E57FFCB97D9380DCEFAF48ABD0B3EFCA7BC2FAC85FF0FDADFD5192DC24F4A
+  - path: Assets/PointShop/PointShop.asset
+    hash: 91CB933EE161BFF0827372F9F8E78D4602C223D0DFD9B9A66941DE06AC41092C
+  - path: Assets/PointShop/PointShop_Steam.asset
+    hash: 3D81E82D35DB2DE31295DCFCED9AC648BEB9D916015A9FE5279A49127A8B90C3
+  - path: Assets/PointShop/PointShopUI.prefab
+    hash: 840A8A3DF0D89061F0A735EE92C3136FC95E2EF6C08A00B979D69E16D2D7EBAC
+  - path: Assets/PointShop/ShopCoin.png
+    hash: 0FE4C4F244035EBCD393B517FC32497099665A8C80AD2209D2FA0B4E78134E00
+  - path: Assets/PointShop/ShopCoin_Small.png
+    hash: 37C2255B4772D83700A898ED389D097860A214B49E645ADA57F263A49A38F8FA
+  - path: Assets/PointShop/ShopSwitchUI.prefab
+    hash: 000E2A0A62FE5C66A854859A09F8B1CB5CB9A538E6F0C92F776515EBD119E3EC
+  lastBuildLinux: 1

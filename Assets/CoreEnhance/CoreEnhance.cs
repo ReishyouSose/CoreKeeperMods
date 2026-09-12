@@ -15,9 +15,7 @@ namespace Assets.CoreEnhance
 {
     public class CoreEnhance : IMod
     {
-        public static CustomScenesDataTable sceneData;
         public const string InternalName = "CoreEnhance:";
-        private int timer;
         public void EarlyInit()
         {
             new EnhanceConfig().Register();
@@ -25,7 +23,6 @@ namespace Assets.CoreEnhance
             authoring.OnObjectTypeAdded += Authoring_OnObjectTypeAdded;
             CoreLibMod.LoadSubmodule(typeof(ControlMappingModule), typeof(EntityModule));
             ModKeyBind.Load();
-            sceneData = Resources.Load<CustomScenesDataTable>("Scenes/CustomScenesDataTable");
         }
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)

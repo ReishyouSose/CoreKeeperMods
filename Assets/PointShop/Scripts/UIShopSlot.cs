@@ -364,7 +364,7 @@ namespace Assets.PointShop.Scripts
                         color = Color.yellow
                     });
                 }
-                else if (secondary.mechanic == SecondaryUseMechanic.SpawnMinion)
+                else if (secondary.mechanic == SecondaryUseMechanic.SpawnMinionWithWindup)
                 {
                     foreach (var stat in MinionExtensions.GetSummonMinionStatText(secondary.minionToSpawn, objectData, WEAPON_SECONDARY, WEAPON_SECONDARY_CATEGORY, false))
                     {

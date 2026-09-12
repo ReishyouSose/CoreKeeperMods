@@ -2,6 +2,7 @@
 using ModIO;
 using Result = ModIO.Result;
 #endif
+using System.Collections.Generic;
 using Steamworks;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,24 @@ namespace PugMod
 {
 	public partial class ModSDKWindow : EditorWindow
 	{
+		public enum TagType { Category, AppType, AccessType }
+
+		public static List<string> GetTagChoices(TagType tagType) => tagType switch
+		{
+			TagType.Category   => new List<string> { "World", "Music", "Tweaks", "NPC", "Language", "Overhaul", "Visual", "Audio", "Item", "Quality of Life", "Library", "Other" },
+			TagType.AppType    => new List<string> { "Client", "Server" },
+			TagType.AccessType => new List<string> { "Asset", "Script", "Script (Elevated Access)" },
+			_ => new List<string>()
+		};
+
+		public static List<string> GetModIOTagChoices(TagType tagType) => tagType switch
+		{
+			TagType.Category    => new List<string> { "world", "audio", "visual", "item", "npc", "quality of life", "overhaul", "language", "library", "other" },
+			TagType.AppType     => new List<string> { "client", "server" },
+			TagType.AccessType  => new List<string> { "asset", "script", "script (elevated access)" },
+			_ => new List<string>()
+		};
+
 		private const string WINDOW_SHOWN_KEY = "PugMod/SDKWindow/Shown";
 		
 		private const string GAME_INSTALL_PATH_KEY = "PugMod/SDKWindow/GamePath";
@@ -236,12 +255,10 @@ namespace PugMod
 				if (i == index)
 				{
 					_buttons[i].style.backgroundColor = new StyleColor(_highlightColor);
-					_buttons[i].style.color = new StyleColor(Color.white);
 				}
 				else
 				{
 					_buttons[i].style.backgroundColor = new StyleColor(Color.grey);
-					_buttons[i].style.color = new StyleColor(Color.white);
 				}
 			}
 
@@ -391,6 +408,33 @@ namespace PugMod
 		public static void ShowError(string message)
 		{
 			EditorUtility.DisplayDialog("Error", message, "OK");
+		}
+
+		public static string ValidateImage(string path, long maxBytes, int minWidth, int minHeight)
+		{
+			var fileInfo = new System.IO.FileInfo(path);
+			if (maxBytes > 0 && fileInfo.Length > maxBytes)
+			{
+				double mb = maxBytes / (1024.0 * 1024.0);
+				double actualMb = fileInfo.Length / (1024.0 * 1024.0);
+				return $"Image file is too large ({actualMb:F2} MB). Maximum allowed size is {mb:F0} MB.";
+			}
+
+			if (minWidth > 0 || minHeight > 0)
+			{
+				var tex = new Texture2D(1, 1);
+				tex.LoadImage(System.IO.File.ReadAllBytes(path));
+				int w = tex.width;
+				int h = tex.height;
+				Object.DestroyImmediate(tex);
+
+				if (w < minWidth || h < minHeight)
+				{
+					return $"Image dimensions ({w}×{h}) are too small. Minimum required size is {minWidth}×{minHeight} pixels.";
+				}
+			}
+
+			return null;
 		}
 	}
 }

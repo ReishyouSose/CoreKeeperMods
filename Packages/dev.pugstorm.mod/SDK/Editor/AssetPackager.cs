@@ -197,8 +197,7 @@ namespace PugMod
 				MakeManifestJsonPathRelative();
 
 				EditorUtility.DisplayDialog("Success", "Core Keeper assets have been packaged and installed!", "Ok");
-				//Debug.Log("Core Keeper assets have been packaged and installed, setting art textures as addressables next");
-				//EditorApplication.update += SetTexturesAsAddressable;
+				EditorUtility.RequestScriptReload();
 			}
 		}
 

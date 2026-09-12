@@ -7,11 +7,11 @@ namespace Assets.SkyBlockHelper
 {
     public class SkyBlockHelper : IMod
     {
-        internal static CustomScenesDataTable sceneData;
+        //internal static CustomScenesDataTable sceneData;
         public void EarlyInit()
         {
             CoreLibMod.LoadSubmodule(typeof(CommandModule));
-            sceneData = Resources.Load<CustomScenesDataTable>("Scenes/CustomScenesDataTable");
+            //sceneData = Resources.Load<CustomScenesDataTable>("Scenes/CustomScenesDataTable");
         }
 
         public void Init()

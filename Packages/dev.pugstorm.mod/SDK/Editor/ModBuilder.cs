@@ -1,5 +1,6 @@
 using System;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using System.IO;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
@@ -30,6 +31,8 @@ namespace PugMod
 
 		public static void BuildMod(ModBuilderSettings settings, string exportPath, Action<bool> callback, bool installInSubDirectory = true)
 		{
+			EditorSceneManager.SaveOpenScenes();
+
 			var modName = settings.metadata.name;
 			var modDirectory = settings.modPath;
 
@@ -51,7 +54,7 @@ namespace PugMod
 				AssetDatabase.DisallowAutoRefresh();
 
 				var assetGuids = AssetDatabase.FindAssets("t:Object", new[] { modDirectory });
-				assetPaths = assetGuids.Select(AssetDatabase.GUIDToAssetPath).Where(x => !Directory.Exists(x)).ToList();
+				assetPaths = assetGuids.Select(AssetDatabase.GUIDToAssetPath).Where(x => !Directory.Exists(x) && !x.EndsWith(".unity")).ToList();
 
 				bool useCachedBundles = settings.cacheBundles && !CheckAssetsForChanges(settings, assetPaths, installDirectoryInfo);
 
@@ -145,8 +148,7 @@ namespace PugMod
 		private static void UpdateAssetHashes(ModBuilderSettings settings, string modDirectory)
 		{
 			var assetGuids = AssetDatabase.FindAssets("t:Object", new[] { modDirectory });
-			var assetPaths = assetGuids.Select(AssetDatabase.GUIDToAssetPath).Where(x => !Directory.Exists(x)).ToList();
-            
+			var assetPaths = assetGuids.Select(AssetDatabase.GUIDToAssetPath).Where(x => !Directory.Exists(x) && !x.EndsWith(".unity")).ToList();
 			settings.assets.Clear();
 			foreach (string assetPath in assetPaths)
 			{

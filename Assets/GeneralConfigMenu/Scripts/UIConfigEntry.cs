@@ -17,6 +17,7 @@ namespace Assets.GeneralConfigMenu.Scripts
         public Transform Container;
         public GameObject Active;
         public GameObject Inactive;
+        public Transform Offset;
         public int Hierarchy { get; private set; }
 
         [HideInInspector]
@@ -76,7 +77,7 @@ namespace Assets.GeneralConfigMenu.Scripts
                 ConfigAccessLevel.Server => template.Server,
                 ConfigAccessLevel.Client => template.Client,
                 _ => template.ViewOnly
-            }, transform);
+            }, Offset);
             PermissionButton.transform.localPosition = new(0.5f, -1.5f, 0);
 
             string desc = local + "Desc";
@@ -86,7 +87,7 @@ namespace Assets.GeneralConfigMenu.Scripts
                 optionalHoverDesc = new() { mTerm = desc };
             }
             if (Scope.requireReload)
-                Instantiate(template.Reload, transform).localPosition = new(1.5f, -1.5f, 0);
+                Instantiate(template.Reload, Offset).localPosition = new(0.5f, -1.5f, 0);
 
             MatchValueBox(template);
         }
@@ -113,24 +114,22 @@ namespace Assets.GeneralConfigMenu.Scripts
         private void AdjustByHierarchy(int hierarchy)
         {
             float originalWidth = 23f;
-            float targetRight = 11f;
             float newWidth = originalWidth - hierarchy;
-            float x = targetRight - newWidth;
+            float x = newWidth / 2f;
 
             if (TryGetComponent<WrapperUIComponent>(out var wrapper))
             {
                 wrapper.renderWidthPixels = (int)(newWidth * 16);
             }
 
-            Vector3 pos = transform.localPosition;
-            pos.x = x;
-            transform.localPosition = pos;
+            Vector3 pos = Vector3.zero;
+            pos.x = hierarchy;
+            Offset.localPosition = pos;
 
             pos = Container.localPosition;
             pos.x -= hierarchy;
             Container.localPosition = pos;
 
-            x = newWidth / 2f;
             if (TryGetComponent<BoxCollider>(out var boxCollider))
             {
                 Vector3 size = boxCollider.size;

@@ -1,5 +1,6 @@
-﻿{
+{
     "name": "LootsLookup",
+    "rootNamespace": "",
     "references": [
         "Unity.Burst",
         "Unity.Collections",
@@ -221,10 +222,11 @@
         "WorldGen.Runtime.dll",
         "WorldPatcher.dll",
         "XblPCSandbox.dll",
-        "ZipSaveFolder.dll"
+        "ZipSaveFolder.dll",
+        "ScriptableData.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
-    "useGUIDs": false
+    "noEngineReferences": false
 }

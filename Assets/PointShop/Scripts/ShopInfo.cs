@@ -194,7 +194,7 @@ namespace Assets.PointShop.Scripts
         }
         private List<ShopItem> Nature()
         {
-            ObjectID bossChest = ObjectID.BossChest;
+            ObjectID bossChest = ObjectID.BirdBossChest;
             ObjectID chest = ObjectID.LockedScarletChest;
             return new()
             {
@@ -202,7 +202,7 @@ namespace Assets.PointShop.Scripts
                 (chest, 6),
                 (bossChest, 20),
                 (ObjectID.LargeShinyGlimmeringObject, 8),
-                (ObjectID.EasterChest, 20),
+                (ObjectID.EasterTitanChest, 20),
                 ObjectID.GraveTree,
                 (ObjectID.BigJungleTree, 30),
                 ObjectID.PottedLushBush,
@@ -264,7 +264,7 @@ namespace Assets.PointShop.Scripts
         }
         private List<ShopItem> Sea()
         {
-            ObjectID bossChest = ObjectID.OctopusBossChest;
+            ObjectID bossChest = ObjectID.OmorothBossChest;
             ObjectID chest = ObjectID.LockedOctarineChest;
             return new()
             {

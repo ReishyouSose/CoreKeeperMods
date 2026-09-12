@@ -1,4 +1,5 @@
 ﻿using Interaction;
+using Pug.Sprite;
 using Pug.UnityExtensions;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -27,32 +28,31 @@ namespace Assets.CoreEnhance.Scripts.Helpers
                         interact.optionalOutlineController.ResetColor();
                     }
                 }
-                foreach (OutlineController outlineController in interact.additionalOutlineControllers)
+                foreach(var sub in interact.subInteractingData)
                 {
-                    outlineController.showOutline = flag;
-                    if (flag)
+                    foreach (OutlineController outlineController in sub.optionalOutlineControllers)
                     {
-                        outlineController.SetColor(color);
+                        outlineController.showOutline = flag;
+                        if (flag)
+                        {
+                            outlineController.SetColor(color);
+                        }
+                        else
+                        {
+                            outlineController.ResetColor();
+                        }
                     }
-                    else
+                    foreach (SpriteObject spo in sub.optionalSpriteObjectOutlines)
                     {
-                        outlineController.ResetColor();
+                        spo.outlineColor = color;
                     }
-                }
-                if (interact.spriteObjects == null)
-                {
-                    return;
-                }
-                foreach (var spriteObject in interact.spriteObjects)
-                {
-                    spriteObject.outlineColor = color;
                 }
             }
         }
         public static Rect GetInteractableRect(in LocalTransform transform, in InteractableCD interactableCD, Direction.Id direction, bool useInteractRadius = false)
         {
-            ref InteractableData value = ref interactableCD.interactableData.Value;
-            ref BlobArray<float3> interactPoints =
+            ref InteractableBlobData value = ref interactableCD.interactableData.Value;
+            ref BlobArray<InteractablePointData> interactPoints =
                 ref interactableCD.interactablePointOffsetsData.Value.GetInteractablePointsInDirection(direction);
 
             // 基准点
@@ -76,7 +76,7 @@ namespace Assets.CoreEnhance.Scripts.Helpers
 
             for (int i = 0; i < interactPoints.Length; i++)
             {
-                float3 worldPoint = basePoint + interactPoints[i];
+                float3 worldPoint = basePoint + interactPoints[i].point;
                 minX = math.min(minX, worldPoint.x);
                 maxX = math.max(maxX, worldPoint.x);
                 minZ = math.min(minZ, worldPoint.z);

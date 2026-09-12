@@ -1,5 +1,6 @@
 using PugMod;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Unity.Entities;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class LootsLookup : IMod
     private static Dictionary<ObjectID, RecipeAuthoring> recipes;
     private static Dictionary<ObjectID, LootTableID> chests;
     private static Dictionary<ObjectID, ChangeVariationWhenContainingObjectAuthoring> lockedChests;
-    private static CustomScenesDataTable sceneData;
+    private static CustomSceneDataBlock[] sceneData;
 
     public void EarlyInit()
     {
@@ -28,7 +29,14 @@ public class LootsLookup : IMod
 
     public void Init()
     {
-        sceneData = Resources.Load<CustomScenesDataTable>("Scenes/CustomScenesDataTable");
+        if (ScriptableData.TryGetDataBlocks<CustomSceneDataBlock>(out var dataBlocks))
+        {
+            sceneData = dataBlocks.ToArray();
+        }
+        else
+        {
+            Debug.LogError("未找到 CustomSceneDataBlock 数据块");
+        }
     }
 
     private void CheckData(Entity entity, GameObject authoringData, EntityManager entityManager)
@@ -279,7 +287,7 @@ public class LootsLookup : IMod
         }
 
         //特殊场景
-        foreach (var scene in sceneData.scenes)
+        foreach (var scene in sceneData)
         {
             foreach (var inv in scene.prefabInventoryOverrides)
             {

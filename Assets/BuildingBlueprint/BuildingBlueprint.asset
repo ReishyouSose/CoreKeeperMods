@@ -1,0 +1,326 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc43e4983a160e543856e5ba0421c9e1, type: 3}
+  m_Name: BuildingBlueprint
+  m_EditorClassIdentifier: 
+  metadata:
+    guid: 88cca6ae6a68467d8a5088ca01274e09
+    name: BuildingBlueprint
+    displayName: 
+    skipSafetyChecks: 1
+    disableScripts: 0
+    accessesExtraAssemblies: 1
+    disableHarmonyPatching: 0
+    requiredOn: 3
+    files:
+    - path: Scripts/Scripts/UI/UITileTypeSelector.cs
+      guid: f26f47de5f3e49c4abfdff506a3709bc
+    - path: Scripts/Scripts/UI/UITileTarget.cs
+      guid: 79650cd1de802684e82036326610b461
+    - path: Scripts/Scripts/UI/UISingleSlot.cs
+      guid: 0bde3ed03d416ad4aa38ed76df57bf24
+    - path: Scripts/Scripts/UI/UISelectionMode.cs
+      guid: 5cb6c5ef6dd4cb7479d32a6df76b792b
+    - path: Scripts/Scripts/UI/UISaveSearcher.cs
+      guid: 0c69586371323b742b9887daf203f4b6
+    - path: Scripts/Scripts/UI/UIPlacePivot.cs
+      guid: bbcec42e9b33e7247a044f0a898bf554
+    - path: Scripts/Scripts/UI/UILinearLayoutContainer.cs
+      guid: c515241d664ca064c83474cd0901d2c4
+    - path: Scripts/Scripts/UI/UIInputBox.cs
+      guid: e23659681034a9d4fa84b1d246d4970d
+    - path: Scripts/Scripts/UI/UIFolder.cs
+      guid: ffd8a44134f0c1a4a905048796e0c7a5
+    - path: Scripts/Scripts/UI/UIClickOperator.cs
+      guid: 37ae3e13ea60b7c4f888373f0e517851
+    - path: Scripts/Scripts/UI/UIBuildingPreviewWindow.cs
+      guid: c4ea6439b7c265d418d2b41d2658b0d1
+    - path: Scripts/Scripts/UI/UIBuildingName.cs
+      guid: 46c1c9bfb3671844d956af6c83a98f11
+    - path: Scripts/Scripts/UI/UIBuildingInfo.cs
+      guid: 3557f85dc9c8ade4cafd0369bb763201
+    - path: Scripts/Scripts/UI/SelectHandler.cs
+      guid: 8393c3f4d0c25e341b50c78d23c08d3a
+    - path: Scripts/Scripts/UI/SaveHandler.cs
+      guid: 6061592fcbe69b440880c5cebf6073dc
+    - path: Scripts/Scripts/UI/RecordPosition.cs
+      guid: 0a85ce3cd4a6e8c4dbc3f065f0b515d4
+    - path: Scripts/Scripts/UI/PlacePreviewHanlder.cs
+      guid: be88359e00c2a3143bfd7f9fe8c2df31
+    - path: Scripts/Scripts/UI/BlueprintUI.cs
+      guid: 71b00a9eb84248c46863e69f7d832ccd
+    - path: Scripts/Scripts/Systems/BuildingSelectSystem.cs
+      guid: 82266d29a14ec8d4fb466a08b32a440d
+    - path: Scripts/Scripts/Systems/BuildingPlaceSystem.cs
+      guid: 9cd18cc0d3577314fad3c3e0eab8068c
+    - path: Scripts/Scripts/Systems/BlueprintStateChangeSystem.cs
+      guid: 0fc9068f5405a7347ab075110ae3aa3c
+    - path: Scripts/Scripts/Systems/BlockInputSystem.cs
+      guid: 13bacdf129e3d384490cf6f2dbc59e82
+    - path: Scripts/Scripts/Core/UIBoxOperator.cs
+      guid: a970f5f674c68b744a09c67c009ca5be
+    - path: Scripts/Scripts/Core/TileTargetDataBlock.cs
+      guid: cbc6a99b3df8f2b43bd6e2b7466fccd1
+    - path: Scripts/Scripts/Core/TilesInfo.cs
+      guid: 79fa853f0ecef40418746de9e783dcec
+    - path: Scripts/Scripts/Core/SerializeTileInfo.cs
+      guid: 9d2f7a0fad939734199d580f1cd1b1f0
+    - path: Scripts/Scripts/Core/SelectionLayer.cs
+      guid: d3c25e16e9d591e4d96233e1c073f60a
+    - path: Scripts/Scripts/Core/SelectingEnum.cs
+      guid: 2a2227e1a6b0a6841a1dc85af6cc210c
+    - path: Scripts/Scripts/Core/PlacePivot.cs
+      guid: a3b44bc715278a64bb0ab88adb1f88a4
+    - path: Scripts/Scripts/Core/MiscHelper.cs
+      guid: bc901d83a522aaa4a90349a098b1f205
+    - path: Scripts/Scripts/Core/MaterialVariationPatch.cs
+      guid: a667adc5888035d46a30d8e1963db0b1
+    - path: Scripts/Scripts/Core/IOverrideHoverMaterialVariation.cs
+      guid: 8fc7b7a5bb4b20b45a92b4bd139ba939
+    - path: Scripts/Scripts/Core/Int2JsonConverter.cs
+      guid: 43c9c4d413e804446935c0db264f01fb
+    - path: Scripts/Scripts/Core/EntityInfo.cs
+      guid: e817c24d592ca2449ba77b14b2de8536
+    - path: Scripts/Scripts/Core/EntityCD.cs
+      guid: 27d91d82f567db54c92f60533e4fceef
+    - path: Scripts/Scripts/Core/ClickOperator.cs
+      guid: f2f68efa620080a4e8c8744631c6c8f6
+    - path: Scripts/Scripts/Core/BuildingInfo.cs
+      guid: 1a62d183727d8134a82089922b488ca0
+    - path: Scripts/Scripts/Core/BoxOperator.cs
+      guid: e092e263971380c418ea1985ad4eabd8
+    - path: Scripts/Scripts/Core/BlueprintUIAction.cs
+      guid: 27aa8282fa451ca4b8478009ab0db0e4
+    - path: Scripts/Scripts/Components/TileTargetStateBuffer.cs
+      guid: a0f09d3c83cd615438e2adf164410f80
+    - path: Scripts/Scripts/Components/TileTargetBuffer.cs
+      guid: efc992e7eac3ed743b154739f1dfb35e
+    - path: Scripts/Scripts/Components/SelectionOptionCD.cs
+      guid: 4271033a4f2dc1b4fa218f769f8d111d
+    - path: Scripts/Scripts/Components/SelectedTileBuffer.cs
+      guid: f1d2067e1c369bc469f2d9944fd196a9
+    - path: Scripts/Scripts/Components/SelectedEntityBuffer.cs
+      guid: f06cf810c70617749986b9c50978f644
+    - path: Scripts/Scripts/Components/PlaceTileRpc.cs
+      guid: b5bc969a394e12843b3e59354bad8d94
+    - path: Scripts/Scripts/Components/PlaceEntityRpc.cs
+      guid: 7aa6013c82f5078478256d32d5b4143c
+    - path: Scripts/Scripts/Components/PlaceableCD.cs
+      guid: 14685d3d64f448b41b4080e71d242c32
+    - path: Scripts/Scripts/Components/InputReleaseDelayCD.cs
+      guid: 72ca45157423af94e884bb5df2b7ae13
+    - path: Scripts/Scripts/Components/BlueprintStateChangeRpc.cs
+      guid: c0fce3f4c1d7f1c4a9bbb44c903f571b
+    - path: Scripts/BuildingBlueprint.cs
+      guid: 41277b0f9ad28194085967d5bd7408c2
+    - path: Scripts/Generated/BlockInputSystem__System_21390662380.g.cs
+      guid: 
+    - path: Scripts/Generated/BlueprintStateChangeSystem__System_15835788230.g.cs
+      guid: 
+    - path: Scripts/Generated/BlueprintStateChangeSystem__System_15835788231.g.cs
+      guid: 
+    - path: Scripts/Generated/BuildingPlaceSystem__System_10919692780.g.cs
+      guid: 
+    - path: Scripts/Generated/BuildingPlaceSystem__System_10919692781.g.cs
+      guid: 
+    - path: Scripts/Generated/BuildingSelectSystem__System_3781700150.g.cs
+      guid: 
+    - path: Scripts/Generated/BuildingSelectSystem__System_3781700151.g.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_BlueprintStateChangeRpcCommandSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_PlaceEntityRpcCommandSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_PlaceTileRpcCommandSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectedEntityBufferSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectedTileBufferSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectionOptionCDSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_TileTargetStateBufferSerializer.cs
+      guid: 
+    - path: Scripts/Generated/GhostComponentSerializerCollection.cs
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle.manifest
+      guid: 
+    - path: Bundles/BuildingBlueprint_Linux.assetbundle
+      guid: 
+    - path: Bundles/BuildingBlueprint_Linux.assetbundle.manifest
+      guid: 
+    dependencies:
+    - modName: CoreLib
+      required: 1
+  modPath: Assets\BuildingBlueprint
+  forceReimport: 1
+  buildBundles: 1
+  cacheBundles: 0
+  buildLinux: 1
+  assets:
+  - path: Assets/BuildingBlueprint/BlueprintUI.prefab
+    hash: D82B38A9978E69EF2A77993DA57E54A29B9D5C8757D09BCF96ED5AEB787DC982
+  - path: Assets/BuildingBlueprint/BuildingBlueprint_Steam.asset
+    hash: 4EBBA474B1A32EB6701DBE393A362AC634C0628F276F298FB0E9BA6E83C99BE2
+  - path: Assets/BuildingBlueprint/Data/BuildingBlueprint.asset
+    hash: A9D23B0B801DE0E383C5C0D5E9A068E1EE2FB5686AB5C100C3AFA751F3A35227
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Clear.asset
+    hash: F886EDBE9D7C438BDD687EE2DE0F07E19E1D1AABE1C8932586FD77CCA0BCDA98
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Config.asset
+    hash: 70C7C83A2390DA7C96A00CD79C7D23DD2401E9B69841E38635F8BCB4B953FB2F
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Copy.asset
+    hash: 3980E3B02B58F2169433E9CFF5B9066A3C678372D841DEBDCC181EB70ECF5E4B
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Delete.asset
+    hash: C3B2B7E148E49E8FD4298202AE8F186A658A92603FE42717C513FBE615978C47
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Destory.asset
+    hash: 02C0265781E574EA8D3C1AA37DC9469A4B6F3E274176D8F2D2230D02E7275585
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Exit.asset
+    hash: 94F22C4A2D186319E8D010B8BC82A3A69E76A9279937CA0D116B6B62CC601672
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/FolderName.asset
+    hash: F360442F1FBD9E6CC27DE025798069E94F77C5AB5BCC39C2B8466BCDC7F8F955
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Import.asset
+    hash: F6A5C3FEE673E4AE8D330A949AC04F0F274CC3D882142973C25E14080A636B21
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/InvalidChar.asset
+    hash: 6EADD31D8F16BAF8F8AA351A7357723ED0939CEB27C19CE45970D6C6F9134059
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/MaterialTip.asset
+    hash: 76289947B9536D1B037DC95FCF9AAEECA6EF001E087CD6A99A3D8B0B4F25452D
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/NewFolder.asset
+    hash: 8AB8CF5129A835C23DDDBB58CAA10AB6027AE0E01B299C819181BA9E0A0D90DD
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/NoSelected.asset
+    hash: D836B096E7960ECD636189A03AD656B806D582DFB4E633552DD7110BBD88D371
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/PasteAt.asset
+    hash: 605804BF374BAAF8DB989B7F9260A82F8A3ACEC259F5504096F6876DC628A152
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/PasteToFolder.asset
+    hash: 6CA5E07BB1E273DAFEE98B204346485C871E344EA912F7E197C7E547B39181F9
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Place.asset
+    hash: B9A348DB73A0A4AD3CF74470AACA6C064A7FBD967B39426D2BA03266A8DB9A95
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/PlacePivot.asset
+    hash: A6A73B2D56F37289A1E3B6498D121E96E722685D9FAE31326069C0A2B6E84225
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Remark.asset
+    hash: 19D27C2CBDBADB425E2AE4D59932D04576E1FFB00C7DB01369AEBA12106602B1
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Save.asset
+    hash: CC30A89438C7E3C0D8C4D2A7E2FC3968976697BA21D0317017192FDFF8F49E01
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Saves.asset
+    hash: 9B853E2FCD9AD794FE9881537668962CF83880F312A8C6CA2C6F4E8AAAF125B4
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/Search.asset
+    hash: D0B4536A385EC6B68018BBD797FB9584568C15F3A7945A606E4DEA6D893CFE0F
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint/TargetSwitch.asset
+    hash: EE01C43A6DC28DC0E761211F2C90962101723AF275A631C78833A5DE1CA33481
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Box/Add.asset
+    hash: 06F494D123F148223E63853A390A153FF258ED328BA16D8A7711CAFC0A956733
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Box/Intersect.asset
+    hash: 18C0970962D20E0F5E44A3694CFDDC421DC37978A2A0549F65E9AA7AD77608F6
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Box/New.asset
+    hash: 715AE09013147F486D98A78FDA6C6BFF5CB5EAD5A0D6E37022C6A93D7179D497
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Box/Subtract.asset
+    hash: 7F45AB5E0DBF71D1257E116896E56FF44A239C1D5130F1B713B1227221C1FC82
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Click/Add.asset
+    hash: B100FB27311E6F160BBEBD1837217FFB7B0E4BF32FAF305E3661E7F5D700038D
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Click/Remove.asset
+    hash: 056883961CC5D891504A85879AD2D55B799B08CE02F767A5DE4E718FAD480BFE
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Config/General.asset
+    hash: C196A2F171F618E3C59CE3A6FB0D8EE47400D98D64F03DE89BEB98E0353A251A
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Config/OnUIOpen.asset
+    hash: EF79DB8A4D8BA11D988E665949E84B290D61877B015AE1F767B351A12188E2B7
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Config_General/DestoryPrivileges.asset
+    hash: 70514DD6382F879B637A2D2473C4EEF89CE4F850F18A4EA632C4DA3C2B93F166
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Config_OnUIOpen/ClearSelected.asset
+    hash: B302CEB2331D2D355CCF30A8820BBF86642B5B45717CA5122545C13464F06E85
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Config_OnUIOpen/ExitPlaceMode.asset
+    hash: 4799FFF70CB8EDF58A04395A1B58C2194A78B0EA661904968C4D90C2C0E79C67
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Mode/Box.asset
+    hash: 7E37EDFBD191971F9DE9E2F6BC56930D45146EBE708628A44657ED01EEFE30BC
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Mode/Check.asset
+    hash: 470B26A56F0C3F0C52AC0F79AD32A779F42CFD98F87A26452D64710E8905EE36
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_Mode/Click.asset
+    hash: 5CA77077FB0E89D89D42489A524B3F3072548423D7DB2E3858A7755E8753D1E3
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/bridge.asset
+    hash: 7A96CABF93ABBA09B236FDB6538E4AB72AF07730C1C40C5AA893E53F62FFBF5F
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/chrysalis.asset
+    hash: CEAD2744E456681419D3EAE03FB72ADF763C7B80E0AD349D612DBD408F40D322
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/DisableAll.asset
+    hash: 2F87257AB72ACF8707F2E5227DCBE5D47C06ABECACC9678A599BD6745769F66F
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/dugUpGround.asset
+    hash: EC80AA8289CBB040E7BF8C00B65C2A184A4304AE70FFE6238D3A87D07C438A8F
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/EnableAll.asset
+    hash: 00C26C8F953ED5D9B076BE131F658DEB562B043F53FBB3319BC7C3123D670F57
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/fence.asset
+    hash: A3C7E2954385739157887B5746D6152DD9BA3575A63882A7F7BFE8F688A50F46
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/Filter.asset
+    hash: 690131BC6644BFDEEA38E8EADA94DA918365408203DD004E80AF6D535B6C742D
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/floor.asset
+    hash: C0C0C594B8EB22E7A926355C3409CE1D9D1577DEE4D2613298890948471D283E
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/ground.asset
+    hash: 266C7BD04320FE855879935ED6F67F225B8ABB96237079B1D0DAA8DA2741FB02
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/groundSlime.asset
+    hash: D5C9740CBFCE6D4A5D842F499E875487946F9E45CED19B3B2572F88003CD1A3A
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/Invalid.asset
+    hash: EE2A34B615A1DF3776230DFFD391BBB4D4F92A99689AD92B3C4970EB8E16B997
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/litFloor.asset
+    hash: A569CC413DEF9485AABE161466E2BAEC409CEAE27049F7687FE703AC26B4A35A
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/looseFlooring.asset
+    hash: C690F89CA0A89FEB2D9EBCDE8555502E131005A2842194382CAF04DF61252CEA
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/rail.asset
+    hash: 6B52EB4097306317184EC73D14A4E95CA06F65E893ACFDB84B4314F6A063C7D4
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/Reverse.asset
+    hash: 72E032A07DBB949CD87CD1BE799C4ABDC18FB6CE0D400C3746BF04AD3C4B7B20
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/roofHole.asset
+    hash: 29332D77CD91F417866FB9D1AC607219F691010D74D3C505B9D88247C7CC8978
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/rug.asset
+    hash: D3FCC5CCA2F23934C9FA3A14BFD2DF891C41DFF9D3C5782CEADA417CCDBC7CED
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/thinWall.asset
+    hash: EB8C2BF50975EC030DCDDF0A12C30391E0B0616A4091E861DC4542445F1B72D8
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/wall.asset
+    hash: 7CE956AD59E82A2F46D573457A272F85ABA03CC53EFE2E0ED1CCDBD9114D4396
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/BuildingBlueprint_TileType/water.asset
+    hash: 10DE22E63DDFBE80ABD7A33791174F0B96BDE15F8A4C8CF8A030D9D65A7F921A
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/ControlMapper/BuildingBlueprint_OpenUI.asset
+    hash: A0B0A8B1EBAE051A6DAE6114789F60859A2ED3F43ACA80A19BB672FD21E4A1D8
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/ControlMapper/BuildingBlueprintCategory.asset
+    hash: EFCDB1AE8D1A3EE089C3BB222E822B4911CAE19A255F75EAA37A6F52B876BD6A
+  - path: Assets/BuildingBlueprint/Data/TextDataBlock/ControlMapper/BuildingBlueprintDescription.asset
+    hash: 4DC377A9A6D6CEDDE49E13C1A0D6E2278355AB22ACADE41FF7B3D0052736C618
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Bridge.asset
+    hash: 68709674F3F26674D3D1B1FC0DBBFA4C4698F23D20697BE132B2CADDF63CA6EE
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Chrysalis.asset
+    hash: 3BF94D6BA8C7FA436D4D704CDF7E31A78333A344B13E8854595C2BF0F9CFF8EC
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/DugUpGround.asset
+    hash: 64FB2C6D14D70916A27BA9EC8BF2A10DD08B703ACE9D643751C2827C19C6B948
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Fence.asset
+    hash: 4B775D048101CE79713ADD41DA2EABD218B6C330D56FE2B1CAC76C28CF4CAF79
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Floor.asset
+    hash: 08AD0F18374E4C87D1821A56F579C7442939300C1342995B49C94E80D766328A
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Ground.asset
+    hash: 9EACA5D7D6E46FC66BFA9AA5926C964AF7737B1629B3DA276D0DC09356269E94
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/GroundSlime.asset
+    hash: 6CDE00135C6959250B1ADC901B24099BB1DC0B70A0FCF4FFA565021483073076
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/LitFloor.asset
+    hash: 05619B0E8A65177FDDA07E507AB0C66AFA299E27990F323E79F258B5A65AF3AD
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/LooseFlooring.asset
+    hash: 49B0C106D34E6F286667C72148D47F1F2BC89F29104B0F439B26FD2ED1A36D7A
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Rail.asset
+    hash: BB74E4614C04512B6948BC105C035BA4441828252AE8798457BB90D2DE2F5664
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/RoofHole.asset
+    hash: 96D2C718FC956467B249BB6FB6E7DEA7AD2DC716076840230B2E090BF6F60651
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Rug.asset
+    hash: E17D6CA026613138CA61CD3A1A684C3AFA3ABFC13A8714D7763F6C7D379A28E0
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/ThinWall.asset
+    hash: 35781BC4EF704CD2739F3EF4322EA2DEE79455889D893DA8839D8F61B111D6D1
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Wall.asset
+    hash: 5C7F41362215BF0CD41FB5EBEFF58ED98317A5E371C31E13F5CBE2ED52BF7ED2
+  - path: Assets/BuildingBlueprint/Data/TileTargetDataBlock/Water.asset
+    hash: 75203E717420A79151B59DF6CF8F6A3E53D82FF86450AEF43B66E000C6B96CC1
+  - path: Assets/BuildingBlueprint/description.txt
+    hash: 82BCCC4511320180072F6BC6F4975D04FC6B48862558381F6C7A0C285D993536
+  lastBuildLinux: 1

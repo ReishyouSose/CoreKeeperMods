@@ -21,7 +21,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         private EntityArchetype entityArchetype;
         private EntityArchetype tileArchetype;
         private TileWithTilesetToObjectDataMapCD tileSetMap;
-        private ComponentLookup<AlwaysDropVariationZeroCD> zeroLookup;
+        private ComponentLookup<AlwaysDropSpecificVariationCD> dropSpecificVariationLookup;
         private BufferLookup<ContainedObjectsBuffer> containerLookup;
         protected override void OnCreate()
         {
@@ -30,7 +30,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             tiles = new(Allocator.Persistent);
             entityArchetype = EntityManager.CreateArchetype(typeof(PlaceEntityRpc), typeof(SendRpcCommandRequest));
             tileArchetype = EntityManager.CreateArchetype(typeof(PlaceTileRpc), typeof(SendRpcCommandRequest));
-            zeroLookup = SystemAPI.GetComponentLookup<AlwaysDropVariationZeroCD>();
+            dropSpecificVariationLookup = SystemAPI.GetComponentLookup<AlwaysDropSpecificVariationCD>();
             containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
             RequireForUpdate<TileWithTilesetToObjectDataMapCD>();
             NeedDatabase();
@@ -124,7 +124,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         public ObjectDataCD TileToObject(TileCD tile) => MiscHelper.TileToObject(tile, tileSetMap);
         public bool AlwaysDropZero(ObjectID id, int variation)
         {
-            return zeroLookup.HasComponent(PugDatabase.GetPrimaryPrefabEntity(id, database, variation));
+            return dropSpecificVariationLookup.HasComponent(PugDatabase.GetPrimaryPrefabEntity(id, database, variation));
         }
         public int GetExistObjectAmount(Entity player, ObjectID id, int variation)
         {
@@ -150,7 +150,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
     {
         private ComponentLookup<PlaceEntityRpc> entityLookup;
         private ComponentLookup<PlaceTileRpc> tileLookup;
-        private ComponentLookup<AlwaysDropVariationZeroCD> zeroLookup;
+        private ComponentLookup<AlwaysDropSpecificVariationCD> dropSpecificVariationLookup;
         private ComponentLookup<HealthCD> healthLookup;
         private ComponentLookup<PlayerGhost> playerLookup;
         private ComponentLookup<DurabilityCD> durabilityLookup;
@@ -168,7 +168,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             RequireForUpdate<TileWithTilesetToObjectDataMapCD>();
             entityLookup = SystemAPI.GetComponentLookup<PlaceEntityRpc>();
             tileLookup = SystemAPI.GetComponentLookup<PlaceTileRpc>();
-            zeroLookup = SystemAPI.GetComponentLookup<AlwaysDropVariationZeroCD>();
+            dropSpecificVariationLookup = SystemAPI.GetComponentLookup<AlwaysDropSpecificVariationCD>();
             healthLookup = SystemAPI.GetComponentLookup<HealthCD>();
             playerLookup = SystemAPI.GetComponentLookup<PlayerGhost>();
             durabilityLookup = SystemAPI.GetComponentLookup<DurabilityCD>();
@@ -186,7 +186,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         {
             var entityLookup = this.entityLookup;
             var tileLookup = this.tileLookup;
-            var zeroLookup = this.zeroLookup;
+            var dropSpecificVariationLookup = this.dropSpecificVariationLookup;
             var healthLookup = this.healthLookup;
             var playerLookup = this.playerLookup;
             var durabilityLookup = this.durabilityLookup;
@@ -230,7 +230,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                     var objectID = entity.ObjectID;
                     var primary = PugDatabase.GetPrimaryPrefabEntity(objectID, database);
                     var variation = entity.Variation;
-                    var findVari = zeroLookup.HasComponent(primary) ? 0 : variation;
+                    var findVari = dropSpecificVariationLookup.HasComponent(primary) ? 0 : variation;
                     int index = -1;
                     bool dontConsume = godLookup.IsComponentEnabled(playerE);
                     if (!dontConsume)
@@ -339,7 +339,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                     if (!dontConsume)
                     {
                         var variation = tile.Variation;
-                        var findVari = zeroLookup.HasComponent(primary) ? 0 : variation;
+                        var findVari = dropSpecificVariationLookup.HasComponent(primary) ? 0 : variation;
                         for (int i = 0; i < inv.Length; i++)
                         {
                             var slot = inv[i];

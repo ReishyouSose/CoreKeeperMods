@@ -18,13 +18,20 @@ namespace Assets.CoreEnhance.Scripts.Systems.Misc
         private ComponentLookup<SeasonalLootCD> seasonLookup;
         protected override void OnCreate()
         {
-            ObjectIDCategory[] array = Resources.LoadAll<ObjectIDCategory>("ObjectIDCategories");
-            ObjectIDCategory trophys = array.First(x => x.category == "Trophy");
-            trophys.UpdateObjectIdsSet();
-            this.trophys = new(trophys.ObjectIds.Count, Allocator.Persistent);
-            foreach (var trophy in trophys.ObjectIds)
+            if (ScriptableData.TryGetDataBlocks<ObjectIDCategoryDataBlock>(out var dataBlocks))
             {
-                this.trophys.Add((int)trophy);
+                ObjectIDCategoryDataBlock trophys = dataBlocks.First(x => x.category == "Trophy");
+                trophys.UpdateObjectIdsSet();
+                this.trophys = new(trophys.ObjectIds.Count, Allocator.Persistent);
+                foreach (var trophy in trophys.ObjectIds)
+                {
+                    this.trophys.Add((int)trophy);
+                }
+            }
+            else
+            {
+                Debug.LogError("未找到 ObjectIDCategoryDataBlock 数据块");
+                Enabled = false;
             }
             NeedDatabase();
             NeedLootBank();
@@ -91,5 +98,5 @@ namespace Assets.CoreEnhance.Scripts.Systems.Misc
                 .Schedule();
             base.OnUpdate();
         }
-     }
+    }
 }

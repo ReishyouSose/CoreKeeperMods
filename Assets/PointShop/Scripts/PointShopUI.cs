@@ -58,7 +58,7 @@ namespace Assets.PointShop.Scripts
 
         public void ShowUI()
         {
-            Manager.ui.HideAllInventoryAndCraftingUI();
+            Manager.ui.TryHideAllInventoryAndCraftingUI();
             Root.SetActive(true);
             var layout = ZonePanel.scrollingContent.GetComponentInChildren<LinearLayoutUIComponent>();
             layout.RenderUIComponent(true);

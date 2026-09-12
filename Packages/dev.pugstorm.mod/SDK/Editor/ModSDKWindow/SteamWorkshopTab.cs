@@ -17,13 +17,14 @@ namespace PugMod
 			private Button _steamInitButton;
 			private Button _steamConfigButton;
 
-			private VisualElement _steamWorkshopTagsList;
-
-			private DropdownField _steamWorkshopTags;
 			private DropdownField _steamModList;
 			private DropdownField _steamVisibility;
+			private DropdownField _steamWorkshopTags;
+
+			private VisualElement _steamWorkshopTagsList;
 
 			private Button _steamUploadButton;
+			private Button _steamGoToPageButton;
 
 			private List<SteamWorkshopModSettings> _steamWorkshopModSettings;
 
@@ -42,8 +43,6 @@ namespace PugMod
 			private List<ModBuilderSettings> _modSettings;
 			private List<string> _steamWorkshopTagsToList = new();
 
-			public enum TagType { Category, AppType, AccessType };
-
 			public void Refresh()
 			{
 				RefreshSteamWorkshopUI();
@@ -55,11 +54,11 @@ namespace PugMod
 				}
 			}
 			public void OnEnable(VisualElement root)
-			{
-				var steamWorkshopTagType = root.Q<EnumField>("SteamWorkshopTagType");
-				steamWorkshopTagType.Init(TagType.Category);
+				{
+					var steamWorkshopTagType = root.Q<EnumField>("SteamWorkshopTagType");
+					steamWorkshopTagType.Init(TagType.Category);
 
-				_steamInitButton = root.Q<Button>("SteamInitButton");
+					_steamInitButton = root.Q<Button>("SteamInitButton");
 				_steamConfigButton = root.Q<Button>("SteamConfigButton");
 				_steamWorkshopView = root.Q<VisualElement>("SteamWorkshopViewContainer");
 				_steamModList = root.Q<DropdownField>("SteamBuiltModsDropdown");
@@ -80,6 +79,7 @@ namespace PugMod
 				_steamWorkshopTags = root.Q<DropdownField>("SteamWorkshopTags");
 				_steamWorkshopTagsList = root.Q<VisualElement>("SteamWorkshopTagsList");
 				_steamUploadButton = root.Q<Button>("SteamUploadModButton");
+				_steamGoToPageButton = root.Q<Button>("SteamGoToPageButton");
 				_steamModInstallPath = root.Q<Label>("SteamExportGamePath");
 
 				_summaryTextField = root.Q<TextField>("SteamUploadModSummary");
@@ -93,25 +93,30 @@ namespace PugMod
 				.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
 				.Select(path => AssetDatabase.LoadAssetAtPath<SteamWorkshopModSettings>(path)));
 
-				_steamWorkshopTags.choices = new List<string> { "World", "Music", "Tweaks", "NPC", "Language", "Overhaul", "Other", "Visual", "Audio", "Item", "Quality of Life", "Library", "Client", "Server", "Asset", "Script", "Script (Elevated Access)" };
-
 				_steamVisibility.choices = new List<string> { "Public", "Friends Only", "Private" };
 
-				steamWorkshopTagType.RegisterValueChangedCallback(evt =>
-				{
-					UpdateTagChoices((TagType)evt.newValue);
-				});
-
-				_steamWorkshopTags.RegisterValueChangedCallback(evt =>
-				{
-					if (!_steamWorkshopTagsToList.Contains(evt.newValue))
+					steamWorkshopTagType.RegisterValueChangedCallback(evt =>
 					{
+						UpdateTagChoices((TagType)evt.newValue);
+					});
+
+					_steamWorkshopTags.RegisterValueChangedCallback(evt =>
+					{
+						if (string.IsNullOrWhiteSpace(evt.newValue))
+						{
+							return;
+						}
+
+						if (_steamWorkshopTagsToList.Contains(evt.newValue, StringComparer.OrdinalIgnoreCase))
+						{
+							return;
+						}
+
 						_steamWorkshopTagsToList.Add(evt.newValue);
 						RefreshTags();
-					}
-				});
+					});
 
-
+			
 				if (EditorPrefs.HasKey(CHOSEN_MOD_KEY))
 				{
 					_steamModList.index = _steamModList.choices.IndexOf(EditorPrefs.GetString(CHOSEN_MOD_KEY));
@@ -145,6 +150,19 @@ namespace PugMod
 				_steamThumbnailUploadButton.clicked += () =>
 				{
 					string thumbnailPath = EditorUtility.OpenFilePanel("Select Thumbnail for Mod", "", "png,jpg,jpeg");
+
+					if (string.IsNullOrEmpty(thumbnailPath))
+					{
+						return;
+					}
+
+					var error = ValidateImage(thumbnailPath, maxBytes: 1 * 1024 * 1024, minWidth: 0, minHeight: 0);
+					if (error != null)
+					{
+						ShowError(error);
+						return;
+					}
+
 					_thumbnailPath = thumbnailPath;
 					Texture2D thumbnailPreviewTexture = new(1,1);
 					thumbnailPreviewTexture.LoadImage(File.ReadAllBytes(thumbnailPath));
@@ -154,6 +172,14 @@ namespace PugMod
 				_steamUploadButton.clicked += () =>
 				{
 					UploadOrUpdateMod();
+				};
+
+				_steamGoToPageButton.clicked += () =>
+				{
+					if (ModHasBeenUploadedToSteamWorkshop())
+					{
+						Application.OpenURL($"https://steamcommunity.com/sharedfiles/filedetails/?id={_steamWorkshopFileID.value}");
+					}
 				};
 
 				_steamInitButton.clicked += () =>
@@ -178,6 +204,7 @@ namespace PugMod
 					OpenSteamConfig();
 				};
 
+				UpdateTagChoices(TagType.Category);
 				RefreshSteamWorkshopUploadButton();
 				RefreshSteamWorkshopUI();
 			}
@@ -224,14 +251,7 @@ namespace PugMod
 
 			private void UpdateTagChoices(TagType tagType)
 			{
-				_steamWorkshopTags.choices = tagType switch
-				{
-					TagType.Category => new List<string> { "World", "Music", "Tweaks", "NPC", "Language", "Overhaul", "Visual", "Audio", "Item", "Quality of Life", "Library", "Other" },
-					TagType.AppType => new List<string> { "Client", "Server" },
-					TagType.AccessType => new List<string> { "Asset", "Script", "Script (Elevated Access)" },
-					_ => null
-				};
-
+				_steamWorkshopTags.choices = GetTagChoices(tagType);
 				_steamWorkshopTags.SetValueWithoutNotify(string.Empty);
 			}
 
@@ -264,10 +284,12 @@ namespace PugMod
 				if(ModHasBeenUploadedToSteamWorkshop())
 				{
 					_steamUploadButton.text = "Update Mod on Steam Workshop";
+					_steamGoToPageButton.style.display = DisplayStyle.Flex;
 				}
 				else
 				{
 					_steamUploadButton.text = "Upload Mod to Steam Workshop";
+					_steamGoToPageButton.style.display = DisplayStyle.None;
 				}
 			}
 			private bool ModHasBeenUploadedToSteamWorkshop()
@@ -321,7 +343,13 @@ namespace PugMod
                     return;
                 }
 
-                if (!string.IsNullOrEmpty(_steamWorkshopFolderName.value))
+				if (!Directory.Exists(_selectedWorkshopPath))
+				{
+					ShowError($"Mod folder no longer exists at:\n{_selectedWorkshopPath}\n\nPlease rebuild your mod using 'Build and Install Mod' or 'Build Mod' in the Mod Management tab.");
+					return;
+				}
+
+				if (!string.IsNullOrEmpty(_steamWorkshopFolderName.value))
 				{
 					UpdateManifestDisplayName(_selectedWorkshopPath, _steamWorkshopFolderName.value);
 				}
@@ -376,7 +404,14 @@ namespace PugMod
 			{
 				var modPaths = GetModPaths();
 
-				_selectedWorkshopPath = modPaths.latestBuildOrInstallPaths.LastOrDefault(x => x.EndsWith(modName));
+				var modBuildPaths = modPaths.latestBuildOrInstallPaths
+				.Where(x => x.EndsWith(modName))
+				.ToList();
+
+				string tempBuildRoot = Path.Combine(Path.GetTempPath(), "BuiltMods");
+
+				_selectedWorkshopPath =
+                modBuildPaths.LastOrDefault(x => !x.StartsWith(tempBuildRoot) && Directory.Exists(x)) ?? modBuildPaths.LastOrDefault(x => Directory.Exists(x)) ?? modBuildPaths.LastOrDefault();
 			}
 
 			private class ProgressClass : IProgress<float>
@@ -437,6 +472,12 @@ namespace PugMod
 					foreach (var tag in _steamWorkshopTagsToList)
 					{
 						mod = mod.WithTag(tag);
+					}
+
+					var currentVersion = GameVersionTagRegistry.GetCurrentVersion();
+					if (!string.IsNullOrEmpty(currentVersion))
+					{
+						mod = mod.WithTag(currentVersion);
 					}
 
 					mod = _steamVisibility.value switch
@@ -510,6 +551,12 @@ namespace PugMod
 					foreach (var tag in _steamWorkshopTagsToList)
 					{
 						mod = mod.WithTag(tag);
+					}
+
+					var currentVersion = GameVersionTagRegistry.GetCurrentVersion();
+					if (!string.IsNullOrEmpty(currentVersion))
+					{
+						mod = mod.WithTag(currentVersion);
 					}
 
 					mod = _steamVisibility.value switch

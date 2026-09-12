@@ -12,7 +12,13 @@
         "ScriptableData.Editor",
         "Unity.Addressables",
         "Unity.Addressables.Editor",
-        "Pug.Base"
+        "Pug.Base",
+        "Pug.ECS.Authoring",
+        "Pug.Other",
+        "PugMap.Common",
+        "PugMap.Editor",
+        "PugTilemap.Editor.Actions",
+        "Pug.UnityExtensions"
     ],
     "includePlatforms": [
         "Editor"
@@ -28,7 +34,14 @@
         "PugSprite.Editor.dll",
         "Facepunch.Steamworks.Win64.dll",
         "Facepunch.Steamworks.Posix.dll",
-	"Pug.Base.dll"
+        "Pug.Base.dll",
+        "Pug.ECS.Authoring.dll",
+        "Pug.Other.dll",
+        "PugMap.Common.dll",
+        "PugMap.Editor.dll",
+        "PugTilemap.Editor.Actions.dll",
+        "Pug.UnityExtensions.dll",
+        "PugEditor.CustomScenes.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

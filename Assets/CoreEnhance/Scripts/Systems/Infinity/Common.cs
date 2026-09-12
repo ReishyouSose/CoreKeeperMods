@@ -17,7 +17,6 @@ namespace Assets.CoreEnhance.Scripts.Systems.Infinity
                 return;
             }
             timer = 0;
-            Infinity_Minion();
             Infinity_Boulder();
             base.OnUpdate();
         }
@@ -38,19 +37,6 @@ namespace Assets.CoreEnhance.Scripts.Systems.Infinity
                 .WithAll<RequiresDrillCD>()
                 .WithAll<DontDropSelfCD>()
                 .WithEntityQueryOptions(EntityQueryOptions.IncludeDisabledEntities)
-                .WithBurst()
-                .Schedule();
-        }
-        private void Infinity_Minion()
-        {
-            if (!EnhanceConfig.IsEnable(EnhanceCategory.Minion))
-                return;
-            Entities.ForEach((ref MinionCD minion) =>
-            {
-                if (minion.hasStartedLifeSpanTimer)
-                    minion.lifespanTimer = minion.lifespan;
-            })
-                .WithName("Infinity_Minion")
                 .WithBurst()
                 .Schedule();
         }

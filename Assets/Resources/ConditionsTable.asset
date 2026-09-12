@@ -22,12 +22,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba5b82fbfc39fbc4eaf3e8da03bcf4ab, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 47
       effect: 0
       isAdditiveWithSelf: 0
@@ -41,6 +42,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 189
       effect: 0
       isAdditiveWithSelf: 0
@@ -48,12 +50,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babb632061d71d645b9b6ec6c5428a41, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 208
       effect: 0
       isAdditiveWithSelf: 0
@@ -61,12 +64,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babb632061d71d645b9b6ec6c5428a41, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Armor
     conditions:
     - Id: 185
@@ -76,12 +80,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 11
       effect: 9
       isAdditiveWithSelf: 0
@@ -89,12 +94,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 48
       effect: 37
       isAdditiveWithSelf: 0
@@ -102,12 +108,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 68
       effect: 52
       isAdditiveWithSelf: 0
@@ -115,12 +122,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 169
       effect: 9
       isAdditiveWithSelf: 0
@@ -128,12 +136,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 11
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 124
       effect: 0
       isAdditiveWithSelf: 0
@@ -147,6 +156,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 125
       effect: 37
       isAdditiveWithSelf: 0
@@ -154,12 +164,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 48
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 186
       effect: 37
       isAdditiveWithSelf: 0
@@ -167,12 +178,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 48
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 246
       effect: 98
       isAdditiveWithSelf: 0
@@ -180,12 +192,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Attack Speed
     conditions:
     - Id: 173
@@ -201,6 +214,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 51
       effect: 40
       isAdditiveWithSelf: 0
@@ -214,6 +228,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 52
       effect: 41
       isAdditiveWithSelf: 0
@@ -221,12 +236,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 191
       effect: 65
       isAdditiveWithSelf: 0
@@ -240,6 +256,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 172
       effect: 65
       isAdditiveWithSelf: 0
@@ -253,6 +270,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 209
       effect: 65
       isAdditiveWithSelf: 0
@@ -266,6 +284,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 86
       effect: 0
       isAdditiveWithSelf: 0
@@ -273,12 +292,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 1
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 198
       effect: 0
       isAdditiveWithSelf: 0
@@ -292,6 +312,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 171
       effect: 0
       isAdditiveWithSelf: 0
@@ -305,6 +326,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 141
       effect: 0
       isAdditiveWithSelf: 0
@@ -318,6 +340,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 87
       effect: 40
       isAdditiveWithSelf: 0
@@ -331,6 +354,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 142
       effect: 40
       isAdditiveWithSelf: 0
@@ -344,6 +368,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 275
       effect: 0
       isAdditiveWithSelf: 0
@@ -357,6 +382,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 276
       effect: 41
       isAdditiveWithSelf: 0
@@ -370,6 +396,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Burn
     conditions:
     - Id: 30
@@ -385,6 +412,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 163
       effect: 0
       isAdditiveWithSelf: 0
@@ -398,6 +426,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 164
       effect: 16
       isAdditiveWithSelf: 0
@@ -405,12 +434,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba3ebcf9240e76e49b4cac3dd2634fea, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 29
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 29
       effect: 16
       isAdditiveWithSelf: 0
@@ -418,12 +448,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba3ebcf9240e76e49b4cac3dd2634fea, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 194
       effect: 72
       isAdditiveWithSelf: 0
@@ -437,6 +468,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 224
       effect: 88
       isAdditiveWithSelf: 0
@@ -450,6 +482,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Charm
     conditions:
     - Id: 214
@@ -465,6 +498,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 215
       effect: 81
       isAdditiveWithSelf: 0
@@ -472,12 +506,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba3ebcf9240e76e49b4cac3dd2634fea, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 216
       effect: 82
       isAdditiveWithSelf: 0
@@ -491,6 +526,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Cooking
     conditions:
     - Id: 79
@@ -500,12 +536,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 80
       effect: 0
       isAdditiveWithSelf: 0
@@ -513,12 +550,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 138
       effect: 0
       isAdditiveWithSelf: 0
@@ -532,6 +570,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Crafting
     conditions:
     - Id: 122
@@ -547,6 +586,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 120
       effect: 0
       isAdditiveWithSelf: 0
@@ -560,6 +600,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 119
       effect: 0
       isAdditiveWithSelf: 0
@@ -573,6 +614,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 121
       effect: 0
       isAdditiveWithSelf: 0
@@ -586,6 +628,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 123
       effect: 0
       isAdditiveWithSelf: 0
@@ -599,6 +642,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Crit
     conditions:
     - Id: 12
@@ -614,6 +658,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 88
       effect: 0
       isAdditiveWithSelf: 0
@@ -621,12 +666,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 89
       effect: 10
       isAdditiveWithSelf: 0
@@ -634,12 +680,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 12
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 157
       effect: 0
       isAdditiveWithSelf: 0
@@ -653,6 +700,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 158
       effect: 10
       isAdditiveWithSelf: 0
@@ -666,6 +714,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 153
       effect: 0
       isAdditiveWithSelf: 0
@@ -679,6 +728,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 154
       effect: 10
       isAdditiveWithSelf: 0
@@ -692,6 +742,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 65
       effect: 0
       isAdditiveWithSelf: 0
@@ -705,6 +756,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 66
       effect: 10
       isAdditiveWithSelf: 0
@@ -718,6 +770,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Crit Damage
     conditions:
     - Id: 99
@@ -733,6 +786,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 195
       effect: 73
       isAdditiveWithSelf: 0
@@ -746,6 +800,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 148
       effect: 57
       isAdditiveWithSelf: 0
@@ -759,6 +814,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 149
       effect: 57
       isAdditiveWithSelf: 0
@@ -772,6 +828,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Damage
     conditions:
     - Id: 150
@@ -781,12 +838,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 162
       effect: 33
       isAdditiveWithSelf: 0
@@ -794,12 +852,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 10
       effect: 8
       isAdditiveWithSelf: 0
@@ -807,12 +866,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 289
       effect: 116
       isAdditiveWithSelf: 0
@@ -820,12 +880,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 22
       effect: 22
       isAdditiveWithSelf: 0
@@ -833,12 +894,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 290
       effect: 117
       isAdditiveWithSelf: 0
@@ -846,12 +908,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 144
       effect: 0
       isAdditiveWithSelf: 0
@@ -865,6 +928,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 145
       effect: 33
       isAdditiveWithSelf: 0
@@ -872,12 +936,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 160
       effect: 0
       isAdditiveWithSelf: 0
@@ -891,6 +956,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 161
       effect: 33
       isAdditiveWithSelf: 0
@@ -898,12 +964,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 75
       effect: 0
       isAdditiveWithSelf: 0
@@ -911,12 +978,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 76
       effect: 33
       isAdditiveWithSelf: 0
@@ -924,12 +992,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 152
       effect: 33
       isAdditiveWithSelf: 0
@@ -937,12 +1006,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 111
       effect: 0
       isAdditiveWithSelf: 0
@@ -950,12 +1020,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 112
       effect: 33
       isAdditiveWithSelf: 0
@@ -963,12 +1034,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 109
       effect: 0
       isAdditiveWithSelf: 0
@@ -982,6 +1054,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 110
       effect: 33
       isAdditiveWithSelf: 0
@@ -989,12 +1062,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 150
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 90
       effect: 0
       isAdditiveWithSelf: 0
@@ -1002,12 +1076,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 92
       effect: 0
       isAdditiveWithSelf: 0
@@ -1015,12 +1090,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 151
       effect: 0
       isAdditiveWithSelf: 0
@@ -1034,6 +1110,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 82
       effect: 0
       isAdditiveWithSelf: 0
@@ -1041,12 +1118,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 94
       effect: 0
       isAdditiveWithSelf: 0
@@ -1054,12 +1132,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 95
       effect: 116
       isAdditiveWithSelf: 0
@@ -1067,12 +1146,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 10
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 84
       effect: 0
       isAdditiveWithSelf: 0
@@ -1080,12 +1160,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 100
       effect: 0
       isAdditiveWithSelf: 0
@@ -1093,12 +1174,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 57
       effect: 46
       isAdditiveWithSelf: 0
@@ -1106,12 +1188,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 93
       effect: 116
       isAdditiveWithSelf: 0
@@ -1119,12 +1202,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 10
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 91
       effect: 117
       isAdditiveWithSelf: 0
@@ -1132,12 +1216,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 22
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 83
       effect: 116
       isAdditiveWithSelf: 0
@@ -1145,12 +1230,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 10
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 166
       effect: 8
       isAdditiveWithSelf: 0
@@ -1158,12 +1244,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 10
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 55
       effect: 44
       isAdditiveWithSelf: 0
@@ -1171,12 +1258,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 54
       effect: 43
       isAdditiveWithSelf: 0
@@ -1184,12 +1272,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 167
       effect: 22
       isAdditiveWithSelf: 0
@@ -1197,12 +1286,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 22
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 85
       effect: 117
       isAdditiveWithSelf: 0
@@ -1210,12 +1300,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 22
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 101
       effect: 117
       isAdditiveWithSelf: 0
@@ -1223,12 +1314,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 22
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 222
       effect: 86
       isAdditiveWithSelf: 0
@@ -1242,6 +1334,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 223
       effect: 87
       isAdditiveWithSelf: 0
@@ -1255,6 +1348,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 293
       effect: 0
       isAdditiveWithSelf: 0
@@ -1262,12 +1356,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 289
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 294
       effect: 116
       isAdditiveWithSelf: 0
@@ -1275,12 +1370,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 289
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Damage vs Bosses
     conditions:
     - Id: 96
@@ -1290,12 +1386,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 134
       effect: 0
       isAdditiveWithSelf: 0
@@ -1309,6 +1406,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 135
       effect: 55
       isAdditiveWithSelf: 0
@@ -1316,12 +1414,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba8de0a7fab81784cb580121c38f0ba8, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 96
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Deal Damage
     conditions:
     - Id: 17
@@ -1331,12 +1430,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 2800000, guid: ead97d1d7cbc90049a987ec66565e21d, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 206
       effect: 0
       isAdditiveWithSelf: 0
@@ -1350,6 +1450,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 207
       effect: 0
       isAdditiveWithSelf: 0
@@ -1357,12 +1458,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba7ef7c4542999345903b6aa6b194648, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 184
       effect: 0
       isAdditiveWithSelf: 0
@@ -1376,6 +1478,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 192
       effect: 0
       isAdditiveWithSelf: 0
@@ -1389,6 +1492,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 38
       effect: 3
       isAdditiveWithSelf: 0
@@ -1402,6 +1506,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 248
       effect: 0
       isAdditiveWithSelf: 0
@@ -1415,6 +1520,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 249
       effect: 0
       isAdditiveWithSelf: 0
@@ -1422,12 +1528,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babb632061d71d645b9b6ec6c5428a41, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 288
       effect: 0
       isAdditiveWithSelf: 0
@@ -1441,6 +1548,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 298
       effect: 119
       isAdditiveWithSelf: 0
@@ -1454,6 +1562,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Damage Taken
     conditions:
     - Id: 33
@@ -1463,12 +1572,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 168
       effect: 29
       isAdditiveWithSelf: 0
@@ -1476,12 +1586,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 33
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 245
       effect: 97
       isAdditiveWithSelf: 0
@@ -1489,12 +1600,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 244
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 244
       effect: 97
       isAdditiveWithSelf: 0
@@ -1502,12 +1614,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba7ef7c4542999345903b6aa6b194648, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Dodge
     conditions:
     - Id: 15
@@ -1517,12 +1630,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: bafe2103989e70e4383d6d8bf94a94cf, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 70
       effect: 0
       isAdditiveWithSelf: 0
@@ -1530,12 +1644,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: bafe2103989e70e4383d6d8bf94a94cf, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 71
       effect: 13
       isAdditiveWithSelf: 0
@@ -1543,12 +1658,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: bafe2103989e70e4383d6d8bf94a94cf, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Durability
     conditions:
     - Id: 118
@@ -1564,6 +1680,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 117
       effect: 0
       isAdditiveWithSelf: 0
@@ -1577,6 +1694,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Faction Change
     conditions:
     - Id: 188
@@ -1592,6 +1710,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 28
       effect: 27
       isAdditiveWithSelf: 0
@@ -1605,6 +1724,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Fishing
     conditions:
     - Id: 178
@@ -1620,6 +1740,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 133
       effect: 0
       isAdditiveWithSelf: 0
@@ -1633,6 +1754,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 136
       effect: 0
       isAdditiveWithSelf: 0
@@ -1646,6 +1768,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 180
       effect: 0
       isAdditiveWithSelf: 0
@@ -1659,6 +1782,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 131
       effect: 0
       isAdditiveWithSelf: 0
@@ -1672,6 +1796,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 176
       effect: 0
       isAdditiveWithSelf: 0
@@ -1685,6 +1810,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 46
       effect: 36
       isAdditiveWithSelf: 0
@@ -1692,12 +1818,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba1fdf049a07b6e4795b980bf7b0551a, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 132
       effect: 0
       isAdditiveWithSelf: 0
@@ -1711,6 +1838,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 254
       effect: 0
       isAdditiveWithSelf: 0
@@ -1724,6 +1852,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Gardening
     conditions:
     - Id: 126
@@ -1739,6 +1868,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 128
       effect: 0
       isAdditiveWithSelf: 0
@@ -1752,6 +1882,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 23
       effect: 23
       isAdditiveWithSelf: 0
@@ -1765,6 +1896,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 127
       effect: 0
       isAdditiveWithSelf: 0
@@ -1778,6 +1910,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 253
       effect: 0
       isAdditiveWithSelf: 0
@@ -1785,12 +1918,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Glow
     conditions:
     - Id: 1
@@ -1800,12 +1934,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: b6f16c9bebdfa234680fe6e1bfa99903, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 45
       effect: 1
       isAdditiveWithSelf: 0
@@ -1813,12 +1948,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: b6f16c9bebdfa234680fe6e1bfa99903, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 217
       effect: 1
       isAdditiveWithSelf: 0
@@ -1826,12 +1962,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: b6f16c9bebdfa234680fe6e1bfa99903, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Heal
     conditions:
     - Id: 5
@@ -1847,6 +1984,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 211
       effect: 78
       isAdditiveWithSelf: 0
@@ -1860,6 +1998,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 3
       effect: 3
       isAdditiveWithSelf: 0
@@ -1873,6 +2012,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 44
       effect: 35
       isAdditiveWithSelf: 0
@@ -1886,6 +2026,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 146
       effect: 0
       isAdditiveWithSelf: 0
@@ -1899,6 +2040,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 147
       effect: 4
       isAdditiveWithSelf: 0
@@ -1912,6 +2054,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 97
       effect: 0
       isAdditiveWithSelf: 0
@@ -1925,6 +2068,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 106
       effect: 0
       isAdditiveWithSelf: 0
@@ -1938,6 +2082,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 113
       effect: 0
       isAdditiveWithSelf: 0
@@ -1951,6 +2096,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 114
       effect: 4
       isAdditiveWithSelf: 0
@@ -1964,6 +2110,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 107
       effect: 4
       isAdditiveWithSelf: 0
@@ -1977,6 +2124,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 105
       effect: 0
       isAdditiveWithSelf: 0
@@ -1990,6 +2138,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 19
       effect: 19
       isAdditiveWithSelf: 0
@@ -1997,12 +2146,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babf5f44d75e7244881d4f9f6867ee48, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 281
       effect: 0
       isAdditiveWithSelf: 0
@@ -2016,6 +2166,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 285
       effect: 0
       isAdditiveWithSelf: 0
@@ -2029,6 +2180,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Hunger
     conditions:
     - Id: 8
@@ -2044,6 +2196,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 67
       effect: 51
       isAdditiveWithSelf: 0
@@ -2051,12 +2204,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 143
       effect: 0
       isAdditiveWithSelf: 0
@@ -2064,12 +2218,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 129
       effect: 0
       isAdditiveWithSelf: 0
@@ -2083,6 +2238,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 42
       effect: 33
       isAdditiveWithSelf: 0
@@ -2090,12 +2246,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 40
       effect: 34
       isAdditiveWithSelf: 0
@@ -2109,6 +2266,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 7
       effect: 2
       isAdditiveWithSelf: 0
@@ -2116,12 +2274,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 43
       effect: 33
       isAdditiveWithSelf: 0
@@ -2129,12 +2288,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ef2fd4e2f9f44b851336b948f9de7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 41
       effect: 34
       isAdditiveWithSelf: 0
@@ -2148,6 +2308,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 32
       effect: 2
       isAdditiveWithSelf: 0
@@ -2155,12 +2316,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 139
       effect: 0
       isAdditiveWithSelf: 0
@@ -2174,6 +2336,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 140
       effect: 0
       isAdditiveWithSelf: 0
@@ -2187,6 +2350,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Immunity
     conditions:
     - Id: 37
@@ -2196,12 +2360,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca307865bbe5b874eaadeaec25af471f, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 159
       effect: 63
       isAdditiveWithSelf: 0
@@ -2209,12 +2374,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 11400000, guid: ca307865bbe5b874eaadeaec25af471f, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 187
       effect: 0
       isAdditiveWithSelf: 0
@@ -2228,6 +2394,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 81
       effect: 0
       isAdditiveWithSelf: 0
@@ -2235,12 +2402,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: babbe72369c9aa344ac3c4a1a86c41c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 36
       effect: 31
       isAdditiveWithSelf: 0
@@ -2248,12 +2416,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca70921db22395a49ae2b978cc005ca9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 34
       effect: 30
       isAdditiveWithSelf: 0
@@ -2267,6 +2436,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 20
       effect: 20
       isAdditiveWithSelf: 0
@@ -2274,12 +2444,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca70921db22395a49ae2b978cc005ca9, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 62
       effect: 49
       isAdditiveWithSelf: 0
@@ -2287,12 +2458,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca70921db22395a49ae2b978cc005ca9, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 103
       effect: 60
       isAdditiveWithSelf: 0
@@ -2300,12 +2472,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 213
       effect: 79
       isAdditiveWithSelf: 0
@@ -2319,6 +2492,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 243
       effect: 96
       isAdditiveWithSelf: 0
@@ -2332,6 +2506,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 250
       effect: 0
       isAdditiveWithSelf: 0
@@ -2345,6 +2520,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 251
       effect: 0
       isAdditiveWithSelf: 0
@@ -2358,6 +2534,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Magic
     conditions:
     - Id: 261
@@ -2367,12 +2544,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 291
       effect: 102
       isAdditiveWithSelf: 0
@@ -2380,12 +2558,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 261
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 263
       effect: 112
       isAdditiveWithSelf: 0
@@ -2399,6 +2578,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 271
       effect: 109
       isAdditiveWithSelf: 0
@@ -2412,6 +2592,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 272
       effect: 0
       isAdditiveWithSelf: 0
@@ -2425,6 +2606,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 273
       effect: 110
       isAdditiveWithSelf: 0
@@ -2438,6 +2620,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 270
       effect: 0
       isAdditiveWithSelf: 0
@@ -2451,6 +2634,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 268
       effect: 0
       isAdditiveWithSelf: 0
@@ -2464,6 +2648,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 274
       effect: 102
       isAdditiveWithSelf: 0
@@ -2471,12 +2656,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 261
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 283
       effect: 102
       isAdditiveWithSelf: 0
@@ -2490,6 +2676,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Mana
     conditions:
     - Id: 267
@@ -2505,6 +2692,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 255
       effect: 0
       isAdditiveWithSelf: 0
@@ -2512,12 +2700,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca805315614d17c4d9303034038de9c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 256
       effect: 100
       isAdditiveWithSelf: 0
@@ -2531,6 +2720,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 262
       effect: 0
       isAdditiveWithSelf: 0
@@ -2544,6 +2734,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 264
       effect: 106
       isAdditiveWithSelf: 0
@@ -2557,6 +2748,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 265
       effect: 0
       isAdditiveWithSelf: 0
@@ -2570,6 +2762,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 266
       effect: 0
       isAdditiveWithSelf: 0
@@ -2583,6 +2776,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 269
       effect: 0
       isAdditiveWithSelf: 0
@@ -2596,6 +2790,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 286
       effect: 111
       isAdditiveWithSelf: 0
@@ -2603,12 +2798,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca805315614d17c4d9303034038de9c9, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Max Health
     conditions:
     - Id: 6
@@ -2624,6 +2820,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 115
       effect: 0
       isAdditiveWithSelf: 0
@@ -2637,6 +2834,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 116
       effect: 5
       isAdditiveWithSelf: 0
@@ -2650,6 +2848,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 16
       effect: 68
       isAdditiveWithSelf: 1
@@ -2663,6 +2862,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 304
       effect: 34
       isAdditiveWithSelf: 0
@@ -2676,6 +2876,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Mining
     conditions:
     - Id: 9
@@ -2685,12 +2886,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 49
       effect: 38
       isAdditiveWithSelf: 0
@@ -2698,12 +2900,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 50
       effect: 39
       isAdditiveWithSelf: 0
@@ -2711,12 +2914,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca805315614d17c4d9303034038de9c9, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 56
       effect: 45
       isAdditiveWithSelf: 0
@@ -2724,12 +2928,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 193
       effect: 71
       isAdditiveWithSelf: 0
@@ -2743,6 +2948,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 60
       effect: 47
       isAdditiveWithSelf: 0
@@ -2750,12 +2956,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 53
       effect: 42
       isAdditiveWithSelf: 0
@@ -2763,12 +2970,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 252
       effect: 0
       isAdditiveWithSelf: 0
@@ -2776,12 +2984,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba8f87ca12ab88f41bc712b73394ce51, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Minions
     conditions:
     - Id: 260
@@ -2791,12 +3000,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 259
       effect: 113
       isAdditiveWithSelf: 0
@@ -2810,6 +3020,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 257
       effect: 103
       isAdditiveWithSelf: 0
@@ -2823,6 +3034,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 277
       effect: 114
       isAdditiveWithSelf: 0
@@ -2836,6 +3048,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 287
       effect: 115
       isAdditiveWithSelf: 0
@@ -2849,6 +3062,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 258
       effect: 104
       isAdditiveWithSelf: 0
@@ -2862,6 +3076,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 278
       effect: 0
       isAdditiveWithSelf: 0
@@ -2875,6 +3090,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 279
       effect: 0
       isAdditiveWithSelf: 0
@@ -2888,6 +3104,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 280
       effect: 0
       isAdditiveWithSelf: 0
@@ -2901,6 +3118,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 282
       effect: 0
       isAdditiveWithSelf: 0
@@ -2914,6 +3132,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 292
       effect: 105
       isAdditiveWithSelf: 0
@@ -2921,12 +3140,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 260
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Movement
     conditions:
     - Id: 4
@@ -2936,12 +3156,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 39
       effect: 2
       isAdditiveWithSelf: 0
@@ -2949,12 +3170,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 170
       effect: 64
       isAdditiveWithSelf: 0
@@ -2968,6 +3190,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 183
       effect: 69
       isAdditiveWithSelf: 0
@@ -2981,6 +3204,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 63
       effect: 50
       isAdditiveWithSelf: 0
@@ -2988,12 +3212,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 98
       effect: 56
       isAdditiveWithSelf: 0
@@ -3001,12 +3226,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ba6ea65ae983d4c42a9060d18e9388df, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 1
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 18
       effect: 18
       isAdditiveWithSelf: 0
@@ -3020,6 +3246,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 1
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 2
       effect: 2
       isAdditiveWithSelf: 0
@@ -3027,12 +3254,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 302
       effect: 2
       isAdditiveWithSelf: 0
@@ -3040,12 +3268,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 2
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 77
       effect: 0
       isAdditiveWithSelf: 0
@@ -3053,12 +3282,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 1
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 78
       effect: 2
       isAdditiveWithSelf: 0
@@ -3066,12 +3296,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca5174acd077c4e4dbdf7d1468dc1df0, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 72
       effect: 0
       isAdditiveWithSelf: 0
@@ -3079,12 +3310,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 35
       effect: 2
       isAdditiveWithSelf: 0
@@ -3092,12 +3324,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca32e850795649a469b2991095210ddd, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 74
       effect: 0
       isAdditiveWithSelf: 0
@@ -3105,12 +3338,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 58
       effect: 0
       isAdditiveWithSelf: 0
@@ -3118,12 +3352,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 179
       effect: 2
       isAdditiveWithSelf: 0
@@ -3131,12 +3366,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 4
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 73
       effect: 2
       isAdditiveWithSelf: 0
@@ -3144,12 +3380,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 137
       effect: 0
       isAdditiveWithSelf: 0
@@ -3163,6 +3400,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 227
       effect: 89
       isAdditiveWithSelf: 0
@@ -3176,6 +3414,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 59
       effect: 2
       isAdditiveWithSelf: 0
@@ -3183,12 +3422,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: babf5f44d75e7244881d4f9f6867ee48, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 4
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 61
       effect: 48
       isAdditiveWithSelf: 0
@@ -3202,6 +3442,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 64
       effect: 48
       isAdditiveWithSelf: 0
@@ -3215,6 +3456,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Spawn Object
     conditions:
     - Id: 31
@@ -3230,6 +3472,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 202
       effect: 75
       isAdditiveWithSelf: 0
@@ -3243,6 +3486,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 197
       effect: 70
       isAdditiveWithSelf: 0
@@ -3256,6 +3500,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 203
       effect: 76
       isAdditiveWithSelf: 0
@@ -3269,6 +3514,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 177
       effect: 67
       isAdditiveWithSelf: 0
@@ -3282,6 +3528,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 204
       effect: 77
       isAdditiveWithSelf: 0
@@ -3295,6 +3542,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 175
       effect: 0
       isAdditiveWithSelf: 0
@@ -3308,6 +3556,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Stun and Snare
     conditions:
     - Id: 26
@@ -3323,6 +3572,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 102
       effect: 59
       isAdditiveWithSelf: 0
@@ -3330,12 +3580,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 219
       effect: 83
       isAdditiveWithSelf: 0
@@ -3343,12 +3594,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 69
       effect: 53
       isAdditiveWithSelf: 0
@@ -3356,12 +3608,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: bafe2103989e70e4383d6d8bf94a94cf, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 27
       effect: 26
       isAdditiveWithSelf: 0
@@ -3369,12 +3622,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca62d6ae1cf892546bad7aacb926bdf5, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 104
       effect: 58
       isAdditiveWithSelf: 0
@@ -3382,12 +3636,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca62d6ae1cf892546bad7aacb926bdf5, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 220
       effect: 84
       isAdditiveWithSelf: 0
@@ -3401,6 +3656,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 221
       effect: 85
       isAdditiveWithSelf: 0
@@ -3414,6 +3670,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Pet
     conditions:
     - Id: 228
@@ -3429,6 +3686,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 230
       effect: 117
       isAdditiveWithSelf: 0
@@ -3442,6 +3700,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 229
       effect: 40
       isAdditiveWithSelf: 0
@@ -3455,6 +3714,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 231
       effect: 41
       isAdditiveWithSelf: 0
@@ -3468,6 +3728,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 233
       effect: 10
       isAdditiveWithSelf: 0
@@ -3481,6 +3742,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 232
       effect: 57
       isAdditiveWithSelf: 0
@@ -3494,6 +3756,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 234
       effect: 95
       isAdditiveWithSelf: 0
@@ -3507,6 +3770,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 1
+      showAsDamageDeviation: 0
     - Id: 235
       effect: 90
       isAdditiveWithSelf: 0
@@ -3514,12 +3778,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: caa25b4ac2087104e8d28747c15f7da7, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 238
       effect: 93
       isAdditiveWithSelf: 0
@@ -3533,6 +3798,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 1
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 237
       effect: 92
       isAdditiveWithSelf: 0
@@ -3546,6 +3812,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 236
       effect: 91
       isAdditiveWithSelf: 0
@@ -3559,6 +3826,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 239
       effect: 94
       isAdditiveWithSelf: 0
@@ -3572,6 +3840,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 240
       effect: 0
       isAdditiveWithSelf: 0
@@ -3585,6 +3854,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 241
       effect: 34
       isAdditiveWithSelf: 0
@@ -3598,6 +3868,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 297
       effect: 118
       isAdditiveWithSelf: 1
@@ -3611,6 +3882,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Poison
     conditions:
     - Id: 13
@@ -3626,6 +3898,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 156
       effect: 0
       isAdditiveWithSelf: 0
@@ -3639,6 +3912,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 14
       effect: 12
       isAdditiveWithSelf: 0
@@ -3646,12 +3920,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: caa25b4ac2087104e8d28747c15f7da7, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 165
       effect: 30
       isAdditiveWithSelf: 0
@@ -3665,6 +3940,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 130
       effect: 61
       isAdditiveWithSelf: 0
@@ -3678,6 +3954,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Thorns
     conditions:
     - Id: 21
@@ -3687,12 +3964,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca2339fb90c7a8a43968e8bfe99faf12, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 196
       effect: 74
       isAdditiveWithSelf: 0
@@ -3706,6 +3984,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Unique
     conditions:
     - Id: 200
@@ -3721,6 +4000,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 199
       effect: 68
       isAdditiveWithSelf: 0
@@ -3734,6 +4014,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 201
       effect: 68
       isAdditiveWithSelf: 0
@@ -3747,6 +4028,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 212
       effect: 68
       isAdditiveWithSelf: 0
@@ -3760,6 +4042,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 218
       effect: 68
       isAdditiveWithSelf: 0
@@ -3773,6 +4056,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 242
       effect: 68
       isAdditiveWithSelf: 0
@@ -3786,6 +4070,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 284
       effect: 68
       isAdditiveWithSelf: 0
@@ -3799,6 +4084,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 300
       effect: 68
       isAdditiveWithSelf: 0
@@ -3812,6 +4098,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 301
       effect: 68
       isAdditiveWithSelf: 0
@@ -3825,6 +4112,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: Other
     conditions:
     - Id: 155
@@ -3840,6 +4128,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 25
       effect: 24
       isAdditiveWithSelf: 0
@@ -3847,12 +4136,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 3, guid: ca70a8006d83b284cab2b5e6cae133d4, type: 3}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 108
       effect: 0
       isAdditiveWithSelf: 0
@@ -3866,6 +4156,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 174
       effect: 66
       isAdditiveWithSelf: 0
@@ -3879,6 +4170,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 182
       effect: 0
       isAdditiveWithSelf: 0
@@ -3892,6 +4184,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 205
       effect: 0
       isAdditiveWithSelf: 0
@@ -3905,6 +4198,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 181
       effect: 0
       isAdditiveWithSelf: 0
@@ -3918,6 +4212,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 24
       effect: 0
       isAdditiveWithSelf: 0
@@ -3931,6 +4226,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 210
       effect: 0
       isAdditiveWithSelf: 0
@@ -3944,6 +4240,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 225
       effect: 0
       isAdditiveWithSelf: 0
@@ -3957,6 +4254,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 226
       effect: 0
       isAdditiveWithSelf: 0
@@ -3964,12 +4262,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ca2339fb90c7a8a43968e8bfe99faf12, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 247
       effect: 99
       isAdditiveWithSelf: 0
@@ -3977,12 +4276,13 @@ MonoBehaviour:
       isNegative: 1
       isInheritedByProjectiles: 0
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba7ef7c4542999345903b6aa6b194648, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 299
       effect: 0
       isAdditiveWithSelf: 0
@@ -3990,12 +4290,13 @@ MonoBehaviour:
       isNegative: 0
       isInheritedByProjectiles: 1
       overrideIfRemainingValueIsHigher: 0
-      icon: {fileID: 21300000, guid: ba7ef7c4542999345903b6aa6b194648, type: 2}
+      icon: {fileID: 0}
       useSameDescAsId: 0
       isUnique: 0
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 303
       effect: 0
       isAdditiveWithSelf: 0
@@ -4009,6 +4310,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: None
     conditions:
     - Id: 0
@@ -4024,6 +4326,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
   - category: NEW (move these conditions to their corresponding category)
     conditions:
     - Id: 295
@@ -4039,6 +4342,7 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
     - Id: 296
       effect: 0
       isAdditiveWithSelf: 0
@@ -4052,3 +4356,4 @@ MonoBehaviour:
       skipShowingSignInfrontOfValue: 0
       showDecimal: 0
       skipShowingStatText: 0
+      showAsDamageDeviation: 0
