@@ -155,7 +155,6 @@ namespace Assets.PointShop.Scripts
             var slotObject = objectBuffer;
             if (slotObject.objectID == ObjectID.None)
                 return null;
-
             ObjectID displayId = PlayerController.GetAnyObjectIDReplaceForNameAndDesc(slotObject.objectID);
             if (!API.Authoring.ObjectProperties.TryGetPropertyString(displayId, "name", out var itemName))
             {

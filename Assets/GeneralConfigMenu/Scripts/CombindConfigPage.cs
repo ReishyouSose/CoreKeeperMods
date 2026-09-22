@@ -1,4 +1,5 @@
-﻿using CoreLib.Data.Configuration;
+﻿using Assets.GeneralConfigMenu.Scripts.DataStruct;
+using CoreLib.Data.Configuration;
 using System.Collections.Generic;
 
 namespace Assets.GeneralConfigMenu.Scripts

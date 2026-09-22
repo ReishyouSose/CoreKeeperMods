@@ -57,6 +57,14 @@ MonoBehaviour:
   rarity: 0
   salvageMultiplier: 1
   graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: -471567957674432892
+      m_high: 8487475100791670043
   isCustomScenePrefab: 0
   additionalSprites: []
 --- !u!114 &7217409385186003798
@@ -107,7 +115,7 @@ MonoBehaviour:
   SupportedGhostModes: 3
   OptimizationMode: 0
   Importance: 1
-  prefabId: 
+  prefabId: 5c319e61791cf5e43838140a2852619a
   HasOwner: 0
   SupportAutoCommandTarget: 1
   TrackInterpolationDelay: 0

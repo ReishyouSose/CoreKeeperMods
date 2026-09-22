@@ -27,6 +27,7 @@ namespace Assets.PointShop
         public void Init()
         {
             Coin = API.Authoring.GetObjectID("PointShop_Currency");
+            Debug.Log("On init: coin ID is" + Coin);
         }
 
         public void ModObjectLoaded(Object obj)

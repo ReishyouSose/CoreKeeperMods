@@ -48,15 +48,27 @@ MonoBehaviour:
       guid: 713140ae1f3da6c41b1fc31b7a98c5f7
     - path: Scripts/Scripts/DropPointSystem.cs
       guid: 535262b2d6cf2404d9fc27ee427dc786
+    - path: Scripts/Scripts/AoaNoneObjectInfoRepair.cs
+      guid: ab6d32279cefc22478c5b03e880d8c9b
     - path: Scripts/PointShop.cs
       guid: 17b9590c60c6ffb44bfd9ffcc35425ae
-    - path: Bundles/PointShop_Windows.assetbundle
+    - path: Scripts/Generated/DropPointSystem__System_15061729080.g.cs
       guid: 
-    - path: Bundles/PointShop_Windows.assetbundle.manifest
+    - path: Scripts/Generated/PointShopSystem__System_3449264010.g.cs
+      guid: 
+    - path: Scripts/Generated/PointShopSystem__System_3449264011.g.cs
+      guid: 
+    - path: Scripts/Generated/Assets.PointShop.Scripts_BuyFailureRPCCommandSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.PointShop.Scripts_PointShopRPCCommandSerializer.cs
       guid: 
     - path: Bundles/PointShop_Linux.assetbundle
       guid: 
     - path: Bundles/PointShop_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/PointShop_Windows.assetbundle
+      guid: 
+    - path: Bundles/PointShop_Windows.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -92,7 +104,7 @@ MonoBehaviour:
   - path: Assets/PointShop/Data/TextDataBlock/PointShop_Config_General/ShowSwitch.asset
     hash: 6B2E57FFCB97D9380DCEFAF48ABD0B3EFCA7BC2FAC85FF0FDADFD5192DC24F4A
   - path: Assets/PointShop/PointShop.asset
-    hash: 91CB933EE161BFF0827372F9F8E78D4602C223D0DFD9B9A66941DE06AC41092C
+    hash: 8BD131094823A349364874B5828B671DE4795CFD3CB44130DB8210B4BB7F77BE
   - path: Assets/PointShop/PointShop_Steam.asset
     hash: 3D81E82D35DB2DE31295DCFCED9AC648BEB9D916015A9FE5279A49127A8B90C3
   - path: Assets/PointShop/PointShopUI.prefab

@@ -57,6 +57,14 @@ MonoBehaviour:
   rarity: 0
   salvageMultiplier: 1
   graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: -4457341715214470239
+      m_high: -5652043250664925013
   isCustomScenePrefab: 0
   additionalSprites: []
 --- !u!114 &-3983342061720393849

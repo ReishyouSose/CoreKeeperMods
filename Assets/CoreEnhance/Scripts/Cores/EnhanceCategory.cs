@@ -9,7 +9,6 @@
         BossScan,
         _Accelerate,
         Merchant,//商人刷新 done
-        Titan,//泰坦冷却 done
         Plant,
         Crafting,//所有等待型制作 done
         Casting,//读条物品 done

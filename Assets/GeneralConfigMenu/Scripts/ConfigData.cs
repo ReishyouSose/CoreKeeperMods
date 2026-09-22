@@ -1,7 +1,7 @@
 ﻿using CoreLib.Data.Configuration;
 using System.Collections.Generic;
 
-namespace Assets.GeneralConfigMenu.Scripts
+namespace Assets.GeneralConfigMenu.Scripts.DataStruct
 {
     public class ConfigData
     {

@@ -33,7 +33,6 @@ namespace Assets.CoreEnhance.Scripts.Cores
                 switch (index)
                 {
                     case EnhanceCategory.Boulder:
-                    case EnhanceCategory.Titan:
                     case EnhanceCategory.Plant:
                     case EnhanceCategory.Crafting:
                     case EnhanceCategory.FishingNetNoCritter:
@@ -68,7 +67,6 @@ namespace Assets.CoreEnhance.Scripts.Cores
             TryAddValue(EnhanceCategory.Arena, 1000, new AcceptableValueRange<int>(100, 9999));
             TryAddValue(EnhanceCategory.BossScan, true);
             TryAddValue(EnhanceCategory.Merchant, 0, new AcceptableValueRange<int>(0, 3500));
-            TryAddValue(EnhanceCategory.Titan, 5, new AcceptableValueRange<int>(5, 300));
             TryAddValue(EnhanceCategory.Crafting, true, null, "Animals");
             TryAddValue(EnhanceCategory.Crafting, true, null, "FishingNet");
             TryAddValue(EnhanceCategory.FishingNetCanGetItem, 0.4f, new AcceptableValueRange<float>(0, 0.5f));

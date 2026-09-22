@@ -72,6 +72,14 @@ MonoBehaviour:
   salvageMultiplier: 1
   graphicalPrefab: {fileID: 3119720859391394627, guid: 744da422912bb7043a7c83994e2ca440,
     type: 3}
+  graphicalRef:
+    m_address:
+      m_low: -4268163538052451031
+      m_high: 5338788132415146603
+  authoringRef:
+    m_address:
+      m_low: 6328814971039603508
+      m_high: -2571282225548182632
   isCustomScenePrefab: 0
   additionalSprites: []
 --- !u!114 &6011620158509016713
@@ -86,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellValue: 99
+  sellValue: 100
   buyValueMultiplier: 1
   icon: {fileID: 21300000, guid: c4a5032b4034fb741bff8406e9abbbc0, type: 3}
   iconOffset: {x: 0, y: 0}

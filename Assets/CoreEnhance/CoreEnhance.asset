@@ -72,8 +72,6 @@ MonoBehaviour:
       guid: 8a058387ff0ef5745b31bc2f98b5d58b
     - path: Scripts/Scripts/Patchs/PetUIPatch.cs
       guid: 465f6f7ab2527df4fb07f5fc463b0390
-    - path: Scripts/Scripts/Patchs/BossCheckPatch.cs
-      guid: 8504d1659690a334e8b7709bb4d507eb
     - path: Scripts/Scripts/Items/DataModify.cs
       guid: 00f5c3ec37d6ec549910d66c11d151f2
     - path: Scripts/Scripts/Items/BoulderDemolishAuthoring.cs
@@ -162,13 +160,13 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/GhostComponentSerializerCollection.cs
       guid: 
-    - path: Bundles/CoreEnhance_Windows.assetbundle
-      guid: 
-    - path: Bundles/CoreEnhance_Windows.assetbundle.manifest
-      guid: 
     - path: Bundles/CoreEnhance_Linux.assetbundle
       guid: 
     - path: Bundles/CoreEnhance_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/CoreEnhance_Windows.assetbundle
+      guid: 
+    - path: Bundles/CoreEnhance_Windows.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -178,13 +176,23 @@ MonoBehaviour:
   modPath: Assets\CoreEnhance
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets:
+  - path: Assets/CoreEnhance/CoreEnhance.asset
+    hash: 2BE0075ED96D34B15E29AA6FE2A99823D05D5E612712B3F1959A17200DBA38A0
+  - path: Assets/CoreEnhance/CoreEnhance_modio.asset
+    hash: 5E3EA1340FE761CB0ACB9088ECD31B4856278B0BCA024EE0A9DDFBA09156A100
   - path: Assets/CoreEnhance/CoreEnhance_Steam.asset
     hash: A1BB53A2B9616567DC3C3D902DDD69451192854D8E89B260F7AA517C28D4E72F
   - path: Assets/CoreEnhance/Data/CoreEnhance.asset
     hash: 8866C233B6259FD1C414A5441FDDAB547CB67742592E4E5C71E5C4167D76039D
+  - path: Assets/CoreEnhance/Data/EntityAuthoringDataBlock/CoreEnhance_BoulderDemolish.asset
+    hash: 542F645E18CEB084F2FE6348E4592910B0EF6DF7E131EB11E115770B82D40CB2
+  - path: Assets/CoreEnhance/Data/EntityAuthoringDataBlock/CoreEnhance_HoloWorm.asset
+    hash: 8489AB92DA83442D40B59F3296FC64F98D0316A2108B79FF9E9A35D6A1398FC8
+  - path: Assets/CoreEnhance/Data/GraphicalObjectDataBlock/CoreEnhance_BoulderDemolish.asset
+    hash: 60F2099B65086B6F2438E6143456C6069CCCD5A5DDE9E2E2BDA63F1E8BEA3CBE
   - path: Assets/CoreEnhance/Data/SpriteAsset/BoulderDemolish.asset
     hash: C9AF5DBC899997AEFB34B9D4AC3EE26303A9939B21CBE94D4DFF0C9852DF324A
   - path: Assets/CoreEnhance/Data/TextDataBlock/ControlMapper/CoreEnhance_ClearDropItem.asset
@@ -318,9 +326,9 @@ MonoBehaviour:
   - path: Assets/CoreEnhance/Data/TextDataBlock/Items/CoreEnhance_HoloWorm.asset
     hash: 0DE8DFFF9D324A312EF437054A79AC94F065F2F9C6CCD345A12FB8102EE99A1E
   - path: Assets/CoreEnhance/Prefabs/Items/BoulderDemolishItem.prefab
-    hash: 3B5C622C17D959BF391424676A32AF5FBAA82C23C6C23A082313B94DBFF849E1
+    hash: 24D02A9F5EAC19103B248A2ED68B5DAF509871EA260736C53D97E1877DF0F486
   - path: Assets/CoreEnhance/Prefabs/Items/HoloWorm.prefab
-    hash: 0F4A36DFFA801F42C61D17903204B539D6E361145DA2328387AC42F31BB0696B
+    hash: 19766B4E4AF81A735242BFE2FB624CCF33041E337E00C75263471C976FAED5A7
   - path: Assets/CoreEnhance/Prefabs/Tiles/BoulderDemolishTile.prefab
     hash: 63FC5212E1D0CB4B45A5D3BAC9DD810173EC77D8731BE66783D0BFE86C2E1BBF
   - path: Assets/CoreEnhance/Shaders/IconClipShader.shader

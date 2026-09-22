@@ -26,13 +26,13 @@ MonoBehaviour:
       guid: 03834c43abda84c4b8336e91f5dd7d98
     - path: Scripts/AllSkills.cs
       guid: 012f0c81e66c5a548aa4bf3b115863db
-    - path: Bundles/AllSkills_Windows.assetbundle
-      guid: 
-    - path: Bundles/AllSkills_Windows.assetbundle.manifest
-      guid: 
     - path: Bundles/AllSkills_Linux.assetbundle
       guid: 
     - path: Bundles/AllSkills_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/AllSkills_Windows.assetbundle
+      guid: 
+    - path: Bundles/AllSkills_Windows.assetbundle.manifest
       guid: 
     dependencies: []
   modPath: Assets\AllSkills
@@ -41,6 +41,10 @@ MonoBehaviour:
   cacheBundles: 0
   buildLinux: 1
   assets:
+  - path: Assets/AllSkills/AllSkills.asset
+    hash: 351E3A6273A53C916F349E7549C26920FA42786872BD033C00831921E2595E31
+  - path: Assets/AllSkills/AllSkills_modio.asset
+    hash: 771D8BAB0588FBAD46F3EAA59BB1121738FFBD8439DCCCEFD8E242FF6E866847
   - path: Assets/AllSkills/AllSkills_Steam.asset
-    hash: 158103C90EE77D4768D41A168E8EE0A8EDE2C61991514F5A49113EF4CF672345
+    hash: 5B29CE41C4B65A76F6371036C491546B288E6D9A87C7513783F5709044DBE5B8
   lastBuildLinux: 1

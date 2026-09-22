@@ -16,4 +16,8 @@ MonoBehaviour:
   modOwner: 76561198353976809
   modName: AllSkills
   selectedPath: D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\AllSkills
-  tags: []
+  tags:
+  - Quality of Life
+  - Server
+  - Client
+  - Script

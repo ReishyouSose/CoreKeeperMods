@@ -6,6 +6,7 @@ namespace Assets.CoreEnhance.Scripts.Systems.Accelerate
 {
     [UpdateBefore(typeof(AddSkillValueSystem))]
     [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
     public partial class AccelerateLevelSystem : PugSimulationSystemBase
     {
         protected override void OnUpdate()

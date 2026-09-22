@@ -24,7 +24,6 @@ namespace Assets.CoreEnhance.Scripts.Systems
             var ecb = CreateCommandBuffer();
             var utick = (uint)tickRate;
             Accelerate_Merchant();
-            Accelerate_SoulOrb(ecb, utick);
             Accelerate_Casting(utick);
             Accelerate_Portal(ecb);
             base.OnUpdate();
@@ -72,34 +71,6 @@ namespace Assets.CoreEnhance.Scripts.Systems
                     .WithAll<StateInfoCD>()
                     .WithBurst()
                     .Schedule();
-            }
-        }
-        private void Accelerate_SoulOrb(EntityCommandBuffer ecb, uint tickRate)
-        {
-            if (!EnhanceConfig.TryGetValue(EnhanceCategory.Titan, out ConfigEntry<int> value))
-                return;
-            int maxTime = value.Value;
-            var current = GetServerTick();
-            bool any = false;
-            JobHandle job = Entities.ForEach((Entity e, ref DestroyTimerCD destroy) =>
-            {
-                ref var timer = ref destroy.timer;
-                if (timer.GetRemainingSeconds(current, tickRate) > maxTime)
-                {
-                    timer.SetTargetTicks(maxTime, tickRate);
-                    ecb.AddComponent<ProcessedTagCD>(e);
-                    any = true;
-                }
-            })
-                .WithName("Accelerate_SoulOrb")
-                .WithAll<SoulOrbCD>()
-                .WithNone<ProcessedTagCD>()
-                .WithBurst()
-                .ScheduleParallel(Dependency);
-            job.Complete();
-            if (any)
-            {
-                BossCheckPatch.ShouldCheckImmdiately = true;
             }
         }
         private void Accelerate_Casting(uint tickRate)
