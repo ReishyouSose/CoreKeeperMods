@@ -64,6 +64,7 @@ MonoBehaviour:
       value: 0
     deathSfx:
       value: 0
+    soundsToPlay: []
   particleOptions:
     particlesToSpawn: []
     particleSpawnLocations: []
@@ -124,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7438040638154169263}
   - component: {fileID: 42323989956761190}
+  - component: {fileID: 2500421633436689140}
   m_Layer: 22
   m_Name: Shadow
   m_TagString: ExcludeFromSpriteAutoSort
@@ -158,8 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 1908045241, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_asset: {fileID: 11400000, guid: 89c0502a3bb5b1945828a87b844ea0d8, type: 2}
-  skin: {fileID: 0}
   m_assetRef:
     m_address:
       m_low: -5330964203901539130
@@ -172,9 +172,18 @@ MonoBehaviour:
   emissiveColor: {r: 1, g: 1, b: 1, a: 1}
   flashColor: {r: 0, g: 0, b: 0, a: 0}
   outlineColor: {r: 1, g: 1, b: 1, a: 0}
-  primaryGradientMap: {fileID: 0}
-  secondaryGradientMap: {fileID: 0}
-  tertiaryGradientMap: {fileID: 0}
+  primaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
+  secondaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
+  tertiaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
   primaryGradientMapRef:
     m_address:
       m_low: 0
@@ -199,6 +208,20 @@ MonoBehaviour:
   syncSprite: 0
   maskChannel: 0
   maskInteraction: 0
+--- !u!114 &2500421633436689140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833241594562338499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444a65c77aab47d40b26141aeb042d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialName: UGC SpriteObject Shadow
+  useModApi: 1
 --- !u!1 &8942517057872382957
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1789159104064915144}
   - component: {fileID: 2745405836123208753}
+  - component: {fileID: 6355119978680245631}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -274,8 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 1908045241, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_asset: {fileID: 11400000, guid: 89c0502a3bb5b1945828a87b844ea0d8, type: 2}
-  skin: {fileID: 0}
   m_assetRef:
     m_address:
       m_low: -5330964203901539130
@@ -288,9 +310,18 @@ MonoBehaviour:
   emissiveColor: {r: 1, g: 1, b: 1, a: 1}
   flashColor: {r: 0, g: 0, b: 0, a: 0}
   outlineColor: {r: 0, g: 0, b: 0, a: 0}
-  primaryGradientMap: {fileID: 0}
-  secondaryGradientMap: {fileID: 0}
-  tertiaryGradientMap: {fileID: 0}
+  primaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
+  secondaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
+  tertiaryGradientMap:
+    m_address:
+      m_low: 0
+      m_high: 0
   primaryGradientMapRef:
     m_address:
       m_low: 0
@@ -303,7 +334,7 @@ MonoBehaviour:
     m_address:
       m_low: 0
       m_high: 0
-  material: {fileID: 2100000, guid: 571bf3c761ee86c4f9d8e65be27151be, type: 2}
+  material: {fileID: 2100000, guid: 6c211da8d67997143ab2f48e28ced047, type: 2}
   m_startAnimationHash: 0
   m_startVariantHash: 0
   animationTimescale: 1
@@ -315,3 +346,17 @@ MonoBehaviour:
   syncSprite: 0
   maskChannel: 0
   maskInteraction: 0
+--- !u!114 &6355119978680245631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192588405306917276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444a65c77aab47d40b26141aeb042d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialName: UGC SpriteObject Lit
+  useModApi: 1

@@ -152,13 +152,13 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/GhostComponentSerializerCollection.cs
       guid: 
-    - path: Bundles/BuildingBlueprint_Windows.assetbundle
-      guid: 
-    - path: Bundles/BuildingBlueprint_Windows.assetbundle.manifest
-      guid: 
     - path: Bundles/BuildingBlueprint_Linux.assetbundle
       guid: 
     - path: Bundles/BuildingBlueprint_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -166,11 +166,15 @@ MonoBehaviour:
   modPath: Assets\BuildingBlueprint
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets:
   - path: Assets/BuildingBlueprint/BlueprintUI.prefab
-    hash: D82B38A9978E69EF2A77993DA57E54A29B9D5C8757D09BCF96ED5AEB787DC982
+    hash: 1870796E75CCDE1633CDC5F287FBC64AD63A7C6DAD0E3CE3CBE37C154B353896
+  - path: Assets/BuildingBlueprint/BuildingBlueprint.asset
+    hash: D89184E84CA198372D2286EBFED750F27092EFA6F753D18C12ECA1BFF24BBBFC
+  - path: Assets/BuildingBlueprint/BuildingBlueprint_modio.asset
+    hash: 6860FEDD618D02A2CB54276E8D1A8816F82CB50E4FAAC075E0FF20924395993A
   - path: Assets/BuildingBlueprint/BuildingBlueprint_Steam.asset
     hash: 4EBBA474B1A32EB6701DBE393A362AC634C0628F276F298FB0E9BA6E83C99BE2
   - path: Assets/BuildingBlueprint/Data/BuildingBlueprint.asset

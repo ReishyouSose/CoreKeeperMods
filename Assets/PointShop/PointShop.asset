@@ -76,7 +76,7 @@ MonoBehaviour:
   modPath: Assets\PointShop
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets:
   - path: Assets/PointShop/Currency.prefab

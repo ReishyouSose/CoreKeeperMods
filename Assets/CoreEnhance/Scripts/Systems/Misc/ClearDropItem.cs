@@ -4,7 +4,6 @@ using Unity.NetCode;
 
 namespace Assets.CoreEnhance.Scripts.Systems.Misc
 {
-    [GhostComponent]
     public struct ClearAllDropItemCD : IComponentData { }
 
     public struct ClearDropItemRPC : IRpcCommand { }
@@ -65,7 +64,7 @@ namespace Assets.CoreEnhance.Scripts.Systems.Misc
         }
     }
 
-    [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation)]
+    [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]
     [UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
     [UpdateAfter(typeof(PickUpItemSystem))]
     [UpdateBefore(typeof(EndPredictedSimulationSystemGroup))]
