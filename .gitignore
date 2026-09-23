@@ -76,3 +76,4 @@ crashlytics-build.properties
 
 # Jetbrains
 .idea/
+/Assets/Examples
