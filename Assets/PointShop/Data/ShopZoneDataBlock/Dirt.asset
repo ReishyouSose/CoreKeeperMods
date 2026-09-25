@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1108f85387ce3394a9c72c3096f34d85, type: 3}
+  m_Name: Dirt
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -1606495587247395419
+    m_high: -7424071435837098517
+  m_dynamicCollections:
+    m_list: []
+  Boss: 3020
+  EnvironmentChest: 210
+  BossChest: 0
+  Icon: {fileID: 21300000, guid: 7fc1a9aae85aeb74e83c37de597f94a2, type: 2}
+  references:
+    version: 2
+    RefIds: []

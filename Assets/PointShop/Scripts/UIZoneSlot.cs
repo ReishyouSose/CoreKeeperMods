@@ -7,11 +7,9 @@ namespace Assets.PointShop.Scripts
     public class UIZoneSlot : ButtonUIElement
     {
         private static readonly WaitForSeconds time = new(0.1f);
-        [HideInInspector]
-        public Zone Zone;
 
         [HideInInspector]
-        public ObjectID Boss;
+        public ShopZoneDataBlock Zone;
 
         [HideInInspector]
         public Transform Page;
@@ -28,13 +26,13 @@ namespace Assets.PointShop.Scripts
         {
             return new()
             {
-                text = $"ItemCategory/Environment_{Zone}Biome",
+                text = $"ItemCategory/Environment_{Zone.name}Biome",
                 color = Color.white,
             };
         }
         public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced)
         {
-            if (Zone != Zone.None)
+            if (Zone.name != "None")
             {
                 return new List<TextAndFormatFields>()
                 {
@@ -45,7 +43,7 @@ namespace Assets.PointShop.Scripts
                     },
                     new()
                     {
-                        text = "Names/" + (Boss == ObjectID.BossLarva ? "LarvaBoss" : Boss),
+                        text = "Names/" + (Zone.Boss == ObjectID.BossLarva ? "LarvaBoss" : Zone.Boss),
                         color = Color.cyan,
                     }
                 };

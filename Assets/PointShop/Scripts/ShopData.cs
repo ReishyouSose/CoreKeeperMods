@@ -5,6 +5,7 @@ namespace Assets.PointShop.Scripts
 {
     public struct ShopData
     {
+        public Zone Zone;
         public ObjectID Boss;
         public List<ShopItem> Items;
     }
@@ -44,7 +45,7 @@ namespace Assets.PointShop.Scripts
         {
             Item = new()
             {
-                objectID = API.Authoring.GetObjectID(id),
+                //objectID = API.Authoring.GetObjectID(id),
                 amount = 1,
             };
             Price = price;

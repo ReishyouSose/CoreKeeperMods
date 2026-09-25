@@ -501,7 +501,7 @@ namespace Assets.PointShop.Scripts
                 new(ObjectID.AlienTechHelm, 7, chest),
                 new(ObjectID.AlienTechBreastArmor, 7, chest),
                 new(ObjectID.AlienTechPantsArmor, 7, chest),
-                new(new ObjectData(){ objectID= API.Authoring.GetObjectID("CoreEnhance_BoulderDemolish"),amount = 3 }, 70),
+                //new(new ObjectData(){ objectID= API.Authoring.GetObjectID("CoreEnhance_BoulderDemolish"),amount = 3 }, 70),
                 new("MilitaryTranceiver", 4, bossChest)
             };
         }

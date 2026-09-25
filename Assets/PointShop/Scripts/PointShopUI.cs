@@ -1,10 +1,10 @@
 ﻿using CoreLib.Submodule.UserInterface.Interface;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.PointShop.Scripts
 {
-    [RequireComponent(typeof(ShopInfo))]
+    [RequireComponent(typeof(ShopManager))]
     [RequireComponent(typeof(UIScrollWindow))]
     public class PointShopUI : UIelement, IModUI, IScrollable
     {
@@ -21,31 +21,27 @@ namespace Assets.PointShop.Scripts
         public Transform PageContainer;
         public PugText Header;
         public PugText PointValue;
-
+        private ShopManager manager;
         private UIZoneSlot current;
-        private ShopInfo info;
         private GridLayoutUIComponent layout;
         private UIScrollWindow scroll;
         private void Awake()
         {
             Ins = this;
-            info = GetComponent<ShopInfo>();
+            manager = GetComponent<ShopManager>();
             scroll = GetComponent<UIScrollWindow>();
             ZoneTemplate.gameObject.SetActive(false);
             ShopSlotTemplate.gameObject.SetActive(false);
             EmptryPage.gameObject.SetActive(false);
-            info.Init();
-            int max = (int)Zone.MAX;
             var page = ZonePanel.scrollingContent.GetChild(0);
-            for (int i = 0; i < max; i++)
+            manager.Awake();
+            foreach (var zone in manager.ZoneSort)
             {
-                Zone zone = (Zone)i;
                 UIZoneSlot slot = Instantiate(ZoneTemplate, page);
                 slot.Zone = zone;
-                slot.Boss = info.GetBoss(zone);
-                slot.Icon.sprite = SelectZoneIcon(zone);
+                slot.Icon.sprite = zone.Icon;
                 slot.gameObject.SetActive(true);
-                slot.Page = RegisterShop(zone);
+                slot.Page = RegisterShop(zone, manager.GetShopItems(zone));
             }
             ZonePanel.gameObject.SetActive(true);
             HideUI();
@@ -68,23 +64,20 @@ namespace Assets.PointShop.Scripts
                 OnClickZoneSlot(layout.transform.GetChild(0).GetComponent<UIZoneSlot>());
             }
         }
-        private Transform RegisterShop(Zone zone)
+        private Transform RegisterShop(ShopZoneDataBlock zone, List<ShopItemDataBlock> items)
         {
             var page = Instantiate(EmptryPage, PageContainer);
             page.gameObject.SetActive(false);
             var contents = page.GetChild(0);
-            var items = info.GetShop(zone);
-            items = items.OrderBy(x => PugDatabase.GetObjectInfo(x.Item.objectID).rarity).ThenBy(x => x.Item.objectID).ToList();
-            var boss = info.GetBoss(zone);
+            //items = items.OrderBy(x => PugDatabase.GetObjectInfo(x.Item.objectID).rarity).ThenBy(x => x.Item.objectID).ToList();
+            var boss = zone.Boss;
+            var zoneID = zone.ZoneID;
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
-                if (item.Item.objectID == ObjectID.None)
-                    continue;
                 UIShopSlot slot = Instantiate(ShopSlotTemplate, contents);
-                slot.Zone = zone;
-                slot.Boss = boss;
-                slot.SetItem(item.Item, item.Price, item.Currency);
+                slot.SetLimit(zoneID, boss);
+                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, PointShop.Coin);
                 slot.gameObject.SetActive(true);
             }
             return page;
@@ -103,37 +96,13 @@ namespace Assets.PointShop.Scripts
             scroll.scrollingContent = page;
             layout = page.GetComponentInChildren<GridLayoutUIComponent>();
             layout.RenderUIComponent(true);
-            Header.Render($"ItemCategory/Environment_{slot.Zone}Biome", false, true);
+            Header.Render($"ItemCategory/Environment_{slot.Zone.name}Biome", false, true);
             AudioManager.Sfx(SfxTableID.inventorySFXCreativeModeCategory, Manager.main.player.transform.position);
             scroll.ResetScroll();
         }
         private void Update()
         {
             PointValue.Render(Manager.main.player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin).ToString(), false, true);
-        }
-        private static Sprite SelectZoneIcon(Zone zone)
-        {
-            ObjectID id = zone switch
-            {
-                Zone.Dirt => ObjectID.WallDirtBlock,
-                Zone.Clay => ObjectID.WallClayBlock,
-                Zone.LarvaHive => ObjectID.WallHiveBlock,
-                Zone.Stone => ObjectID.WallStoneBlock,
-                Zone.Nature => ObjectID.WallGrassBlock,
-                Zone.Mold => ObjectID.WallMoldBlock,
-                Zone.Sea => ObjectID.WallLimestoneBlock,
-                Zone.City => ObjectID.WallCityBlock,
-                Zone.Desert => ObjectID.WallDesertBlock,
-                Zone.Lava => ObjectID.WallLavaBlock,
-                Zone.Crystal => ObjectID.WallCrystalBlock,
-                Zone.Oasis => ObjectID.WallOasisBlock,
-                Zone.Alien => ObjectID.WallAlienBlock,
-                Zone.Passage => ObjectID.WallPassageBlock,
-                Zone.Excavation => ObjectID.WallExcavationBlock,
-                _ => ObjectID.WallObsidianBlock,
-            };
-            ObjectInfo info = PugDatabase.GetObjectInfo(id);
-            return info.smallIcon;
         }
 
         public void UpdateContainingElements(float _)

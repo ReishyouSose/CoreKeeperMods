@@ -22,6 +22,8 @@ MonoBehaviour:
     disableHarmonyPatching: 0
     requiredOn: 3
     files:
+    - path: Scripts/Scripts/ZoneDataBlock.cs
+      guid: 1108f85387ce3394a9c72c3096f34d85
     - path: Scripts/Scripts/Zone.cs
       guid: 4003bdc4263dd8e47925a71183d9e63c
     - path: Scripts/Scripts/UIZoneSlot.cs
@@ -36,6 +38,14 @@ MonoBehaviour:
       guid: 86846664b9d06c54e97d8a98b55b33e2
     - path: Scripts/Scripts/ShopSwitch.cs
       guid: 6da20bba8e53ae3419b744adfa5fb2b9
+    - path: Scripts/Scripts/ShopManager.cs
+      guid: 15e7c57d068a5274b927ec91c11da920
+    - path: Scripts/Scripts/ShopItemLevelDataBlock.cs
+      guid: c94a634cc1cf1e140b6d17e1b9ec04e1
+    - path: Scripts/Scripts/ShopItemDataBlock.cs
+      guid: e26f87d0ed301554fbef331ee17af09c
+    - path: Scripts/Scripts/ShopItemCategory.cs
+      guid: 86a13da682341fe408bf8cfbbd6c94d0
     - path: Scripts/Scripts/ShopInfo.cs
       guid: 52a28ad13b7665e47bdbbb1c3a9f4273
     - path: Scripts/Scripts/ShopData.cs
@@ -48,8 +58,8 @@ MonoBehaviour:
       guid: 713140ae1f3da6c41b1fc31b7a98c5f7
     - path: Scripts/Scripts/DropPointSystem.cs
       guid: 535262b2d6cf2404d9fc27ee427dc786
-    - path: Scripts/Scripts/AoaNoneObjectInfoRepair.cs
-      guid: ab6d32279cefc22478c5b03e880d8c9b
+    - path: Scripts/Scripts/CurrencyType.cs
+      guid: a78f53962cc8b7644b593153c3dd858b
     - path: Scripts/PointShop.cs
       guid: 17b9590c60c6ffb44bfd9ffcc35425ae
     - path: Scripts/Generated/DropPointSystem__System_15061729080.g.cs
@@ -62,13 +72,13 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/Assets.PointShop.Scripts_PointShopRPCCommandSerializer.cs
       guid: 
-    - path: Bundles/PointShop_Linux.assetbundle
-      guid: 
-    - path: Bundles/PointShop_Linux.assetbundle.manifest
-      guid: 
     - path: Bundles/PointShop_Windows.assetbundle
       guid: 
     - path: Bundles/PointShop_Windows.assetbundle.manifest
+      guid: 
+    - path: Bundles/PointShop_Linux.assetbundle
+      guid: 
+    - path: Bundles/PointShop_Linux.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -76,13 +86,875 @@ MonoBehaviour:
   modPath: Assets\PointShop
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 1
+  cacheBundles: 0
   buildLinux: 1
   assets:
   - path: Assets/PointShop/Currency.prefab
-    hash: CC6D55994389AE11B33B49ECDD989AE2E7EA3A87828EE053E92CD61D89720009
+    hash: 0A3D833E9EC2214F1362F785E1C69C3EB5A3FD16AD1E1999783E841D33CA77E2
+  - path: Assets/PointShop/Data/EntityAuthoringDataBlock/PointShop_Currency.asset
+    hash: DE75F01699D8D37DAA0C20A0B66D850B0FB61C8B2DA721E5424EA80ACADC098D
   - path: Assets/PointShop/Data/PointShop.asset
     hash: A3AFE1B12465EB8CB988A7F2D46F7AD731E3CB566D72205B836993B05DBE2538
+  - path: Assets/PointShop/Data/ShopItemCategoryDataBlock/Decorate.asset
+    hash: AF81DC53C953808492BA7C40B14D8606D65A041CB36435A2CC98649306407EED
+  - path: Assets/PointShop/Data/ShopItemCategoryDataBlock/Loot.asset
+    hash: 48BAD41D095EC4B1C64F140083CBD1C56EFCF163943770089660D932D83C53D2
+  - path: Assets/PointShop/Data/ShopItemCategoryDataBlock/Material.asset
+    hash: 9B00A4B435581A0A611D328C552C352041EC31041A17CBC62D2FB340FB1E091D
+  - path: Assets/PointShop/Data/ShopItemCategoryDataBlock/Trophy.asset
+    hash: 888B6384EF442A29A45DE74F718C92676735C082A2F99ADCA152C3B07E2C3B43
+  - path: Assets/PointShop/Data/ShopItemCategoryDataBlock/Valuable.asset
+    hash: 813189C1B4421FD5732CA82A0F65FC54E01CEFEAD8B61267A1D0ACE8265F3DF4
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFPipeClub.asset
+    hash: 203C66A6A14400BBDB82A05550E7581B91AA85F87994CFA0A84C911548421E4D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFPortal.asset
+    hash: 92ED266D5755BD8BEE37E1FD5794E8A82698757583DD4314A8BEFF246FC2DB33
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFQuillRifle.asset
+    hash: A9E82C08C622907F4C8A5E5441CA8F3C1B2476EAB5F51879970206F84F6E5528
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFScienceBreastArmor.asset
+    hash: 17A03282666D382DC787F10DF73623EF9B210DAA85D08824CD4FCC8B2744B35F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFScienceHelm.asset
+    hash: B9FFF90DBD7FE2DEEF633834786675D3DE1E766E479069A556BFB3BB61E625B8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFSciencePantsArmor.asset
+    hash: 6D2CEED8D475A6657801851DA07B5E4EB84F658C6B18264BA3B912C7B0D7013D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFVendingMachine.asset
+    hash: 49AD6C1C3762ECCB2CDBCD16094B8A9113CE5D7010F51F80AE91CFEC247CDE6B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFWaterCooler.asset
+    hash: 22F7DC4CE3DE49A30FE746E67E129640407A4EADE4581CF1915F7CE35E1070DC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFWhiteBoard.asset
+    hash: F89FEE95360065B00A15180DABC867BD2B27861D9D7773E8D09A8BA610853147
+  - path: Assets/PointShop/Data/ShopItemDataBlock/AbioticFactor/AFWoodenDestructible.asset
+    hash: D87DF7038D8E02EE9E195F1B158A5BF0A811F665CDDD3816969B6C037D14B7F4
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienChest.asset
+    hash: 31735EDBAF78B84743DC0482A18D5F5A6CF038294114B1607CD2A6001E6D491C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienFloorVent.asset
+    hash: EDD6124B79C194E05D7BA64C9113C24EFCB9D39A4A81131A9FD54275D0888937
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienTechBreastArmor.asset
+    hash: 526731AA88E46702F407A0A69B90EFA9DFC8A08C7B1763EA2124974A9B0D6901
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienTechDestructible.asset
+    hash: 5689A8987F411EB1D1D3006119074879AFBDEEB3F66AFCC7FE693540B2DB4D57
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienTechHelm.asset
+    hash: D20078702662207E0718DCFF1DD50E19B2152C113B88506B97FAEFF3854943CB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/AlienTechPantsArmor.asset
+    hash: 0A95112DC9303BCD106C4FEE12486A174F8D95D7BDB3C973B1070ADAD8B9E65B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/CoreCommanderChest.asset
+    hash: 52F915DBC7F62694AAB4A5BE9974E0F6A6BBDCCA6C43672B05F7358809648413
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/CoreEnhance_BoulderDemolish.asset
+    hash: 8A69C66D518527D2F50ECA6DDC84079CB007004B8ABE9F103D6159A2339EC875
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/CrystalNecklace.asset
+    hash: 7684A4035EE830C396B27DE4F49BB3DA481EB6537F8A1D54FDA313DD649C23E9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/CrystalRing.asset
+    hash: 7A59FA88D25F17F49E5CBA824DB05D12934ADE45CA70E38936209B28ADABD463
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/DesertGemstone.asset
+    hash: F7901FF935F10950B136C0154F236FB3A02B1CA4040317B0539362C6610787CB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/EnemySpawnerPlatform.asset
+    hash: AC3F43FBE42ACD38B1BFA9C48B79DBF9461682EBED43EECB8455636331D7B81D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/GroundAlienBlock.asset
+    hash: 7C326B55B03CAB1C6565937F71034CB4633CDF46EB04F7D3099F8D90534953D0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/LaserDrillTool.asset
+    hash: F3FFE34C00E96D136E57A87ACD91AE2999A6C559F8A8E0E9898A681C1E913CFE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/MilitaryTranceiver.asset
+    hash: 57D6F167DB39FF516E513F0251DCFF39BAA747E8CD52AFE0353CDB593B0DEF14
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/NatureGemstone.asset
+    hash: 7DF8450084F11AF65D461A0AAF76DD5F67B1508C29D52CD2E7DE614D9AF4FE1A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/PottedAlienFlower.asset
+    hash: 1B4A79D443D697FE85DE27B2C92E4E14FC1DB900137DC46C660E0D9668D46C9D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/SeaGemstone.asset
+    hash: 2EE72E3A4D221804654EE97E923BED3D3CED8A3C69F7F889995A26FB09489187
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Alien/Stalagmite.asset
+    hash: 59C22F623A4C83A527180E5FD5ACC5737A2DF09CDDE5568CBCC915A2C53A1560
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/BuccaneerBreastArmor.asset
+    hash: 7E800EE7408F44CDDBC404251FDA12BB306F018EB3834F13C0C5F65291B409EB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/BuccaneerHelm.asset
+    hash: 12EDCB62C956C8056E8C49BF08A29641961392E505231BF3AB8CAE7E814F7928
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/BuccaneerPantsArmor.asset
+    hash: F72E363392422F962840B18C496608DFC9CB03693DFB84ABB3CD44A04C80B646
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/CavelingID.asset
+    hash: F62A69775B548596F7AEFC6614D5A0E1757D6DAA093AC4F223961C49902DFBDB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/CityDestructible.asset
+    hash: F294E3DA38FEAD0FF0250453C248F9168A78D531CD78A39B704BC8523C0216EA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/CrystalLamp.asset
+    hash: B4149BB7CC3C7B7A2B16EB89709443777927B4513DD5FE22280BF9C6795507A8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/GolemShield.asset
+    hash: 7096995C17A8758385C4DCBFF31DFC5A22D2845AA3CDF130A516578F2DD7F46A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/LegendaryBowParchment.asset
+    hash: F636C6471059E1664898D9B7FA284B83CC6B84BD51BA3AEE79ED806162348209
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/LegendaryBowPart1.asset
+    hash: 4D039CD1ED9849EAF1BAD3F1BBA7399264DF9617848EF7D55D56871C540C6D71
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/LegendaryBowPart2.asset
+    hash: 15BA9E4010DF8680EC94CA60CCC88A7B1986F77C1A54C411AE004A159948A166
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/LegendaryBowPart3.asset
+    hash: 17973B7E4B64BE19DC5E1167D6260383F791B4976480B87EC575D4E0381CCADD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/MetropolisVinyl.asset
+    hash: 6FBE598D5BD2BE78C935BA393A6B0CD6B590D217ED9552BD3D88F7810BFEBB43
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/MorphaChest.asset
+    hash: 4F31289476FC72AAF07C749CA627577D064E66A5C496918E48F43D6FA4F24F1B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/PlanterBox.asset
+    hash: 41A8BE4C22DCAE5D7059CEE69AEB8CF4C785895A136E54E960074D92BF2DA730
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsFireplace.asset
+    hash: E27F7C92BC6D6D6AC193A71943064E379D37FC61D198E7ADD30A01786FA5288E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsPedestal.asset
+    hash: 59E1D0A8E06597DE61CBE6B6C70A5E8E60054721D6E4E9539AE155BA1188BF85
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsShelfLarge.asset
+    hash: AD54B89DAD698B39DD62E5867DBD7EB795D7F08AC74275E1D387C0A8E784F860
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsShelfSmall.asset
+    hash: 2882C3CDDD9A934B09AE5EC84FBE4A925232DA167D64BFC9E4387420FE02D1E6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsStool.asset
+    hash: 494FEFE7F9A904B4A7FEAE152E6ECDA2024E004BAB6F1DEF2CA5EBF1C0F80F48
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsTable.asset
+    hash: AD56C67AE0D8A7BC0E556717AC7AC5EA5A57D9348F500F158A0375117AEA3AD6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/RuinsTableSmall.asset
+    hash: 82C9D8E82B539714A24B2E1C85AF9CC019429761204FD848D57394350748BF6C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/Stalagmite.asset
+    hash: E72A8876B1E68B48342AC95320A5C0E9FA58612A765C40BC72FCBFD2778B1AC3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/City/VendingMachine.asset
+    hash: CDE4526F49090E7C3118E721001AB084A1DEA15B62250A346ADEE11CA8008E55
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/AmmoniteNecklace.asset
+    hash: CDF7BF3F24145182F2F9F8AD5960E662A6BEE997AD86E2C280F4266156ACE20D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ChieftainBreastArmor.asset
+    hash: AACA967B5F87EB6B47A6E98CBB53D556B16EA0CB584FCE723AC0786E7FCCC19A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ChieftainHelm.asset
+    hash: 86322659F8BB60D51B88488503733C548F5B0AAC23155BB853803FB6FD9E122A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ChieftainPantsArmor.asset
+    hash: 1EE6EAA5246165CDA039BA912CE41B6109CB81EF6A671AE831832D917B0BAE5A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ClayPot.asset
+    hash: AFCFFE43EA180C5D56537A4202823DA7A18048794C2C29285CC0B0A69E0E09E0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ClayWormTrophy.asset
+    hash: EAE50CFE05F2C87116DB7B4FB73E7182126AD4A6196CB565AAE2DBD45B6A066D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/ColossCicada.asset
+    hash: E17EC785C8078A4CAE425AC535B856FA0AE652B174F0E506FB0BFA90DB6C0A5F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/CookingPotBreastArmor.asset
+    hash: A8CB50A3EC53FE69EAE1BEB80519D7503EF1EA9C2A785261DC50F0BA5D6D72B0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/CookingPotHelm.asset
+    hash: 911ED59C116852D2016D17E6C0F6AAE587A84D4289077A430837F3AEFFA8A111
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/DiverNecklace.asset
+    hash: 6FF294DB266B7B8D7AB469C48344D7058698BEAAA150AB7839C7BC800D775056
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/GhormChest.asset
+    hash: 9D6C817233EFE0E6C72A8E4B44C33BB1A76E8B5E04C05B06C2E9430D5F5B2BEC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/Kiln1.asset
+    hash: 78534F4440ABE5DA63DD2A9945F16D0326764804D6AB262746FF135854024A1A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/Kiln2.asset
+    hash: F6E6F81E5954DE822BC1CE48B1051DEDAAF4F4F630F182CCE7608BBCDA6C4739
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/PotBreastArmor.asset
+    hash: 0B3B9600D538ED429CC3D61029DC7013AB8B81899C4356D635C4FA02BEF993E6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/PotHelm.asset
+    hash: D5EF696AE61FB2FC161BFDAE5B3978AC358BFFC183282D0D9EC3F30DB38BFC1B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/PottedFlowerTree.asset
+    hash: 8D1369C95A3BD55035097BD9368579260E4F95B5AEB21106488B847BDAD39A22
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/TinOreBoulder.asset
+    hash: FA09BE72195709E0AEE7152D542FD91B89BBC1047645E5001BB1BAD1FFF297C6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Clay/TinSledge.asset
+    hash: 2718991EF435ED6615E1A2BA8D6323E3F6035CB3B167AF77F2C74294C9BCF644
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/AgarthaReport.asset
+    hash: D2B45BE27121E0B31ECE26D8B2B24DB1D58BC531D3A9C44F5DEA202DE58DD794
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ArcaneMonkBreastArmor.asset
+    hash: B7368E27C697092E9EC10772576EF27DC0EA37D63BB8BDE9C6F69104ABE1F8D9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ArcaneMonkHelm.asset
+    hash: 2C36457E26872E7D1AC93952B721A5C6EEF3788C64D3CF5189A6F5B620BE2932
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ArcaneMonkPantsArmor.asset
+    hash: 10DF0369A60F941060F9B07876578925009B9C03DE01829E9474498DB8F4CB3C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ArcaneSeerBreastArmor.asset
+    hash: 0132E1E8805241961501AA5D7D625F7535CF90BD9DE6F1895A02C7D1F83E76F9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ArcaneSeerHelm.asset
+    hash: 064A1BE50831CEC903071242A510382DE0D0D3CC6B483F935773F1B8A7CB8AB5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/AtlantianWormChest.asset
+    hash: 444A1372BACB2B9568C0F610EC2B21E228B7A6ECB881D2685B7D8C5371AB5B42
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/CrystalCicada.asset
+    hash: 4DB4C0173A466EB8D7E49515462DB14D4D6323F3BD2539160F301F37DD2BED7D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/CrystalDestructible.asset
+    hash: C8F771F07A4626483DB8A82F2FA6DB59FC7D0A10CE5E91FB258468F5B48F2A7D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/CrystalTent.asset
+    hash: EDE2C3CFC7D204B2257E046AD25C980A8520B15C28C57E1AAECC08435610342E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/HydraBossDesertChest.asset
+    hash: 00B725233486BB03673A21341CF8EED35C2723456E857116564F3A5754E479C6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/HydraBossNatureChest.asset
+    hash: 35D799BBC3E4AF294EEDD05DDEE43A05D87F879A19E35D435EEA3FFF765F69A5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/HydraBossSeaChest.asset
+    hash: 22F728E42EBEA6E1A66A3B5C82669D71451CD7FB236B46ED630EADE0912217A4
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/LaserDrillTool.asset
+    hash: 5C6F54AD1A32AC52CF52BC8923302D46304947A199AEA05954D4A384FDA4F640
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/LockedSolariteChest.asset
+    hash: E2E1D0A3B506ECA1882D5E2670B2FDF98303FD8743D4CC4DD33EF2C7A1932071
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/LucentOakTree.asset
+    hash: FDDCE8C13C06D2CF08E01D84143354B4305470A9C69B742AB737B6EDD06CB89A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/NinjaBreastArmor.asset
+    hash: 6CAFBCE4C5E7D38ABE433DF34FB496D6790053F9510F7BD04580A3BECF69A940
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/NinjaHelm.asset
+    hash: 0F0E4BC3D35D41FFEFEB9AD2BEF33B98668B4C876B72C0B76624B75EDEB3FD96
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/NinjaPantsArmor.asset
+    hash: 3236DF32B07334B5F13B11BE8B9D2B1C6AD735A14385F8CE568C53BB12D4AE37
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/PottedLucentTree.asset
+    hash: 821D25FCC9C090FB3029BE5FD93D0C325F39BE5EE598319219CC47B9CE104F76
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/RadiationCrystal.asset
+    hash: 09B2DFA800544008B54623BA4DF53183216E9A472F4F47DCD78A89F009AB5178
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/ScholarBag.asset
+    hash: 2B54F7DDADCA94DE198A073338BB2CEFDADE520724C283ACFDCB69B25E4D979A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/SmallCrystalGrass.asset
+    hash: 8556811DC6370016844F07EFE4D8ED94FD11F9E3F6819B85E27F07E4A1E493B9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/SolariteOreBoulder.asset
+    hash: CE12B0554A785A556A37E24D389DD711DE5DA547A8A8A2C8EA79252A642F88A8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/SoulNecklace.asset
+    hash: 9B45D061DF5DC11EE9302DB5097D845B08DBB66429839145778A3C556A861200
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/Stalagmite.asset
+    hash: CC48E60907314A4AB3AE46A1DCA814FE9F7126E43EE500D2F30A6F5AA7F118FD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/TallCrystalGrass.asset
+    hash: 605E497706713EB387F9CBBE9D3DA86EDAFEDE0FF999BCEC897BEBC7288EB5E5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/TomeOfRadiation.asset
+    hash: 6AEA95D8B0CF475DA2661DA60062DFE1AB52788330611DFA8D9E773DB4B15E2F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Crystal/TowerShellNecklace.asset
+    hash: 2CAAE29F1C6FB96516862010BD88021126BBC2D106622AECC515008F0D9E8846
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/AncientSpear.asset
+    hash: 9C5DC1411C866A022A3A4CB5EFEF8A0A2543557F0B900C3E7542D9403AA78D72
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/BandanaHelm.asset
+    hash: A6F8B34CD7365B17A5976961B0EAEB51A7472B0F737DFD4633509CEC5F36B3F7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/BindingString.asset
+    hash: 469F9493A72B8AB64D880AB9636074A267788A4FA3BC0F3C3928589898FDA23E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/CavelingMummyTrophy.asset
+    hash: 3803ADFB2C819F4EC91CB82C21C171EB3DA7D0F9A48E1842CBA820ED5D568E85
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/CavelingProphetMask.asset
+    hash: F091926807C5EEF5EB39A2109B1F5648E8BCE2869DAC0668DC16631EF197F151
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/ConceiledBlade.asset
+    hash: D8AE53CEBBA0F5607246EC71B91A7FD2D93772247A06766E654B9CC10384E5A3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/CrystalMeteorShard.asset
+    hash: 4F907733E781E2A4E06C4DC7CBA6D8AB294A74FD4065DEF53F44002BAA2F7D88
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/DesertDestructible.asset
+    hash: D759E06FC2447906E2B1820A6C9C3DAD4C5AF35717078048C3EDAF47F0475E21
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/DesertRock1.asset
+    hash: E2A60BDBA0174822BAC9DF926D3FD5D68FBB9A36997A66CD7BEF57541070BD42
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/DesertRockSmall.asset
+    hash: FCCCADB116F22703E18ADB71406DF25B548E784FDE68196DA0C5436D6992F712
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/DesertTempleDestructible.asset
+    hash: 04C1F27F7BFDE3F27D19DC234420D735864A1ACD534B7C722CD3A205230F6727
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/DesertVinyl.asset
+    hash: DD87CFCE0485CE89393DABBC6E75A2FC5C50F728329364550240E32891E0A8F1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/FrozenFlame.asset
+    hash: 57537694C36EEDD633453F85C1789AA9227C539E6ED0FE6013E4EEEC268BE412
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GalaxiteOreBoulder.asset
+    hash: 5B60FA936616D2F31FE67E9A5CBBE16B58492AC2E66561E08082BB58445F7FDC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GalaxiteSledge.asset
+    hash: 8C412574B346D1B7D4D62C2E00315EE169460C7E59E101744959265B95FD9F1F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GodsentBreastArmor.asset
+    hash: BD9198DF188448D3FD6CB31ED6761A1A5535746D30AC4BC34DB83CD544D83FAE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GodsentHelm.asset
+    hash: A3F75F558D45DDF86D22D04C7F06A535B93F0804C9E68F286D5FC1CFD227319D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GodsentPantsArmor.asset
+    hash: DB26CDF5AFF48DCFDCF8AC61D55716EF248605F41ECD0CE505CA6C060025A5A0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/GreenDesertDestructible.asset
+    hash: 850B2FE0BFA27079A098BB33F749D61B237DD9AD88E9D85ABFBA20089F90E908
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/InventoryDesertBiomeChest.asset
+    hash: 706036DD878B049913297075CD102F5D1244BE3FF610E3AD7C44BCDB17EE9378
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/LockedGalaxiteChest.asset
+    hash: A905EE4783BADEF5C71D33AA5B483755EC088615F743D2A838538EC1036F3489
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/PlumeTree.asset
+    hash: 8DC3777D4DEACFD24C61D27FF2649CD65AD1827DE27E1E52CDBF263B00C7C08D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/PottedPlumeTree.asset
+    hash: A5915F4A41F5F7DA1227705513D1B0E6A00636B85B12796611F582BAC1976E1B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/PuppetRing.asset
+    hash: 30EB0A48A4A9487A3E9E4FB1D23C4B463FBEBF0472E2DF3F1D1D8D09F8969E3F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/ScarfHelm.asset
+    hash: 1C5D6AB68D8ACC369F27A8488B8D7629BCE83B2AD5AD7B90548ECC021B74CD23
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/SleepyBreastArmor.asset
+    hash: 48BBCBD0FB7B5810D2FDD50177060E98290EC0F864A8B766EBBCB7D22AA27D82
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/SleepyHelm.asset
+    hash: CFDF2F4E2256F108950F3A0DACDC8414424C9A40B036417C53EC222D2F709492
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/SleepyPantsArmor.asset
+    hash: B489B127997DAE84F015715D094CCDBAF48D97173F0359F10ACCC8630EF6382B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/Stalagmite.asset
+    hash: 9A9EA7179189158E80F2FD5C8E3AB3A3D3B70CE4E69242D067587E03F6B9591D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/TemplePedestal.asset
+    hash: 4A70948A9C77309BA7554117FDE31F9D0415E8BBC5865192679CBE30B9099542
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/TemplePillar.asset
+    hash: A24F17AC6AFD04FAFF6EFB3624EF9574177D8678F01938D2E1E467E8A36E8A0B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/TempleThrone.asset
+    hash: FAC5E054E6E152929ADCC5050D18BFAAD8BAC56209D5D875306262E7BEB9880A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/Thumper.asset
+    hash: 082F529A8FB99BFE467E570ABA1CE4C166C72AD29E5B5D4D6E1E691DF3373567
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/UnlockedKingChest.asset
+    hash: 4FB18AD31254396449E2E045FD816CFAC5822691E77DDAF8D5107DA981C1C9D9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/UnlockedPrinceChest.asset
+    hash: 5B3C78F1608E4391E7A4E41025C9849AD5E7EFE78E9FA1F32B5D95EB83474A90
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/UnlockedQueenChest.asset
+    hash: 1E7B2420B3DA9E03967A61796BFC3CF8AE8711C0CBB3F52B6EB4B33EC1717662
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Desert/WhiteWhistle.asset
+    hash: 7ABE948EC858D854CD27E8AB3AC5512B4C7F51C54D41BF9FB755C823DB825B78
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/ApprenticeBreastArmor.asset
+    hash: FEF0E4B58F2704818F6C1101809D761D120FD1AB9F7428FB0E4BBF06DFAD5A4F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/ApprenticeHelm.asset
+    hash: 071FADDBF06527FC766A2D432BA98F6CB6EC09705A0FAB24840462B0519DC6C0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/ApprenticePantsArmor.asset
+    hash: ABC660AA4CCBE51D000C0E9CB15A86FD6F0BC799D4E4F97DA9F6ED0062476211
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/CaveBag.asset
+    hash: 1596F6500F8D63587E5A8859FFB42D2C642F790223FABC0E9B56FCA23D04FD1E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/CopperOreBoulder.asset
+    hash: 19CCD910C02880BB93BB68009DE289A7F76F23764E77954BEA203A6957EBDCEA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/CopperSledge.asset
+    hash: B9174FD6319D4B6EDD349C92AFD0344C41CBDEA3A6F95F78306A7027783D7F15
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/DiverPantsArmor.asset
+    hash: 884C9892F070267EDC54B9FD76506377D8E1A2D7A5DC97A0D5AFABEEF7A7C02A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/DrillTool.asset
+    hash: ABD7629AF4AAFDEA8098F65BAD18BF809DA4A15C87878F6165C8C7F76B3FABE3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/ExplorerHelm.asset
+    hash: 9D911FB2E3C1E77701DA5B3BDFAE2E5110F2A0AFD2C382E04A988B4AF6C85900
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/FlintlockMusket.asset
+    hash: 6AE1CE1E50F4C53825B6D4AFAC19EF7E6387B91AFD2F3023339F91E63135D014
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/GiantMushroom2.asset
+    hash: EA79AE5A78E36B61686B1102F56D909B1B7625204C5DC4E38F3C699FBA6CAA4E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/GlurchChest.asset
+    hash: E31217E214A48D948BDD98A0404B0957ED0320383240628F5C4EC72D78B72F7A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/HeartBerryNecklace.asset
+    hash: 7C6FF8243785BFD159F848A17A86AFEE8B98967C4E7CDBA6EF1F08572595D154
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/KingSlimeSummoningItem.asset
+    hash: AA434B64A2D8933DE9786C2DB8E4FFCB2CA9A56BA4796F2C350CBC429071EC93
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/LockedCopperChest.asset
+    hash: 9401DCD23DBAA84E1CC2580773B0B657C5CD34D160AA52319E612F440AB85584
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/MeadowTree.asset
+    hash: 31021E04DB562040904A83BFBFE551A96C945ABB25565F4917A9015D2A4CEF4E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/Ocarina.asset
+    hash: 843A45DC351F1439AE018500588E5522AA48C90F0F88A992F2122719FE1FD449
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/ParsecPalsDolls.asset
+    hash: 370CF7B24E91CFD027A52A3AA32BAEBF4981ABEC2E2C5E7EEFAED7397DFCE871
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/PottedGoldenOrbBush.asset
+    hash: 5B8F2ABAC786FA9441BD1A65A3CFF3F2E277B768C505717EABEDA88235249A17
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RangerBreastArmor.asset
+    hash: 4D535DCB7BB13C03C7A751647635A288CCB24E4F10E9B575AFCAE6043A2D9DBF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RangerHelm.asset
+    hash: B08281682926D848D428E98913A154B7BC564BDE177D0AC878E3C5E689DF67AE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RangerPantsArmor.asset
+    hash: 7524B41A42182FFFC3136D0C095BB813C940094ED4788762F4606BC0260DF6A2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RingOfStone.asset
+    hash: CF4DAE253AA1AC5507BE5F98E0070F24DD9B7628088B2D3BE572CE9E86A0D79D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RuinsPiece1.asset
+    hash: 136EB1046E6BAE1F32E23269E3F44858A860A56184200C2C7531D572C3560D51
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RuinsPiece2.asset
+    hash: D0F672899D5A01666B22B7CA2B01B30C08F3D5E14875B8D31E8791A8B203E155
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RuinsPiece3.asset
+    hash: DB260FD463F215C2D3F4EF8229125A26724ACD1CBCDC51059757D3E47CF857D5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/RuinsPiece4.asset
+    hash: F554E2C416155B3C0B4C795C62328D1FE9B44168D52477F06405B1D92D7733AF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/Stalagmite.asset
+    hash: 53C78191BB6779B1F8BCC72287B3C8AD7530117D468FA1FC8F1E034FA8C05446
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/SwiftFeather.asset
+    hash: 0F6B0A8500231910B4C21BE4EB0249094A69C90F86DABCE5D2FD73F128EDC9B3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/WitchDoctorBreastArmor.asset
+    hash: 219F7FC4B0BF447CCAAE218624327583882779AE25F44FCBE0086BA3BC978550
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/WitchDoctorHelm.asset
+    hash: 769A2EAAF564AD7A5440500CFD27E15E66486BC466A10F8F9ED297E0777DEFFC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/WitchDoctorPantsArmor.asset
+    hash: A273EA9D0C46BA99D934675E49F8DF95C149276D24497B6F93610D1BC403183D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Dirt/WoodenDestructible.asset
+    hash: 56E02A7C42C02E88B0A4820263E991DC5AC9DD7CED58711DE06A2138F5D9423E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/AdvancedExtractionLog.asset
+    hash: 5DD4DCA6050993F419A896AF79F084BF73964CBC1E1AE7D69BECAAA843EF066E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/BlackMikoBreastArmor.asset
+    hash: BA03979304665F7BCEF8BE80929B8BFFC1FAA56C07FFAAF92DB75ACB308CA900
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/BlackMikoHelm.asset
+    hash: A81E5D424E9F34A1E7A7205B61160CFFB6569E27E76FB5896300B4E2A66016B5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/BlackMikoPantsArmor.asset
+    hash: 3BD65595853C244FC124E098D14319A0B31BB56CB1DEF6280EA034A9F7BB0F8E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/CorruptedAlloy.asset
+    hash: EFF58DF7CF3AA93CDB6E7F89AB050E72E3C94DAE15141AA2B2123983809951EB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/ExcavationDestructibleReinforcedBox.asset
+    hash: 05249BA65B33787E77B1B7F8E321AC70A16BB3D4A64FB5C6D4BE91DFB7727466
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/ExcavationDestructibleSteelBox.asset
+    hash: 9BBB7FB0A33B768D6271DE70103E368A2C8FA5C725DF4941AF8D919FB30C1CFA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/InventoryExcavationBiomeChest.asset
+    hash: B5848B513BF2FDC641E3222FDD9C887283F3FE0FB86A78BA938A6AA2453FF73B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/LegendaryMortarPart1.asset
+    hash: 91F6B44DC8FF815C3DB06CE5BDCA7A96C2DB411F8E7B5B2E8E8DDAE59A910002
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/LegendaryMortarPart2.asset
+    hash: 6F646212BDCFD4CFFF31F0AB5F0534B57910A5537C596EA6067E3AA4054B229C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/LockedReluciteChest.asset
+    hash: 0C5D87322F06E50B956CA16B8AEF868D2E656106D8E96ACDE4A42CF2D425E006
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/MetalBarrel.asset
+    hash: 85280B84E0848A4A97C06584A52C29BC6589BFC18A87FAF53009A4738DF3DAEF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/MetalBarricade.asset
+    hash: B2E7B69DFD451F8F7B4A9F71B5050CE566E4853812F1DF4BF105B3262279C5E4
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/MetalPallet.asset
+    hash: 6A774CAA6D08D76C2EC7A2E383983C2924957B006F1F42F14E1AC16D7CD47559
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/ReluciteOreBoulder.asset
+    hash: 3B0384D2978C397DC3F6DB4FEC465A2AE143BF25D7A0298BFD7CBB401C968105
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/RobotBossChest.asset
+    hash: 190E2E3C8CC062ADA4A44404A028295D126F337888B801B060C176F99F4C765A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/WallGauge.asset
+    hash: E21D6462191BDDFB8576B5E14D7889957D4509D861498936EE321456CBD0EFB1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/WallMetalSheet.asset
+    hash: 46B3EC2D798BBBD839EB05EC4D6F60C43EDCB6DAF555BAE6C9E6E6C9E0A39B3E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Excavation/WallThermostat.asset
+    hash: 4E179B1F4754FAA546390EC856349BC15E1E1C2BCC349EE71A53F1F07A9DCC9D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/AcidLarvaTrophy.asset
+    hash: C65DA116E9142A6FB0508FB8333C25614FDDC1FCD9BDA982659718822B247B90
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/AmberLarva2.asset
+    hash: E1C261FDB4ADD6B44A3C088B4832470A0A84AF8ECDF3004C2BA37C4879AACC54
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/HivemotherChest.asset
+    hash: 4B18BDA14B186CCD05AFE4032E68A6B70229BF800A4E1B6F82ECCBA4A532C334
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/HiveSpikeTrap.asset
+    hash: 517EC84B49B1C68C7E6E9B26B88885AF5495C6B371EA2DCA9F8BB936097F6CC5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/InventoryLarvaHiveChest.asset
+    hash: 9ACFE92AEEC554D7C9FB84E5F9497ADBEBEBC0BE7B5CB2B6305CB5D439B60609
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/Lantern.asset
+    hash: 8E40C2644CF5B5049471C0120D1446AF87481DD88E78FFE329CEA477A733A8DE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/LarvaBreastArmor.asset
+    hash: D4898CCB4C7505E7AA42D6E10C814E87A75032E091439AF2007B7A1837BC5E44
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/LarvaHelm.asset
+    hash: 9ACE2668C5A4D8862606E3FD1C306465A539D86522A178963777192FE20AAA79
+  - path: Assets/PointShop/Data/ShopItemDataBlock/LarvaHive/TomeOfMining.asset
+    hash: 6EC57F9FDAEF60B2C331403C978AA7D830DE9765BCBE0D766C7A6D67CAB07404
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/BlackNecklace.asset
+    hash: 8F0384A99487F462CF3C454B31C7FEFA9063387A9A034830E86AC0D562BE95E1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/BlackRing.asset
+    hash: ED7B8E615FF9FB96D84A9BA9C727BDDDEE67EA326617D4511BDB6953CFEA5E11
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/FlameNecklace.asset
+    hash: 486AD4B7341B1817323E428CE230F67D9629AE4B10A8FF705B5A8E74FE102E38
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/FlameRing.asset
+    hash: 2A66F3D642F8B0CE165042E9A87750773CB82797948F5296A6A015D2DC0E54A1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/GrimBreastArmor.asset
+    hash: 97600953C951141337176633F135C775F7DAE9D31485F6988ED8A9D9EEDE48B7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/GrimHelm.asset
+    hash: 510DA3DF8C3ED3E945628CA717A818168D25E0931B67CF71CC5A44D7E1FADC68
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/GrimPantsArmor.asset
+    hash: 6940EF301EAE921383408FF0D645252E5A8788DAE0613EED24ECC3EF02A20305
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/InventoryLavaChest.asset
+    hash: 5D23779651F6E62013631708E11E44B55CAA5A8FABEE8188C1A0715D3778B838
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LargeOreAndBlockPouch.asset
+    hash: EB56FF091390C535E935400FF453926BC830D7342468B019256FDECBF28FF584
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LavaMortar.asset
+    hash: 36AC4218C332CF99A4F217435B7C7590EF90C565BB3403EA800B6E5F9540E3AA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LavaSlimeBossChest.asset
+    hash: 3314380CB19EEF69C174D9E7477D41CCFD3DDC6286133AD8A70288FB10E01AFE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LavaVinyl.asset
+    hash: 914D5C739A8C1FE664A2BE2E592E93E1DDAD2BEAE3BFF63936C0A880983D4656
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LavaWoodenDestructible.asset
+    hash: AE73F46238585BCF40014EC84D3CCDBC6449C7A0B22E310B474E095B2770A7DC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LegendaryMiningPickParchment.asset
+    hash: 3C951DB0C3D919241798477A84916B28F6996EADBC16E268345D291332C93036
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/LiquidMetal.asset
+    hash: 6F8F48DCA210657A5492858D43385E358C22BDE22678700CE58B6A04AE1F17A7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/MetalGrateBridge.asset
+    hash: CC896C907165F484D6E9B00CC2E4CA60667382C62862012792E5F27C9A5C6003
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/MinerBreastArmor.asset
+    hash: A514D8EBB7A53318F9E8CFFDA2E97D57F1325E048FC7E9C09D1CC977F7C49340
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/MinerHelm.asset
+    hash: 967549754446E7B3F61A949947CF0A3412F5D03AB91D36180A7FDA7347CCFD41
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/MinerPantsArmor.asset
+    hash: 8CC4BEA8ACDD714275747E962A840A14C0B38E18B76F353E727A36CFE11D6AA2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/ObsidianGreatsword.asset
+    hash: FF3672A7A41F002D2D794D77494209D14ED74104DCCEAD8F299B58C6ADA8AF94
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/PottedMagmaTulip.asset
+    hash: 4E72A5B7B3F2500A1FD8DB96178368E86CBB1C8B74625E1CC5B2A578F4BFAB75
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/ScourgerBreastArmor.asset
+    hash: 23A98880D06675867F9749FF8EFF508A354C6F15A27E0F49FE74FFAEAF58FA75
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/ScourgerHelm.asset
+    hash: D55DFC42E8D9FCCB0ABBFD26793E5B33BEAE446F844C49C1D9641388B338D568
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/ScourgerPantsArmor.asset
+    hash: 540D0F4A7CCD9C36F8E9457920958F91D321AED37E1FB4F3B17E84348839259D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/SmithingGlove.asset
+    hash: A00DF881B4AE0437DB0D55ACED16B22B4B2F4022B82A15D6A614384FEB766FB1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Lava/Stalagmite.asset
+    hash: 0FDD875F595167AFC248F23706BDA3B325FD6B038928ABA9964608D14A46F823
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/Blowpipe.asset
+    hash: 300589970B2E3BB1E3B5734F35B5D56798D9A6A3E3D47B2CF1F0FDD5D91B11F1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/DiverArmor.asset
+    hash: 37067A49C2951CCB2A63C90A159E9D79439A1EF8ACB861AB1E0E124D23D0447B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/InventoryMoldDungeonChest.asset
+    hash: E644116E2369D0B5E503A916DE72DD2D3B5C9D4D23E108B383D05EC597416525
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/IvyChest.asset
+    hash: 38E1D5985FF3DA953BD2F689F4434211648867E1E86664DEE639442AA4D46479
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MaidBreastArmor.asset
+    hash: B0FDA9DFE6536FDDCCF93D1E73297DCE540BAD11C202FA55033D03288A588B11
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MaidHelm.asset
+    hash: 96EF1D26554C5432128C71CA7F272A6BE887A5EE25A6F36EE593C02BC0B82007
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MaidPantsArmor.asset
+    hash: E488DB8348091858B69D4E15E62AEA458644E7CC4142593E405848C70741BE1F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MikoBreastArmor.asset
+    hash: 9CEF1E49429E4F1763CB6A0010B9C35481F32691A72408EF8C222815203071FF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MikoHelm.asset
+    hash: E8DCF0F63380A15849E6087A685DE725AD610A42D2B78E76C6EB69E64DEEA85E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MikoPantsArmor.asset
+    hash: 0ADD8AB9065D64FFEAB2136FBE7FC1E68AC0B85226089310BC19ABC7F3AFB674
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MoldCicadaWithoutSickle.asset
+    hash: DFB9661F56E8E7944ADDD27C4A66A6232886EBE1018C49E43B220C3DA221DAA8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MoldDestructible.asset
+    hash: 6EEDB2B15EDAA739CC30687990C4EF544F39F699FA837F54F2D03F80E5DF79DD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MoldTree.asset
+    hash: 95CF2DD8C16E9D688025D9BFF0D08FF66D9C18652967EA549E54A4C895DB9632
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/MoldVinyl.asset
+    hash: EF415EBBEB025F8F2459F74EADF38AF06A0A0E20E0D728212906DCCFA5CE9158
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/PottedPuffSticks.asset
+    hash: 14D486107C925C6F0A61C48E62117D9B4F18AD7F572E1FFCC753B0B01B36A70C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Mold/TomeOfMelee.asset
+    hash: AE2C8E328E5B7C7AAB1DB7267C38A0E46021763E29756E31110FA4832ACC45D3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/AncientGuardianNecklace.asset
+    hash: E5AA0B49CF871FA4F2CC27B6B8966860EBEFBB3A8BDFEF409603A7616BBA4560
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/BigJungleTree.asset
+    hash: 5081221E14310E60D977850E20F03992334836CD37F5256CABD2E72F9CEBFED2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/BirdBossChest.asset
+    hash: 2154A45197CD4C4B386A1D5D909EBE3203F00989467F1AD25E398FE95B553871
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/Bush.asset
+    hash: B604E5B7EEA7B76DB03128F0F49E52EFE4A7DF4340F9BC3CE1854745C99AADB8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/CavelingDoll.asset
+    hash: C0BC3C817B1DA3B126481E70C99CFA789582788A9DF93420A66E9C0C76C5FDEC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/CavelingMothersRing.asset
+    hash: 670A3869AD2C90A8D7925BAF0CD304C6F1CA484FB923191FFB350D3F7130738A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/DrillToolScarlet.asset
+    hash: E29A8DFD60E5CEC646C998C38B12937A49F9D5B750F1DF6A65EF699DA76AD048
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/EasterTitanChest.asset
+    hash: 06EACC67C56C3737FA6F0F9040CB0980AC3192012F11A86D0D185C79F8CECBAA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/FarmerHelm.asset
+    hash: 1AB45CC8A9AC125AB0C75EB96370C922CA0CB554A69FC3BC21A568A4F56CC0B5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/FruitBasket.asset
+    hash: B82B828B75091A787EC64DBD823FB1F2140070034C8CCD42D5128515089E0DF7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/GraveTree.asset
+    hash: B1DF2FC7F76C4E3DDCEB80C3BC2007A65DFEC77C7FDF97E306A8EFD3472DE987
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LargeSeedAndCropsPouch.asset
+    hash: 0EB7E88EC134F98A5C01C2311C5ED4028A06F658B3AFDD279E1E579FBCB12983
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LargeShinyGlimmeringObject.asset
+    hash: 09C28EC1DEF760E84E647290E49F592C859A501D2A5C5820D03E583AD0EC8182
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LargeValuablePouch.asset
+    hash: C170D1E2EA6D24140CFF9270535F28DFF3EC5B65865B1B67FE89C0A7CEFE6C66
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LegendarySwordBlade.asset
+    hash: 7A2220E0BC1916AD6131B6CF9831F06F8B14E7A2C68FF2806D5728C1E7F51A9C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LegendarySwordGemstone.asset
+    hash: 91D835CE056CDC19AC03A3A9AE52FE7A1FC837C674BF65B2A5D57A5BB8B03589
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/LockedScarletChest.asset
+    hash: 383E169C2E5A9E0D456AECB8754EF2FD3B1A2067D0764372F7B4407E7544487E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/MuseBreastArmor.asset
+    hash: 061B8FE3277BC3A19109DA9E1E79F9D8B0D516408FC6F433F08EC92DD76BC2CA
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/MuseHelm.asset
+    hash: FDEA3C07859BBA9F959A7A3B9166D6AD6277C184B1FE1F56EDF09C693DF411EF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/MusePantsArmor.asset
+    hash: 019004CCE544DD4E89B0ADD10936292C288F9D1428F845AEE2829C0D43348304
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/NatureCicadaSummoningItem.asset
+    hash: 81457A0417E51A12C2E719F93CC85D0525DEF12ECABFCBE6EBAA291E0C9E8540
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/NatureDestructible.asset
+    hash: F5F8D8315731199AF994E0AFF1B51D57C62FD10F159180506D271CFB0E46D781
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/NatureWoodenDestructible.asset
+    hash: CA82F8AFFFFEE08EB119D0ECA081946E1E94FDA7B882B44EDAC994F94CEC9ED2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/PetalRing.asset
+    hash: 7D50234CC0E6C2F9E4D7C99002B8170808ACBD4CDDDE7401774440267DCD2BBC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/PottedCherryTree.asset
+    hash: 7D302AC05255DA5BC490C830110C97BA6E6C2D30F0B529540C58DA1F83BCB522
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/PottedGlowberryTree.asset
+    hash: 22572306C5D26AA2B443914A3365CFCCBC2A07863BE65585A80C33E9AB985159
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/PottedLushBush.asset
+    hash: C666A2B80DF3EBA722794E6CDECD1E9C1E02F7A2E907390EAAFB076F2BC2D829
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/RemedaisyNecklace.asset
+    hash: 360022BCED10029417C0A04F51FC7E0AE2A40BC4067EFD0962148B5E88888F5E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/ScarletOreBoulder.asset
+    hash: A55ADB6789342A30D2F9731529B03DD564793FC84E3C15936E71BCAC8F66DBB7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/ScarletSledge.asset
+    hash: A768313A81BE300CEE2512222535F2C5C05BB3075D8C312EBEAEEDC887C38AE9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/Stalagmite.asset
+    hash: 388273023DC0DBF76180771A3C1EC92044EBD979C3F371B6A66C9D73C1F2B4F2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/TallGrass.asset
+    hash: 85C181543C1A8C6406A3B2FFC88B5A5FA7200A2A7E5BF85F6FE5C5BED591920A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/TomeOfPoison.asset
+    hash: D9C886DABD5BCCEFD05AB8ACC5DF191B1F583D0D9D75B58B78DA05D0D431E843
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WaterKelp.asset
+    hash: 97133660FFC37B9CD01F5E7F6EC8FB3B73AEC68EA17BF81944694C3E506735E6
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WaterLily.asset
+    hash: E5F12C40CFE71D6F6395EDC680D73E01F130236A0AA0EA81967424563FED2004
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WhispererBreastArmor.asset
+    hash: C3813A5FDFB3C116E412F703F731665F705D177862D9161899A4FD1E68973E9A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WhispererHelm.asset
+    hash: 1B34FCBC92305232F88217D8AC873242DA75481908C6BCD8A9687DF90997498F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WildernessVinyl.asset
+    hash: 4623C83A1CE6BAC83674B48A846E4FB0BFE6927E7942BE53AF842EEFFE51BE25
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Nature/WovenMat.asset
+    hash: 09748747D8198B92FF3C7DCB4253123853D037F9B6523CD4C480F599A7530526
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/AncientGemstone.asset
+    hash: A52F0D523D8E6BE663150B98B8D3DF63F478A49FC31393A484C4FE3D0010F619
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/MechanicalPart.asset
+    hash: 9AB94ADE019D0901A449ACE79546A66BEB65DE76EFC0418CC6A33DC503AD4F69
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetBirdEgg.asset
+    hash: 9F1A4CD928FAE3332CCAE6FA01705F5EACCB3D20638D336710614E53C6972EE8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetBunnyEgg.asset
+    hash: 4452D07796A1F7CF3C4EDC8F5B6923B26BB918925F836F39E7312ABE03D15F07
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetCandyEpic.asset
+    hash: 64F8D9A42B689E2AD0F029158A6370C546B5EA5B7C9A189E98EAE502D2379218
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetCatEgg.asset
+    hash: 38A725DBE9B2C46BFD171A6947863FE83F26F6B9F6D7BAC3DE8F7C4ACB962665
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetDogEgg.asset
+    hash: 2483D64283D0FD5C1194838D34F0F4FEF46C59989AFBCF1ED79C0EC01E348183
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetFrogEgg.asset
+    hash: 78D20C954C5F50084F0126BF9F74D88EA36DFA5DF4D3087C0A7BB8206ADEA216
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetMagicEgg.asset
+    hash: 3BAFD01874C4FB5EDBE217F339E85528495B21E1339E7190EBB72A36199BDAF9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetMeleeCatEgg.asset
+    hash: 1CAFC2635049CAD219DA517E027C13A89BB5E80ADEA24A1286D02920DABABE38
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetMothEgg.asset
+    hash: 01C3B47F7F52A00589FA0AB4B73E5B30AF33DFCF32A290F0BFBD31346A19B1C1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetTardigradeEgg.asset
+    hash: 1D3ABD586129F79E416BB0F130B1AFA438457371B24898C306679763768141FB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/PetWarlockEgg.asset
+    hash: D083962996191659764EEF21B0A67E28A6E26AF286DD0F3C70996D31BD31C5C9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/RolyPolyPlate.asset
+    hash: 9F996C76A6EE1E9720B933DD0E908BE21ED441B6DF0FF5F5CA0D890CD53970CD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/ToySoldierBreastArmor.asset
+    hash: 72219D33A1B344058D7B0F997BDBF4FBDB143E941BFD342BC707958726BCD7B0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/ToySoldierHelm.asset
+    hash: DC42C15D23F219A0E47F84807619454713C85E51C7E773BD0688720C58A753A9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/ToySoldierPantsArmor.asset
+    hash: 5D50551163ABCB0DC4E1087CAF20F7C54470A8A1B85BA5AFEC992061A6A677FE
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/WayPoint.asset
+    hash: 17C53B304155988124FA7665800DA310A3D062969B263730D219489D5F691226
+  - path: Assets/PointShop/Data/ShopItemDataBlock/None/Wool.asset
+    hash: 60915DDC99A5DBA5275BFF6405DB3536F5ED89A895D401C9642FFF6D7868EB06
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/BlastingDung.asset
+    hash: 8B6360AFD43AEB34E2565BA97F71ABF2D2B1728EA6C4C3BBD3D01C802F96AAD7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/CicadaNymphTrophy.asset
+    hash: 9949BE22F5BA21D69ECAC9137F9EBB23CC64E15AE9D3B7F8DB7F600730FE5108
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/CultistColossCicada.asset
+    hash: F656FEC88544F010133BDD5A23B0EBAEBB25B9204CA64685F86C55AB0D41BD7F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GiantCicadaChest.asset
+    hash: 8A60DDF2DD2037560C2CD3AF5CE516D054FCC9AFF438644B09E6D12048354634
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GoldenBombScarabTrophy.asset
+    hash: 103DC5E2502091AA5A91F9111E344C74E868FB869E1B21B93B9BB55FC8D0299A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GrimyStoneBookshelf.asset
+    hash: DBD1D9E89D7C35B7C92F33930F430263E1152D435EB1DC92AF696BB83F2EFB35
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GrimyStoneBookshelfLarge.asset
+    hash: AF732C2E8A6D70D5DDC933809B133534DB03E46442AB13A7A2409545BE0C42C1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GrimyStoneFloor.asset
+    hash: C01958BAB17A4B9E32B6E4A32F534290AF3267C7C7946FE69D006ED3A3773AE3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/GrimyStoneTable.asset
+    hash: 645F99CF693704160CB9719367B47D6B650692EAF6F7D033DC08B90FD486803F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/OasisStalagmite.asset
+    hash: F87380338E839B41D88BDA7692120147EFFEE27972C45AC6A389C20731DE7D6A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/OasisSucculent.asset
+    hash: 0851E897C9B96151F8DB05C4861789545D9BAC1948D84FFCF64042B554D4471F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/OasisSucculentLarge.asset
+    hash: CF7251C0A18D84B4BA426EF3080435415A8879201C29B42430A8EAEF249B12B0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/PassageChest.asset
+    hash: C8FE587869ABCDB65028FD2D2E4AFCC699A0EEB3D026B6FC5348E7886EE215A4
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/StoneLantern.asset
+    hash: DBD02EFEB6509D05863DA69CCEC1D40F45B03A22508695F3166E15C2AC85B3B3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Oasis/WaterReed.asset
+    hash: 2A92D5286C38C3F6C77AA3A4606FD9A065E0E4AC1655DDFEF49220E2C81326F2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/ChronolithBeacon.asset
+    hash: 13B527B80B6FE23E801E89685563D3BFBF537566F5F976BB32BFB80C447110EF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/PandoriumOreBoulder.asset
+    hash: AECC751A0F1053A77948B3077E5E239042E870346F4278E108B1256657417863
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/PassageCraftingStatue.asset
+    hash: 677DC5E01729E3EDF068CB0E5B12BF5EA17A570EEA886AB061A492844CA61F4C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/PassageDestructible.asset
+    hash: FCEB3AC17FEBC1CC4DA39BE42DCACBB17756EA7B0707DBD77697A7211999F7EF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/Stalagmite.asset
+    hash: F91A8D5DCF30D56CE7576D4F07C6EC3751386F21C3AFD57F89AECFE915C1E3B8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Passage/SulfurTree.asset
+    hash: 08CDB281ED1276A7F09388864C384250694D179A5E5A2889106341FD3F516BF9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/AnchorAxe.asset
+    hash: 0692AC48B6D379A019A917650A85D0CA6B72E280B325D5644916B22FEC81BE7A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BaitOctopusBoss.asset
+    hash: CD059556F5F6BAD7E31239F87D8830E5619E30A2AE85964201A374B0C184D46D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniBreastArmorBlue.asset
+    hash: CBB2126415B3C259534116CC358034AD815F85971674358C38F67C5C41BC629D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniBreastArmorGreen.asset
+    hash: 23F46A183A57DA54D6A5F89F96E6AE20273DB5000D8C97C5A12D671A05B9D2C7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniBreastArmorRed.asset
+    hash: 86BABA0EF6451F5BB9DFF79B6CC0DE7D46C3ED40372316FC8BFCD1179D7CB32A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniPantsArmorBlue.asset
+    hash: 0E04DF5251BB6BD09FAA20BD6691F9266A7039AD2BAEDBDEC5F3A9E76768DA1F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniPantsArmorGreen.asset
+    hash: D107D340033D5DE14D42AFCF50676A919499A0332729A162BBE5C7E75B87C87F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/BikiniPantsArmorRed.asset
+    hash: DB737B49391DFD8FE7795FB775949D313E73B1E93F7BA83FA08312EE0D28040B
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/ConchShellNecklace.asset
+    hash: 06C219C45BBDEE9934CEA5948620C3BE56E76FA09ABA32D43C7A0DF36BBB6C23
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/DiverHelm.asset
+    hash: 5C5BEFD7D8823E65ECB0B2E59B49BB219C69229A44556CEB76676492569C3F11
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/DriftwoodStool.asset
+    hash: A43372E69D6CEC9FB4BC373CA66CBC1E75863A6A135DAE49FC655AA11D5876DD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/DriftwoodTable.asset
+    hash: D2E64B638CE75D455C3D7D2002F57B216934F5E83EA0DE4B4FA761AB5B81CE77
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/FishingNetRack.asset
+    hash: AB46170C9B19417265FF2E82B2A15B349AC3DCAADCBCCEABA10D29F193090DE8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/InventorySeaBiomeChest.asset
+    hash: 620B2F5300AD83EC513BCE3DE57953E701933CB3D26EE1A2F4DC67E1B64F9ED3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/JellyfishDestructable.asset
+    hash: 75F79B903917EDEA32144E5C33CF5DE15D5BAF7C6D7213822618A75BE53DAD65
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/LandKelp.asset
+    hash: 89C392807758E1189C09CF2D49EFDB917CAF2910D47407C2EA248D8719F33653
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/LargeFishPouch.asset
+    hash: 89D1450BEE6F5DAA69453A9153A5074A70A12DE0E9CCD6E924C9C666C40C8711
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/LockedOctarineChest.asset
+    hash: 75C353E1197942CDE27382D486291E999C31DF77EE8068EE3400BC7C393A37F7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/OceanHeartNecklace.asset
+    hash: 3048EEF83F4C769EFF85B9DE1D83CC4C65D424870B343FA1A2B182BA8AE34156
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/OctarineOreBoulder.asset
+    hash: C6B8FE58F4CD22D2768C82CFB19DBB31D0CBEFF8C8EEF132A9B3C453AD2BE5DB
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/OctarineSledge.asset
+    hash: 81760605C8BA45EF4BC73FF88F95162F1D6911CCB801AF4AC18F422B3DEAE518
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/OmorothBossChest.asset
+    hash: 4A2274069F9909A8CE128191839EDAA080C1F12BD5204E55F22D77987392C202
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/PottedLandKelp.asset
+    hash: 08ECDC44865F7461A92FE28D1171957AD014BF48148644844850A9E3BF21B3A0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/RustedNecklace.asset
+    hash: 21020A49C161AF1E62D08FEACEE2FF5501BBE73962A9BCAFF1F2E81353B44517
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/ScholarArmor.asset
+    hash: 0CE5E2F188F1F515D7944B0CA67EF98256E4AB9F1B7BA3635C44F1B2ADE459B7
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/ScholarHelm.asset
+    hash: 6FBE8C4D2475CA85821A0E3751EDF6B662429CCB05805E94DF3FAA4F1EECF48E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SeaVinyl.asset
+    hash: 0BD6E4DA05BE574F687445D70AAD87E398A7A9B5575A3B2B4858FAE9F7928EB1
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SeaWoodenDestructible.asset
+    hash: BFD93FB4DF4FAB0943F15EEF713EE144D8F9148BB73E24413B912B9146C66137
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SorcererBreastArmor.asset
+    hash: 22398820221F7DC2905569668A9ECB5E6BD3A5FD98DB9CCA354160AF5668EF3A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SorcererHelm.asset
+    hash: B252ED708B89D952A49FCB31344ACDA14F567EE971D54C6550CE34FBCE47DC83
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SorcererPantsArmor.asset
+    hash: C58E15368F64675351034BFEA4A8E90248C14B96FE2EBCC501EA1F84053FDA06
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SpineRing.asset
+    hash: 0C68540CF83E81D8146142F9A664D0D2246448A66D815726A1484194C51114C5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SunglassesHelm.asset
+    hash: 79990342FF41F5240BEEFD4160F2FF860CFAE6B8954BDAC388C801F1EB18BA71
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SwimingPantsArmorBlue.asset
+    hash: A60FCE35B8F793E14709548F9777C225105D703A694EB5B83202E10962C451C5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SwimingPantsArmorGreen.asset
+    hash: 69BAD514CC0A32F4A7C3AD139270DF76CFCD775AA3122F158507EC09D3F48198
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/SwimingPantsArmorRed.asset
+    hash: 191AF401E28FEEC016223677E7AEAE5CE3290BC0A2A4ED6AC00380293718DD11
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/TallLandKelp.asset
+    hash: 4A9225C8AD253E0F859F3940C474537BFFE212786E2C58DD8061B4109407DD94
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/TomeOfOrbit.asset
+    hash: 104B46FFC38B7D30B598E82FFC979C8CA67465581125ACB474843D9FE166C208
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/TopazRing.asset
+    hash: 190A6566E624FCE80380BAEFCAEDD7FA13CA1993B3AE694014292E1B5F9B3A41
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/TowelBreastArmor.asset
+    hash: 31FB77479C155F0C937ABF9145F4E4B1CF4BE34FB114A1D44AD8A20F69377837
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Sea/TurtleShell.asset
+    hash: 6FBFB153BD4F9726688286FB1217B62EEB3826726493838E0CD5A38AB998DC32
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/AncientDestructible.asset
+    hash: CC7B76F08029B155FD42BB87A1DE9EC89945A4728B0FB276D1E390C9F6119436
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/ArcaneStaff.asset
+    hash: 1A521699B503D8EE40E6492320788EE9A1A0D29EAB5223A3B80F33E5110EBB16
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/BlastBreastArmor.asset
+    hash: 8A62EB46FC15F03417BDED28EE7C268A180E67ED3DC52405FA8CF246241AD5D9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/BlastHelm.asset
+    hash: 9258B3E2F184DE64AF720FB4FC5EE9946EDB7996CA26CC01A89BE3081F27FC67
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/BlastPantsArmor.asset
+    hash: B5C815940FE728B7A72143B3036781EA233AEA0645BC04E31580CAAD30FFD2E0
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingBreastArmor.asset
+    hash: FA448436C96422D67F08E8558065E18EC1542356099B17D9FFD4A86A6D5F21FD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingChair.asset
+    hash: FD833E6A5A42E6ACF9EB8E596C55F28774D5761CCDB60E3E8E4CD14AC4973C8C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingFloorTile.asset
+    hash: 0BEA10B330B88022C04F40C6425B0B418DF8462EFA1BB38F0F1F9F568F2F2664
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingFloorTileDark.asset
+    hash: 7CC321E52C657AFD2D8C2B205B2835284ED76922EBDA5631D2FAD6292D1CB87D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingHelm.asset
+    hash: 906C65EDA6F0EE611E7DE4C516F8CF4BF434F8774D018CBC82A468E79F21AA33
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingPantsArmor.asset
+    hash: AFEE487853E8FB1CA83A3169AB951CB05C164AA752B256CF06F1F1CC3ED6C85C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingTable.asset
+    hash: E56B7114D900B1E10D1D805DA3A795B5DC5C151E1EC7D12D67ECF1A3FE043FAD
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingThrone.asset
+    hash: A08987F7B36535C4CCC1F439589D442D4595F19464EC81109CB1D0492D63B5A5
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/CavelingToilet.asset
+    hash: 9E820965BEC96B5103490E3EFE5DD683418789D957C2943A71D36F275BCEBB2E
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/ContributorItemDaresielSword.asset
+    hash: B1223BB3A2EE66C35CD7AA0E1E26829D70B702EBA788598A1916B97CDE962B95
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/DiverRing.asset
+    hash: 94E7CE7698CE43F74515ED27A3180B001F104789F1C5CE168B5FA2B3511111A3
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/GoldOreBoulder.asset
+    hash: 3A4A2539BD9E473975AE9E81BA3B2E84EE0E18D593B723E86B33EC10E3F1ED5C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/InventoryAncientChest.asset
+    hash: 0B4E45B94CFA8BF5D8CCBD0516B0F43E8F8ADB2CE2B4DB5A0D7C0C341DD7CFF8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/IronOreBoulder.asset
+    hash: 4D969DFA459D0ED76BC6EB71C22392C002791F2E2A1302EDB57BD8A5CA910B17
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/IronSledge.asset
+    hash: 773322CFDF30DAC4C88B5EA890A9797E3F417F9C69D8441A846B18C5A0D976E2
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/JuggernautBreastArmor.asset
+    hash: B02FACBB8EDFFBB19A16D6DC29078A29CEB2CCDAC66CA5F3A337B3F51FB77B59
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/JuggernautHelm.asset
+    hash: 513C6286FD17F7C1C92B2C7BBFDE1E45E119ECC7139F5CE7D59D5586E9E6DA1A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/JuggernautPantsArmor.asset
+    hash: 26015D55AFA1FA84D9AA7E9A8A0926AE81AC191522F23F5EFC278FBCE4E01AC9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/LockedIronChest.asset
+    hash: A730BA1246BEF61D6D36895A8120678835450BF4718FC9BBDCB8B45AF184D768
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/MalugazChest.asset
+    hash: 2D4530E6FE4C5E826E2DB33B4FCC1952898C8400E2FADB67B457696CB368C582
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/PottedLushTree.asset
+    hash: ABED183819ED9172E6F6536BF9D8B00C814786C74468809DEF3399627D0D6123
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/RiftLensOffhand.asset
+    hash: AB46AAA06CB6A1C37990F154DFF4B205D46B1444285B19DFCB1E89DBC722C160
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/RingOfRock.asset
+    hash: A282C0D34CE46FAFE3119FFC5B71B248D31C0E1366819C34C7D03B0B27D666BF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/ShamanBossSummoningItem.asset
+    hash: CD4ADF82BAC2C72A48826DD38878ED806AB30E548420D3A9FD5FA1979345E916
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/SignBrute.asset
+    hash: C27D8FBDF468FDEAB5DCC64D10FAB5CBCA3D3C30D6991EB71DD2A37DA4B4C042
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/SoaringBreastArmor.asset
+    hash: CB88B37E2B67D8ECA914144EEA4003CD79E65B2DA01866D228A0B0254C8FF31D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/SoaringHelm.asset
+    hash: 3D73F443EEF7F0795F6F23D7A2288122741A82ACE4971C82994D93F8C6D6362D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/SoaringPantsArmor.asset
+    hash: 5C55D2A8887C96387D08E9C9B2921029C3F07A24E6AD87DC818CEE336FC763B8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/Stalagmite.asset
+    hash: BF8292D65C5951422D34C94764F94404ABB4FDA250D376595BC3928B6CB246D8
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/StoneMortar.asset
+    hash: 20978E02CFEB2FC9B2B8CAA5DA11F77FE6D629357DD9D902E6FFFDA376213EE9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/StonePedestal.asset
+    hash: 4AE3D009ADAF88A08B893F9A6661EA05A31D7BED04FC6EA9C69C8CA0F7C7241F
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/StoneSeeder.asset
+    hash: 1C1DA0EE4DB131543B3D405E09E73A3C03728A90F64651B597BFCD65D75FD68A
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/TomeOfFire.asset
+    hash: 9CC71FEE56BEF6E3682CCE63AFD711EB07E68E03E7AEEAC91C69D35B941B959D
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Stone/WaterWell.asset
+    hash: 974E6D22E1CCE9283B232F9B1880DFD354119F63CC09415C9A4D5CB18744046C
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Void/DeadTree.asset
+    hash: 65EE57A8E86CD8BBC098D0DFD40C9EBEF16F9A608DC11C89226C7A57F4A05BDC
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Void/GlowingMushroom.asset
+    hash: 486A866C7E56A9F93647DAA0961EA12C1FFC8A8060A4972EF0302ED00F20DBD9
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Void/HydraBossVoidCraftingItem.asset
+    hash: 911202BE1A0769691393D52625FA95589BBA9498CA38453BE86719FEB96445CF
+  - path: Assets/PointShop/Data/ShopItemDataBlock/Void/VoidLarvaCocoonTrophy.asset
+    hash: 1417CD7E7DD1BF8FB9F87C22755597EEC8BCA65FF9C3A08665DB1A4D9BF700C2
+  - path: Assets/PointShop/Data/ShopItemLevelDataBlock/Common.asset
+    hash: 50972E90CEDD14CF2385387C1967F0895C02409DE9CD5AD664AC661719496BE9
+  - path: Assets/PointShop/Data/ShopItemLevelDataBlock/Rare.asset
+    hash: D104BA2F0ABF3FD0E596EF54CA233C2A5727E26C690A44B241EBD163E22932BD
+  - path: Assets/PointShop/Data/ShopItemLevelDataBlock/Unique.asset
+    hash: 1D324D787AB483FF6EFDA899A5D9778E461047EDCA2F96DEF52E932AFF786703
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/AbioticFactor.asset
+    hash: CE7BBAA2B6E4F1494C9322C0533B6E4039DE45553E47AFCAA2D52013237C4662
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Alien.asset
+    hash: 9D1464D1283B28E8968E00D4810A660FB7299FA19B88F25EC89AA54A80B85AB2
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/City.asset
+    hash: ECF330C3DDA2DEB234F5A5983F0BC14658776F9B18CC1880EC237BDA4B30D981
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Clay.asset
+    hash: 7EEADCCF129148C28E0E4103163AEF369A686F2D08050D9C5FC7C54C419D221F
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Crystal.asset
+    hash: 1906FBF3CA8DC5DC2783BAF1B069472A96A99E78E177E84DA39ACF2D4AF00B98
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Desert.asset
+    hash: EC93DEB28A1DDC02540CF7462BDCB7D80AB8B4F4109B0DBB48706DEF4B139B17
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Dirt.asset
+    hash: 6CC4DD909A3B7B5231264D09DDF1BE043F1FC2A65298F2CD0AC55FC0FD9EF0A6
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Excavation.asset
+    hash: F73A785E3594D631832740BB56B612F3D69659943CE4ADD29816C3F4E4380E36
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/LarvaHive.asset
+    hash: 33CEC62DDBCDAB8BF5503B6044FF38F4F7315418E688C189E39BEC2EABEF8F1F
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Lava.asset
+    hash: 5381304DBBE028DCB345B901A3F2FABB8E95369B80BD73313330CBC1037033D7
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Meadow.asset
+    hash: D1B60EB665E7ACBD9F61C59D8353D4C9965F5EB9547773DB83A11028780D5491
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Mold.asset
+    hash: 8787F95CF01A623D4C3EA671E023FE42DEF49B9023652B8489BA4E9651D39042
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Moss.asset
+    hash: D821578D6012A9A017A7456D5290854EFE0E4A290F98678ECFC55CC2BF8DFDDA
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Nature.asset
+    hash: D8B0ADB1C5473117E1B612825555478B07DA204D1F7C632C80A9D5F11A258073
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/None.asset
+    hash: ABC8668A01F406A136992597C0C32B1297997040FF50A458E2458BCF9FE6AF2F
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Oasis.asset
+    hash: E8DFAA43708C3C08E1E49B9B1EE266D99186C54AD380F99565A17FB48AE6AC35
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Passage.asset
+    hash: 2FF08997065D62F0B2D927F3A34EC868F0E3808BCB3D9C422D3EEE6EFAD9A547
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Sea.asset
+    hash: 9DC5AE94DB9B008631DACC32EE20E8760DF70F06E0311A8B2BEDC485B45FFD21
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Stone.asset
+    hash: 64D9D043AC094667A761ED7B9349DBEF7032BAC1BDC6225DCE4037D8E5E7A30C
+  - path: Assets/PointShop/Data/ShopZoneDataBlock/Void.asset
+    hash: 6D67A384F7A94F1EAB4323298292E04A3C4BAF8B0204CB307D88C44568B22DFD
   - path: Assets/PointShop/Data/TextDataBlock/ControlMapper/PointShop_Open.asset
     hash: C9550233ACAE58BA952A9CA0A9FCB79F9825CBD12C2343E5056FA480DC296477
   - path: Assets/PointShop/Data/TextDataBlock/ControlMapper/PointShop_Scale.asset
@@ -104,11 +976,11 @@ MonoBehaviour:
   - path: Assets/PointShop/Data/TextDataBlock/PointShop_Config_General/ShowSwitch.asset
     hash: 6B2E57FFCB97D9380DCEFAF48ABD0B3EFCA7BC2FAC85FF0FDADFD5192DC24F4A
   - path: Assets/PointShop/PointShop.asset
-    hash: 8BD131094823A349364874B5828B671DE4795CFD3CB44130DB8210B4BB7F77BE
+    hash: 21FDA9CCDD7A72B05532235337937DC01692FE2386D85336DAEA9C6FE6761532
   - path: Assets/PointShop/PointShop_Steam.asset
     hash: 3D81E82D35DB2DE31295DCFCED9AC648BEB9D916015A9FE5279A49127A8B90C3
   - path: Assets/PointShop/PointShopUI.prefab
-    hash: 840A8A3DF0D89061F0A735EE92C3136FC95E2EF6C08A00B979D69E16D2D7EBAC
+    hash: 74F45B137B213163A4E5453E7E8CEDD3B1F8104721DF0F92E516D980EBDD7079
   - path: Assets/PointShop/ShopCoin.png
     hash: 0FE4C4F244035EBCD393B517FC32497099665A8C80AD2209D2FA0B4E78134E00
   - path: Assets/PointShop/ShopCoin_Small.png

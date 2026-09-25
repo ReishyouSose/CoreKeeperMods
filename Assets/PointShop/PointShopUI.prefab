@@ -1876,8 +1876,8 @@ GameObject:
   - component: {fileID: 6262806844545013067}
   - component: {fileID: 3968829857491838805}
   - component: {fileID: -2273649364206206658}
-  - component: {fileID: 8606015144035675788}
   - component: {fileID: 8646616500754392155}
+  - component: {fileID: 3179456464271516105}
   m_Layer: 5
   m_Name: PointShopUI
   m_TagString: Untagged
@@ -1947,18 +1947,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modInterfaceID: PointShop_PointShopMenu
   initialInterfacePosition: {x: 0, y: 0, z: 10}
---- !u!114 &8606015144035675788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3435134769881647439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a28ad13b7665e47bdbbb1c3a9f4273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8646616500754392155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1992,6 +1980,18 @@ MonoBehaviour:
   padding: 0
   autoHideScrollbar: 1
   centerVertically: 0
+--- !u!114 &3179456464271516105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3435134769881647439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e7c57d068a5274b927ec91c11da920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3550272214392520039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3355,8 +3355,7 @@ MonoBehaviour:
   playClickSoundEffect: 0
   clickSoundEffect: -1976095244
   clickSoundPitch: 0
-  Zone: 0
-  Boss: 0
+  Zone: {fileID: 0}
   Page: {fileID: 0}
   WarnBorder: {fileID: 1527436448264569279}
   Icon: {fileID: 4055516587980269311}

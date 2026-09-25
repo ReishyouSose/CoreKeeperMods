@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
+  m_Name: ClayPot
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 6819736500742074918
+    m_high: -4073033375737524263
+  m_dynamicCollections:
+    m_list: []
+  Zone:
+    m_address:
+      m_low: 8760866983965277326
+      m_high: 6910929283689180376
+  Item:
+    objectID: 8804
+    variation: 0
+    amount: 1
+  CurrencyType:
+    Type: 0
+    Price: 12
+  references:
+    version: 2
+    RefIds: []

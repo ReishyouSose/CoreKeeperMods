@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
+  m_Name: LegendaryMortarPart2
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -5159978972308471416
+    m_high: 6560871816164999418
+  m_dynamicCollections:
+    m_list: []
+  Zone:
+    m_address:
+      m_low: -7028919637576585928
+      m_high: -6425971356884208101
+  Variation: 0
+  Amount: 1
+  Currency: 0
+  Price: 200
+  Category:
+    m_address:
+      m_low: 5653175870936432881
+      m_high: 8538914154954385099
+  Level:
+    m_address:
+      m_low: 2532417050986253814
+      m_high: 6883994552080204618
+  references:
+    version: 2
+    RefIds: []

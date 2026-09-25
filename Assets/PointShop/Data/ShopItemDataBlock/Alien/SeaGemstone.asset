@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
+  m_Name: SeaGemstone
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -3984467220816916181
+    m_high: 3640838617132858328
+  m_dynamicCollections:
+    m_list: []
+  Zone:
+    m_address:
+      m_low: 5855848896485523417
+      m_high: -1675641266726044710
+  Variation: 0
+  Amount: 1
+  Currency: 0
+  Price: 15
+  Category:
+    m_address:
+      m_low: 5653175870936432881
+      m_high: 8538914154954385099
+  Level:
+    m_address:
+      m_low: -4475345739407449117
+      m_high: -2497809185597725574
+  references:
+    version: 2
+    RefIds: []

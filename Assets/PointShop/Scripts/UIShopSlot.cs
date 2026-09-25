@@ -40,7 +40,7 @@ namespace Assets.PointShop.Scripts
 
         [HideInInspector] public ObjectData objectData;
         [HideInInspector] public int Price;
-        [HideInInspector] public Zone Zone;
+        [HideInInspector] public int Zone;
         [HideInInspector] public ObjectID Boss;
         [HideInInspector] public ObjectID Currency;
 
@@ -60,7 +60,11 @@ namespace Assets.PointShop.Scripts
             PointShopClient.TryBuyItem(player.entity, objectData, Boss, Currency, Price, player.inputModule.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_10));
             AudioManager.Sfx(SfxID.twitch, player.transform.position, 0.1f, 0.55f, 0.1f, true);
         }
-
+        public void SetLimit(int zone, ObjectID boss)
+        {
+            Zone = zone;
+            Boss = boss;
+        }
         public void SetItem(ObjectData objData, int sellPrice, ObjectID currency = ObjectID.None)
         {
             ObjectID id = objData.objectID;

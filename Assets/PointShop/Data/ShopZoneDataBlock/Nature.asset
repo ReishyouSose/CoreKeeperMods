@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1108f85387ce3394a9c72c3096f34d85, type: 3}
+  m_Name: Nature
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -561601472827148385
+    m_high: -6054899218626861943
+  m_dynamicCollections:
+    m_list: []
+  Boss: 3090
+  EnvironmentChest: 216
+  BossChest: 285
+  Icon: {fileID: 21300000, guid: 77e6649546b28c648bfa44412384b2b8, type: 2}
+  references:
+    version: 2
+    RefIds: []
