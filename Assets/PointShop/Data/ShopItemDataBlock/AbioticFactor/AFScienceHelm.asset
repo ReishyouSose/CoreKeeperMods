@@ -27,9 +27,8 @@ MonoBehaviour:
       m_high: 2655346204184157576
   Variation: 0
   Amount: 1
-  CurrencyType:
-    Type: 0
-    Price: 30
+  Currency: 0
+  Price: 30
   Category:
     m_address:
       m_low: 5374159209421980987

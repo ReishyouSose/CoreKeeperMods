@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ModPaths
   m_EditorClassIdentifier: 
   latestBuildOrInstallPaths:
-  - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\AllSkills
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\CoreEnhance
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\ContentCreation
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\BuildingBlueprint
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\PointShop
+  - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\LootsLookup

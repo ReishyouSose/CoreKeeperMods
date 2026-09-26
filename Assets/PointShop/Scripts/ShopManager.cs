@@ -1,5 +1,6 @@
 ﻿using PugMod;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.PointShop.Scripts
@@ -83,6 +84,12 @@ namespace Assets.PointShop.Scripts
                     item.CurrencyID = currency;
                     shops[zoneID].Add(item);
                 }
+            }
+            foreach(var zone in ZoneSort)
+            {
+                shops[zone.ZoneID] = shops[zone.ZoneID].OrderBy(x => x.Currency)
+                    .ThenBy(x => PugDatabase.GetObjectInfo(x.ObjectID).rarity)
+                    .ThenBy(x => x.Price).ToList();
             }
         }
         public List<ShopItemDataBlock> GetShopItems(ShopZoneDataBlock zone) => shops[zone.ZoneID];

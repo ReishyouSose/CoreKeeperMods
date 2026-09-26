@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEditor;
+using ZoneID = Assets.PointShop.Scripts.Zone;
 
 namespace Assets.PointShop.Scripts
 {

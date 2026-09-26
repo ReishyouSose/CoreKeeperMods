@@ -17,6 +17,7 @@ namespace Assets.PointShop.Scripts
         public UIScrollWindow ZonePanel;
         public UIZoneSlot ZoneTemplate;
         public UIShopSlot ShopSlotTemplate;
+        public UISeparator SeparatorTemplate;
         public Transform EmptryPage;
         public Transform PageContainer;
         public PugText Header;
@@ -32,6 +33,7 @@ namespace Assets.PointShop.Scripts
             scroll = GetComponent<UIScrollWindow>();
             ZoneTemplate.gameObject.SetActive(false);
             ShopSlotTemplate.gameObject.SetActive(false);
+            SeparatorTemplate.gameObject.SetActive(false);
             EmptryPage.gameObject.SetActive(false);
             var page = ZonePanel.scrollingContent.GetChild(0);
             manager.Awake();
@@ -72,12 +74,19 @@ namespace Assets.PointShop.Scripts
             //items = items.OrderBy(x => PugDatabase.GetObjectInfo(x.Item.objectID).rarity).ThenBy(x => x.Item.objectID).ToList();
             var boss = zone.Boss;
             var zoneID = zone.ZoneID;
+            ObjectID old = PointShop.Coin;
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
+                if (old != item.CurrencyID)
+                {
+                    UISeparator separator = Instantiate(SeparatorTemplate, contents);
+                    separator.gameObject.SetActive(true);
+                    old = item.CurrencyID;
+                }
                 UIShopSlot slot = Instantiate(ShopSlotTemplate, contents);
                 slot.SetLimit(zoneID, boss);
-                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, PointShop.Coin);
+                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, item.CurrencyID);
                 slot.gameObject.SetActive(true);
             }
             return page;

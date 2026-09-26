@@ -25,13 +25,18 @@ MonoBehaviour:
     m_address:
       m_low: -998449729148164861
       m_high: -8687858114695570456
-  Item:
-    objectID: 8972
-    variation: 0
-    amount: 1
-  CurrencyType:
-    Type: 0
-    Price: 50
+  Variation: 0
+  Amount: 1
+  Currency: 0
+  Price: 50
+  Category:
+    m_address:
+      m_low: 5374159209421980987
+      m_high: -6901100166046100725
+  Level:
+    m_address:
+      m_low: -4475345739407449117
+      m_high: -2497809185597725574
   references:
     version: 2
     RefIds: []

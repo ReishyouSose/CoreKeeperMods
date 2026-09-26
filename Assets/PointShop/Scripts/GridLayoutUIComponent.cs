@@ -91,7 +91,6 @@ namespace Assets.PointShop.Scripts
 
             return activeChildren;
         }
-
         private void SpaceElement(List<UIComponentMonoBehaviour> children)
         {
             float startX = 0.0625f * paddingLeft;
@@ -114,49 +113,149 @@ namespace Assets.PointShop.Scripts
             for (int i = 0; i < children.Count; i++)
             {
                 UIComponentMonoBehaviour child = children[i];
-                float width = child.GetUIComponentRenderWidth();
-                float height = child.GetUIComponentRenderHeight();
-                bool wrap = false;
-                if (horizontal && currentX + width > maxWidth)
+                if (child.TryGetComponent<UISeparator>(out var separator))
                 {
-                    currentY += maxLength + gapY;
-                    currentX = startX;
-                    col = 0;
-                    totalRow = Math.Max(totalRow, ++row);
-                    wrap = true;
-                }
-                else if (!horizontal && currentY + height > maxHeight)
-                {
-                    currentX += maxLength + gapX;
-                    currentY = startY;
-                    row = 0;
-                    totalCol = Math.Max(totalCol, ++col);
-                    wrap = true;
-                }
-                if (wrap)
-                {
-                    itemsInCurrent = 0;
-                    maxLength = 0;
-                }
-                Vector3 pos = child.transform.localPosition;
-                pos.x = currentX;
-                pos.y = -currentY;
-                child.transform.localPosition = pos;
-                totalWidth = Math.Max(totalWidth, currentX + width);
-                totalHeight = Math.Max(totalHeight, currentY + height);
-                child.GetComponent<UILocator>().Locator = new(col, row);
-                if (horizontal)
-                {
-                    currentX += width + gapX;
-                    totalCol = Math.Max(totalCol, ++col);
+                    // ==================== 分隔条 ====================
+                    // 方向完全由所在布局决定：
+                    //   horizontal=true  → 横线 → 换行
+                    //   horizontal=false → 竖线 → 换列
+                    float thickness = separator.Thickness * 0.0625f;
+                    float borderPositive = separator.BorderPositive * 0.0625f;
+                    float borderNegative = separator.BorderNegative * 0.0625f;
+
+                    var ui = separator.GetComponent<WrapperUIComponent>();
+                    if (horizontal)
+                    {
+                        // ---- 横线：换行 ----
+                        // 换行前的推进（加上本行最高的元素高度）
+                        currentY += maxLength + gapY;
+                        // 横线：横向占满整行，纵向占用 thickness
+                        float lineWidth = maxWidth - borderPositive - borderNegative;
+                        if (lineWidth < 0f)
+                            lineWidth = 0f;
+                        float lineHeight = thickness;
+                        ui.renderWidthPixels = (int)(16 * maxWidth);
+                        ui.renderHeightPixels = (int)(16 * lineHeight);
+                        // 分隔条本体放在当前行的"起点端"：
+                        //   x = startX + borderPositive（线左端）
+                        //   y = -currentY              （线上端）
+                        Vector3 pos = separator.transform.localPosition;
+                        pos.x = startX;
+                        pos.y = -currentY;
+                        separator.transform.localPosition = pos;
+
+                        // 精灵子物体：相对分隔条本体的矩形
+                        //   左上角相对本体原点 = (0, 0)
+                        //   宽 = lineWidth，高 = lineHeight
+                        separator.ApplyVisualRect(borderPositive, 0f, lineWidth, lineHeight);
+
+                        // 分隔条占据的垂直空间 + gapY，再开始新的一行
+                        currentY += lineHeight + gapY;
+
+                        // 重置新行的横向状态
+                        currentX = startX;
+                        col = 0;
+                        totalRow = Math.Max(totalRow, ++row);
+                        itemsInCurrent = 0;
+                        maxLength = 0f;
+
+                        totalWidth = Math.Max(totalWidth, currentX);
+                        totalHeight = Math.Max(totalHeight, currentY);
+                    }
+                    else
+                    {
+                        // ---- 竖线：换列 ----
+                        currentX += maxLength + gapX;
+
+                        // 竖线：纵向占满整列，横向占用 thickness
+                        float lineWidth = thickness;
+                        float lineHeight = maxHeight - borderPositive - borderNegative;
+                        if (lineHeight < 0f)
+                            lineHeight = 0f;
+                        ui.renderWidthPixels = (int)(16 * lineWidth);
+                        ui.renderHeightPixels = (int)(16 * maxHeight);
+
+                        // 分隔条本体放在当前列的"起点端"：
+                        //   x = currentX        （线左端）
+                        //   y = -(startY + borderPositive)（线上端）
+                        Vector3 pos = separator.transform.localPosition;
+                        pos.x = currentX;
+                        pos.y = -startY;
+                        separator.transform.localPosition = pos;
+
+                        // 精灵子物体：相对分隔条本体的矩形，左上角在本体原点
+                        separator.ApplyVisualRect(0f, -borderPositive, lineWidth, lineHeight);
+
+                        // 分隔条占据的水平空间 + gapX，再开始新的一列
+                        currentX += lineWidth + gapX;
+
+                        // 重置新列的纵向状态
+                        currentY = startY;
+                        row = 0;
+                        totalCol = Math.Max(totalCol, ++col);
+                        itemsInCurrent = 0;
+                        maxLength = 0f;
+
+                        totalWidth = Math.Max(totalWidth, currentX);
+                        totalHeight = Math.Max(totalHeight, currentY);
+                    }
+
+                    // 分隔条不写 Locator（不参与导航编号）
                 }
                 else
                 {
-                    currentY += height + gapY;
-                    totalRow = Math.Max(totalRow, ++row);
+                    // ==================== 普通子元素 ====================
+                    float width = child.GetUIComponentRenderWidth();
+                    float height = child.GetUIComponentRenderHeight();
+                    bool wrap = false;
+
+                    if (horizontal && currentX + width > maxWidth)
+                    {
+                        currentY += maxLength + gapY;
+                        currentX = startX;
+                        col = 0;
+                        totalRow = Math.Max(totalRow, ++row);
+                        wrap = true;
+                    }
+                    else if (!horizontal && currentY + height > maxHeight)
+                    {
+                        currentX += maxLength + gapX;
+                        currentY = startY;
+                        row = 0;
+                        totalCol = Math.Max(totalCol, ++col);
+                        wrap = true;
+                    }
+
+                    if (wrap)
+                    {
+                        itemsInCurrent = 0;
+                        maxLength = 0f;
+                    }
+
+                    Vector3 pos = child.transform.localPosition;
+                    pos.x = currentX;
+                    pos.y = -currentY;
+                    child.transform.localPosition = pos;
+
+                    totalWidth = Math.Max(totalWidth, currentX + width);
+                    totalHeight = Math.Max(totalHeight, currentY + height);
+
+                    child.GetComponent<UILocator>().Locator = new(col, row);
+
+                    if (horizontal)
+                    {
+                        currentX += width + gapX;
+                        totalCol = Math.Max(totalCol, ++col);
+                    }
+                    else
+                    {
+                        currentY += height + gapY;
+                        totalRow = Math.Max(totalRow, ++row);
+                    }
+
+                    maxLength = Math.Max(maxLength, horizontal ? height : width);
+                    itemsInCurrent++;
                 }
-                maxLength = Math.Max(maxLength, horizontal ? height : width);
-                itemsInCurrent++;
             }
 
             totalWidth += 0.0625f * paddingRight;

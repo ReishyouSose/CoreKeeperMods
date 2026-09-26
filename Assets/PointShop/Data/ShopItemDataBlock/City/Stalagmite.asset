@@ -31,12 +31,12 @@ MonoBehaviour:
   Price: 1
   Category:
     m_address:
-      m_low: 0
-      m_high: 0
+      m_low: -867955728696121483
+      m_high: 8760480297087961866
   Level:
     m_address:
-      m_low: 0
-      m_high: 0
+      m_low: 6693546149735025569
+      m_high: 8604970799889500666
   references:
     version: 2
     RefIds: []

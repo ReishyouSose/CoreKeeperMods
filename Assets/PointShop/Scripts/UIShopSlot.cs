@@ -80,8 +80,10 @@ namespace Assets.PointShop.Scripts
             objectBuffer = new ContainedObjectsBuffer { objectData = objData };
             Price = sellPrice;
             Currency = currency;
-            Border.color = Manager.ui.GetSlotBorderRarityColor(info.rarity, true, Color.white);
-
+            var color = Manager.ui.GetSlotBorderRarityColor(info.rarity, false, Color.white);
+            if (info.rarity == Rarity.Common)
+                color = Color.white;
+            Border.color = color;
             ItemIcon.sprite = info.icon;
             Vector2 offset = info.iconOffset;
             offset.x += 0.625f;

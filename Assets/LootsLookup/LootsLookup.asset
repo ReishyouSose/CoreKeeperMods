@@ -26,7 +26,7 @@ MonoBehaviour:
   modPath: Assets\LootsLookup
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets: []
   lastBuildLinux: 0
