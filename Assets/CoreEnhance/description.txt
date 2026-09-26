@@ -1,0 +1,47 @@
+﻿[h1]Features[/h1]
+Note: This mod currently does not work on Linux dedicated servers. If you are a Linux player or have the means to test it, you are welcome to help test and report your results.
+Use the "Generic Mod Config Menu" to modify the mod's configuration in-game in real time! All features have toggle switches, and some features have additional configuration options.
+[h2]Infinite[/h2]
+[list]
+[*]Durability - Periodically automatically refills tool/equipment durability
+[*]Ore Rocks - Periodically refills ore rock health, now works regardless of loaded areas (thanks to Smartik1 for reporting)
+[*]Arena - Carry enough Ancient Coins, stand in the center of the broken arena and wait a few seconds (you must first destroy the loot chests)
+[*]Boss Scan - Automatically scans for a Boss's location after it respawns; requires having defeated them at least once
+[/list]
+[h2]Speed Up[/h2]
+[list]
+[*]Merchant - Shop refresh acceleration (instantly refresh after selling out, or reduce the refresh interval)
+[*]Crafting Type - Furnaces, sawmills, etc. require no waiting
+[*]Usage Type - Combining materials, scanning, etc. require no progress bar
+[*]Portals - Instantly charged after placement (waypoints require being nearby)
+[*]Planting - Crops grow faster
+[*]Level - Experience multiplier
+[/list]
+[h2]Automation[/h2]
+[list]
+[*]Fish Nets - No bait required, can catch items
+[*]Golden Crops - Extract seeds instead of gold ore
+[*]Automatic Doors (now supports fence gates)
+[/list]
+[h2]Pets[/h2]
+[list]
+[*]Skill Display - Adds skill count statistics to the description when hovering with the mouse
+[*]Reset Skin - Right-click the "Reset Pet Skills" button, costs 200 Ancient Coins to reset the skin
+[*]Reset Talents - After holding any modifier key (Shift/Ctrl/Alt), right-click the "Reset Pet Skills" button to reset all of the pet's talents (200 Ancient Coins). Left-click a single skill to perform a single random reset (100 Beast Energy Candy)
+[/list]
+[h2]Miscellaneous[/h2]
+[list]
+[*]Ignore item pickup blocking detection for attracted drops (invalid in immunity zones)
+[*]Keep items on death
+[*]Chain Mining - Can even chain-mine wood (works inconsistently on Pandora ore)
+[*]Ore Rock Destroyer - Directly blows up ore rocks, dropping ore equal to the remaining health (dropped by the Core Commander)
+[*]Container Display - When holding the bound key (default Left Alt), nearby containers containing the item under your mouse cursor are highlighted
+[*]Clear Drops - Requires a bound hotkey + admin permissions
+[*]Change the Sledgehammer's attack range
+[/list]
+[h2]Quick Functions[/h2]
+[list]
+[*]Quick Unlock - Place a locked chest on the ground, have the key ready in your inventory, and use the hotkey (default Ctrl+O)
+[*]Quickly Move Chest Contents - Requires binding a hotkey, then select two chests
+[*]Automatically open Melody Doors when nearby
+[/list]

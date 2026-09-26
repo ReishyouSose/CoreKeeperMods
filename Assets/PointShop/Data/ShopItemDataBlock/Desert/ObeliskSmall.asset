@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
+  m_Name: ObeliskSmall
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -5051837151476597293
+    m_high: -5043463342315882038
+  m_dynamicCollections:
+    m_list: []
+  Zone:
+    m_address:
+      m_low: -998449729148164861
+      m_high: -8687858114695570456
+  Variation: 0
+  Amount: 1
+  Currency: 0
+  Price: 1
+  Category:
+    m_address:
+      m_low: -867955728696121483
+      m_high: 8760480297087961866
+  Level:
+    m_address:
+      m_low: 6693546149735025569
+      m_high: 8604970799889500666
+  references:
+    version: 2
+    RefIds: []

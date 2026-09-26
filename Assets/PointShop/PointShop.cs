@@ -1,8 +1,9 @@
-using Assets.PointShop.Scripts;
+using Assets.PointShop.Scripts.Systems;
 using CoreLib;
 using CoreLib.Data.Configuration;
 using CoreLib.Submodule.ControlMapping;
 using CoreLib.Submodule.UserInterface;
+using CoreLib.Util.Extension;
 using PugMod;
 using Rewired;
 using UnityEngine;

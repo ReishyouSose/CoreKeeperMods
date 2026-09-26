@@ -24,7 +24,7 @@ MonoBehaviour:
   Boss: 3005
   EnvironmentChest: 0
   BossChest: 173
-  Icon: {fileID: 21300000, guid: e0f557107cc08f9469406bdf233aba2d, type: 2}
+  Icon: {fileID: 21300000, guid: 022e831b6c4fd7e438d74cc42503ab94, type: 2}
   references:
     version: 2
     RefIds: []

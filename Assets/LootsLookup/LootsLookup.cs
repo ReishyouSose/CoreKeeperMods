@@ -69,10 +69,7 @@ public class LootsLookup : IMod
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
-            if (Manager.ui.currentSelectedUIElement is not SlotUIBase slot)
-                return;
-
-            ObjectID id = slot.GetContainedObject().objectID;
+            ObjectID id = Manager.ui.currentSelectedUIElement.GetContainedObject().objectID;
             GetItemObtainSources(id);
         }
     }
