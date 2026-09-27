@@ -378,6 +378,8 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                 {
                     if (data.objectInfo.icon == null)
                         return;
+                    if (data.objectInfo.objectType == ObjectType.Critter)
+                        return;
                 }
                 else if (!authoringData.TryGetComponent(out InventoryItemAuthoring _))
                     return;
