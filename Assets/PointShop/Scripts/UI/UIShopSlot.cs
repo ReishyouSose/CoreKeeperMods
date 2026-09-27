@@ -160,9 +160,10 @@ namespace Assets.PointShop.Scripts.UI
         public override List<TextAndFormatFields> GetHoverDescription()
         {
             var slotObject = objectBuffer;
-            if (slotObject.objectID == ObjectID.None)
+            var id = slotObject.objectID;
+            if (id == ObjectID.None)
                 return null;
-            ObjectID displayId = PlayerController.GetAnyObjectIDReplaceForNameAndDesc(slotObject.objectID);
+            ObjectID displayId = PlayerController.GetAnyObjectIDReplaceForNameAndDesc(id);
             if (!API.Authoring.ObjectProperties.TryGetPropertyString(displayId, "name", out var itemName))
             {
                 itemName = displayId.ToString();
@@ -173,7 +174,8 @@ namespace Assets.PointShop.Scripts.UI
                 itemName = nameOverride;
             return new List<TextAndFormatFields>
             {
-                new() { text = $"Items/{itemName}Desc" }
+                new() { text = $"Items/{itemName}Desc" },
+                new() { text = id + $"({(int)id})", dontLocalize = true, color = Color.gray },
             };
         }
 

@@ -17,8 +17,8 @@ MonoBehaviour:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: 1483068858097158171
-    m_high: 109377569051283400
+    m_low: -6389411603390219617
+    m_high: -4733365616741709093
   m_dynamicCollections:
     m_list: []
   Zone:
@@ -28,7 +28,7 @@ MonoBehaviour:
   Variation: 0
   Amount: 1
   Currency: 0
-  Price: 1
+  Price: 50
   Category:
     m_address:
       m_low: 5374159209421980987

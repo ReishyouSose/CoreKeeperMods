@@ -40,7 +40,7 @@ namespace Assets.PointShop.Scripts.Core
                 {
                     if (!item.Zone.TryGet(out var zone))
                     {
-                        Debug.LogWarning("ShopItemDataBlock [" + item.name + "] has no zone assigned.");
+                        Debug.LogWarning("[" + item.name + "] has no zone assigned.");
                         continue;
                     }
                     /*string header = ScriptableDataEditorUtility.GetDataBlockHeader(item);
@@ -54,7 +54,8 @@ namespace Assets.PointShop.Scripts.Core
                     ObjectID id = API.Authoring.GetObjectID(itemName);
                     if (id == ObjectID.None)
                     {
-                        Debug.LogWarning("ShopItemDataBlock [" + itemName + "] has an invalid object ID");
+                        if (!itemName.Contains('_'))
+                            Debug.LogWarning("[" + itemName + "] has an invalid object ID");
                         continue;
                     }
                     ObjectID currency;
@@ -63,7 +64,7 @@ namespace Assets.PointShop.Scripts.Core
                         case CurrencyType.EnvironmentChest:
                             if (zone.EnvironmentChest == ObjectID.None)
                             {
-                                Debug.LogWarning("ShopItemDataBlock [" + itemName + "] has an invalid EnvironmentChest for zone [" + zoneName + "]");
+                                Debug.LogWarning("[" + itemName + "] has an invalid EnvironmentChest for zone [" + zoneName + "]");
                                 continue;
                             }
                             currency = zone.EnvironmentChest;
@@ -71,7 +72,7 @@ namespace Assets.PointShop.Scripts.Core
                         case CurrencyType.BossChest:
                             if (zone.BossChest == ObjectID.None)
                             {
-                                Debug.LogWarning("ShopItemDataBlock [" + itemName + "] has an invalid BossChest for zone [" + zoneName + "]");
+                                Debug.LogWarning("[" + itemName + "] has an invalid BossChest for zone [" + zoneName + "]");
                                 continue;
                             }
                             currency = zone.BossChest;
@@ -85,11 +86,14 @@ namespace Assets.PointShop.Scripts.Core
                     shops[zoneID].Add(item);
                 }
             }
-            foreach(var zone in ZoneSort)
+            foreach (var zone in ZoneSort)
             {
                 shops[zone.ZoneID] = shops[zone.ZoneID].OrderBy(x => x.Currency)
                     .ThenBy(x => PugDatabase.GetObjectInfo(x.ObjectID).rarity)
-                    .ThenBy(x => x.Price).ToList();
+                    .ThenBy(x => x.Price)
+                    .ThenBy(x => PugDatabase.GetObjectInfo(x.ObjectID).objectType)
+                    .ThenBy(x => x.Amount)
+                    .ToList();
             }
         }
         public List<ShopItemDataBlock> GetShopItems(ShopZoneDataBlock zone) => shops[zone.ZoneID];

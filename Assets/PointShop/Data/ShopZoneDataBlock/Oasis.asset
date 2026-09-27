@@ -23,7 +23,7 @@ MonoBehaviour:
     m_list: []
   Boss: 3183
   EnvironmentChest: 0
-  BossChest: 0
+  BossChest: 208
   Icon: {fileID: 21300000, guid: e0271cb2153c5254594eaaf98b74548b, type: 2}
   references:
     version: 2
