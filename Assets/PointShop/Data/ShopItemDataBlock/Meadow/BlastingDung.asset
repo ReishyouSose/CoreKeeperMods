@@ -10,33 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: ScarabBoss
+  m_Name: BlastingDung
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: 4234603860745592687
-    m_high: -5029213940471122040
+    m_low: 739716349150622567
+    m_high: -3189393326954385399
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: -998449729148164861
-      m_high: -8687858114695570456
+      m_low: 6517938447349880680
+      m_high: -829793812102470309
   Variation: 0
-  Amount: 1
-  Currency: 2
-  Price: 5
+  Amount: 5
+  Currency: 0
+  Price: 1
+  OverrideCurrency: 0
   Category:
     m_address:
-      m_low: 5374159209421980987
-      m_high: -6901100166046100725
+      m_low: 5653175870936432881
+      m_high: 8538914154954385099
   Level:
     m_address:
-      m_low: -4475345739407449117
-      m_high: -2497809185597725574
+      m_low: 6693546149735025569
+      m_high: 8604970799889500666
   references:
     version: 2
     RefIds: []

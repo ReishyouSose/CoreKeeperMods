@@ -60,7 +60,7 @@ namespace Assets.PointShop.Scripts.Systems
 
             base.OnUpdate();
         }
-        public static void TryBuyItem(Entity player, ObjectData item, ObjectID boss, ObjectID currency, int price, bool scale)
+        public static void TryBuyItem(Entity player, ObjectDataCD item, ObjectID boss, ObjectID currency, int price, bool scale)
         {
             ins.sendQueue.Enqueue(new()
             {
@@ -102,6 +102,7 @@ namespace Assets.PointShop.Scripts.Systems
             var database = this.database;
             var coin = PointShop.Coin;
             var archetype = this.archetype;
+            bool creative = WorldInfo.IsWorldModeEnabled(WorldMode.Creative);
             Entities.ForEach((Entity e, in PointShopRPC rpc, in ReceiveRpcCommandRequest receive) =>
             {
                 ecb.DestroyEntity(e);
@@ -109,7 +110,7 @@ namespace Assets.PointShop.Scripts.Systems
                 var boss = rpc.Boss;
                 var currency = rpc.Currency == ObjectID.None ? coin : rpc.Currency;
                 var price = rpc.Price;
-                if (boss != ObjectID.None)
+                if (!creative && boss != ObjectID.None)
                 {
                     bool defeated = false;
                     foreach (var killed in killeds)
@@ -136,16 +137,19 @@ namespace Assets.PointShop.Scripts.Systems
                     price *= 10;
                     amount *= 10;
                 }
-                if (!InventoryUtility.HasObject(containedLookup, player, currency, price))
+                if (!creative)
                 {
-                    SendFailure(ecb, archetype, 1, receive);
-                    return;
+                    if (!InventoryUtility.HasObject(containedLookup, player, currency, price))
+                    {
+                        SendFailure(ecb, archetype, 1, receive);
+                        return;
+                    }
+                    inv.Add(new()
+                    {
+                        inventoryChangeData = Create.ConsumeObjectType(player, currency, price),
+                        playerEntity = player
+                    });
                 }
-                inv.Add(new()
-                {
-                    inventoryChangeData = Create.ConsumeObjectType(player, currency, price),
-                    playerEntity = player
-                });
                 EntityUtility.CreateAndDropItem(id, variation, amount, transLookup[player].Position, player, database, ecb);
             })
                 .WithName("PointShopUpdate")

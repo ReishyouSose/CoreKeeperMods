@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: BlastingDung
+  m_Name: RolyPolyPlate
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: 739716349150622567
-    m_high: -3189393326954385399
+    m_low: -2781895120837877285
+    m_high: 1477395968430228379
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: 816372258071383298
-      m_high: 3439924584560846939
+      m_low: 6517938447349880680
+      m_high: -829793812102470309
   Variation: 0
-  Amount: 5
+  Amount: 10
   Currency: 0
   Price: 1
+  OverrideCurrency: 0
   Category:
     m_address:
       m_low: 5653175870936432881

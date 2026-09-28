@@ -9,6 +9,7 @@ namespace Assets.PointShop.Scripts.Core
         public int Amount;
         public CurrencyType Currency;
         public int Price;
+        public ObjectID OverrideCurrency;
         public DataBlockRef<ShopItemCategoryDataBlock> Category;
         public DataBlockRef<ShopItemLevelDataBlock> Level;
 

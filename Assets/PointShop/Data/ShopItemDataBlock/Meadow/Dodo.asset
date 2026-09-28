@@ -10,29 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: Wool
+  m_Name: Dodo
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: 4378889157718626131
-    m_high: -7008969395656489557
+    m_low: 8760782761374162625
+    m_high: -5270626804911699544
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: 4851610297384348549
-      m_high: -8507820857364061557
+      m_low: 6517938447349880680
+      m_high: -829793812102470309
   Variation: 0
-  Amount: 10
-  Currency: 0
-  Price: 1
+  Amount: 1
+  Currency: 3
+  Price: 10
+  OverrideCurrency: 0
   Category:
     m_address:
-      m_low: 5653175870936432881
-      m_high: 8538914154954385099
+      m_low: 5707265226827824767
+      m_high: 2554608179575431482
   Level:
     m_address:
       m_low: 6693546149735025569

@@ -13,9 +13,6 @@ namespace Assets.PointShop.Scripts.UI
         [HideInInspector]
         public ShopZoneDataBlock Zone;
 
-        [HideInInspector]
-        public Transform Page;
-
         public GameObject WarnBorder;
         public SpriteRenderer Icon;
         public SpriteRenderer Selected;

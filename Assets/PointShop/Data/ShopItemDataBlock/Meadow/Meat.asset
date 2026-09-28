@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: RaptorTruffle
+  m_Name: Meat
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: -6781230676363893131
-    m_high: 7046291664373225739
+    m_low: -6204642017171900754
+    m_high: -4482606278435897397
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: -8380005720136969384
-      m_high: 9094026835398752506
+      m_low: 6517938447349880680
+      m_high: -829793812102470309
   Variation: 0
-  Amount: 5
+  Amount: 1
   Currency: 0
   Price: 1
+  OverrideCurrency: 0
   Category:
     m_address:
       m_low: 5653175870936432881

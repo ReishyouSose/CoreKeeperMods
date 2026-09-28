@@ -69,8 +69,8 @@ public class LootsLookup : IMod
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L))
         {
-            ObjectID id = Manager.ui.currentSelectedUIElement.GetContainedObject().objectID;
-            GetItemObtainSources(id);
+            var obj = Manager.ui.currentSelectedUIElement.GetContainedObject();
+            GetItemObtainSources(obj);
         }
     }
 
@@ -94,17 +94,17 @@ public class LootsLookup : IMod
     {
         Manager.ui.chatWindow.AddInfoText(new string[1] { msg }, ChatWindow.MessageTextType.Sent);
     }
-    public static void GetItemObtainSources(ObjectID targetId)
+    public static void GetItemObtainSources(ContainedObjectsBuffer obj)
     {
         StringBuilder result = new();
         bool foundAny = false;
-
+        var targetId = obj.objectID;
         // 获取物品名称
         string itemName = I2.Loc.LocalizationManager.GetTranslation("Items/" + targetId);
         if (string.IsNullOrEmpty(itemName))
             itemName = targetId.ToString();
 
-        result.AppendLine($"物品: {itemName} (ID:{targetId} {(int)targetId})");
+        result.AppendLine($"物品: {itemName}  (ID:{targetId} {(int)targetId} vari:{obj.variation})");
         result.AppendLine("获取方式:");
         result.AppendLine("=".PadRight(40, '='));
 

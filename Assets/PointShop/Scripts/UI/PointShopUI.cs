@@ -18,15 +18,17 @@ namespace Assets.PointShop.Scripts.UI
         public UIScrollWindow ZonePanel;
         public UIZoneSlot ZoneTemplate;
         public UIShopSlot ShopSlotTemplate;
-        public UISeparator SeparatorTemplate;
-        public Transform EmptryPage;
-        public Transform PageContainer;
+        public UISeparator[] Separators;
+        public Transform Content;
         public PugText Header;
         public PugText PointValue;
+        public Transform Pool;
         private ShopManager manager;
         private UIZoneSlot current;
         private GridLayoutUIComponent layout;
         private UIScrollWindow scroll;
+        private List<UIShopSlot> slots;
+        private int oldCoin;
         private void Awake()
         {
             Ins = this;
@@ -34,8 +36,6 @@ namespace Assets.PointShop.Scripts.UI
             scroll = GetComponent<UIScrollWindow>();
             ZoneTemplate.gameObject.SetActive(false);
             ShopSlotTemplate.gameObject.SetActive(false);
-            SeparatorTemplate.gameObject.SetActive(false);
-            EmptryPage.gameObject.SetActive(false);
             var page = ZonePanel.scrollingContent.GetChild(0);
             manager.Awake();
             foreach (var zone in manager.ZoneSort)
@@ -44,9 +44,10 @@ namespace Assets.PointShop.Scripts.UI
                 slot.Zone = zone;
                 slot.Icon.sprite = zone.Icon;
                 slot.gameObject.SetActive(true);
-                slot.Page = RegisterShop(zone, manager.GetShopItems(zone));
             }
             ZonePanel.gameObject.SetActive(true);
+            layout = Content.GetComponent<GridLayoutUIComponent>();
+            slots = new();
             HideUI();
         }
 
@@ -67,51 +68,60 @@ namespace Assets.PointShop.Scripts.UI
                 OnClickZoneSlot(layout.transform.GetChild(0).GetComponent<UIZoneSlot>());
             }
         }
-        private Transform RegisterShop(ShopZoneDataBlock zone, List<ShopItemDataBlock> items)
-        {
-            var page = Instantiate(EmptryPage, PageContainer);
-            page.gameObject.SetActive(false);
-            var contents = page.GetChild(0);
-            var boss = zone.Boss;
-            var zoneID = zone.ZoneID;
-            ObjectID old = PointShop.Coin;
-            for (int i = 0; i < items.Count; i++)
-            {
-                var item = items[i];
-                if (old != item.CurrencyID)
-                {
-                    UISeparator separator = Instantiate(SeparatorTemplate, contents);
-                    separator.gameObject.SetActive(true);
-                    old = item.CurrencyID;
-                }
-                UIShopSlot slot = Instantiate(ShopSlotTemplate, contents);
-                slot.SetLimit(zoneID, boss);
-                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, item.CurrencyID);
-                slot.gameObject.SetActive(true);
-            }
-            return page;
-        }
-        public void OnClickZoneSlot(UIZoneSlot slot)
+        public void OnClickZoneSlot(UIZoneSlot zoneSlot)
         {
             if (current)
             {
                 current.Selected.gameObject.SetActive(false);
-                current.Page.gameObject.SetActive(false);
             }
-            current = slot;
+            current = zoneSlot;
             current.Selected.gameObject.SetActive(true);
-            var page = current.Page;
-            page.gameObject.SetActive(true);
-            scroll.scrollingContent = page;
-            layout = page.GetComponentInChildren<GridLayoutUIComponent>();
-            layout.RenderUIComponent(true);
-            Header.Render($"ItemCategory/Environment_{slot.Zone.name}Biome", false, true);
+            var zone = zoneSlot.Zone;
+            Header.Render($"ItemCategory/Environment_{zone.name}Biome", false, true);
             AudioManager.Sfx(SfxTableID.inventorySFXCreativeModeCategory, Manager.main.player.transform.position);
+            foreach (var slot in slots)
+            {
+                slot.transform.SetParent(Pool, false);
+            }
+            foreach (var split in Separators)
+            {
+                split.transform.SetParent(Pool, false);
+            }
+            int x = 0, y = 0;
+            CurrencyType old = CurrencyType.PointCoin;
+            var zoneID = zone.ZoneID;
+            var boss = zone.Boss;
+            foreach (var item in manager.GetShopItems(zone))
+            {
+                if (old != item.Currency)
+                {
+                    UISeparator separator = Separators[y++];
+                    separator.transform.SetParent(Content, false);
+                    old = item.Currency;
+                }
+                UIShopSlot slot;
+                if (x >= slots.Count)
+                {
+                    slot = Instantiate(ShopSlotTemplate, Content);
+                    slot.gameObject.SetActive(true);
+                    slots.Add(slot);
+                    slot.name = x.ToString();
+                }
+                slot = slots[x++];
+                slot.SetLimit(zoneID, boss);
+                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, item.CurrencyID);
+                slot.transform.SetParent(Content, false);
+            }
+            layout.RenderUIComponent(true);
             scroll.ResetScroll();
         }
         private void Update()
         {
-            PointValue.Render(Manager.main.player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin).ToString(), false, true);
+            var coin = Manager.main.player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin);
+            if (oldCoin == coin)
+                return;
+            oldCoin = coin;
+            PointValue.Render(coin.ToString(), false, true);
         }
 
         public void UpdateContainingElements(float _)

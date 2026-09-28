@@ -58,28 +58,32 @@ namespace Assets.PointShop.Scripts.Core
                             Debug.LogWarning("[" + itemName + "] has an invalid object ID");
                         continue;
                     }
-                    ObjectID currency;
-                    switch (item.Currency)
+                    ObjectID currency = item.OverrideCurrency;
+                    if (currency == ObjectID.None)
                     {
-                        case CurrencyType.EnvironmentChest:
-                            if (zone.EnvironmentChest == ObjectID.None)
-                            {
-                                Debug.LogWarning("[" + itemName + "] has an invalid EnvironmentChest for zone [" + zoneName + "]");
-                                continue;
-                            }
-                            currency = zone.EnvironmentChest;
-                            break;
-                        case CurrencyType.BossChest:
-                            if (zone.BossChest == ObjectID.None)
-                            {
-                                Debug.LogWarning("[" + itemName + "] has an invalid BossChest for zone [" + zoneName + "]");
-                                continue;
-                            }
-                            currency = zone.BossChest;
-                            break;
-                        default:
-                            currency = PointShop.Coin;
-                            break;
+                        switch (item.Currency)
+                        {
+                            case CurrencyType.EnvironmentChest:
+                                if (zone.EnvironmentChest == ObjectID.None)
+                                {
+                                    Debug.LogWarning("[" + itemName + "] has an invalid EnvironmentChest for zone [" + zoneName + "]");
+                                    continue;
+                                }
+                                currency = zone.EnvironmentChest;
+                                break;
+                            case CurrencyType.BossChest:
+                                if (zone.BossChest == ObjectID.None)
+                                {
+                                    Debug.LogWarning("[" + itemName + "] has an invalid BossChest for zone [" + zoneName + "]");
+                                    continue;
+                                }
+                                currency = zone.BossChest;
+                                break;
+                            case CurrencyType.OverridePointCoin:
+                            default:
+                                currency = PointShop.Coin;
+                                break;
+                        }
                     }
                     item.ObjectID = id;
                     item.CurrencyID = currency;
@@ -89,10 +93,12 @@ namespace Assets.PointShop.Scripts.Core
             foreach (var zone in ZoneSort)
             {
                 shops[zone.ZoneID] = shops[zone.ZoneID].OrderBy(x => x.Currency)
+                    .ThenBy(x => x.OverrideCurrency)
                     .ThenBy(x => PugDatabase.GetObjectInfo(x.ObjectID).rarity)
                     .ThenBy(x => x.Price)
                     .ThenBy(x => PugDatabase.GetObjectInfo(x.ObjectID).objectType)
                     .ThenBy(x => x.Amount)
+                    .ThenBy(x => x.ObjectID)
                     .ToList();
             }
         }

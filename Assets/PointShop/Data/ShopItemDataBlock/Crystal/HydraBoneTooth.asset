@@ -27,8 +27,9 @@ MonoBehaviour:
       m_high: 5441582940380080441
   Variation: 0
   Amount: 1
-  Currency: 0
-  Price: 100
+  Currency: 2
+  Price: 3
+  OverrideCurrency: 190
   Category:
     m_address:
       m_low: 5374159209421980987

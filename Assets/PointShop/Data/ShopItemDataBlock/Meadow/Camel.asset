@@ -10,34 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: AtlantianWormChest
+  m_Name: Camel
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: -7339642510941761503
-    m_high: -1571427015280719847
+    m_low: 3320518190244556599
+    m_high: 8772443482338574746
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: 5518282263008933704
-      m_high: 5441582940380080441
+      m_low: 6517938447349880680
+      m_high: -829793812102470309
   Variation: 0
   Amount: 1
-  Currency: 2
-  Price: 20
+  Currency: 3
+  Price: 10
   OverrideCurrency: 0
   Category:
     m_address:
-      m_low: 5374159209421980987
-      m_high: -6901100166046100725
+      m_low: 5707265226827824767
+      m_high: 2554608179575431482
   Level:
     m_address:
-      m_low: -4475345739407449117
-      m_high: -2497809185597725574
+      m_low: 6693546149735025569
+      m_high: 8604970799889500666
   references:
     version: 2
     RefIds: []

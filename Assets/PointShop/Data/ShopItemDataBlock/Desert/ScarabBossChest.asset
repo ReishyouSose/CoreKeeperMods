@@ -10,26 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e26f87d0ed301554fbef331ee17af09c, type: 3}
-  m_Name: AtlantianWormChest
+  m_Name: ScarabBossChest
   m_EditorClassIdentifier: 
   m_overload:
     m_address:
       m_low: 0
       m_high: 0
   m_address:
-    m_low: -7339642510941761503
-    m_high: -1571427015280719847
+    m_low: 4234603860745592687
+    m_high: -5029213940471122040
   m_dynamicCollections:
     m_list: []
   Zone:
     m_address:
-      m_low: 5518282263008933704
-      m_high: 5441582940380080441
+      m_low: -998449729148164861
+      m_high: -8687858114695570456
   Variation: 0
   Amount: 1
   Currency: 2
-  Price: 20
-  OverrideCurrency: 0
+  Price: 5
   Category:
     m_address:
       m_low: 5374159209421980987

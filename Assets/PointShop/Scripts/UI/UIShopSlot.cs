@@ -39,7 +39,6 @@ namespace Assets.PointShop.Scripts.UI
         private const float DAMAGE_VARIATION = 0.1f;
         #endregion
 
-        [HideInInspector] public ObjectData objectData;
         [HideInInspector] public int Price;
         [HideInInspector] public int Zone;
         [HideInInspector] public ObjectID Boss;
@@ -51,15 +50,30 @@ namespace Assets.PointShop.Scripts.UI
         public PugText AmountShadow;
 
         private ContainedObjectsBuffer objectBuffer;
-
         public override void OnLeftClicked(bool mod1, bool mod2)
         {
             base.OnLeftClicked(mod1, mod2);
             var player = Manager.main.player;
             if (player == null)
                 return;
-            PointShopClient.TryBuyItem(player.entity, objectData, Boss, Currency, Price, player.inputModule.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_10));
+            PointShopClient.TryBuyItem(player.entity, objectBuffer.objectData, Boss, Currency, Price, player.inputModule.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_10));
             AudioManager.Sfx(SfxID.twitch, player.transform.position, 0.1f, 0.55f, 0.1f, true);
+        }
+        public override void OnRightClicked(bool mod1, bool mod2)
+        {
+            base.OnRightClicked(mod1, mod2);
+            var objectData = objectBuffer.objectData;
+            var info = GetObjectInfo(objectData.objectID);
+            if (info.variationIsDynamic && info.tags.Contains(ObjectCategoryTag.Cattle))
+            {
+                objectData.variation = objectData.variation++ % 5;
+                SetItem(new()
+                {
+                    objectID = objectData.objectID,
+                    variation = (objectData.variation + 1) % 5,
+                    amount = objectData.amount
+                }, Price, Currency);
+            }
         }
         public void SetLimit(int zone, ObjectID boss)
         {
@@ -77,7 +91,6 @@ namespace Assets.PointShop.Scripts.UI
             var info = GetObjectInfo(id, objData.variation);
             if (info == null)
                 return;
-            objectData = objData;
             objectBuffer = new ContainedObjectsBuffer { objectData = objData };
             Price = sellPrice;
             Currency = currency;
@@ -86,6 +99,7 @@ namespace Assets.PointShop.Scripts.UI
                 color = Color.white;
             Border.color = color;
             ItemIcon.sprite = info.icon;
+            Manager.ui.ApplyAnyIconGradientMap(objectBuffer, ItemIcon);
             Vector2 offset = info.iconOffset;
             offset.x += 0.625f;
             offset.y -= 0.625f;
@@ -94,8 +108,15 @@ namespace Assets.PointShop.Scripts.UI
             if (objData.amount > 1)
             {
                 string amount = objData.amount.ToString();
+                AmountShadow.gameObject.SetActive(true);
+                Amount.gameObject.SetActive(true);
                 AmountShadow.Render(amount, false, true);
                 Amount.Render(amount, false, true);
+            }
+            else
+            {
+                AmountShadow.gameObject.SetActive(false);
+                Amount.gameObject.SetActive(false);
             }
         }
         public override ContainedObjectsBuffer GetContainedObject() => objectBuffer;
@@ -103,12 +124,12 @@ namespace Assets.PointShop.Scripts.UI
         public override TextAndFormatFields GetHoverTitle()
         {
             var nameInfo = PlayerController.GetObjectName(objectBuffer, false);
-            nameInfo.color = Manager.text.GetRarityColor(GetObjectRarity(objectData));
+            nameInfo.color = Manager.text.GetRarityColor(GetObjectRarity(objectBuffer.objectData));
             return nameInfo;
         }
         public override HoverTitleIconType GetHoverTitleIconType()
         {
-            ObjectInfo objectInfo = GetObjectInfo(objectData.objectID);
+            ObjectInfo objectInfo = GetObjectInfo(objectBuffer.objectData.objectID);
             if (objectInfo != null)
             {
                 if (objectInfo.objectType == ObjectType.Eatable)
@@ -135,7 +156,7 @@ namespace Assets.PointShop.Scripts.UI
             durability = 0;
             maxDurability = 0;
             amountType = AmountType.Durability;
-
+            var objectData = objectBuffer.objectData;
             var slotObject = objectBuffer;
             if (slotObject.objectID == ObjectID.None)
                 return false;
@@ -172,11 +193,17 @@ namespace Assets.PointShop.Scripts.UI
             string nameOverride = Manager.ui.itemOverridesTable.GetNameTermOverride(slotObject.objectData);
             if (nameOverride != null)
                 itemName = nameOverride;
-            return new List<TextAndFormatFields>
+            List<TextAndFormatFields> result = new()
             {
                 new() { text = $"Items/{itemName}Desc" },
-                new() { text = id + $"({(int)id})", dontLocalize = true, color = Color.gray },
+                new() { text = id + $"({(int)id}) [{slotObject.variation}]", dontLocalize = true, color = Color.gray },
             };
+            var info = GetObjectInfo(id);
+            if (info.variationIsDynamic && info.tags.Contains(ObjectCategoryTag.Cattle))
+            {
+                result.Insert(0, new() { text = "PointShop/RightClickToSwitchColor", color = Color.cyan });
+            }
+            return result;
         }
 
         public override List<MaterialInfo> GetRequiredMaterials(bool isRepairing, bool isReinforcing)
@@ -191,7 +218,7 @@ namespace Assets.PointShop.Scripts.UI
         public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced)
         {
             var containedObject = objectBuffer;
-            var objectData = this.objectData;
+            var objectData = objectBuffer.objectData;
 
             var result = new List<TextAndFormatFields>();
 

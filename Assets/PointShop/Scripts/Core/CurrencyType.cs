@@ -7,5 +7,6 @@ namespace Assets.PointShop.Scripts.Core
         PointCoin,
         EnvironmentChest,
         BossChest,
+        OverridePointCoin
     }
 }
