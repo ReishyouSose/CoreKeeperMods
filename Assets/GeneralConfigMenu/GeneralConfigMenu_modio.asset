@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GeneralConfigMenu_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: c240de7857dd4564cb5ed3c28d40c29f, type: 2}
+  modSettings: {fileID: 11400000, guid: 9d012ce52fee0d44386928b72d432c0a, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

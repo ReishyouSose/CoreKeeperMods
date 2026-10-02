@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using Steamworks;
+using System.Globalization;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Debug = UnityEngine.Debug;
 
 namespace PugMod
 {
@@ -14,7 +16,6 @@ namespace PugMod
 		private class SteamWorkshopTab
 		{
 			private VisualElement _steamWorkshopView;
-			private Button _steamInitButton;
 			private Button _steamConfigButton;
 
 			private DropdownField _steamModList;
@@ -28,9 +29,10 @@ namespace PugMod
 
 			private List<SteamWorkshopModSettings> _steamWorkshopModSettings;
 
-			private TextField _summaryTextField;
 			private TextField _steamWorkshopFileID;
 			private TextField _steamWorkshopFolderName;
+
+			private Button _descriptionStatusButton;
 
 			private Image _steamThumbnailUpload;
 			private Button _steamThumbnailUploadButton;
@@ -45,7 +47,6 @@ namespace PugMod
 
 			public void Refresh()
 			{
-				RefreshSteamWorkshopUI();
 				if (EditorPrefs.HasKey(CHOSEN_MOD_KEY))
 				{
 					_steamModList.index = _steamModList.choices.IndexOf(EditorPrefs.GetString(CHOSEN_MOD_KEY));
@@ -58,7 +59,6 @@ namespace PugMod
 					var steamWorkshopTagType = root.Q<EnumField>("SteamWorkshopTagType");
 					steamWorkshopTagType.Init(TagType.Category);
 
-					_steamInitButton = root.Q<Button>("SteamInitButton");
 				_steamConfigButton = root.Q<Button>("SteamConfigButton");
 				_steamWorkshopView = root.Q<VisualElement>("SteamWorkshopViewContainer");
 				_steamModList = root.Q<DropdownField>("SteamBuiltModsDropdown");
@@ -82,7 +82,9 @@ namespace PugMod
 				_steamGoToPageButton = root.Q<Button>("SteamGoToPageButton");
 				_steamModInstallPath = root.Q<Label>("SteamExportGamePath");
 
-				_summaryTextField = root.Q<TextField>("SteamUploadModSummary");
+				_descriptionStatusButton = root.Q<Button>("SteamDescriptionStatus");
+				_descriptionStatusButton.clicked += OnDescriptionStatusClicked;
+
 				_steamWorkshopFileID = root.Q<TextField>("SteamWorkshopFileID");
 				_steamWorkshopFolderName = root.Q<TextField>("SteamWorkshopFolderName");
 
@@ -138,7 +140,6 @@ namespace PugMod
 
 				_steamWorkshopFolderName.RegisterValueChangedCallback(evt =>
 				{
-					_steamUploadButton.SetEnabled(!string.IsNullOrEmpty(evt.newValue));
 					RefreshSteamWorkshopUploadButton();
 				});
 
@@ -182,23 +183,6 @@ namespace PugMod
 					}
 				};
 
-				_steamInitButton.clicked += () =>
-				{
-					var steamConfiguration = AssetDatabase.LoadAssetAtPath<SteamConfiguration>("Packages/dev.pugstorm.mod/SDK/Editor/SteamConfiguration.asset");
-
-					try
-					{
-						SteamClient.Init(steamConfiguration.CoreKeeperAppID);
-						Debug.Log("Steam initialized successfully for Mod SDK");
-						RefreshSteamWorkshopUI();
-					}
-					catch (System.Exception e)
-					{
-						Debug.LogError($"Failed to initialize Steam for Mod SDK: {e.Message}");
-					}
-
-				};
-
 				_steamConfigButton.clicked += () =>
 				{
 					OpenSteamConfig();
@@ -206,7 +190,6 @@ namespace PugMod
 
 				UpdateTagChoices(TagType.Category);
 				RefreshSteamWorkshopUploadButton();
-				RefreshSteamWorkshopUI();
 			}
 			private void GetInfoFromSteamModSettings(string modName)
 			{
@@ -214,7 +197,7 @@ namespace PugMod
 				.Select(guid => AssetDatabase.GUIDToAssetPath(guid))
 				.Select(path => AssetDatabase.LoadAssetAtPath<SteamWorkshopModSettings>(path)));
 
-				var steamWorkshopModSettings = _steamWorkshopModSettings.FirstOrDefault(x => x.modName == modName);
+				var steamWorkshopModSettings = FindSteamWorkshopModSettings(modName);
 
 				if (steamWorkshopModSettings != null)
 				{
@@ -223,7 +206,7 @@ namespace PugMod
 				else
 				{
 					_steamWorkshopFileID.value = "";
-					_steamWorkshopFolderName.value = modName;
+					_steamWorkshopFolderName.value = "";
 					_steamWorkshopTagsToList.Clear();
 					RefreshTags();
 				}
@@ -263,24 +246,11 @@ namespace PugMod
 				Selection.activeObject = steamConfiguration;
 			}
 
-			private void RefreshSteamWorkshopUI()
-			{
-				if (SteamClient.IsValid)
-				{
-					_steamInitButton.style.display = DisplayStyle.None;
-					_steamConfigButton.style.display = DisplayStyle.None;
-					_steamWorkshopView.style.display = DisplayStyle.Flex;
-				}
-				else
-				{
-					_steamInitButton.style.display = DisplayStyle.Flex;
-					_steamConfigButton.style.display = DisplayStyle.Flex;
-					_steamWorkshopView.style.display = DisplayStyle.None;
-				}
-			}
-
 			private void RefreshSteamWorkshopUploadButton()
 			{
+				_steamUploadButton.SetEnabled(!string.IsNullOrEmpty(_selectedWorkshopPath) &&
+					(ModHasBeenUploadedToSteamWorkshop() || !string.IsNullOrEmpty(_steamWorkshopFolderName.value)));
+
 				if(ModHasBeenUploadedToSteamWorkshop())
 				{
 					_steamUploadButton.text = "Update Mod on Steam Workshop";
@@ -301,38 +271,83 @@ namespace PugMod
 				return true;
 			}
 
-            private string GetDescriptionFromFile()
+            private const string DESCRIPTION_FILE_NAME = "description.txt";
+
+            private string GetDescriptionTxtPath()
             {
                 var modName = _steamModList.value;
                 var modBuilderSettings = _modSettings.FirstOrDefault(x => x.metadata.name == modName);
                 if (modBuilderSettings != null && !string.IsNullOrEmpty(modBuilderSettings.modPath))
                 {
-                    var descriptionTxtPath = Path.Combine(modBuilderSettings.modPath, "description.txt");
-
-                    if (File.Exists(descriptionTxtPath))
-                    {
-						return File.ReadAllText(descriptionTxtPath);
-                    }
+                    return Path.Combine(modBuilderSettings.modPath, DESCRIPTION_FILE_NAME);
                 }
 
                 return null;
             }
 
+            private string GetDescriptionFromFile()
+            {
+                var descriptionTxtPath = GetDescriptionTxtPath();
+
+                if (!string.IsNullOrEmpty(descriptionTxtPath) && File.Exists(descriptionTxtPath))
+                {
+                    return File.ReadAllText(descriptionTxtPath);
+                }
+
+                return null;
+            }
+
+            private void RefreshDescriptionStatus()
+            {
+                if (_descriptionStatusButton == null)
+                {
+                    return;
+                }
+
+                var descriptionTxtPath = GetDescriptionTxtPath();
+
+                if (string.IsNullOrEmpty(descriptionTxtPath))
+                {
+                    _descriptionStatusButton.text = "Select a built mod to manage its description.txt";
+                    _descriptionStatusButton.SetEnabled(false);
+                    return;
+                }
+
+                _descriptionStatusButton.SetEnabled(true);
+                _descriptionStatusButton.text = File.Exists(descriptionTxtPath)
+                    ? "Open description.txt"
+                    : "Create description.txt";
+            }
+
+            private void OnDescriptionStatusClicked()
+            {
+                var descriptionTxtPath = GetDescriptionTxtPath();
+
+                if (string.IsNullOrEmpty(descriptionTxtPath))
+                {
+                    return;
+                }
+
+                try
+                {
+                    if (!File.Exists(descriptionTxtPath))
+                    {
+                        Directory.CreateDirectory(Path.GetDirectoryName(descriptionTxtPath));
+                        File.WriteAllText(descriptionTxtPath, string.Empty);
+                        RefreshDescriptionStatus();
+                    }
+
+                    Process.Start(new ProcessStartInfo(descriptionTxtPath) { UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    ShowError($"Failed to open/create description.txt: {ex.Message}");
+                }
+            }
+
             private string SetDescription()
 			{
-				if (!string.IsNullOrEmpty(_summaryTextField.value))
-				{
-					return _summaryTextField.value;
-				}
-
-				var fileDescription = GetDescriptionFromFile();
-
-				if (!string.IsNullOrEmpty(fileDescription))
-				{
-					return fileDescription;
-				}
-
-				return "";
+				return GetDescriptionFromFile() ?? "";
 			}
 
 			private void UploadOrUpdateMod()
@@ -354,14 +369,7 @@ namespace PugMod
 					UpdateManifestDisplayName(_selectedWorkshopPath, _steamWorkshopFolderName.value);
 				}
 
-				if (ModHasBeenUploadedToSteamWorkshop())
-				{
-					UpdateSteamWorkshopMod();
-				}
-				else
-				{
-					UploadToSteamWorkshop();
-				}
+				UploadToSteamWorkshop();
 			}
 
 			private void RefreshTags()
@@ -384,14 +392,22 @@ namespace PugMod
 						text = ($"{tag}")
 					};
 					tagButton.AddToClassList("TagBase");
+					tagButton.AddToClassList(GetTagTypeUssClass(GetTagTypeForValue(tag, GetTagChoices)));
 					tagButton.style.fontSize = 10;
 					_steamWorkshopTagsList.Add(tagButton);
 				}
 			}
 
+			private SteamWorkshopModSettings FindSteamWorkshopModSettings(string modName)
+			{
+				return _steamWorkshopModSettings.FirstOrDefault(x => x.modId == modName) ??
+					_steamWorkshopModSettings.FirstOrDefault(x => string.IsNullOrEmpty(x.modId) &&
+						(x.modName == modName || (!string.IsNullOrEmpty(_selectedWorkshopPath) && x.selectedPath == _selectedWorkshopPath)));
+			}
+
 			private void SelectSteamWorkshopModSettings(string modName)
 			{
-				var steamWorkshopModSettings = _steamWorkshopModSettings.FirstOrDefault(x => x.modName == modName);
+				var steamWorkshopModSettings = FindSteamWorkshopModSettings(modName);
 
 				_steamWorkshopFileID.value = Convert.ToString(steamWorkshopModSettings.fileId);
 				_steamWorkshopFolderName.value = steamWorkshopModSettings.modName;
@@ -412,179 +428,127 @@ namespace PugMod
 
 				_selectedWorkshopPath =
                 modBuildPaths.LastOrDefault(x => !x.StartsWith(tempBuildRoot) && Directory.Exists(x)) ?? modBuildPaths.LastOrDefault(x => Directory.Exists(x)) ?? modBuildPaths.LastOrDefault();
+
+				RefreshDescriptionStatus();
 			}
 
-			private class ProgressClass : IProgress<float>
+			[Serializable]
+			private class UploadConfig
 			{
-				public float lastValue = 0;
-				private string methodType;
-
-				public ProgressClass(string _methodType)
-				{
-					methodType = _methodType;
-				}
-				public void Report(float value)
-				{
-					if (lastValue >= value) return;
-					lastValue = value;
-
-					string operation = methodType switch
-					{
-						"Upload" => "uploading mod to steam workshop",
-						"Update" => "updating mod on steam workshop",
-						_ => null
-					};
-
-					EditorUtility.DisplayProgressBar(operation, $"progress: {value * 100:F1}%", value);
-
-					if (Math.Abs(value - 1f) < 0.001f)
-					{
-						EditorUtility.ClearProgressBar();
-					}
-				}
+				public uint AppId;
+				public ulong FileId;
+				public string ContentPath;
+				public string PreviewPath;
+				public string Title;
+				public string Description;
+				public string Visibility;
+				public List<string> Tags;
 			}
 
 			private async void UploadToSteamWorkshop()
 			{
-				if (!SteamClient.IsValid)
+				var uploaderPath = Path.GetFullPath(Path.Combine("PugModUploader", "dist",
+					Application.platform == RuntimePlatform.WindowsEditor ? "win/PugModUploader.exe" : "linux/PugModUploader"));
+				if (!File.Exists(uploaderPath))
 				{
-					ShowError("Steam client hasn't been initialized, initialize it first or start Steam.");
+					ShowError($"Steam Workshop uploader not found at:\n{uploaderPath}");
 					return;
 				}
+
+				var modName = _steamModList.value;
+				var configPath = Path.Combine(Path.GetTempPath(), $"PugModUploader-{Guid.NewGuid():N}.json");
+				_steamWorkshopView.SetEnabled(false);
+				EditorApplication.LockReloadAssemblies();
 				try
 				{
-					var description = SetDescription();
-
-					var mod = Steamworks.Ugc.Editor.NewCommunityFile
-								.WithContent(_selectedWorkshopPath)
-								.WithPreviewFile(_thumbnailPath);
-
-					if (!string.IsNullOrEmpty(_steamWorkshopFolderName.value))
+					var configuration = AssetDatabase.LoadAssetAtPath<SteamConfiguration>("Packages/dev.pugstorm.mod/SDK/Editor/SteamConfiguration.asset");
+					var config = new UploadConfig
 					{
-						mod = mod.WithTitle(_steamWorkshopFolderName.value);
-					}
-
-					if (!string.IsNullOrEmpty(description))
-					{
-						mod = mod.WithDescription(description);
-					}
-
-					foreach (var tag in _steamWorkshopTagsToList)
-					{
-						mod = mod.WithTag(tag);
-					}
-
-					var currentVersion = GameVersionTagRegistry.GetCurrentVersion();
-					if (!string.IsNullOrEmpty(currentVersion))
-					{
-						mod = mod.WithTag(currentVersion);
-					}
-
-					mod = _steamVisibility.value switch
-					{
-						"Private" => mod.WithPrivateVisibility(),
-						"Friends Only" => mod.WithFriendsOnlyVisibility(),
-						"Public" => mod.WithPublicVisibility(),
-						_ => mod.WithPrivateVisibility()
+						AppId = configuration.CoreKeeperAppID,
+						FileId = ModHasBeenUploadedToSteamWorkshop() ? Convert.ToUInt64(_steamWorkshopFileID.value) : 0,
+						ContentPath = Path.GetFullPath(_selectedWorkshopPath),
+						PreviewPath = string.IsNullOrEmpty(_thumbnailPath) ? null : Path.GetFullPath(_thumbnailPath),
+						Title = _steamWorkshopFolderName.value,
+						Description = SetDescription(),
+						Visibility = _steamVisibility.value,
+						Tags = new List<string>(_steamWorkshopTagsToList)
 					};
-
-					var result = await mod.SubmitAsync(new ProgressClass("Upload"));
-
-					if (result.Success)
+					var currentVersion = GameVersionTagRegistry.GetCurrentVersion();
+					if (!string.IsNullOrEmpty(currentVersion) && !config.Tags.Contains(currentVersion))
 					{
-						EditorUtility.DisplayDialog("the mod was uploaded via steam workshop!", $"published file ID: {result.FileId}.", "OK.");//could add more info here next to the published file ID
-						SaveSteamWorkshopSettings(result.FileId, _steamWorkshopFolderName.value, _selectedWorkshopPath, _steamWorkshopTagsToList);
-						_steamWorkshopFileID.value = Convert.ToString(result.FileId);
+						config.Tags.Add(currentVersion);
+					}
+					File.WriteAllText(configPath, JsonUtility.ToJson(config));
+
+					using var process = new Process
+					{
+						StartInfo = new ProcessStartInfo(uploaderPath)
+						{
+							Arguments = $"\"{configPath}\"",
+							WorkingDirectory = Path.GetDirectoryName(uploaderPath),
+							UseShellExecute = false,
+							CreateNoWindow = true,
+							RedirectStandardOutput = true,
+							RedirectStandardError = true
+						}
+					};
+					process.Start();
+					var stderr = process.StandardError.ReadToEndAsync();
+					ulong fileId = 0;
+					string owner = null;
+					string error = null;
+					EditorUtility.DisplayProgressBar("Steam Workshop", "Starting upload...", 0);
+					string line;
+					while ((line = await process.StandardOutput.ReadLineAsync()) != null)
+					{
+						if (line.StartsWith("PROGRESS:") && float.TryParse(line.Substring(9), NumberStyles.Float, CultureInfo.InvariantCulture, out var progress))
+						{
+							EditorUtility.DisplayProgressBar("Steam Workshop", $"Uploading: {progress:P0}", progress);
+						}
+						else if (line.StartsWith("SUCCESS_FILE_ID:"))
+						{
+							ulong.TryParse(line.Substring(16), out fileId);
+						}
+						else if (line.StartsWith("OWNER:"))
+						{
+							owner = line.Substring(6);
+						}
+						else if (line.StartsWith("ERROR:"))
+						{
+							error = line.Substring(6).Trim();
+						}
+					}
+					await System.Threading.Tasks.Task.Run(() => process.WaitForExit());
+					var errorOutput = await stderr;
+					EditorUtility.ClearProgressBar();
+					if (process.ExitCode != 0 || fileId == 0)
+					{
+						ShowError(error ?? $"Steam Workshop upload failed (exit code {process.ExitCode}).\n{errorOutput}");
+						return;
+					}
+
+					SaveSteamWorkshopSettings(fileId, modName, config.ContentPath, config.Tags, config.Title, owner);
+					if (_steamModList.value == modName)
+					{
+						_steamWorkshopFileID.value = fileId.ToString();
 						RefreshSteamWorkshopUploadButton();
 					}
-					else
-					{
-						ShowError($"failed to upload Mod to Steam Workshop: {result.Result}");
-					}
+					EditorUtility.DisplayDialog("Steam Workshop", $"Mod uploaded successfully. Published file ID: {fileId}.", "OK");
 				}
 				catch (Exception ex)
 				{
-					ShowError($"an error occurred: {ex.Message}");
+					ShowError($"Steam Workshop upload failed: {ex.Message}");
+				}
+				finally
+				{
+					EditorUtility.ClearProgressBar();
+					EditorApplication.UnlockReloadAssemblies();
+					_steamWorkshopView.SetEnabled(true);
+					File.Delete(configPath);
 				}
 			}
-			private async void UpdateSteamWorkshopMod()
-			{
-				if (!SteamClient.IsValid)
-				{
-					ShowError("Steam client hasn't been initialized, initialize it first or start Steam.");
-					return;
-				}
 
-				try
-				{
-					var fileId = Convert.ToUInt64(_steamWorkshopFileID.value);
-					var fileInfo = await Steamworks.Ugc.Item.GetAsync(fileId);
-
-					if (!fileInfo.HasValue)
-					{
-						ShowError("Could not find this Workshop item. Please verify the File ID is correct.");
-						return;
-					}
-
-					if (fileInfo.Value.Owner.Id != SteamClient.SteamId)
-					{
-						ShowError("You don't own this Steam Workshop item.");
-						return;
-					}
-
-					var description = SetDescription();
-
-					var mod = new Steamworks.Ugc.Editor(fileId)
-								.WithContent(_selectedWorkshopPath)
-								.WithPreviewFile(_thumbnailPath);
-
-					if (!string.IsNullOrEmpty(_steamWorkshopFolderName.value))
-					{
-						mod = mod.WithTitle(_steamWorkshopFolderName.value);
-					}
-
-					if (!string.IsNullOrEmpty(description))
-					{
-						mod = mod.WithDescription(description);
-					}
-
-					foreach (var tag in _steamWorkshopTagsToList)
-					{
-						mod = mod.WithTag(tag);
-					}
-
-					var currentVersion = GameVersionTagRegistry.GetCurrentVersion();
-					if (!string.IsNullOrEmpty(currentVersion))
-					{
-						mod = mod.WithTag(currentVersion);
-					}
-
-					mod = _steamVisibility.value switch
-					{
-						"Private" => mod.WithPrivateVisibility(),
-						"Friends Only" => mod.WithFriendsOnlyVisibility(),
-						"Public" => mod.WithPublicVisibility(),
-						_ => mod.WithPrivateVisibility()
-					};
-
-					var result = await mod.SubmitAsync(new ProgressClass("Update"));
-
-					if (result.Success)
-					{
-						EditorUtility.DisplayDialog("the mod was updated successfully", $"updated file id: {result.FileId}.", "OK.");//could add more info here next to the published file ID
-						SaveSteamWorkshopSettings(result.FileId, _steamWorkshopFolderName.value, _selectedWorkshopPath, _steamWorkshopTagsToList);
-					}
-					else
-					{
-						ShowError($"failed to update mod on Steam Workshop: {result.Result}");
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowError($"an error occurred: {ex.Message}");
-				}
-			}
-			private void SaveSteamWorkshopSettings(ulong FileID, string ModName, string SelectedPath, List<string> Tags)
+			private void SaveSteamWorkshopSettings(ulong FileID, string ModName, string SelectedPath, List<string> Tags, string Title, string Owner)
 			{
 				SteamWorkshopModSettings steamSettings;
 				var existingSettings = _steamWorkshopModSettings.FirstOrDefault(x => x.fileId == FileID);
@@ -604,10 +568,13 @@ namespace PugMod
 				}
 				steamSettings.fileId = FileID;
 				steamSettings.tags = new List<string>(Tags);
-				steamSettings.modName = ModName;
-				steamSettings.selectedPath = _selectedWorkshopPath;
-				steamSettings.modOwner = SteamApps.AppOwner.ToString();
-				//steamSettings.Change(SteamApps.AppOwner.ToString()); if we want to serialize modOnwer ID but don't want it visible in inspector, uncomment Change method first in SteamWorkshopSettings.cs
+				steamSettings.modId = ModName;
+				if (!string.IsNullOrEmpty(Title))
+				{
+					steamSettings.modName = Title;
+				}
+				steamSettings.selectedPath = SelectedPath;
+				steamSettings.modOwner = Owner;
 
 				EditorUtility.SetDirty(steamSettings);
 				AssetDatabase.SaveAssets();

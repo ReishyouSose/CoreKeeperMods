@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: THCompass_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: 54fa3f85a5421f048a8287bf01c35b85, type: 2}
+  modSettings: {fileID: 11400000, guid: 5df9a8f7fec49c34e9f0c57bf9fb4eff, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

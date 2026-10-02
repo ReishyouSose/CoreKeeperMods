@@ -272,6 +272,8 @@ namespace PugMod
 
 							EditorUtility.SetDirty(modIOSettings);
 
+							AssetDatabase.SaveAssets();
+
 						UpdateSelection();
 
 						EditorUtility.DisplayDialog("Register successful", $"Successfully registered new mod with ID={modIOSettings.modId}", "OK");
@@ -383,6 +385,11 @@ namespace PugMod
 					});
 				};
 
+				if (EditorPrefs.HasKey(CHOSEN_MOD_KEY))
+				{
+					_modList.index = _modList.choices.IndexOf(EditorPrefs.GetString(CHOSEN_MOD_KEY));
+				}
+
 				UpdateSelection();
 
 				_modList.RegisterValueChangedCallback(evt =>
@@ -459,7 +466,7 @@ namespace PugMod
 				});
 			}
 
-			private static ModSettings CreateNewModIOSettings(ModBuilderSettings modBuilderSettings)
+			private ModSettings CreateNewModIOSettings(ModBuilderSettings modBuilderSettings)
 			{
 				AssetDatabase.StartAssetEditing();
 
@@ -472,6 +479,7 @@ namespace PugMod
 					settings.modSettings = modBuilderSettings;
 
 					AssetDatabase.CreateAsset(settings, Path.Combine(dir, $"{modBuilderSettings.metadata.name}_modio.asset"));
+					_modIOSettings.Add(settings);
 
 					return settings;
 				}
@@ -551,6 +559,7 @@ namespace PugMod
 						text = tag
 					};
 					tagButton.AddToClassList("TagBase");
+					tagButton.AddToClassList(GetTagTypeUssClass(GetTagTypeForValue(tag, GetModIOTagChoices)));
 					tagButton.style.fontSize = 10;
 					_gameVersionTagsList.Add(tagButton);
 				}

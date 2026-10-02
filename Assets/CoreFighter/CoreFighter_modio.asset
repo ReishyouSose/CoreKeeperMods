@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: CoreFighter_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: f403138d688fda24cb128fbd62ac3f5c, type: 2}
+  modSettings: {fileID: 11400000, guid: 8b7d3c7116dbc1449b4183c6af7691f4, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

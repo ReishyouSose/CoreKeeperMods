@@ -87,7 +87,7 @@ namespace Assets.GeneralConfigMenu.Scripts
                 optionalHoverDesc = new() { mTerm = desc };
             }
             if (Scope.requireReload)
-                Instantiate(template.Reload, Offset).localPosition = new(0.5f, -1.5f, 0);
+                Instantiate(template.Reload, Offset).localPosition = new(1.5f, -1.5f, 0);
 
             MatchValueBox(template);
         }

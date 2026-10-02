@@ -29,6 +29,7 @@ MonoBehaviour:
   Amount: 1
   Currency: 0
   Price: 10
+  OverrideCurrency: 0
   Category:
     m_address:
       m_low: 5882977488125649215

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SoulLinkKeeper_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: 36d6214f0316e11449d5039f18a66c7c, type: 2}
+  modSettings: {fileID: 11400000, guid: 3e26b78e8cc6c7e469ad8c6a3971a31a, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

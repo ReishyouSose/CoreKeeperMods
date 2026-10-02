@@ -10,8 +10,6 @@ public class ModBuilderCustomScenesProcessor : IPugModBuilderProcessor
 {
     public void Execute(ModBuilderSettings settings, string installDirectory, List<string> assetPaths)
     {
-        EditorSceneManager.SaveOpenScenes();
-
         string normalizedModPath = settings.modPath.Replace('\\', '/').TrimEnd('/');
 
         var sceneDataBlocks = new List<CustomSceneDataBlock>();
@@ -37,8 +35,13 @@ public class ModBuilderCustomScenesProcessor : IPugModBuilderProcessor
             }
         }
 
-        if (sceneDataBlocks.Count > 0)
+        var activeScene = EditorSceneManager.GetActiveScene();
+        bool hasActiveScene = activeScene.IsValid() && !string.IsNullOrEmpty(activeScene.path);
+
+        if (sceneDataBlocks.Count > 0 && hasActiveScene)
         {
+            EditorSceneManager.SaveOpenScenes();
+
             bool[] scenesToInclude = new bool[sceneDataBlocks.Count];
             Array.Fill(scenesToInclude, true);
             var sceneNames = string.Join(", ", sceneDataBlocks.Select(s => s.sceneReference.AssetName()));
@@ -61,7 +64,10 @@ public class ModBuilderCustomScenesProcessor : IPugModBuilderProcessor
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Where(path => !string.IsNullOrEmpty(path)
                     && !AssetDatabase.IsValidFolder(path)
-                    && !path.EndsWith(".unity", StringComparison.OrdinalIgnoreCase))
+                    && !path.EndsWith(".unity", StringComparison.OrdinalIgnoreCase)
+                    && AssetDatabase.GetMainAssetTypeAtPath(path) != typeof(ModBuilderSettings)
+                    && AssetDatabase.GetMainAssetTypeAtPath(path) != typeof(PugMod.ModIO.ModSettings)
+                    && AssetDatabase.GetMainAssetTypeAtPath(path) != typeof(SteamWorkshopModSettings))
                 .ToList();
 
             assetPaths.Clear();

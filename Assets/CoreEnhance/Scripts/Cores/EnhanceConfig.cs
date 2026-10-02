@@ -37,6 +37,7 @@ namespace Assets.CoreEnhance.Scripts.Cores
                     case EnhanceCategory.Crafting:
                     case EnhanceCategory.FishingNetNoCritter:
                     case EnhanceCategory.FishingNetCanGetItem:
+                    case EnhanceCategory.ModifySledgeRange:
                         _default = false;
                         break;
                     case EnhanceCategory.RollSkill:
@@ -51,8 +52,12 @@ namespace Assets.CoreEnhance.Scripts.Cores
                         _default = false;
                         scope = new(ConfigAccessLevel.Server, true);
                         break;
-                    case EnhanceCategory.ModifySledgeRange:
+                    case EnhanceCategory.ExtraInventory:
                         _default = false;
+                        scope = new(ConfigAccessLevel.Admin, true);
+                        break;
+                    case EnhanceCategory.ProjectileTimerMultiple:
+                        scope = new(ConfigAccessLevel.Admin, true);
                         break;
                 }
                 var entry = file.Bind(def, _default, scope: scope ?? new());
@@ -77,6 +82,8 @@ namespace Assets.CoreEnhance.Scripts.Cores
             TryAddValue(EnhanceCategory.ChainMining, true, null, "GiveExp");
             TryAddValue(EnhanceCategory.ChainMining, ChainTarget.OreAndWood, null, "Target");
             TryAddValue(EnhanceCategory.ModifySledgeRange, 2.5f, new AcceptableValueRange<float>(1.4f, 5f));
+            TryAddValue(EnhanceCategory.ExtraInventory, 2, new AcceptableValueRange<int>(1, 10));
+            TryAddValue(EnhanceCategory.ProjectileTimerMultiple, 2f, new AcceptableValueRange<float>(1f, 10f));
         }
 
         /// <returns>查询失败或条目未启用均返回false</returns>

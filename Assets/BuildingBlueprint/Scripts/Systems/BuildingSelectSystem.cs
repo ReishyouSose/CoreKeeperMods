@@ -374,12 +374,14 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                 return;
             if (authoringData.TryGetComponent<MineableAuthoring>(out _) || authoringData.TryGetComponent<DiggableAuthoring>(out _))
             {
+                string id = string.Empty;
                 if (authoringData.TryGetComponent(out EntityMonoBehaviourData data))
                 {
                     if (data.objectInfo.icon == null)
                         return;
                     if (data.objectInfo.objectType == ObjectType.Critter)
                         return;
+                    id = data.objectInfo.objectID.ToString();
                 }
                 else if (!authoringData.TryGetComponent(out InventoryItemAuthoring _))
                     return;
@@ -396,6 +398,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                 var target = entityManager.AddBuffer<TileTargetStateBuffer>(entity);
                 if (ScriptableData.TryGetDataBlocks<TileTargetDataBlock>(out var dataBlocks))
                     target.Capacity = target.Length = dataBlocks.Count;
+                Debug.Log("Add select component by blueprint");
             }
         }
     }

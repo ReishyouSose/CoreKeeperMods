@@ -1,4 +1,5 @@
-﻿using Assets.PointShop.Scripts.Systems;
+﻿using Assets.PointShop.Scripts.Core;
+using Assets.PointShop.Scripts.Systems;
 using CommandMinion;
 using Pug.Automation;
 using PugMod;
@@ -203,6 +204,12 @@ namespace Assets.PointShop.Scripts.UI
             {
                 result.Insert(0, new() { text = "PointShop/RightClickToSwitchColor", color = Color.cyan });
             }
+            if (!LootChanceCalculator.lootChance.TryGetValue(objectBuffer.objectID, out var chances))
+                return result;
+            for (int i = 0; i < 4; i++)
+            {
+                result.Add(new() { text = $"{(ObtainWay)i} " + chances[i] * 100 + "%", dontLocalize = true, color = Color.yellow });
+            }
             return result;
         }
 
@@ -212,7 +219,8 @@ namespace Assets.PointShop.Scripts.UI
             if (player == null)
                 return null;
             ObjectID currency = Currency == ObjectID.None ? PointShop.Coin : Currency;
-            return new List<MaterialInfo> { new(currency, Price, player.playerInventoryHandler.GetExistingAmountOfObject(currency), Entity.Null, null) };
+            List<MaterialInfo> result = new() { new(currency, Price, player.playerInventoryHandler.GetExistingAmountOfObject(currency), Entity.Null, null) };
+            return result;
         }
         public override bool ShowRequiredMaterialsAmountNumberColor() => true;
         public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced)

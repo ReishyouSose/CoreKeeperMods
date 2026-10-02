@@ -108,7 +108,12 @@ namespace PugMod
 				};
 
 				_modDependencyList.fixedItemHeight = 40;
-				_modDependencyList.makeItem = () => modDependencyEntryTemplate.CloneTree();
+				_modDependencyList.makeItem = () =>
+				{
+					var item = modDependencyEntryTemplate.CloneTree();
+					ApplyTextInputCaretTheme(item);
+					return item;
+				};
 				_modDependencyList.bindItem = (element, index) =>
 				{
 					if (_dependencies[index] == null)

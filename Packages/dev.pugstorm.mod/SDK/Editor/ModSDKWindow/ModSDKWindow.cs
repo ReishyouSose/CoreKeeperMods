@@ -3,10 +3,10 @@ using ModIO;
 using Result = ModIO.Result;
 #endif
 using System.Collections.Generic;
-using Steamworks;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 
 namespace PugMod
 {
@@ -29,6 +29,57 @@ namespace PugMod
 			TagType.AccessType  => new List<string> { "asset", "script", "script (elevated access)" },
 			_ => new List<string>()
 		};
+
+		public static TagType GetTagTypeForValue(string tag, System.Func<TagType, List<string>> choicesProvider)
+		{
+			if (choicesProvider(TagType.AppType).Contains(tag))
+			{
+				return TagType.AppType;
+			}
+			if (choicesProvider(TagType.AccessType).Contains(tag))
+			{
+				return TagType.AccessType;
+			}
+			return TagType.Category;
+		}
+
+		public static string GetTagTypeUssClass(TagType tagType) => tagType switch
+		{
+			TagType.AppType => "Tag-AppType",
+			TagType.AccessType => "Tag-AccessType",
+			_ => "Tag-Category"
+		};
+
+		public static void ApplyTextInputCaretTheme(VisualElement root)
+		{
+			var caretColor = new Color(231f / 255f, 231f / 255f, 231f / 255f);
+			var selectionColor = new Color(109f / 255f, 205f / 255f, 255f / 255f, 0.4f);
+
+			root.Query<TextField>().ForEach(field =>
+			{
+				field.textSelection.cursorColor = caretColor;
+				field.textSelection.selectionColor = selectionColor;
+			});
+		}
+
+		private static readonly Dictionary<string, string> LINK_TAG_URLS = new Dictionary<string, string>
+		{
+			{ "gitbook", "https://modding.corekeepergame.com/" },
+		};
+
+		public static void ApplyLinkTagHandlers(VisualElement root)
+		{
+			root.Query<TextElement>().ForEach(label =>
+			{
+				label.RegisterCallback<PointerUpLinkTagEvent>(evt =>
+				{
+					if (LINK_TAG_URLS.TryGetValue(evt.linkID, out var url))
+					{
+						Application.OpenURL(url);
+					}
+				});
+			});
+		}
 
 		private const string WINDOW_SHOWN_KEY = "PugMod/SDKWindow/Shown";
 		
@@ -58,10 +109,6 @@ namespace PugMod
 		private VisualElement[] _views;
 		private Button[] _buttons;
 		private Label _title;
-
-		Color32 _highlightColor = new Color32(135, 161, 218, 200);
-
-		public SteamConfiguration steamConfiguration;
 
 		private static ModPaths GetModPaths()
 		{
@@ -130,10 +177,10 @@ namespace PugMod
 				
 				ModSDKWindow wnd = GetWindow<ModSDKWindow>("Mod SDK");
 
-				wnd.minSize = new Vector2(500, 450);
+				wnd.minSize = new Vector2(620, 620);
 				// Want to set size without messing with position so doing it in a somewhat hacky way
 				var oldMaxSize = wnd.maxSize;
-				wnd.maxSize = new Vector2(500, 450);
+				wnd.maxSize = new Vector2(620, 620);
 				wnd.maxSize = oldMaxSize;
 			});
 		}
@@ -150,11 +197,24 @@ namespace PugMod
 			
 			// Each editor window contains a root VisualElement object
 			VisualElement root = rootVisualElement;
+			root.style.flexGrow = 1;
 
 			// Import UXML
 			var uxml = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Packages/dev.pugstorm.mod/Assets/UI/ModSDKWindow.uxml");
 
-			root.Add(uxml.CloneTree());
+			var content = uxml.CloneTree();
+			content.style.flexGrow = 1;
+			root.Add(content);
+
+			// Import USS
+			var uss = AssetDatabase.LoadAssetAtPath<StyleSheet>("Packages/dev.pugstorm.mod/Assets/UI/ModSDKWindow.uss");
+			if (uss != null)
+			{
+				root.styleSheets.Add(uss);
+			}
+
+			ApplyTextInputCaretTheme(content);
+			ApplyLinkTagHandlers(content);
 
 			// Define the views and buttons
 			_views = new[]
@@ -201,6 +261,9 @@ namespace PugMod
 
 			UpdateButtons(root, false);
 
+			// Highlight the initial tab (StartView is shown by default)
+			OnTabButtonClicked(0);
+
 #if PUG_USE_MODIO
 			if (ModIOUnity.IsInitialized())
 			{
@@ -217,24 +280,7 @@ namespace PugMod
 				});
 			}
 #endif
-			steamConfiguration = AssetDatabase.LoadAssetAtPath<SteamConfiguration>("Packages/dev.pugstorm.mod/SDK/Editor/SteamConfiguration.asset");
 
-			if (SteamClient.IsValid)
-			{
-				Debug.Log("Steam has been already initialized");
-			}
-			if (!SteamClient.IsValid && steamConfiguration.AutoInitialize == true)
-			{
-				try
-				{
-					SteamClient.Init(steamConfiguration.CoreKeeperAppID);
-					Debug.Log("Steam initialized successfully for Mod SDK");
-				}
-				catch (System.Exception e)
-				{
-					Debug.LogError($"Failed to initialize Steam for Mod SDK: {e.Message}");
-				}
-			}
 		}
 
 		private void OnDestroy()
@@ -247,19 +293,14 @@ namespace PugMod
 #endif
 		}
 
+		private const string SELECTED_TAB_CLASS = "tab-button--selected";
+
 		private void OnTabButtonClicked(int index)
 		{
 
 			for (int i = 0; i < _buttons.Length; i++)
 			{
-				if (i == index)
-				{
-					_buttons[i].style.backgroundColor = new StyleColor(_highlightColor);
-				}
-				else
-				{
-					_buttons[i].style.backgroundColor = new StyleColor(Color.grey);
-				}
+				_buttons[i].EnableInClassList(SELECTED_TAB_CLASS, i == index);
 			}
 
 			switch (index)

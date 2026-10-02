@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileId: 3753254765
   modOwner: 76561198353976809
+  modId: BuildingBlueprint
   modName: BuildingBlueprint
   selectedPath: D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\BuildingBlueprint
   tags:
@@ -21,3 +22,4 @@ MonoBehaviour:
   - Server
   - Script (Elevated Access)
   - Quality of Life
+  - 1.3.0

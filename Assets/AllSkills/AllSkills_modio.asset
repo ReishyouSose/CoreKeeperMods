@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: AllSkills_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: 7aac83d7ec7c2564a80d27941fcd99a9, type: 2}
+  modSettings: {fileID: 11400000, guid: a74038dd030e40e418d850f1e89c44e9, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

@@ -18,7 +18,8 @@
         "PugMap.Common",
         "PugMap.Editor",
         "PugTilemap.Editor.Actions",
-        "Pug.UnityExtensions"
+        "Pug.UnityExtensions",
+        "PugText.Editor"
     ],
     "includePlatforms": [
         "Editor"
@@ -41,7 +42,8 @@
         "PugMap.Editor.dll",
         "PugTilemap.Editor.Actions.dll",
         "Pug.UnityExtensions.dll",
-        "PugEditor.CustomScenes.dll"
+        "PugEditor.CustomScenes.dll",
+        "PugText.Editor.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

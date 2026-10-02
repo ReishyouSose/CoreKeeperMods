@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: CoreEnhance_modio
   m_EditorClassIdentifier: 
   modId: 0
-  modSettings: {fileID: 11400000, guid: 7589412c7cf043b448667d71c2c9ff1f, type: 2}
+  modSettings: {fileID: 11400000, guid: 3688c3fd1fdfe7345839203d4c327532, type: 2}
   logo: {fileID: 0}
+  title: 
   summary: 
+  visible: 1
+  tags: []

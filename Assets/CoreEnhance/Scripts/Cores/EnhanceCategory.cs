@@ -29,6 +29,8 @@
         ChainMining,//连锁挖矿 done
         ContainerDisplay,//容器显示 done
         ModifySledgeRange,
+        ExtraInventory,
+        ProjectileTimerMultiple,
         _Quick,
         MoveChestContent,
         OpenLockedChest,

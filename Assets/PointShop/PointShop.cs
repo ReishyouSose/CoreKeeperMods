@@ -1,3 +1,4 @@
+using Assets.PointShop.Scripts.Core;
 using Assets.PointShop.Scripts.Systems;
 using CoreLib;
 using CoreLib.Data.Configuration;
@@ -23,10 +24,12 @@ namespace Assets.PointShop
             API.Authoring.OnObjectTypeAdded += DropPointSystem.AddPointDrop;
             ConfigFile file = new(nameof(PointShop) + "/Config.cfg", true);
             ShowSwitch = file.Bind("General", nameof(ShowSwitch), true, null, new(ConfigAccessLevel.Client));
+            LootChanceCalculator.EarlyInit();
         }
 
         public void Init()
         {
+            LootChanceCalculator.Init();
             Coin = API.Authoring.GetObjectID("PointShop_Currency");
             Debug.Log("On init: coin ID is" + Coin);
         }

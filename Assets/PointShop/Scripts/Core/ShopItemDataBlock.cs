@@ -12,6 +12,10 @@ namespace Assets.PointShop.Scripts.Core
         public ObjectID OverrideCurrency;
         public DataBlockRef<ShopItemCategoryDataBlock> Category;
         public DataBlockRef<ShopItemLevelDataBlock> Level;
+        public int ExplorePrice;
+        public int ChestPrice;
+        public int EnemyPrice;
+        public int BossPrice;
 
         [NonSerialized]
         public ObjectID ObjectID;

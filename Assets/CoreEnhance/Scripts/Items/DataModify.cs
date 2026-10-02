@@ -1,5 +1,6 @@
 ﻿using Assets.CoreEnhance.Scripts.Cores;
 using Assets.CoreEnhance.Scripts.Helpers;
+using Pug.Properties;
 using PugMod;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -9,10 +10,22 @@ namespace Assets.CoreEnhance.Scripts.Items
 {
     public static class DataModify
     {
-        public static void AuthoringModify(Entity entity, GameObject authoringData, EntityManager entityManager)
+        public static void AuthoringPreModify(GameObject authoringData)
+        {
+            ExtraInventory(authoringData);
+        }
+        public static void AuthoringPostModify(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
             GoldenPlantExtractToSeed(authoringData);
             ModifyLoot(entity, authoringData, entityManager);
+        }
+        private static void ExtraInventory(GameObject authoringData)
+        {
+            if (authoringData.HasComponent<PlayerAuthoring>())
+            {
+                int y = EnhanceConfig.TryGetValue<int>(EnhanceCategory.ExtraInventory, out var value) ? value.Value : 0;
+                authoringData.GetComponent<InventoryAuthoring>().sizeY += y;
+            }
         }
         private static void ModifyLoot(Entity entity, GameObject authoringData, EntityManager entityManager)
         {

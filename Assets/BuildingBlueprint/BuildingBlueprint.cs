@@ -1,3 +1,4 @@
+using Assets.BuildingBlueprint.Scripts.Components;
 using Assets.BuildingBlueprint.Scripts.Systems;
 using Assets.BuildingBlueprint.Scripts.UI;
 using CoreLib;
@@ -22,7 +23,7 @@ namespace Assets.BuildingBlueprint
             CoreLibMod.LoadSubmodule(typeof(UserInterfaceModule));
             CoreLibMod.LoadSubmodule(typeof(ControlMappingModule));
             int category = ControlMappingModule.AddNewCategory(Key[..^1]);
-            ControlMappingModule.AddKeyboardBind(OpenUI, Rewired.KeyboardKeyCode.V, categoryId: category);
+            ControlMappingModule.AddKeyboardBind(OpenUI, Rewired.KeyboardKeyCode.B, categoryId: category);
             API.Authoring.OnObjectTypeAdded += Authoring_OnObjectTypeAdded;
             var file = new ConfigFile("BuildingBlueprint/Config.cfg", true);
             DestoryPrivileges = file.Bind("General", nameof(DestoryPrivileges), true, scope: new(ConfigAccessLevel.Admin));

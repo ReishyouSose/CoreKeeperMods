@@ -27,7 +27,7 @@ MonoBehaviour:
       m_high: 5441582940380080441
   Variation: 0
   Amount: 1
-  Currency: 2
+  Currency: 0
   Price: 20
   OverrideCurrency: 0
   Category:
@@ -38,6 +38,10 @@ MonoBehaviour:
     m_address:
       m_low: -4475345739407449117
       m_high: -2497809185597725574
+  ExplorePrice: 0
+  ChestPrice: 0
+  EnemyPrice: 0
+  BossPrice: 0
   references:
     version: 2
     RefIds: []

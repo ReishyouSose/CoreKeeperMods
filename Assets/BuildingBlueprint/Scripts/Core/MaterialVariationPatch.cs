@@ -32,8 +32,8 @@ namespace Assets.BuildingBlueprint.Scripts.Core
                     j += 3;
                     list.InsertRange(j, new List<CodeInstruction>()
                     {
-                        new (OpCodes.Ldloc_S, 34),
-                        new (OpCodes.Ldloc_S, 111),
+                        new (OpCodes.Ldloc_S, 35),
+                        new (OpCodes.Ldloc_S, 112),
                         new (OpCodes.Call, AccessTools.Method(typeof(MaterialVariationPatch), nameof(GetNameKey))),
                     });
                     for (int k = j; k < list.Count; k++)

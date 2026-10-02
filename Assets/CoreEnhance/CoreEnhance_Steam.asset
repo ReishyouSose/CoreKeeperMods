@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileId: 3721031561
   modOwner: 76561198353976809
+  modId: CoreEnhance
   modName: CoreEnhance
   selectedPath: D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\CoreEnhance
   tags:
@@ -21,3 +22,4 @@ MonoBehaviour:
   - Client
   - Server
   - Script
+  - 1.3.0

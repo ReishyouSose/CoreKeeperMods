@@ -21,19 +21,31 @@ namespace Assets.CoreEnhance
             new EnhanceConfig().Register();
             var authoring = API.Authoring;
             authoring.OnObjectTypeAdded += Authoring_OnObjectTypeAdded;
+            ECSManager.BeforeInitialEntityConversion += ECSManager_BeforeInitialEntityConversion;
             CoreLibMod.LoadSubmodule(typeof(ControlMappingModule), typeof(EntityModule));
             ModKeyBind.Load();
+        }
+
+        private void ECSManager_BeforeInitialEntityConversion()
+        {
+            foreach (var database in PugDatabase.entityMonobehaviours)
+            {
+                if (database.ObjectInfo?.prefabInfo?.authoringRef.TryGet(out var authoring) != true)
+                    continue;
+                DataModify.AuthoringPreModify(authoring.prefab);
+            }
         }
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
             AutoDoorSystem.MarkDoor(entity, authoringData, entityManager);
             InfinityArenaSystem.MarkArena(entity, authoringData, entityManager);
-            DataModify.AuthoringModify(entity, authoringData, entityManager);
+            DataModify.AuthoringPostModify(entity, authoringData, entityManager);
             ContainerDisplaySystem.MarkHighLight(entity, authoringData, entityManager);
             SledgeRangeSystem.MarkSledge(entity, authoringData, entityManager);
             InfinityBossScanSystem.MarkCircleMoveBoss(entity, authoringData, entityManager);
             MoveChestClient.AddHoveredChest(entity, authoringData, entityManager);
+            ProjectileTimerMultiplierSystem.MarkProjectileTileLeft(entity, authoringData, entityManager);
             //CraftStationRangeSystem.MarkCraftStation(entity, authoringData, entityManager);
             Test(entity, authoringData, entityManager);
         }
