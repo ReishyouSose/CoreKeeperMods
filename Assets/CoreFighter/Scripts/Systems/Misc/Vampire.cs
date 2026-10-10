@@ -60,11 +60,16 @@ namespace Assets.CoreFighter.Scripts.Systems.Misc
         {
             if (playerLookup.HasComponent(source))
                 return source;
-            if (ownerLookup.TryGetComponent(source, out var owner))
+            if (!ownerLookup.TryGetComponent(source, out var owner))
+                return Entity.Null;
+            var current = owner.owner;
+            for (int i = 0; i < 10 && current != Entity.Null; i++)
             {
-                var player = owner.owner;
-                if (playerLookup.HasComponent(player))
-                    return player;
+                if (playerLookup.HasComponent(current))
+                    return current;
+                if (!ownerLookup.TryGetComponent(current, out owner))
+                    break;
+                current = owner.owner;
             }
             return Entity.Null;
         }

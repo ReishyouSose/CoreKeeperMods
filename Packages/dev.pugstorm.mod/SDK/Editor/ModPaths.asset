@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   latestBuildOrInstallPaths:
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\BuildingBlueprint
-  - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\PlacementPlus
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\CoreEnhance
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\CoreFighter
   - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\GeneralConfigMenu
+  - D:\Steam\steamapps\common\Core Keeper\CoreKeeper_Data\StreamingAssets\Mods\PointShop

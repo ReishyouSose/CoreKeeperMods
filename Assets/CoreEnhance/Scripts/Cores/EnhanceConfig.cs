@@ -74,6 +74,7 @@ namespace Assets.CoreEnhance.Scripts.Cores
             TryAddValue(EnhanceCategory.Merchant, 0, new AcceptableValueRange<int>(0, 3500));
             TryAddValue(EnhanceCategory.Crafting, true, null, "Animals");
             TryAddValue(EnhanceCategory.Crafting, true, null, "FishingNet");
+            TryAddValue(EnhanceCategory.Crafting, false, null, "FinishAll");
             TryAddValue(EnhanceCategory.FishingNetCanGetItem, 0.4f, new AcceptableValueRange<float>(0, 0.5f));
             TryAddValue(EnhanceCategory.GoldenPlantToSeed, 8, new AcceptableValueRange<int>(0, 8));
             TryAddValue(EnhanceCategory.Level, 10, new AcceptableValueRange<int>(1, 100));

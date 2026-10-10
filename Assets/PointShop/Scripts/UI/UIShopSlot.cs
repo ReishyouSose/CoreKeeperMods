@@ -42,8 +42,9 @@ namespace Assets.PointShop.Scripts.UI
 
         [HideInInspector] public int Price;
         [HideInInspector] public int Zone;
+        [HideInInspector] public string ZoneName;
         [HideInInspector] public ObjectID Boss;
-        [HideInInspector] public ObjectID Currency;
+        [HideInInspector] public ObtainWay Way;
 
         public SpriteRenderer ItemIcon;
         public SpriteRenderer Border;
@@ -57,7 +58,7 @@ namespace Assets.PointShop.Scripts.UI
             var player = Manager.main.player;
             if (player == null)
                 return;
-            PointShopClient.TryBuyItem(player.entity, objectBuffer.objectData, Boss, Currency, Price, player.inputModule.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_10));
+            PointShopClient.TryBuyItem(player.entity, objectBuffer.objectData, Boss, Way, Price, player.inputModule.IsButtonCurrentlyDown(PlayerInput.InputType.PICK_UP_10), ZoneName);
             AudioManager.Sfx(SfxID.twitch, player.transform.position, 0.1f, 0.55f, 0.1f, true);
         }
         public override void OnRightClicked(bool mod1, bool mod2)
@@ -73,7 +74,7 @@ namespace Assets.PointShop.Scripts.UI
                     objectID = objectData.objectID,
                     variation = (objectData.variation + 1) % 5,
                     amount = objectData.amount
-                }, Price, Currency);
+                }, Price, Way, ZoneName);
             }
         }
         public void SetLimit(int zone, ObjectID boss)
@@ -81,7 +82,7 @@ namespace Assets.PointShop.Scripts.UI
             Zone = zone;
             Boss = boss;
         }
-        public void SetItem(ObjectData objData, int sellPrice, ObjectID currency = ObjectID.None)
+        public void SetItem(ObjectData objData, int sellPrice, ObtainWay way, string zoneName)
         {
             ObjectID id = objData.objectID;
             if (id == ObjectID.None)
@@ -94,7 +95,8 @@ namespace Assets.PointShop.Scripts.UI
                 return;
             objectBuffer = new ContainedObjectsBuffer { objectData = objData };
             Price = sellPrice;
-            Currency = currency;
+            Way = way;
+            ZoneName = zoneName;
             var color = Manager.ui.GetSlotBorderRarityColor(info.rarity, false, Color.white);
             if (info.rarity == Rarity.Common)
                 color = Color.white;
@@ -204,10 +206,12 @@ namespace Assets.PointShop.Scripts.UI
             {
                 result.Insert(0, new() { text = "PointShop/RightClickToSwitchColor", color = Color.cyan });
             }
-            if (!LootChanceCalculator.lootChance.TryGetValue(objectBuffer.objectID, out var chances))
+            if (!PointShopManager.TryGetChances(objectBuffer.objectID, ZoneName, out var chances))
                 return result;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < chances.Length; i++)
             {
+                if (chances[i] <= 0f)
+                    continue;
                 result.Add(new() { text = $"{(ObtainWay)i} " + chances[i] * 100 + "%", dontLocalize = true, color = Color.yellow });
             }
             return result;
@@ -218,9 +222,47 @@ namespace Assets.PointShop.Scripts.UI
             var player = Manager.main.player;
             if (player == null)
                 return null;
-            ObjectID currency = Currency == ObjectID.None ? PointShop.Coin : Currency;
-            List<MaterialInfo> result = new() { new(currency, Price, player.playerInventoryHandler.GetExistingAmountOfObject(currency), Entity.Null, null) };
-            return result;
+            if (Way == ObtainWay.Old)
+            {
+                List<MaterialInfo> result = new() { new(PointShop.Coin, Price,
+                    player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin), Entity.Null, null) };
+                return result;
+            }
+            else
+            {
+                var buffer = player.world.EntityManager.GetBuffer<PointCurrencyBuffer>(player.entity);
+                foreach (var currency in buffer)
+                {
+                    if (currency.Zone != ZoneName)
+                        continue;
+                    ObjectID coin;
+                    int available;
+                    switch (Way)
+                    {
+                        case ObtainWay.Explore:
+                            coin = PointShop.ExplorePoint;
+                            available = (int)currency.Explore;
+                            break;
+                        case ObtainWay.Chest:
+                            coin = PointShop.ChestPoint;
+                            available = (int)currency.Chest;
+                            break;
+                        case ObtainWay.Enemy:
+                            coin = PointShop.EnemyPoint;
+                            available = (int)currency.Enemy;
+                            break;
+                        case ObtainWay.Boss:
+                            coin = PointShop.BossPoint;
+                            available = (int)currency.Boss;
+                            break;
+                        default:
+                            return null;
+                    }
+                    List<MaterialInfo> result = new() { new(coin, Price, available, Entity.Null, null) };
+                    return result;
+                }
+                return null;
+            }
         }
         public override bool ShowRequiredMaterialsAmountNumberColor() => true;
         public override List<TextAndFormatFields> GetHoverStats(bool previewReinforced)

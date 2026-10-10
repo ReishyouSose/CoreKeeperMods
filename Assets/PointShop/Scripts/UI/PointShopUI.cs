@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Assets.PointShop.Scripts.UI
 {
-    [RequireComponent(typeof(ShopManager))]
     [RequireComponent(typeof(UIScrollWindow))]
     public class PointShopUI : UIelement, IModUI, IScrollable
     {
@@ -23,7 +22,10 @@ namespace Assets.PointShop.Scripts.UI
         public PugText Header;
         public PugText PointValue;
         public Transform Pool;
-        private ShopManager manager;
+        public UIPointCurrency Explore;
+        public UIPointCurrency Chest;
+        public UIPointCurrency Enemy;
+        public UIPointCurrency Boss;
         private UIZoneSlot current;
         private GridLayoutUIComponent layout;
         private UIScrollWindow scroll;
@@ -32,13 +34,12 @@ namespace Assets.PointShop.Scripts.UI
         private void Awake()
         {
             Ins = this;
-            manager = GetComponent<ShopManager>();
             scroll = GetComponent<UIScrollWindow>();
             ZoneTemplate.gameObject.SetActive(false);
             ShopSlotTemplate.gameObject.SetActive(false);
+            PointShopManager.Init();
             var page = ZonePanel.scrollingContent.GetChild(0);
-            manager.Awake();
-            foreach (var zone in manager.ZoneSort)
+            foreach (var zone in PointShopManager.ZoneSort)
             {
                 UIZoneSlot slot = Instantiate(ZoneTemplate, page);
                 slot.Zone = zone;
@@ -47,8 +48,16 @@ namespace Assets.PointShop.Scripts.UI
             }
             ZonePanel.gameObject.SetActive(true);
             layout = Content.GetComponent<GridLayoutUIComponent>();
+            ZonePanel.ResetScroll();
             slots = new();
             HideUI();
+        }
+
+        private void Start()
+        {
+            var zoneLayout = ZonePanel.scrollingContent.GetComponentInChildren<LinearLayoutUIComponent>();
+            zoneLayout.RenderUIComponent(true);
+            OnClickZoneSlot(zoneLayout.transform.GetChild(0).GetComponent<UIZoneSlot>());
         }
 
         public void HideUI()
@@ -60,13 +69,6 @@ namespace Assets.PointShop.Scripts.UI
         {
             Manager.ui.TryHideAllInventoryAndCraftingUI();
             Root.SetActive(true);
-            var layout = ZonePanel.scrollingContent.GetComponentInChildren<LinearLayoutUIComponent>();
-            layout.RenderUIComponent(true);
-            ZonePanel.ResetScroll();
-            if (!current)
-            {
-                OnClickZoneSlot(layout.transform.GetChild(0).GetComponent<UIZoneSlot>());
-            }
         }
         public void OnClickZoneSlot(UIZoneSlot zoneSlot)
         {
@@ -88,16 +90,19 @@ namespace Assets.PointShop.Scripts.UI
                 split.transform.SetParent(Pool, false);
             }
             int x = 0, y = 0;
-            CurrencyType old = CurrencyType.PointCoin;
+            ObtainWay? shown = null;
             var zoneID = zone.ZoneID;
             var boss = zone.Boss;
-            foreach (var item in manager.GetShopItems(zone))
+            foreach (var offer in PointShopManager.GetShopItems(zone))
             {
-                if (old != item.Currency)
+                if (shown != offer.Way)
                 {
-                    UISeparator separator = Separators[y++];
-                    separator.transform.SetParent(Content, false);
-                    old = item.Currency;
+                    if (shown != null && y < Separators.Length)
+                    {
+                        UISeparator separator = Separators[y++];
+                        separator.transform.SetParent(Content, false);
+                    }
+                    shown = offer.Way;
                 }
                 UIShopSlot slot;
                 if (x >= slots.Count)
@@ -108,8 +113,10 @@ namespace Assets.PointShop.Scripts.UI
                     slot.name = x.ToString();
                 }
                 slot = slots[x++];
+                var item = offer.Item;
                 slot.SetLimit(zoneID, boss);
-                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = item.Amount }, item.Price, item.CurrencyID);
+                int amount = offer.Amount > 0 ? offer.Amount : item.Amount;
+                slot.SetItem(new ObjectData { objectID = item.ObjectID, variation = item.Variation, amount = amount }, offer.Price, offer.Way, zone.name);
                 slot.transform.SetParent(Content, false);
             }
             layout.RenderUIComponent(true);
@@ -117,7 +124,23 @@ namespace Assets.PointShop.Scripts.UI
         }
         private void Update()
         {
-            var coin = Manager.main.player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin);
+            var player = Manager.main.player;
+            var buffer = player.world.EntityManager.GetBuffer<PointCurrencyBuffer>(player.entity);
+            if (!current)
+                return;
+            var zone = current.Zone;
+            foreach (var currency in buffer)
+            {
+                if (currency.Zone == zone.name)
+                {
+                    Explore.UpdateCurrency(currency.Explore);
+                    Chest.UpdateCurrency(currency.Chest);
+                    Enemy.UpdateCurrency(currency.Enemy);
+                    Boss.UpdateCurrency(currency.Boss);
+                    break;
+                }
+            }
+            var coin = player.playerInventoryHandler.GetExistingAmountOfObject(PointShop.Coin);
             if (oldCoin == coin)
                 return;
             oldCoin = coin;

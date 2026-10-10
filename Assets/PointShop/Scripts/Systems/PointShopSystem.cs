@@ -1,4 +1,5 @@
-﻿using Assets.PointShop.Scripts.UI;
+﻿using Assets.PointShop.Scripts.Core;
+using Assets.PointShop.Scripts.UI;
 using Inventory;
 using Unity.Collections;
 using Unity.Entities;
@@ -60,16 +61,17 @@ namespace Assets.PointShop.Scripts.Systems
 
             base.OnUpdate();
         }
-        public static void TryBuyItem(Entity player, ObjectDataCD item, ObjectID boss, ObjectID currency, int price, bool scale)
+        public static void TryBuyItem(Entity player, ObjectDataCD item, ObjectID boss, ObtainWay way, int price, bool scale, string zone)
         {
             ins.sendQueue.Enqueue(new()
             {
                 Player = player,
                 Item = item,
                 Boss = boss,
-                Currency = currency,
+                Way = way,
                 Price = price,
-                Scale = scale
+                Scale = scale,
+                Zone = zone
             });
         }
     }
@@ -79,6 +81,7 @@ namespace Assets.PointShop.Scripts.Systems
     {
         private ComponentLookup<LocalTransform> transLookup;
         private BufferLookup<ContainedObjectsBuffer> containedLookup;
+        private BufferLookup<PointCurrencyBuffer> currencyLookup;
         private EntityArchetype archetype;
         protected override void OnCreate()
         {
@@ -87,6 +90,7 @@ namespace Assets.PointShop.Scripts.Systems
             RequireForUpdate<InventoryChangeBuffer>();
             transLookup = SystemAPI.GetComponentLookup<LocalTransform>();
             containedLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
+            currencyLookup = SystemAPI.GetBufferLookup<PointCurrencyBuffer>();
             archetype = EntityManager.CreateArchetype(typeof(BuyFailureRPC), typeof(SendRpcCommandRequest));
             base.OnCreate();
         }
@@ -99,16 +103,17 @@ namespace Assets.PointShop.Scripts.Systems
             var ecb = CreateCommandBuffer();
             var transLookup = this.transLookup;
             var containedLookup = this.containedLookup;
+            var currencyLookup = this.currencyLookup;
             var database = this.database;
-            var coin = PointShop.Coin;
             var archetype = this.archetype;
+            var coin = PointShop.Coin;
             bool creative = WorldInfo.IsWorldModeEnabled(WorldMode.Creative);
             Entities.ForEach((Entity e, in PointShopRPC rpc, in ReceiveRpcCommandRequest receive) =>
             {
                 ecb.DestroyEntity(e);
                 var player = rpc.Player;
                 var boss = rpc.Boss;
-                var currency = rpc.Currency == ObjectID.None ? coin : rpc.Currency;
+                bool usePointCoin = rpc.Way == ObtainWay.Old;
                 var price = rpc.Price;
                 if (!creative && boss != ObjectID.None)
                 {
@@ -139,16 +144,71 @@ namespace Assets.PointShop.Scripts.Systems
                 }
                 if (!creative)
                 {
-                    if (!InventoryUtility.HasObject(containedLookup, player, currency, price))
+                    if (usePointCoin)
                     {
-                        SendFailure(ecb, archetype, 1, receive);
-                        return;
+                        var currency = coin;
+                        if (!InventoryUtility.HasObject(containedLookup, player, currency, price))
+                        {
+                            SendFailure(ecb, archetype, 1, receive);
+                            return;
+                        }
+                        inv.Add(new()
+                        {
+                            inventoryChangeData = Create.ConsumeObjectType(player, currency, price),
+                            playerEntity = player
+                        });
                     }
-                    inv.Add(new()
+                    else
                     {
-                        inventoryChangeData = Create.ConsumeObjectType(player, currency, price),
-                        playerEntity = player
-                    });
+                        if (!currencyLookup.TryGetBuffer(player, out var currencies))
+                            return;
+                        bool success = false;
+                        for (int i = 0; i < currencies.Length; i++)
+                        {
+                            var currency = currencies[i];
+                            if (currency.Zone != rpc.Zone)
+                                continue;
+                            switch (rpc.Way)
+                            {
+                                case ObtainWay.Explore:
+                                    if (currency.Explore >= price)
+                                    {
+                                        currency.Explore -= (uint)price;
+                                        success = true;
+                                    }
+                                    break;
+                                case ObtainWay.Chest:
+                                    if (currency.Chest >= price)
+                                    {
+                                        currency.Chest -= (uint)price;
+                                        success = true;
+                                    }
+                                    break;
+                                case ObtainWay.Enemy:
+                                    if (currency.Enemy >= price)
+                                    {
+                                        currency.Enemy -= (uint)price;
+                                        success = true;
+                                    }
+                                    break;
+                                case ObtainWay.Boss:
+                                    if (currency.Boss >= price)
+                                    {
+                                        currency.Boss -= (uint)price;
+                                        success = true;
+                                    }
+                                    break;
+                            }
+                            if (success)
+                                currencies[i] = currency;
+                            break;
+                        }
+                        if (!success)
+                        {
+                            SendFailure(ecb, archetype, 1, receive);
+                            return;
+                        }
+                    }
                 }
                 EntityUtility.CreateAndDropItem(id, variation, amount, transLookup[player].Position, player, database, ecb);
             })
