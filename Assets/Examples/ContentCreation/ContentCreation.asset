@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc43e4983a160e543856e5ba0421c9e1, type: 3}
+  m_Name: ContentCreation
+  m_EditorClassIdentifier: 
+  metadata:
+    guid: e6f7a8b9c0d172e3f4a5b6c7d8e9f0a1
+    name: ContentCreation
+    displayName: 
+    skipSafetyChecks: 1
+    disableScripts: 0
+    accessesExtraAssemblies: 1
+    disableHarmonyPatching: 0
+    requiredOn: 0
+    files: []
+    dependencies: []
+  modPath: Assets\Examples\ContentCreation
+  forceReimport: 1
+  buildBundles: 1
+  cacheBundles: 0
+  buildLinux: 1
+  assets:
+  - path: Assets/Examples/ContentCreation/Enemy/Data/EnemyExample.asset
+    hash: D803B9A47EA70BE59FEF2DB1494102BA7FFD1FAF46E6ED4650F30F013859BC72
+  - path: Assets/Examples/ContentCreation/Enemy/Data/EntityAuthoringDataBlock/EnemyGreenCavelingEntity.asset
+    hash: 46FA18CE55BAC2221D129BE7E0DDE7D1384691C9BFE8B0FEEBA37A98192BB7C2
+  - path: Assets/Examples/ContentCreation/Enemy/Data/GraphicalObjectDataBlock/EnemyGreenCaveling.asset
+    hash: 118E61854FD5368975C1A8FC6A6E3E2489ACBE49F17CAB29C440DBD30E56B4F5
+  - path: Assets/Examples/ContentCreation/Enemy/Data/SpriteAsset/caveling.asset
+    hash: 20E76D40260AB4AF5AEF434421AF79A91C2620C7CC40170743CEA634F35C6CF9
+  - path: Assets/Examples/ContentCreation/Enemy/EnemyGreenCaveling.prefab
+    hash: DE5A21AC343217F8F0D61D0A40ABC4E4B9A9C4AA266935942CBC828E1E6F7083
+  - path: Assets/Examples/ContentCreation/Enemy/EnemyGreenCavelingEntity.prefab
+    hash: C4DF5AEB4655F0017DD5CE6760502FA07E7DB663AD1C3A67F2D7BB79CD34EB3B
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_attack.png
+    hash: D2BCBDE5DA83AF8BAC75B99A11189BAAF3F1BACCCB67D96D23529ADFEBB0B596
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_attack_emissive.png
+    hash: F754F1153967019753FA3045C2A8FA62DBBAE7B4737FB9D0B179CBCE1E1E01DF
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_attack_side.png
+    hash: C318B4901E0A393FCCD652F0A245BC4413E6B65478A97971159239CC74DD8578
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_attack_side_emissive.png
+    hash: 3B38B2E4C24E0CEA82A5C06A12F1FCFE8D2CFA8443B4864136E54EA4B2A2A6C3
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_attack_up.png
+    hash: 0520C28C4408449F583CC1D5DCE18BDF095A2502E098517341B157BCB3BCAC49
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_idle.png
+    hash: C10D496BCE353C3E49487AB4AB8C00EFF76C6E4C5DB2D08472ED2636153C9B8A
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_idle_emissive.png
+    hash: 0D248B7A3D2823974111D864C2DFE4C6ED05317BE9558EB65A13093B88AC48DE
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_idle_side.png
+    hash: 33569E3067B7DC3464807BA74279F62E3639061237D2DFAEDBF810D97BCCDD9E
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_idle_side_emissive.png
+    hash: 1370E5EBFD760E6FA0A132025C8B7C51BF11385BE1CF603A3DD448DFC036D903
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_idle_up.png
+    hash: 5CBFC0FD85AAD73A3D89321FDBDCBDF80192482D690F823E5AAED2FDF9E79234
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_move.png
+    hash: 1CA0699705B0C2342EF5D314FB387F6429EA6C0CC67689B6025AFDA789269E65
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_move_emissive.png
+    hash: C513E9E3B7868505278B20D3C7EDEAC17D88EA6F1F04FFCC9A9E971EF01D0DF6
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_move_side.png
+    hash: CAFAB7688B98D91285CB8E42F139E2488A4A6F6D29E28F617FB88D37FFE76B96
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_move_side_emissive.png
+    hash: 296C2BF51300C3119CB4C8ACF5E34B2CBC5A36AC6536DAB50A2CF82E1A916BF0
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_move_up.png
+    hash: 7EC60E1E54644F6D24F54202E2B590541251B3270D04602795D0AFB6FBB22CE3
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_point.png
+    hash: 05A534A21DEC1052C7CF97B20C5C0229CB83440E86C54D77CEABCE04D8C4810F
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_point_emissive.png
+    hash: 41A22FB67F53D06EC8BB41811D923F4F5D32F7BEFA89B4D7224BC85C9BDA3B71
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_point_side.png
+    hash: 5855640D6B6A004346015B978E63FE120B66A694F7CF431F7E06063ED587053C
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_point_side_emissive.png
+    hash: 73A68314B02D50223D22E85E56278A56D1A78EEF93B8C775D816DBF51DF5BD1C
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_point_up.png
+    hash: 47BE4E42B729AC7953590F4C5E9B371B502C2206F59CC3DB2025CA579DA50D7C
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_sleep.png
+    hash: D510B20130C4C1E36A78B4D5E1E796BAA7E46D45038836D27E058C656C3421D1
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_sleep_emissive.png
+    hash: 44AB91832C674B2B56742A3EF8CE4614082DD7C6B11731EC2A2D31A01874D90B
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_sleeping.png
+    hash: 958F45FC0D7D3816E56A7A7FA732D31CB23DC2E0996C1B7545BE7FAB42B1D48A
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_talking.png
+    hash: E787F84BA0EA0086CAD9D65EAAB97E3D831ED0D5E0D9A732A80FD822AE7F173C
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_talking_emissive.png
+    hash: 4D12E476BED041EA4B6E77C5FDE3A916BECA91D2C377024F09B8C4C6DD9D6E09
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_taunt.png
+    hash: ACD33FE41C674CEB7FB6DD85DCAB6FB4AA9D7F17E5EFB848E085E72613744872
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_taunt_emissive.png
+    hash: DEAE29045B0ACBA60E5713067C73279D1CB56822E9B87F3808100DFAAF3FCA9F
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_taunt_side.png
+    hash: AB4AFF50F20DFDE475206DC805F146C9FAEFAAEDD4D77329B02F3738D867C5ED
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_taunt_side_emissive.png
+    hash: 820D82C9B83D773736752EB1EB573ED1383D9CC8FCD5C94F11AB8BE5D1B2CABF
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_taunt_up.png
+    hash: FDDB0EE2045E58FFD30F0E36B64DD9F53A1F485660582F1F22C25BFD14E9705A
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_wakeUp.png
+    hash: 016ABCA70CC008DE102C78FBB467316DCD431D76C6ACC470FF033E9C61A5A29C
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_wakeUp_emissive.png
+    hash: 13F6B0EDFC83AD2275D4837B8FBDDF5BEF49A2ECB3405DCB88483921E83DBCBE
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_yawn.png
+    hash: AE5AD47EFE06E11FFA98CCACBC84F60E282B9DC5E732725A5DEEC01033E270BB
+  - path: Assets/Examples/ContentCreation/Enemy/Textures/caveling_yawn_emissive.png
+    hash: 2ACC7711620E79A772F4CE01FE472D1CE1E4D6619DC72A349B7821F41A1B216E
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatebody.png
+    hash: 3770FA77E86CAFE5CF3CFF62995E975CD971F981EEA7400133E6F5DBA4B120EB
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatebody.prefab
+    hash: 6EE661A23303AF544E0665EA68C74411DCC8D2A4BF13331F78DD95CC5BFB535B
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatebodySprite.png
+    hash: 4DF3EA4299B886529AEAC8B61278371414D0EA2374BCA96811B0C6BA7E368203
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatehelm.png
+    hash: 50D7E240255FD31D45C51F5DB01DC2E239D8DFB6973987BA9E262E460AAD8044
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatehelm.prefab
+    hash: 66333FCFCE4BF6B9A9FEE561A12704265772C464B32449B598E66F733F1E4053
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatehelmSprite.png
+    hash: 9F85F616D9FB328E9E99FB283FA3B68D67529BA4EC8E02C38CC6B6983FB72E07
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatelegs.png
+    hash: B4091BBEA07ECBF6AB7F3E0D95391F48BE98BDD3AAB39DEC629AB0C8117B257A
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatelegs.prefab
+    hash: 7BCFE2D34ADD40D479E2B8E1E6B7AB2EDA2B945A08ED5CA03B6D19111A3FE0F7
+  - path: Assets/Examples/ContentCreation/Workbench/Armor/MyNewPlatelegsSprite.png
+    hash: 82603B6338C69BE38A39EE42B7E7EBB577DF8C3A3E10A804C99A584C2897EA02
+  - path: Assets/Examples/ContentCreation/Workbench/Bag/MyNewBag.prefab
+    hash: FA65ED877EE190FA437E956D647122A09EB4305974B11C0933C3C5DF606AA982
+  - path: Assets/Examples/ContentCreation/Workbench/Bag/MyNewBagLootsprite.png
+    hash: 21A21B8E3D7A0F690A494A22F2A99C4F3C9612543561AA6BF8BC5C435651DB24
+  - path: Assets/Examples/ContentCreation/Workbench/Bow/flame_bow.png
+    hash: 0E8935A8D5D6401D64E0D70431A799EEA1A95D9C81E1C6DAEAC15F309AF63442
+  - path: Assets/Examples/ContentCreation/Workbench/Bow/MyNewBow.prefab
+    hash: 0C6FB350D6E84A12276F734DF2C2D0DA7C69837CBB1DF7A61AF37E467C97BDEF
+  - path: Assets/Examples/ContentCreation/Workbench/Data/BreastArmorSkinDataBlock/MyNewPlatebody1.asset
+    hash: 8059A6F158652A81124F1D914E8D0B5053113B8FB333D6D1059543B902D04814
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewBag.asset
+    hash: 30BF6000DA79A493A1947A76065609BB8CF479E8EB3AD086812C6FE449E507A1
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewBow.asset
+    hash: 1C0C74D059225CB02BC98CC4306D2BA097E0A3329F546177C2940EAA59B975B8
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewPlatebody.asset
+    hash: 761F18169DB8CE9DF7255AF08EA79B7F5E4DDFB76875D3B4D25B8571A2823FCD
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewPlatehelm.asset
+    hash: 8785B7DA807BE677BB5652C5F29333345B6408774033F1E4899F7CAEE90EDB5C
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewPlatelegs.asset
+    hash: 1D046CE8E1766A3BBA9752C0513E5E2F0D331B3705181AE22B1DB15377D96C16
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewStaff.asset
+    hash: DE1C9C06FD43E4B87BC7371879E2C5438C017CE7301CE342AAEF233DCF455AFC
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewSword.asset
+    hash: EDCADD2C9075FFDC8C97BE0ACD7F9B024587B027B9C1530E45F55C0656D58987
+  - path: Assets/Examples/ContentCreation/Workbench/Data/EntityAuthoringDataBlock/MyNewWorkbenchLogic.asset
+    hash: 04A62FEDD3B2F0F566A9C0815FA283195876A8399DF4442468BCEEF5550793FA
+  - path: Assets/Examples/ContentCreation/Workbench/Data/GradientMapDataBlock/gm_cow.asset
+    hash: 24A983A42AE3D5D96F683EF168627FF8E134A994825D918DDD5814E0C9270E8E
+  - path: Assets/Examples/ContentCreation/Workbench/Data/GradientMapDataBlock/MyNewWorkbench1_uniqueColors.asset
+    hash: 421762E38B34F62F782BAFB2180D2D07C0923A6902508E56A4455BD5892871BE
+  - path: Assets/Examples/ContentCreation/Workbench/Data/GraphicalObjectDataBlock/MyNewWorkbenchGraphics.asset
+    hash: E37C6F59C8B5CDFA8490591D2022D167A1DBCEFC2B1BEBB15CF7968E35ED43BC
+  - path: Assets/Examples/ContentCreation/Workbench/Data/HelmSkinDataBlock/MyNewPlatehelm1.asset
+    hash: BB84C08A67A5C852556C62C134400BC6E41CCB939D08A9D564788EAC553E56DE
+  - path: Assets/Examples/ContentCreation/Workbench/Data/PantsArmorSkinDataBlock/MyNewPlatelegs1.asset
+    hash: DC20FC36FD01F36B16F05D0EE7BAC9D4F309030BB6DEBF6DBCB97B777EA1657A
+  - path: Assets/Examples/ContentCreation/Workbench/Data/SpriteAsset/MyNewWorkbench1.asset
+    hash: 0A6CD9B7F017286A1C5B23516FF595FC7066727581E502C23185D4BF3F64AAB4
+  - path: Assets/Examples/ContentCreation/Workbench/Data/SpriteAssetSkin/MyNewWorkbench1_skin.asset
+    hash: 71F4FE2BFE1ABB7EB8196D2CE5C16C394061F8CB7702DE94747456B840E03929
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/FishBow1.asset
+    hash: C6DE009E8787E3D5D461520A8BF5875E89D8A9704AD9F899DBD777CE9F4D6129
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewBag1.asset
+    hash: B5CBBC858638873382A0CE215747AB28F4B2B94C778B3FD9FA59811B7EC5D7C3
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewBow1.asset
+    hash: B2C6C62384A08E420806A06A5BE4BE6EDDAD6E42E73120745B0E7F049923595C
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewPlatebody1.asset
+    hash: 7F4CCB7E0FE8A5958E777FDF67A2B46FBEE538E82D0084CD4105DAC56997A624
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewPlatehelm1.asset
+    hash: 7147AB32CC0F16AEA69A388B0C5FC268D6D6F3F79C79F246FF59E4E931727738
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewPlatelegs1.asset
+    hash: 7E8B30A1368056515536675DF5593B5A248F0EE73D96DDB65B9D4773461B55AF
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewStaff1.asset
+    hash: D52DE4451D4A5694A8C149C238AC05350837F8A60D96A4CD355D1C2F2C3F217E
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewSword1.asset
+    hash: 50E2FE9BC21FBF1D49E043AFAB73DBE67637472A99F24C8345FF19E94E0A678E
+  - path: Assets/Examples/ContentCreation/Workbench/Data/TextDataBlock/Items/MyNewWorkbench1.asset
+    hash: 96F095C1719DE860537261A4B5B6A293F28921A13467DA81824E0ECDFD110D59
+  - path: Assets/Examples/ContentCreation/Workbench/Data/WorkbenchExample.asset
+    hash: 6B672E78FD19A710F97F719B8DDE6DA86D9A9607AC01C22BE460F5F55E846281
+  - path: Assets/Examples/ContentCreation/Workbench/SpriteAssetManifest.asset
+    hash: 6A4BB9CFB27E013C5444E9A9160C79BC612AD371434C25C0B25E24187AA06E71
+  - path: Assets/Examples/ContentCreation/Workbench/Staff/flame_staff.png
+    hash: 354C7309E35AE16C3738F0A087A6E31CD01CED12AEC99D4EF3C4DF6A97D95748
+  - path: Assets/Examples/ContentCreation/Workbench/Staff/MyNewStaff.prefab
+    hash: 6C6A366310E8B01DBC583FCFC98B99F4D63562B828F6711FE4D479A5A7082C51
+  - path: Assets/Examples/ContentCreation/Workbench/Sword/flame_sword.png
+    hash: BC03CBD075C90298C34E8A7F60A08DADA94CA6A4C0AA59EA66152CB0725F4B3C
+  - path: Assets/Examples/ContentCreation/Workbench/Sword/MyNewSword.prefab
+    hash: 2D56ABA2A920AB5F1D01604457DE9050B546A4BA203D7C760B38383A69443AC2
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/Grayscale/MyNewWorkbench1_down.png
+    hash: 728B43E705F465BD7283BC6513F571AC4C953DE9CB547A860697E3B54E2A94C8
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/Grayscale/MyNewWorkbench1_side.png
+    hash: C70259C7103DF1FA4A6C1BB53E79328EBB0297955DAFBC0D74462692F4F3A2D2
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/Grayscale/MyNewWorkbench1_side2.png
+    hash: FAD05221FCD7AEC8C9745E5E42F911D5227804E9EE689A810E6857627F00AC9A
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/Grayscale/MyNewWorkbench1_up.png
+    hash: 6700E752DA70C90776684B55EBB250BC4E38CCAC9B12FA7816E1617899035BBD
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/MyNewWorkbench1_down.png
+    hash: 4402A425E99F33524EE0689C36468136EE6813280462D0ACDA0FA430020ED858
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/MyNewWorkbenchGraphics.prefab
+    hash: BEA4698ADAE258BDC1A2066046A1AFB85383D01421141773431E5B10EA077A20
+  - path: Assets/Examples/ContentCreation/Workbench/Workbench/MyNewWorkbenchLogic.prefab
+    hash: 98DCC07938C3907FDC07D7E040518FBEDC56930508438F407CFB96BFFCF3A90E
+  lastBuildLinux: 1

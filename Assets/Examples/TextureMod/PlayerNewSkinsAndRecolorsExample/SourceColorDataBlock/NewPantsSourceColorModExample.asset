@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -657030064, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: NewPantsSourceColorModExample
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -7307982626133873917
+    m_high: 2776267594250865465
+  m_useManualAddress: 0
+  m_dynamicCollections:
+    m_list: []
+  colors:
+  - {r: 0.75686276, g: 0.35686275, b: 0.43137255, a: 1}
+  - {r: 0.57254905, g: 0.105882354, b: 0.19215687, a: 1}
+  - {r: 0.4, g: 0.105882354, b: 0.19215687, a: 1}
+  references:
+    version: 2
+    RefIds: []

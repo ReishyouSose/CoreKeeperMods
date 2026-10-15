@@ -392,6 +392,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         {
             if (authoringData.TryGetComponent(out PlayerAuthoring _))
             {
+                entityManager.AddBuffer<PlaceValidateBuffer>(entity);
                 entityManager.AddComponent<SelectionOptionCD>(entity);
                 entityManager.AddBuffer<SelectedEntityBuffer>(entity);
                 entityManager.AddBuffer<SelectedTileBuffer>(entity);

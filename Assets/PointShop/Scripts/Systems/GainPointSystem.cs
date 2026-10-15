@@ -49,19 +49,19 @@ namespace Assets.PointShop.Scripts.Systems
                     switch (gain.Way)
                     {
                         case ObtainWay.Explore:
-                            explore = 30;
+                            explore = 20;
                             break;
                         case ObtainWay.Chest:
-                            explore = 20;
-                            chest = 1;
+                            explore = 15;
+                            chest = 10;
                             break;
                         case ObtainWay.Enemy:
                             explore = 10;
                             enemy = 1;
                             break;
                         case ObtainWay.Boss:
-                            explore = 50;
-                            enemy = 10;
+                            explore = 20;
+                            enemy = 5;
                             boss = 1;
                             break;
                         case ObtainWay.Wall:

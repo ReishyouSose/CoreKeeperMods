@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1617458896, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: HairSkinReplacementColor3
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 5166983182578798318
+    m_high: 8642325867827188841
+  m_useManualAddress: 0
+  m_dynamicCollections:
+    m_list:
+    - m_dataBlockRef:
+        m_address:
+          m_low: -5889413770152246019
+          m_high: 1546831323697988955
+      m_data:
+        rid: -2
+  colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+  - {r: 0.61667854, g: 0.66216826, b: 0.7735849, a: 1}
+  - {r: 0.67083484, g: 0.67107236, b: 0.7075472, a: 1}
+  - {r: 0.24007656, g: 0.45659775, b: 0.7830189, a: 1}
+  - {r: 0.25342646, g: 0.6320754, b: 0.5826864, a: 1}
+  - {r: 0.24554999, g: 0.40217578, b: 0.5849056, a: 1}
+  - {r: 0.38187176, g: 0.31011927, b: 0.6509434, a: 1}
+  - {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

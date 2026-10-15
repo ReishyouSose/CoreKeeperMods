@@ -98,9 +98,12 @@ namespace Assets.GeneralConfigMenu.Scripts
                 var list = GeneralConfigMenuMod.Sync.SendConfigChange();
                 var menu = ModConfigMenu.Instance;
                 var mapper = menu.Mapper;
+                bool listenHost = Manager.ecs != null && Manager.ecs.ServerWorld != null;
                 foreach (var (ue, value) in serverChanges)
                 {
                     ue.ServerBox.SetRecord();
+                    if (listenHost)
+                        ue.Entry.SetSerializedValue(value);
                     list.Add((mapper[ue.Entry].id, value));
                 }
                 serverChanges.Clear();

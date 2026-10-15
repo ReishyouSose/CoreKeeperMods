@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1845929242, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: NewBodySkinExample
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -277863974503320959
+    m_high: 3811714186574536154
+  m_useManualAddress: 0
+  m_dynamicCollections:
+    m_list:
+    - m_dataBlockRef:
+        m_address:
+          m_low: -746292072502295897
+          m_high: -2193186043115754901
+      m_data:
+        rid: -2
+  bodyTexture:
+    m_AssetGUID: b55ebb115408496429767ee91edddafa
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

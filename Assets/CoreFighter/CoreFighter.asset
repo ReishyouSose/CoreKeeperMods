@@ -58,6 +58,8 @@ MonoBehaviour:
       guid: 494e85f63e42c164695515f83f75d5ea
     - path: Scripts/Scripts/BurstHooks/MultipleDropHook.cs
       guid: ca67fde7f9a84a542904375e89876d02
+    - path: Scripts/Scripts/Weapons/Zenith.cs
+      guid: 7c4e1a9b2d6f4e08a1b3c5d7e9f01234
     - path: Scripts/CoreFighter.cs
       guid: f1953cd101ab25b4dbdfb765567208e9
     - path: Scripts/Generated/AttackSpeed__System_18673404450.g.cs
@@ -186,5 +188,9 @@ MonoBehaviour:
   - path: Assets/CoreFighter/Data/TextDataBlock/CoreFighter_Config_Misc/VampireValue.asset
     hash: 87B795C496AC0C7674DFE8018A0C5F7D557BD05DD4A4DB074F3E6680BC661B4B:08eb6ed175900f3180527ad792fc218a
   - path: Assets/CoreFighter/Data/TextDataBlock/Items/CoreFighter_Zenith.asset
-    hash: 2EE406E78C6E24ED1B536AB82F673FD00A29045D38D64825A2B88FE66126281E:3b9b54eed5db34e519b36bd4ffea10bc
+    hash: F77E386C8B711FB1398AF03D0A218AC23161B4D7B4B734B729A54B4C0842BB73:75bab72521141e4266078f1e046cf344
+  - path: Assets/CoreFighter/Prefabs/Zenith.prefab
+    hash: AB46A59683C1FF322772F629967590C58BD4A704992ECD6929F286C67FA20116:4f4a6c3f56592e754a55074555e57916
+  - path: Assets/CoreFighter/Prefabs/ZenithSword.prefab
+    hash: 0024B30F91A9B991209FD4D1F29BD3DF37C9A8F7548CDCDE385522C645ACAFB8:eabda8368700f79767a98b63966e40e2
   lastBuildLinux: 1

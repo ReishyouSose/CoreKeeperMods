@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -324346736, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: MyNewPlatelegs1
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 2289023069738739633
+    m_high: 3742136215864498632
+  m_dynamicCollections:
+    m_list:
+    - m_dataBlockRef:
+        m_address:
+          m_low: 4009508556956603293
+          m_high: -6312949936596331512
+      m_data:
+        rid: -2
+  pantsTexture:
+    m_AssetGUID: 42f22c5774b024d4887637be08f4586b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  emissivePantsTexture:
+    m_AssetGUID: 42f22c5774b024d4887637be08f4586b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  pantsVisibility: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

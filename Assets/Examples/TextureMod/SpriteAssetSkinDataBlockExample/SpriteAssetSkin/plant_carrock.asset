@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297384836, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
+  m_Name: plant_carrock
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 469561187670554424
+      m_high: -1175977552428843717
+  m_address:
+    m_low: 185924966339099366
+    m_high: -2700079135914541798
+  m_dynamicCollections:
+    m_list: []
+  m_defaultPrimaryGradientMap: {fileID: 0}
+  m_defaultSecondaryGradientMap: {fileID: 0}
+  m_defaultTertiaryGradientMap: {fileID: 0}
+  m_defaultPrimaryGradientMapRef:
+    m_address:
+      m_low: 8296769523059204299
+      m_high: 8007944209185927272
+  m_defaultSecondaryGradientMapRef:
+    m_address:
+      m_low: -8587069081110598884
+      m_high: 5393763594765750232
+  m_defaultTertiaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_editorHideEmissive: 0
+  m_targetAsset: {fileID: 0}
+  m_targetAssetRef:
+    m_address:
+      m_low: -6155091646943179004
+      m_high: -5634966638474872903
+  m_staticReplacementData:
+    m_guid: 
+    m_spriteData:
+      texture: {fileID: 0}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.5}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  m_replacementData:
+  - m_guid: b8494491-7990-48ce-81ba-07471eaa1256
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 4d2724d4e4387984fbe3d702e337ed2b, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5625, y: 0.375}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 4b586008-f12d-42f9-8ab8-cca2e5d1a72a
+    m_spriteData:
+      texture: {fileID: 2800000, guid: d6e2ac6efe93b2446ac3eb8e8c023ee4, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5625, y: 0.3125}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 90f86024-4ea9-4eb2-9130-4a2cabf57388
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 0870561ef79bd3e4d968ebb49b069329, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5625, y: 0.25}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  - m_guid: baa28a18-c02e-41e2-9262-253bbec99fbc
+    m_spriteData:
+      texture: {fileID: 2800000, guid: abc70b3765b78da40a94027e326b186f, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5714286, y: 0.2857143}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 69b5b586-8193-4f9d-aaba-b69b4d262b4b
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 11faf6023898d15408b8110c9b65ace3, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5714286, y: 0.2857143}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  references:
+    version: 2
+    RefIds: []

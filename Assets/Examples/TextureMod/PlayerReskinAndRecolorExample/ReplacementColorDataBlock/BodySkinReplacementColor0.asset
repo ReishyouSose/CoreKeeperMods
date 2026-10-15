@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1617458896, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: BodySkinReplacementColor0
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 1428885083102193497
+    m_high: 105355617479120360
+  m_dynamicCollections:
+    m_list:
+    - m_dataBlockRef:
+        m_address:
+          m_low: 2924151038244253576
+          m_high: -7817813451576320005
+      m_data:
+        rid: -2
+  colors:
+  - {r: 0.16398184, g: 0.6320754, b: 0.33379197, a: 1}
+  - {r: 0.21181916, g: 0.5283019, b: 0.29433548, a: 1}
+  - {r: 0.13358848, g: 0.3584906, b: 0.18326384, a: 1}
+  - {r: 0.13725491, g: 0.36078432, b: 0.18431373, a: 1}
+  targetTexture: {fileID: 0}
+  sourceColors:
+    m_address:
+      m_low: 0
+      m_high: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

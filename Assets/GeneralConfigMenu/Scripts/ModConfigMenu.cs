@@ -1,4 +1,5 @@
-﻿using Assets.GeneralConfigMenu.Scripts.DataStruct;
+﻿using Assets.GeneralConfigMenu.Scripts.ConfigSync;
+using Assets.GeneralConfigMenu.Scripts.DataStruct;
 using CoreLib.Data.Configuration;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,13 +64,9 @@ namespace Assets.GeneralConfigMenu.Scripts
                 if (configFile.ConfigFilePath.StartsWith("CoreLib"))
                     continue;
                 configFile.SaveOnConfigSet = false;
-                foreach (var entry in configFile.Entries.Values)
-                {
-                    if (!entry.Scope.ShouldSync)
-                        continue;
-                    Mapper.Add(entry, (Mapper.Count, null));
-                }
             }
+            foreach (var entry in ConfigSyncSystem.OrderedSyncEntries())
+                Mapper.Add(entry, (Mapper.Count, null));
             foreach (var pageInfo in CombindConfigPage.PageList.Values)
             {
                 var file = pageInfo.File;
@@ -250,6 +247,8 @@ namespace Assets.GeneralConfigMenu.Scripts
                 foreach (var (id, value) in Receive)
                 {
                     var entry = GeneralConfigMenuMod.Sync.GetEntryByID(id);
+                    if (entry == null)
+                        continue;
                     Debug.Log($"Received change,id:{id} {entry.GetFullName()}, {value}");
                     if (Mapper.TryGetValue(entry, out var item))
                     {

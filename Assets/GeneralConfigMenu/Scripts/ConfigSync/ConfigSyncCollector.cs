@@ -25,6 +25,8 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
             ConfigCount = sync.ConfigCount;
             Player = sync.Player;
             ShouldApply = true;
+            if (ConfigCount == 0)
+                Completed = true;
         }
 
         public void CollectEntry(ConfigEntryRpc entry)

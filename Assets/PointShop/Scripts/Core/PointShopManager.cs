@@ -208,6 +208,7 @@ namespace Assets.PointShop.Scripts.Core
                         continue;
                 }
             }
+            AddByLoot(LootTableID.AlienEventTerminal, fromChest, true);
         }
         private static void InitShopItem()
         {
@@ -220,17 +221,26 @@ namespace Assets.PointShop.Scripts.Core
                     shops[zone] = items = new();
                 items.Add(new() { Item = item, Price = price, Way = way, Amount = amount });
             }
+            static int PriceScale(ObtainWay way)
+            {
+                switch (way)
+                {
+                    case ObtainWay.Explore:
+                        return 8;
+                    case ObtainWay.Chest:
+                        return 2;
+                    default:
+                        return 1;
+                }
+            }
             static ObtainWay CatalogWay(CurrencyType currency)
             {
-                switch (currency)
+                return currency switch
                 {
-                    case CurrencyType.EnvironmentChest:
-                        return ObtainWay.Chest;
-                    case CurrencyType.BossChest:
-                        return ObtainWay.Boss;
-                    default:
-                        return ObtainWay.Old;
-                }
+                    CurrencyType.EnvironmentChest => ObtainWay.Chest,
+                    CurrencyType.BossChest => ObtainWay.Boss,
+                    _ => ObtainWay.Old,
+                };
             }
             foreach (var item in dataBlocks)
             {
@@ -285,6 +295,7 @@ namespace Assets.PointShop.Scripts.Core
                                     price = 1;
                                 amount = item.Amount;
                             }
+                            price *= PriceScale(way);
                             Add(item, zone, way, price, amount);
                         }
                     }
@@ -292,6 +303,8 @@ namespace Assets.PointShop.Scripts.Core
             }
             foreach (var items in shops.Values)
             {
+                var seen = new HashSet<(ObjectID id, int variation, ObtainWay way)>();
+                items.RemoveAll(offer => !seen.Add((offer.Item.ObjectID, offer.Item.Variation, offer.Way)));
                 items.Sort((a, b) =>
                 {
                     int cmp = a.Way.CompareTo(b.Way);

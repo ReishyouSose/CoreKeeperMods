@@ -101,9 +101,16 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             Camera.localPosition = new(camera.x, camera.z, 0);
             var mouse = EntityMonoBehaviour.ToWorldFromRender(Manager.ui.mouse.GetMouseGameViewPosition()).ToFloat2().RoundToInt2();
             MarkContainer.localPosition = new(mouse.x, mouse.y, 0);
-            if (Manager.ui.currentSelectedUIElement || !Input.GetMouseButtonDown(0))
+            if (Manager.ui.currentSelectedUIElement)
                 return;
-            BuildingPlaceClient.Ins.Place(mouse, current, GetPivotOffset(current));
+            if (Input.GetMouseButtonDown(1))
+            {
+                BlueprintUI.Ins.ExitPlaceMode();
+                return;
+            }
+            if (!Input.GetMouseButtonDown(0))
+                return;
+            BuildingPlaceClient.Ins.Place(current, mouse + GetPivotOffset(current));
         }
 
         public void SwitchPivot(UIPlacePivot go)

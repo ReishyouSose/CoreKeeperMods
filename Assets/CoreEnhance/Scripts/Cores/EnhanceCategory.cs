@@ -18,6 +18,7 @@
         Door,//自动门 done
         FishingNetNoCritter,
         FishingNetCanGetItem,
+        AutoFish,
         GoldenPlantToSeed,
         _Pet,
         TalentDisplay,//宠物技能显示done
@@ -35,6 +36,7 @@
         MoveChestContent,
         OpenLockedChest,
         OpenLockedMelody,
+        InstantHook,
         _Count
     }
 }

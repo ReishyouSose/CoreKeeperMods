@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297384836, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
+  m_Name: plant_root
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: -1111236759150659706
+      m_high: -8805041205052961239
+  m_address:
+    m_low: 19256590239110681
+    m_high: 1040467331383466696
+  m_dynamicCollections:
+    m_list: []
+  m_defaultPrimaryGradientMap: {fileID: 0}
+  m_defaultSecondaryGradientMap: {fileID: 0}
+  m_defaultTertiaryGradientMap: {fileID: 0}
+  m_defaultPrimaryGradientMapRef:
+    m_address:
+      m_low: -5925565021047502970
+      m_high: -7259309651166553174
+  m_defaultSecondaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_defaultTertiaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_editorHideEmissive: 0
+  m_targetAsset: {fileID: 0}
+  m_targetAssetRef:
+    m_address:
+      m_low: -6155091646943179004
+      m_high: -5634966638474872903
+  m_staticReplacementData:
+    m_guid: 
+    m_spriteData:
+      texture: {fileID: 0}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.5}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  m_replacementData:
+  - m_guid: b8494491-7990-48ce-81ba-07471eaa1256
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 984461be2db0d554e8de21802aa1d15e, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.42857143, y: 0.2857143}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 4b586008-f12d-42f9-8ab8-cca2e5d1a72a
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 9e9dcb8326ae31b4c9facd3564396e48, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.2}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 90f86024-4ea9-4eb2-9130-4a2cabf57388
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 5bf587bdb2b65d6469be6196e6df4003, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.53333336, y: 0.2}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: baa28a18-c02e-41e2-9262-253bbec99fbc
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 569883bba51dfa447904735546e5da52, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5263158, y: 0}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 69b5b586-8193-4f9d-aaba-b69b4d262b4b
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 4b14ad18fa1096c4c8449e978795665b, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5263158, y: 0}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -438615766, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: NewShirtSkinExample
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -3867447135765011334
+    m_high: 7103525783684482216
+  m_useManualAddress: 0
+  m_dynamicCollections:
+    m_list:
+    - m_dataBlockRef:
+        m_address:
+          m_low: 3306999686196905961
+          m_high: 8886161248298999880
+      m_data:
+        rid: -2
+  shirtTexture:
+    m_AssetGUID: 2d39d18f760702f458f9b2305e210305
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  sourceColors:
+    m_address:
+      m_low: 7657383091430760682
+      m_high: -5577762052746933141
+  replacementColorsCollectionRef:
+    m_address:
+      m_low: -4358319085938900530
+      m_high: 2103013563021785592
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

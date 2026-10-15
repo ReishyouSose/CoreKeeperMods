@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1835229550, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
+  m_Name: MyNewWorkbench1_uniqueColors
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -7528658686041106255
+    m_high: -1013120533482439526
+  m_dynamicCollections:
+    m_list: []
+  recolorTarget:
+    m_address:
+      m_low: 0
+      m_high: 0
+  array:
+  - serializedVersion: 2
+    rgba: 4291022696
+  - serializedVersion: 2
+    rgba: 4289768292
+  - serializedVersion: 2
+    rgba: 4294306467
+  - serializedVersion: 2
+    rgba: 4285101012
+  - serializedVersion: 2
+    rgba: 4284442512
+  - serializedVersion: 2
+    rgba: 4287002792
+  - serializedVersion: 2
+    rgba: 4292255149
+  - serializedVersion: 2
+    rgba: 4281946828
+  - serializedVersion: 2
+    rgba: 4283448228
+  - serializedVersion: 2
+    rgba: 4282322325
+  - serializedVersion: 2
+    rgba: 4278918757
+  - serializedVersion: 2
+    rgba: 4279314487
+  - serializedVersion: 2
+    rgba: 4285372577
+  - serializedVersion: 2
+    rgba: 4283351995
+  - serializedVersion: 2
+    rgba: 4282373633
+  - serializedVersion: 2
+    rgba: 4279576107
+  - serializedVersion: 2
+    rgba: 4292176086
+  - serializedVersion: 2
+    rgba: 4290794654
+  - serializedVersion: 2
+    rgba: 4292694556
+  - serializedVersion: 2
+    rgba: 4292115273
+  - serializedVersion: 2
+    rgba: 4282466743
+  references:
+    version: 2
+    RefIds: []

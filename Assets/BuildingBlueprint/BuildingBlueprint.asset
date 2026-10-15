@@ -104,12 +104,16 @@ MonoBehaviour:
       guid: a0f09d3c83cd615438e2adf164410f80
     - path: Scripts/Scripts/Components/TileTargetBuffer.cs
       guid: efc992e7eac3ed743b154739f1dfb35e
+    - path: Scripts/Scripts/Components/StartPlaceRPC.cs
+      guid: 60f801d04e58ebd43991bd58ef96735b
     - path: Scripts/Scripts/Components/SelectionOptionCD.cs
       guid: 4271033a4f2dc1b4fa218f769f8d111d
     - path: Scripts/Scripts/Components/SelectedTileBuffer.cs
       guid: f1d2067e1c369bc469f2d9944fd196a9
     - path: Scripts/Scripts/Components/SelectedEntityBuffer.cs
       guid: f06cf810c70617749986b9c50978f644
+    - path: Scripts/Scripts/Components/PlaceValidateBuffer.cs
+      guid: 6847a62f38904004da17446ecc254677
     - path: Scripts/Scripts/Components/PlaceTileRpc.cs
       guid: b5bc969a394e12843b3e59354bad8d94
     - path: Scripts/Scripts/Components/PlaceEntityRpc.cs
@@ -142,23 +146,27 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_PlaceTileRpcCommandSerializer.cs
       guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_PlaceValidateBufferSerializer.cs
+      guid: 
     - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectedEntityBufferSerializer.cs
       guid: 
     - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectedTileBufferSerializer.cs
       guid: 
     - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_SelectionOptionCDSerializer.cs
       guid: 
+    - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_StartPlaceRPCCommandSerializer.cs
+      guid: 
     - path: Scripts/Generated/Assets.BuildingBlueprint.Scripts.Components_TileTargetStateBufferSerializer.cs
       guid: 
     - path: Scripts/Generated/GhostComponentSerializerCollection.cs
       guid: 
-    - path: Bundles/BuildingBlueprint_Windows.assetbundle
-      guid: 
-    - path: Bundles/BuildingBlueprint_Windows.assetbundle.manifest
-      guid: 
     - path: Bundles/BuildingBlueprint_Linux.assetbundle
       guid: 
     - path: Bundles/BuildingBlueprint_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle
+      guid: 
+    - path: Bundles/BuildingBlueprint_Windows.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -166,7 +174,7 @@ MonoBehaviour:
   modPath: Assets\BuildingBlueprint
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets:
   - path: Assets/BuildingBlueprint/BlueprintUI.prefab

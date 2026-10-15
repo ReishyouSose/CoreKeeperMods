@@ -37,6 +37,8 @@ namespace Assets.CoreEnhance.Scripts.Cores
                     case EnhanceCategory.Crafting:
                     case EnhanceCategory.FishingNetNoCritter:
                     case EnhanceCategory.FishingNetCanGetItem:
+                    case EnhanceCategory.AutoFish:
+                    case EnhanceCategory.InstantHook:
                     case EnhanceCategory.ModifySledgeRange:
                         _default = false;
                         break;
@@ -75,6 +77,8 @@ namespace Assets.CoreEnhance.Scripts.Cores
             TryAddValue(EnhanceCategory.Crafting, true, null, "Animals");
             TryAddValue(EnhanceCategory.Crafting, true, null, "FishingNet");
             TryAddValue(EnhanceCategory.Crafting, false, null, "FinishAll");
+            TryAddValue(EnhanceCategory.AutoFish, false, null, "Invincible");
+            TryAddValue(EnhanceCategory.AutoFish, false, null, "Refill");
             TryAddValue(EnhanceCategory.FishingNetCanGetItem, 0.4f, new AcceptableValueRange<float>(0, 0.5f));
             TryAddValue(EnhanceCategory.GoldenPlantToSeed, 8, new AcceptableValueRange<int>(0, 8));
             TryAddValue(EnhanceCategory.Level, 10, new AcceptableValueRange<int>(1, 100));

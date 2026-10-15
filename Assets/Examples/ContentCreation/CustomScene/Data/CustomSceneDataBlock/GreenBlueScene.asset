@@ -1,0 +1,6128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -893917552, guid: d304991c6052ba7a12394a52a912279f, type: 3}
+  m_Name: GreenBlueScene
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -4155498266513384315
+    m_high: -7846006097480640933
+  m_dynamicCollections:
+    m_list: []
+  sceneReference:
+    guid: 7c40eb9b0cb59bc4ebc6c42c049d4459
+  sceneName: CustomScene_GreenBlueScene
+  maxOccurrences: 250
+  replacedByContentBundle:
+    hasValue: 0
+    value:
+      m_address:
+        m_low: 0
+        m_high: 0
+  biomesToSpawnIn:
+    classic: 
+    fullRelease: 010000000200000003000000
+  minDistanceFromCoreInClassicWorlds: 0
+  canFlipX: 0
+  canFlipY: 0
+  hasCenter: 0
+  center:
+    x: 0
+    y: 0
+  boundsSize:
+    x: 70
+    y: 70
+  radius: 45
+  maps:
+  - localPosition:
+      x: 0
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 56
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 605
+        - s: 704
+          e: 705
+        - s: 800
+          e: 801
+        - s: 804
+          e: 805
+        - s: 901
+          e: 902
+        - s: 904
+          e: 905
+      - tileData:
+          tileType: 46
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 703
+          e: 704
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 35
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 68
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 702
+        - s: 801
+          e: 803
+        - s: 902
+          e: 904
+      - tileData:
+          tileType: 70
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 46
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 506
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 805
+          e: 806
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 506
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 805
+          e: 806
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 35
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 506
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 805
+          e: 806
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 131
+          tilesetType: 55
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 800
+          e: 801
+        - s: 901
+          e: 902
+      - tileData:
+          tileType: 46
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 209
+        - s: 300
+          e: 309
+        - s: 400
+          e: 409
+        - s: 506
+          e: 509
+        - s: 606
+          e: 609
+        - s: 706
+          e: 709
+        - s: 806
+          e: 809
+        - s: 906
+          e: 909
+      - tileData:
+          tileType: 35
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 209
+        - s: 308
+          e: 309
+        - s: 408
+          e: 409
+        - s: 508
+          e: 509
+        - s: 608
+          e: 609
+        - s: 708
+          e: 709
+        - s: 808
+          e: 809
+        - s: 908
+          e: 909
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+      - tileData:
+          tileType: 68
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 301
+          e: 307
+        - s: 400
+          e: 402
+        - s: 406
+          e: 408
+        - s: 507
+          e: 508
+        - s: 600
+          e: 605
+        - s: 606
+          e: 608
+        - s: 703
+          e: 705
+        - s: 707
+          e: 708
+        - s: 806
+          e: 808
+        - s: 906
+          e: 907
+      - tileData:
+          tileType: 132
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 702
+          e: 703
+        - s: 803
+          e: 804
+      - tileData:
+          tileType: 46
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 702
+          e: 703
+        - s: 803
+          e: 804
+      - tileData:
+          tileType: 126
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 702
+        - s: 801
+          e: 803
+        - s: 902
+          e: 904
+      - tileData:
+          tileType: 37
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 605
+        - s: 700
+          e: 705
+        - s: 800
+          e: 805
+        - s: 901
+          e: 905
+  - localPosition:
+      x: 0
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 56
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 2
+          e: 3
+        - s: 4
+          e: 5
+        - s: 101
+          e: 102
+        - s: 104
+          e: 105
+        - s: 200
+          e: 201
+        - s: 204
+          e: 205
+        - s: 304
+          e: 305
+        - s: 400
+          e: 405
+      - tileData:
+          tileType: 46
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 100
+          e: 101
+        - s: 303
+          e: 304
+      - tileData:
+          tileType: 35
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 100
+          e: 101
+      - tileData:
+          tileType: 68
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+        - s: 102
+          e: 104
+        - s: 201
+          e: 203
+        - s: 300
+          e: 302
+      - tileData:
+          tileType: 70
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 100
+          e: 101
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 100
+          e: 101
+      - tileData:
+          tileType: 46
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 500
+          e: 506
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 500
+          e: 506
+      - tileData:
+          tileType: 35
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 500
+          e: 506
+      - tileData:
+          tileType: 131
+          tilesetType: 55
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 101
+          e: 102
+        - s: 200
+          e: 201
+      - tileData:
+          tileType: 46
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 9
+        - s: 106
+          e: 109
+        - s: 206
+          e: 209
+        - s: 306
+          e: 309
+        - s: 406
+          e: 409
+        - s: 506
+          e: 509
+        - s: 600
+          e: 609
+        - s: 700
+          e: 709
+        - s: 800
+          e: 809
+      - tileData:
+          tileType: 35
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 9
+        - s: 108
+          e: 109
+        - s: 208
+          e: 209
+        - s: 308
+          e: 309
+        - s: 408
+          e: 409
+        - s: 508
+          e: 509
+        - s: 608
+          e: 609
+        - s: 708
+          e: 709
+        - s: 800
+          e: 809
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 68
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 7
+        - s: 106
+          e: 107
+        - s: 204
+          e: 205
+        - s: 304
+          e: 305
+        - s: 306
+          e: 308
+        - s: 404
+          e: 405
+        - s: 406
+          e: 408
+        - s: 506
+          e: 508
+        - s: 603
+          e: 607
+        - s: 700
+          e: 704
+        - s: 706
+          e: 707
+      - tileData:
+          tileType: 46
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 203
+          e: 204
+        - s: 302
+          e: 303
+      - tileData:
+          tileType: 132
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 203
+          e: 204
+        - s: 302
+          e: 303
+      - tileData:
+          tileType: 126
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+        - s: 102
+          e: 104
+        - s: 201
+          e: 203
+        - s: 300
+          e: 302
+      - tileData:
+          tileType: 37
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 5
+        - s: 101
+          e: 105
+        - s: 200
+          e: 205
+        - s: 300
+          e: 305
+        - s: 400
+          e: 405
+  - localPosition:
+      x: -10
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 56
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 606
+          e: 610
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 906
+          e: 907
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 46
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 707
+          e: 708
+      - tileData:
+          tileType: 68
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 709
+          e: 710
+        - s: 808
+          e: 810
+        - s: 907
+          e: 909
+      - tileData:
+          tileType: 46
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 505
+          e: 510
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 805
+          e: 806
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 505
+          e: 510
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 805
+          e: 806
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 35
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 505
+          e: 510
+        - s: 605
+          e: 606
+        - s: 705
+          e: 706
+        - s: 905
+          e: 906
+      - tileData:
+          tileType: 35
+          tilesetType: 17
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 805
+          e: 806
+      - tileData:
+          tileType: 131
+          tilesetType: 55
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 46
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 202
+          e: 210
+        - s: 302
+          e: 310
+        - s: 402
+          e: 410
+        - s: 502
+          e: 505
+        - s: 602
+          e: 605
+        - s: 702
+          e: 705
+        - s: 802
+          e: 805
+        - s: 902
+          e: 905
+      - tileData:
+          tileType: 35
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 202
+          e: 210
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+      - tileData:
+          tileType: 68
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 304
+          e: 307
+        - s: 404
+          e: 405
+        - s: 406
+          e: 410
+        - s: 503
+          e: 504
+        - s: 603
+          e: 604
+        - s: 606
+          e: 608
+        - s: 609
+          e: 610
+        - s: 703
+          e: 704
+        - s: 706
+          e: 707
+        - s: 803
+          e: 804
+        - s: 903
+          e: 904
+      - tileData:
+          tileType: 46
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 708
+          e: 709
+        - s: 807
+          e: 808
+      - tileData:
+          tileType: 132
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 708
+          e: 709
+        - s: 807
+          e: 808
+      - tileData:
+          tileType: 126
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 709
+          e: 710
+        - s: 808
+          e: 810
+        - s: 907
+          e: 909
+      - tileData:
+          tileType: 37
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 606
+          e: 610
+        - s: 706
+          e: 710
+        - s: 806
+          e: 810
+        - s: 906
+          e: 910
+  - localPosition:
+      x: -10
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 56
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 7
+        - s: 8
+          e: 9
+        - s: 106
+          e: 107
+        - s: 109
+          e: 110
+        - s: 206
+          e: 207
+        - s: 306
+          e: 307
+        - s: 406
+          e: 410
+      - tileData:
+          tileType: 46
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 307
+          e: 308
+      - tileData:
+          tileType: 35
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+      - tileData:
+          tileType: 68
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 8
+        - s: 107
+          e: 109
+        - s: 208
+          e: 210
+        - s: 309
+          e: 310
+      - tileData:
+          tileType: 70
+          tilesetType: 75
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+      - tileData:
+          tileType: 46
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 505
+          e: 510
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 505
+          e: 510
+      - tileData:
+          tileType: 35
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 6
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 505
+          e: 510
+      - tileData:
+          tileType: 131
+          tilesetType: 55
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 9
+        - s: 109
+          e: 110
+      - tileData:
+          tileType: 46
+          tilesetType: 72
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 5
+        - s: 102
+          e: 105
+        - s: 202
+          e: 205
+        - s: 302
+          e: 305
+        - s: 402
+          e: 405
+        - s: 502
+          e: 505
+        - s: 602
+          e: 610
+        - s: 702
+          e: 710
+        - s: 802
+          e: 810
+      - tileData:
+          tileType: 35
+          tilesetType: 54
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 810
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 68
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+        - s: 103
+          e: 104
+        - s: 106
+          e: 107
+        - s: 203
+          e: 204
+        - s: 206
+          e: 207
+        - s: 303
+          e: 305
+        - s: 306
+          e: 307
+        - s: 404
+          e: 405
+        - s: 406
+          e: 409
+        - s: 504
+          e: 505
+        - s: 603
+          e: 605
+        - s: 608
+          e: 610
+        - s: 703
+          e: 705
+        - s: 707
+          e: 709
+      - tileData:
+          tileType: 46
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 207
+          e: 208
+        - s: 308
+          e: 309
+      - tileData:
+          tileType: 132
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 207
+          e: 208
+        - s: 308
+          e: 309
+      - tileData:
+          tileType: 126
+          tilesetType: 3
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 8
+        - s: 107
+          e: 109
+        - s: 208
+          e: 210
+        - s: 309
+          e: 310
+      - tileData:
+          tileType: 37
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 9
+        - s: 106
+          e: 110
+        - s: 206
+          e: 210
+        - s: 306
+          e: 310
+        - s: 406
+          e: 410
+  - localPosition:
+      x: -20
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 8
+        - s: 103
+          e: 108
+        - s: 203
+          e: 208
+        - s: 303
+          e: 308
+        - s: 403
+          e: 408
+        - s: 503
+          e: 508
+        - s: 603
+          e: 608
+        - s: 703
+          e: 708
+        - s: 803
+          e: 808
+        - s: 903
+          e: 908
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 101
+          e: 102
+        - s: 201
+          e: 202
+        - s: 301
+          e: 302
+        - s: 401
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 802
+        - s: 901
+          e: 902
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 100
+          e: 101
+        - s: 200
+          e: 201
+        - s: 300
+          e: 301
+        - s: 400
+          e: 401
+        - s: 500
+          e: 501
+        - s: 600
+          e: 601
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 9
+        - s: 108
+          e: 109
+        - s: 208
+          e: 209
+        - s: 308
+          e: 309
+        - s: 408
+          e: 409
+        - s: 508
+          e: 509
+        - s: 608
+          e: 609
+        - s: 708
+          e: 709
+        - s: 808
+          e: 809
+        - s: 908
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 501
+        - s: 600
+          e: 601
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+  - localPosition:
+      x: -20
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 8
+        - s: 103
+          e: 108
+        - s: 203
+          e: 210
+        - s: 303
+          e: 310
+        - s: 403
+          e: 410
+        - s: 503
+          e: 510
+        - s: 603
+          e: 610
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 710
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 401
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 810
+        - s: 901
+          e: 906
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 401
+        - s: 500
+          e: 501
+        - s: 600
+          e: 601
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+        - s: 906
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 400
+          e: 401
+        - s: 402
+          e: 403
+        - s: 500
+          e: 501
+        - s: 600
+          e: 601
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+  - localPosition:
+      x: -10
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 410
+        - s: 500
+          e: 510
+        - s: 600
+          e: 610
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 710
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 800
+          e: 810
+        - s: 906
+          e: 909
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 906
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+  - localPosition:
+      x: 0
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 410
+        - s: 500
+          e: 510
+        - s: 600
+          e: 610
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 710
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 800
+          e: 810
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 703
+          e: 705
+        - s: 900
+          e: 904
+  - localPosition:
+      x: 10
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 6
+        - s: 102
+          e: 106
+        - s: 202
+          e: 206
+        - s: 302
+          e: 306
+        - s: 402
+          e: 406
+        - s: 502
+          e: 506
+        - s: 602
+          e: 606
+        - s: 702
+          e: 706
+        - s: 802
+          e: 806
+        - s: 902
+          e: 906
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 7
+        - s: 106
+          e: 107
+        - s: 206
+          e: 207
+        - s: 306
+          e: 307
+        - s: 406
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 607
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 906
+          e: 907
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 407
+          e: 408
+        - s: 507
+          e: 508
+        - s: 607
+          e: 608
+        - s: 707
+          e: 708
+        - s: 807
+          e: 809
+        - s: 907
+          e: 909
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 10
+        - s: 107
+          e: 110
+        - s: 207
+          e: 210
+        - s: 307
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 10
+        - s: 107
+          e: 110
+        - s: 209
+          e: 210
+  - localPosition:
+      x: 10
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 6
+        - s: 102
+          e: 106
+        - s: 200
+          e: 206
+        - s: 300
+          e: 306
+        - s: 400
+          e: 406
+        - s: 500
+          e: 506
+        - s: 600
+          e: 606
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 7
+        - s: 106
+          e: 107
+        - s: 206
+          e: 207
+        - s: 306
+          e: 307
+        - s: 406
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 607
+        - s: 700
+          e: 707
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 9
+        - s: 107
+          e: 109
+        - s: 207
+          e: 209
+        - s: 307
+          e: 309
+        - s: 407
+          e: 409
+        - s: 507
+          e: 509
+        - s: 607
+          e: 609
+        - s: 707
+          e: 709
+        - s: 800
+          e: 807
+        - s: 900
+          e: 906
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 807
+          e: 810
+        - s: 906
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 706
+          e: 707
+        - s: 807
+          e: 808
+        - s: 906
+          e: 908
+  - localPosition:
+      x: 0
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 510
+        - s: 600
+          e: 610
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 410
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 103
+          e: 110
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 103
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 8
+        - s: 400
+          e: 401
+  - localPosition:
+      x: 10
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 506
+        - s: 600
+          e: 606
+        - s: 700
+          e: 706
+        - s: 800
+          e: 806
+        - s: 902
+          e: 906
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 607
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 906
+          e: 907
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 100
+          e: 101
+        - s: 200
+          e: 203
+        - s: 300
+          e: 306
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 5
+        - s: 101
+          e: 107
+        - s: 203
+          e: 208
+        - s: 306
+          e: 309
+        - s: 407
+          e: 410
+        - s: 507
+          e: 510
+        - s: 607
+          e: 610
+        - s: 707
+          e: 710
+        - s: 807
+          e: 810
+        - s: 907
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 5
+        - s: 104
+          e: 107
+        - s: 205
+          e: 207
+        - s: 306
+          e: 309
+        - s: 407
+          e: 410
+        - s: 508
+          e: 510
+        - s: 609
+          e: 610
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 101
+          e: 104
+        - s: 203
+          e: 205
+        - s: 404
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 608
+        - s: 706
+          e: 709
+        - s: 807
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 8
+        - s: 107
+          e: 109
+        - s: 209
+          e: 210
+  - localPosition:
+      x: 10
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 6
+        - s: 102
+          e: 106
+        - s: 202
+          e: 206
+        - s: 302
+          e: 306
+        - s: 402
+          e: 406
+        - s: 502
+          e: 506
+        - s: 602
+          e: 606
+        - s: 702
+          e: 706
+        - s: 802
+          e: 806
+        - s: 902
+          e: 906
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 7
+        - s: 106
+          e: 107
+        - s: 206
+          e: 207
+        - s: 306
+          e: 307
+        - s: 406
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 607
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 906
+          e: 907
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 10
+        - s: 107
+          e: 110
+        - s: 207
+          e: 210
+        - s: 307
+          e: 310
+        - s: 407
+          e: 410
+        - s: 507
+          e: 510
+        - s: 607
+          e: 610
+        - s: 707
+          e: 710
+        - s: 807
+          e: 810
+        - s: 907
+          e: 910
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 2
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+        - s: 800
+          e: 802
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 107
+          e: 110
+        - s: 206
+          e: 210
+        - s: 306
+          e: 308
+        - s: 906
+          e: 908
+  - localPosition:
+      x: -20
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 503
+          e: 510
+        - s: 603
+          e: 610
+        - s: 703
+          e: 710
+        - s: 803
+          e: 810
+        - s: 903
+          e: 908
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 402
+          e: 410
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 302
+          e: 310
+        - s: 401
+          e: 402
+        - s: 501
+          e: 502
+        - s: 600
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 802
+        - s: 901
+          e: 902
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 210
+        - s: 300
+          e: 302
+        - s: 400
+          e: 401
+        - s: 500
+          e: 501
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 5
+        - s: 6
+          e: 9
+        - s: 106
+          e: 109
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 4
+        - s: 102
+          e: 106
+        - s: 203
+          e: 210
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+  - localPosition:
+      x: -20
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 110
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 808
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 8
+        - s: 103
+          e: 108
+        - s: 203
+          e: 208
+        - s: 303
+          e: 308
+        - s: 403
+          e: 408
+        - s: 503
+          e: 508
+        - s: 603
+          e: 608
+        - s: 703
+          e: 708
+        - s: 803
+          e: 808
+        - s: 903
+          e: 908
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 101
+          e: 102
+        - s: 201
+          e: 202
+        - s: 301
+          e: 302
+        - s: 401
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 802
+        - s: 901
+          e: 902
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 100
+          e: 101
+        - s: 200
+          e: 201
+        - s: 300
+          e: 301
+        - s: 400
+          e: 401
+        - s: 500
+          e: 501
+        - s: 600
+          e: 601
+        - s: 700
+          e: 701
+        - s: 800
+          e: 801
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 8
+          e: 10
+        - s: 108
+          e: 109
+        - s: 208
+          e: 209
+        - s: 308
+          e: 309
+        - s: 408
+          e: 409
+        - s: 508
+          e: 509
+        - s: 608
+          e: 609
+        - s: 708
+          e: 709
+        - s: 808
+          e: 809
+        - s: 908
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 100
+          e: 101
+        - s: 200
+          e: 201
+        - s: 300
+          e: 301
+        - s: 400
+          e: 401
+        - s: 500
+          e: 501
+  - localPosition:
+      x: -10
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 134
+          tilesetType: 11
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 74
+          tilesetType: 4
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 9
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 510
+        - s: 600
+          e: 610
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+      - tileData:
+          tileType: 46
+          tilesetType: 24
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 410
+      - tileData:
+          tileType: 126
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 70
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 101
+          e: 103
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 7
+        - s: 104
+          e: 109
+        - s: 409
+          e: 410
+  - localPosition:
+      x: -20
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 202
+          e: 210
+        - s: 304
+          e: 310
+        - s: 500
+          e: 502
+        - s: 600
+          e: 608
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 803
+          e: 806
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 502
+        - s: 600
+          e: 607
+        - s: 703
+          e: 709
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 709
+          e: 710
+        - s: 806
+          e: 810
+        - s: 903
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 300
+          e: 301
+        - s: 400
+          e: 403
+        - s: 502
+          e: 507
+  - localPosition:
+      x: -30
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 5
+        - s: 9
+          e: 10
+        - s: 100
+          e: 106
+        - s: 200
+          e: 207
+        - s: 306
+          e: 308
+        - s: 406
+          e: 410
+        - s: 506
+          e: 510
+        - s: 606
+          e: 610
+        - s: 706
+          e: 710
+        - s: 806
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 5
+        - s: 104
+          e: 106
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 407
+          e: 410
+        - s: 507
+          e: 510
+        - s: 607
+          e: 610
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 7
+        - s: 106
+          e: 108
+        - s: 207
+          e: 209
+        - s: 309
+          e: 310
+  - localPosition:
+      x: -20
+      y: 20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 101
+          e: 110
+        - s: 202
+          e: 210
+        - s: 304
+          e: 310
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 105
+          e: 108
+        - s: 109
+          e: 110
+        - s: 206
+          e: 210
+        - s: 306
+          e: 310
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 7
+        - s: 101
+          e: 104
+  - localPosition:
+      x: -10
+      y: 20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 205
+        - s: 300
+          e: 303
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 100
+          e: 102
+        - s: 200
+          e: 201
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 7
+        - s: 103
+          e: 106
+  - localPosition:
+      x: -10
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 402
+          e: 408
+        - s: 609
+          e: 610
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 609
+          e: 610
+        - s: 704
+          e: 707
+        - s: 709
+          e: 710
+        - s: 802
+          e: 806
+        - s: 809
+          e: 810
+        - s: 904
+          e: 905
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 206
+          e: 207
+        - s: 300
+          e: 306
+        - s: 309
+          e: 310
+        - s: 402
+          e: 404
+        - s: 707
+          e: 709
+        - s: 806
+          e: 809
+        - s: 900
+          e: 904
+        - s: 905
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 108
+          e: 110
+        - s: 207
+          e: 210
+        - s: 306
+          e: 309
+        - s: 404
+          e: 408
+        - s: 700
+          e: 703
+        - s: 800
+          e: 802
+  - localPosition:
+      x: 0
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 600
+          e: 609
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 602
+        - s: 605
+          e: 609
+        - s: 700
+          e: 702
+        - s: 705
+          e: 707
+        - s: 708
+          e: 710
+        - s: 809
+          e: 810
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 10
+        - s: 106
+          e: 110
+        - s: 205
+          e: 210
+        - s: 300
+          e: 310
+        - s: 602
+          e: 605
+        - s: 702
+          e: 705
+        - s: 803
+          e: 805
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 100
+          e: 101
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 404
+          e: 409
+        - s: 508
+          e: 510
+  - localPosition:
+      x: 0
+      y: 20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 6
+        - s: 100
+          e: 104
+  - localPosition:
+      x: 10
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 10
+        - s: 100
+          e: 110
+        - s: 200
+          e: 209
+        - s: 300
+          e: 307
+        - s: 509
+          e: 510
+        - s: 601
+          e: 610
+        - s: 700
+          e: 710
+        - s: 800
+          e: 810
+        - s: 900
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 606
+          e: 607
+        - s: 700
+          e: 701
+        - s: 800
+          e: 802
+        - s: 901
+          e: 903
+        - s: 905
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 8
+        - s: 100
+          e: 101
+        - s: 102
+          e: 110
+        - s: 201
+          e: 209
+        - s: 300
+          e: 304
+        - s: 306
+          e: 307
+        - s: 509
+          e: 510
+        - s: 601
+          e: 603
+        - s: 607
+          e: 610
+        - s: 701
+          e: 710
+        - s: 802
+          e: 808
+        - s: 903
+          e: 905
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 500
+          e: 502
+  - localPosition:
+      x: 20
+      y: 10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 4
+          e: 9
+        - s: 100
+          e: 101
+        - s: 104
+          e: 108
+        - s: 203
+          e: 208
+        - s: 302
+          e: 308
+        - s: 401
+          e: 408
+        - s: 500
+          e: 508
+        - s: 600
+          e: 608
+        - s: 700
+          e: 706
+        - s: 800
+          e: 804
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 9
+        - s: 100
+          e: 101
+        - s: 104
+          e: 108
+        - s: 203
+          e: 208
+        - s: 302
+          e: 305
+        - s: 401
+          e: 404
+        - s: 500
+          e: 503
+        - s: 600
+          e: 602
+  - localPosition:
+      x: 20
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 5
+          e: 8
+        - s: 100
+          e: 103
+        - s: 105
+          e: 108
+        - s: 200
+          e: 203
+        - s: 205
+          e: 209
+        - s: 300
+          e: 303
+        - s: 305
+          e: 309
+        - s: 400
+          e: 403
+        - s: 405
+          e: 409
+        - s: 500
+          e: 503
+        - s: 505
+          e: 509
+        - s: 600
+          e: 603
+        - s: 605
+          e: 609
+        - s: 700
+          e: 702
+        - s: 705
+          e: 709
+        - s: 800
+          e: 802
+        - s: 805
+          e: 809
+        - s: 900
+          e: 902
+        - s: 904
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 105
+          e: 106
+        - s: 205
+          e: 207
+        - s: 302
+          e: 303
+        - s: 401
+          e: 403
+        - s: 501
+          e: 503
+        - s: 600
+          e: 603
+        - s: 700
+          e: 702
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 807
+          e: 809
+        - s: 906
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 8
+        - s: 106
+          e: 108
+        - s: 207
+          e: 209
+        - s: 307
+          e: 309
+        - s: 408
+          e: 409
+        - s: 508
+          e: 509
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 203
+          e: 204
+        - s: 303
+          e: 304
+        - s: 403
+          e: 404
+        - s: 503
+          e: 504
+        - s: 603
+          e: 604
+        - s: 703
+          e: 704
+        - s: 803
+          e: 804
+        - s: 903
+          e: 904
+  - localPosition:
+      x: 20
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 8
+        - s: 100
+          e: 101
+        - s: 103
+          e: 108
+        - s: 200
+          e: 201
+        - s: 203
+          e: 208
+        - s: 300
+          e: 301
+        - s: 303
+          e: 308
+        - s: 400
+          e: 401
+        - s: 404
+          e: 408
+        - s: 500
+          e: 501
+        - s: 504
+          e: 508
+        - s: 600
+          e: 602
+        - s: 604
+          e: 608
+        - s: 700
+          e: 702
+        - s: 705
+          e: 708
+        - s: 800
+          e: 802
+        - s: 805
+          e: 808
+        - s: 900
+          e: 903
+        - s: 905
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 8
+        - s: 107
+          e: 108
+        - s: 207
+          e: 208
+        - s: 706
+          e: 707
+        - s: 807
+          e: 808
+        - s: 907
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 7
+        - s: 105
+          e: 107
+        - s: 205
+          e: 207
+        - s: 305
+          e: 308
+        - s: 406
+          e: 408
+        - s: 506
+          e: 508
+        - s: 606
+          e: 608
+        - s: 707
+          e: 708
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 100
+          e: 101
+        - s: 200
+          e: 201
+        - s: 303
+          e: 304
+        - s: 504
+          e: 505
+        - s: 604
+          e: 605
+        - s: 705
+          e: 706
+        - s: 805
+          e: 807
+        - s: 905
+          e: 907
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 2
+          e: 3
+        - s: 102
+          e: 103
+        - s: 202
+          e: 203
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+  - localPosition:
+      x: 20
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 3
+          e: 7
+        - s: 100
+          e: 101
+        - s: 103
+          e: 106
+        - s: 200
+          e: 201
+        - s: 203
+          e: 206
+        - s: 300
+          e: 301
+        - s: 303
+          e: 306
+        - s: 400
+          e: 401
+        - s: 403
+          e: 406
+        - s: 500
+          e: 501
+        - s: 503
+          e: 506
+        - s: 600
+          e: 601
+        - s: 603
+          e: 607
+        - s: 700
+          e: 701
+        - s: 703
+          e: 707
+        - s: 800
+          e: 801
+        - s: 803
+          e: 807
+        - s: 903
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 6
+        - s: 104
+          e: 106
+        - s: 205
+          e: 206
+        - s: 305
+          e: 306
+        - s: 405
+          e: 406
+        - s: 606
+          e: 607
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 907
+          e: 908
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 203
+          e: 204
+        - s: 503
+          e: 505
+        - s: 603
+          e: 606
+        - s: 704
+          e: 706
+        - s: 804
+          e: 806
+        - s: 904
+          e: 907
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 100
+          e: 101
+        - s: 200
+          e: 201
+        - s: 300
+          e: 301
+        - s: 303
+          e: 305
+        - s: 403
+          e: 405
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 2
+        - s: 101
+          e: 102
+        - s: 302
+          e: 303
+        - s: 402
+          e: 403
+        - s: 502
+          e: 503
+        - s: 602
+          e: 603
+        - s: 702
+          e: 703
+        - s: 802
+          e: 803
+        - s: 902
+          e: 903
+  - localPosition:
+      x: 20
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 6
+        - s: 101
+          e: 107
+        - s: 201
+          e: 207
+        - s: 302
+          e: 307
+        - s: 402
+          e: 407
+        - s: 503
+          e: 507
+        - s: 600
+          e: 601
+        - s: 603
+          e: 607
+        - s: 700
+          e: 701
+        - s: 703
+          e: 707
+        - s: 800
+          e: 801
+        - s: 803
+          e: 807
+        - s: 900
+          e: 901
+        - s: 903
+          e: 907
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 404
+          e: 405
+        - s: 600
+          e: 601
+        - s: 604
+          e: 605
+        - s: 700
+          e: 701
+        - s: 703
+          e: 704
+        - s: 800
+          e: 801
+        - s: 803
+          e: 805
+        - s: 903
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 300
+          e: 301
+        - s: 400
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 802
+        - s: 901
+          e: 902
+      - tileData:
+          tileType: 35
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+      - tileData:
+          tileType: 70
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+      - tileData:
+          tileType: 46
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 8
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+  - localPosition:
+      x: 20
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 300
+          e: 302
+        - s: 400
+          e: 405
+        - s: 500
+          e: 506
+        - s: 600
+          e: 606
+        - s: 700
+          e: 706
+        - s: 800
+          e: 806
+        - s: 900
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 300
+          e: 302
+        - s: 400
+          e: 402
+        - s: 500
+          e: 503
+        - s: 601
+          e: 603
+        - s: 701
+          e: 703
+        - s: 800
+          e: 803
+        - s: 900
+          e: 903
+      - tileData:
+          tileType: 35
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 70
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 803
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 46
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 203
+        - s: 302
+          e: 306
+        - s: 405
+          e: 407
+        - s: 506
+          e: 507
+        - s: 606
+          e: 607
+        - s: 706
+          e: 707
+        - s: 806
+          e: 808
+        - s: 906
+          e: 908
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 400
+          e: 402
+        - s: 501
+          e: 502
+        - s: 601
+          e: 602
+        - s: 701
+          e: 702
+        - s: 801
+          e: 803
+        - s: 902
+          e: 903
+  - localPosition:
+      x: 10
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 410
+        - s: 500
+          e: 507
+        - s: 603
+          e: 607
+        - s: 705
+          e: 707
+        - s: 800
+          e: 801
+        - s: 806
+          e: 810
+        - s: 900
+          e: 904
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 203
+        - s: 208
+          e: 210
+        - s: 300
+          e: 303
+        - s: 309
+          e: 310
+        - s: 401
+          e: 405
+        - s: 502
+          e: 506
+        - s: 603
+          e: 608
+        - s: 705
+          e: 709
+        - s: 807
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 800
+          e: 801
+        - s: 900
+          e: 902
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 803
+          e: 806
+        - s: 905
+          e: 907
+      - tileData:
+          tileType: 71
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 103
+          e: 106
+        - s: 200
+          e: 201
+        - s: 203
+          e: 206
+        - s: 300
+          e: 301
+        - s: 302
+          e: 306
+        - s: 400
+          e: 402
+        - s: 404
+          e: 408
+        - s: 506
+          e: 509
+        - s: 606
+          e: 609
+      - tileData:
+          tileType: 35
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 408
+          e: 410
+      - tileData:
+          tileType: 70
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 408
+          e: 410
+      - tileData:
+          tileType: 46
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 8
+        - s: 100
+          e: 110
+      - tileData:
+          tileType: 129
+          tilesetType: 71
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 408
+          e: 410
+      - tileData:
+          tileType: 64
+          tilesetType: 58
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 100
+          e: 102
+        - s: 200
+          e: 202
+        - s: 203
+          e: 206
+        - s: 300
+          e: 302
+        - s: 303
+          e: 306
+        - s: 403
+          e: 406
+      - tileData:
+          tileType: 65
+          tilesetType: 34
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 507
+          e: 510
+        - s: 607
+          e: 610
+        - s: 707
+          e: 710
+      - tileData:
+          tileType: 33
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 507
+          e: 510
+        - s: 607
+          e: 610
+        - s: 707
+          e: 710
+  - localPosition:
+      x: 0
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 410
+        - s: 509
+          e: 510
+        - s: 700
+          e: 708
+        - s: 800
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 205
+          e: 210
+        - s: 306
+          e: 310
+        - s: 401
+          e: 402
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 201
+        - s: 204
+          e: 205
+        - s: 300
+          e: 301
+        - s: 304
+          e: 306
+        - s: 400
+          e: 401
+        - s: 405
+          e: 407
+        - s: 707
+          e: 708
+        - s: 807
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 201
+          e: 204
+        - s: 301
+          e: 304
+        - s: 402
+          e: 405
+        - s: 704
+          e: 707
+        - s: 805
+          e: 807
+        - s: 905
+          e: 908
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 609
+      - tileData:
+          tileType: 46
+          tilesetType: 8
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 10
+        - s: 101
+          e: 110
+      - tileData:
+          tileType: 71
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 7
+        - s: 104
+          e: 107
+        - s: 204
+          e: 207
+        - s: 208
+          e: 210
+        - s: 308
+          e: 310
+        - s: 408
+          e: 410
+      - tileData:
+          tileType: 64
+          tilesetType: 58
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 105
+          e: 108
+        - s: 109
+          e: 110
+        - s: 205
+          e: 208
+        - s: 209
+          e: 210
+        - s: 305
+          e: 308
+        - s: 309
+          e: 310
+  - localPosition:
+      x: -10
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 100
+          e: 108
+        - s: 200
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 401
+        - s: 405
+          e: 410
+        - s: 700
+          e: 706
+        - s: 708
+          e: 710
+        - s: 800
+          e: 810
+        - s: 900
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks: []
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 308
+          e: 310
+        - s: 406
+          e: 410
+        - s: 702
+          e: 704
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 700
+          e: 702
+        - s: 800
+          e: 804
+        - s: 901
+          e: 905
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 610
+  - localPosition:
+      x: -20
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 107
+          e: 110
+        - s: 205
+          e: 210
+        - s: 300
+          e: 310
+        - s: 400
+          e: 410
+        - s: 500
+          e: 506
+        - s: 600
+          e: 602
+        - s: 700
+          e: 701
+        - s: 708
+          e: 710
+        - s: 804
+          e: 810
+        - s: 902
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 300
+          e: 301
+        - s: 400
+          e: 401
+        - s: 500
+          e: 502
+        - s: 903
+          e: 904
+        - s: 907
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 902
+          e: 903
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 600
+          e: 602
+        - s: 700
+          e: 701
+        - s: 708
+          e: 710
+        - s: 806
+          e: 810
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 608
+          e: 610
+  - localPosition:
+      x: -30
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 5
+        - s: 100
+          e: 104
+        - s: 107
+          e: 110
+        - s: 200
+          e: 204
+        - s: 207
+          e: 210
+        - s: 300
+          e: 304
+        - s: 306
+          e: 310
+        - s: 400
+          e: 404
+        - s: 406
+          e: 410
+        - s: 500
+          e: 504
+        - s: 506
+          e: 510
+        - s: 600
+          e: 604
+        - s: 606
+          e: 610
+        - s: 700
+          e: 704
+        - s: 706
+          e: 710
+        - s: 800
+          e: 804
+        - s: 806
+          e: 810
+        - s: 900
+          e: 904
+        - s: 906
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 900
+          e: 901
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 5
+        - s: 100
+          e: 104
+        - s: 200
+          e: 202
+        - s: 300
+          e: 302
+        - s: 400
+          e: 401
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 4
+        - s: 408
+          e: 410
+        - s: 508
+          e: 510
+        - s: 608
+          e: 610
+        - s: 708
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 804
+          e: 805
+        - s: 904
+          e: 905
+  - localPosition:
+      x: -30
+      y: -40
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 307
+          e: 310
+        - s: 403
+          e: 410
+        - s: 502
+          e: 510
+        - s: 602
+          e: 610
+        - s: 701
+          e: 710
+        - s: 801
+          e: 809
+        - s: 901
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 307
+          e: 310
+        - s: 406
+          e: 410
+        - s: 505
+          e: 508
+        - s: 509
+          e: 510
+        - s: 604
+          e: 605
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 807
+          e: 809
+        - s: 904
+          e: 906
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 605
+          e: 610
+        - s: 703
+          e: 710
+        - s: 802
+          e: 806
+        - s: 901
+          e: 904
+  - localPosition:
+      x: -30
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 4
+        - s: 6
+          e: 10
+        - s: 100
+          e: 104
+        - s: 106
+          e: 110
+        - s: 200
+          e: 204
+        - s: 206
+          e: 210
+        - s: 300
+          e: 304
+        - s: 306
+          e: 310
+        - s: 400
+          e: 404
+        - s: 406
+          e: 410
+        - s: 500
+          e: 504
+        - s: 506
+          e: 510
+        - s: 600
+          e: 604
+        - s: 606
+          e: 610
+        - s: 700
+          e: 703
+        - s: 706
+          e: 710
+        - s: 800
+          e: 803
+        - s: 806
+          e: 810
+        - s: 900
+          e: 903
+        - s: 906
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 1
+        - s: 100
+          e: 102
+        - s: 403
+          e: 404
+        - s: 706
+          e: 707
+        - s: 806
+          e: 807
+        - s: 906
+          e: 907
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 204
+        - s: 206
+          e: 207
+        - s: 300
+          e: 304
+        - s: 306
+          e: 308
+        - s: 406
+          e: 407
+        - s: 608
+          e: 609
+        - s: 707
+          e: 709
+        - s: 807
+          e: 809
+        - s: 907
+          e: 909
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 309
+          e: 310
+        - s: 407
+          e: 410
+        - s: 506
+          e: 510
+        - s: 606
+          e: 608
+        - s: 802
+          e: 803
+        - s: 901
+          e: 903
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 4
+          e: 5
+        - s: 104
+          e: 105
+        - s: 204
+          e: 205
+        - s: 304
+          e: 305
+        - s: 404
+          e: 405
+        - s: 504
+          e: 505
+        - s: 604
+          e: 605
+        - s: 704
+          e: 705
+        - s: 804
+          e: 805
+        - s: 903
+          e: 904
+  - localPosition:
+      x: -40
+      y: -20
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+        - s: 409
+          e: 410
+        - s: 509
+          e: 510
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 209
+          e: 210
+        - s: 309
+          e: 310
+  - localPosition:
+      x: -40
+      y: -30
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 909
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+  - localPosition:
+      x: -30
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 5
+          e: 10
+        - s: 100
+          e: 103
+        - s: 105
+          e: 110
+        - s: 200
+          e: 203
+        - s: 205
+          e: 210
+        - s: 300
+          e: 303
+        - s: 305
+          e: 310
+        - s: 400
+          e: 403
+        - s: 405
+          e: 410
+        - s: 500
+          e: 503
+        - s: 505
+          e: 510
+        - s: 600
+          e: 603
+        - s: 606
+          e: 610
+        - s: 700
+          e: 704
+        - s: 706
+          e: 710
+        - s: 800
+          e: 804
+        - s: 806
+          e: 810
+        - s: 900
+          e: 904
+        - s: 906
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 5
+          e: 7
+        - s: 105
+          e: 106
+        - s: 205
+          e: 206
+        - s: 302
+          e: 303
+        - s: 401
+          e: 403
+        - s: 500
+          e: 503
+        - s: 600
+          e: 603
+        - s: 700
+          e: 701
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 7
+          e: 9
+        - s: 106
+          e: 109
+        - s: 206
+          e: 208
+        - s: 306
+          e: 307
+        - s: 406
+          e: 407
+        - s: 409
+          e: 410
+        - s: 505
+          e: 507
+        - s: 509
+          e: 510
+        - s: 606
+          e: 607
+        - s: 609
+          e: 610
+        - s: 702
+          e: 704
+        - s: 706
+          e: 707
+        - s: 802
+          e: 804
+        - s: 901
+          e: 904
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 3
+        - s: 100
+          e: 102
+        - s: 307
+          e: 309
+        - s: 407
+          e: 409
+        - s: 507
+          e: 509
+        - s: 607
+          e: 609
+        - s: 707
+          e: 709
+        - s: 807
+          e: 809
+        - s: 906
+          e: 909
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 3
+          e: 4
+        - s: 103
+          e: 104
+        - s: 203
+          e: 204
+        - s: 304
+          e: 305
+        - s: 404
+          e: 405
+        - s: 504
+          e: 505
+        - s: 604
+          e: 605
+  - localPosition:
+      x: -40
+      y: -10
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 9
+          e: 10
+        - s: 109
+          e: 110
+        - s: 209
+          e: 210
+  - localPosition:
+      x: -30
+      y: 0
+    mapData:
+      seed: 0
+      bounds:
+        m_Position: {x: 0, y: 0, z: 0}
+        m_Size: {x: 10, y: 10, z: 10}
+      objectPositions: []
+      objects: []
+      layers:
+      - tileData:
+          tileType: 46
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 0
+          e: 4
+        - s: 6
+          e: 10
+        - s: 100
+          e: 104
+        - s: 106
+          e: 110
+        - s: 200
+          e: 204
+        - s: 206
+          e: 210
+        - s: 300
+          e: 303
+        - s: 306
+          e: 310
+        - s: 400
+          e: 402
+        - s: 406
+          e: 410
+        - s: 500
+          e: 502
+        - s: 505
+          e: 510
+        - s: 600
+          e: 602
+        - s: 605
+          e: 610
+        - s: 700
+          e: 703
+        - s: 706
+          e: 710
+        - s: 800
+          e: 803
+        - s: 806
+          e: 810
+        - s: 900
+          e: 904
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 200
+          e: 201
+        - s: 300
+          e: 301
+        - s: 400
+          e: 402
+        - s: 500
+          e: 501
+        - s: 702
+          e: 703
+        - s: 801
+          e: 803
+        - s: 901
+          e: 904
+      - tileData:
+          tileType: 69
+          tilesetType: 66
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 1
+          e: 3
+        - s: 609
+          e: 610
+        - s: 709
+          e: 710
+        - s: 809
+          e: 810
+        - s: 908
+          e: 910
+      - tileData:
+          tileType: 69
+          tilesetType: 60
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 6
+          e: 8
+        - s: 106
+          e: 108
+        - s: 206
+          e: 207
+        - s: 306
+          e: 307
+        - s: 501
+          e: 502
+        - s: 600
+          e: 602
+        - s: 700
+          e: 702
+      - tileData:
+          tileType: 126
+          tilesetType: 0
+          state: 0
+          typeData: 
+        tileDataChunks:
+        - s: 603
+          e: 605
+        - s: 704
+          e: 705
+        - s: 804
+          e: 806
+        - s: 905
+          e: 906
+  authObjects:
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: -57402162291848823
+      m_high: -912457830013623959
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: 1222196467337750
+      m_high: -2897931082936491495
+  - m_address:
+      m_low: -5335516840609041055
+      m_high: 2864930757923916505
+  prefabPositions:
+  - {x: -19, y: 0, z: 20}
+  - {x: -16, y: 0, z: 12}
+  - {x: 25, y: 0, z: -29}
+  - {x: 1, y: 0, z: -16}
+  - {x: 22, y: 0, z: 19}
+  - {x: 7, y: 0, z: -12}
+  - {x: -6, y: 0, z: -9}
+  - {x: 25, y: 0, z: -30}
+  - {x: 20, y: 0, z: -2}
+  - {x: 7, y: 0, z: -4}
+  - {x: 24, y: 0, z: -22}
+  - {x: 0, y: 0, z: -10}
+  prefabDirections:
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  - hasValue: 0
+    value:
+      x: 0
+      y: 0
+      z: 0
+  prefabColors:
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  - hasValue: 0
+    value: 0
+  prefabInventoryOverrides:
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  - hasAnyInventoryOverride: 0
+    hasLootTableOverride: 0
+    hasItemsOverride: 0
+    lootTableOverride: 0
+    itemsToRemove: 0
+    itemsOverride: []
+  references:
+    version: 2
+    RefIds: []

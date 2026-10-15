@@ -3,7 +3,6 @@ using Assets.BuildingBlueprint.Scripts.Core;
 using Inventory;
 using Pug.UnityExtensions;
 using PugTilemap;
-using System.Linq;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
@@ -18,66 +17,100 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         internal static BuildingPlaceClient Ins { get; private set; }
         private NativeQueue<PlaceEntityRpc> entities;
         private NativeQueue<PlaceTileRpc> tiles;
+        private NativeQueue<StartPlaceRPC> starts;
         private EntityArchetype entityArchetype;
         private EntityArchetype tileArchetype;
+        private EntityArchetype startArchetype;
         private TileWithTilesetToObjectDataMapCD tileSetMap;
         private ComponentLookup<AlwaysDropSpecificVariationCD> dropSpecificVariationLookup;
         private BufferLookup<ContainedObjectsBuffer> containerLookup;
+        private int id = 0;
+        private float placeCD;
+        const float PlaceCooldownBase = 1f;
+        const float PlaceCooldownPerRequest = 0.01f;
         protected override void OnCreate()
         {
             Ins = this;
             entities = new(Allocator.Persistent);
             tiles = new(Allocator.Persistent);
+            starts = new(Allocator.Persistent);
             entityArchetype = EntityManager.CreateArchetype(typeof(PlaceEntityRpc), typeof(SendRpcCommandRequest));
             tileArchetype = EntityManager.CreateArchetype(typeof(PlaceTileRpc), typeof(SendRpcCommandRequest));
+            startArchetype = EntityManager.CreateArchetype(typeof(StartPlaceRPC), typeof(SendRpcCommandRequest));
             dropSpecificVariationLookup = SystemAPI.GetComponentLookup<AlwaysDropSpecificVariationCD>();
             containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
             RequireForUpdate<TileWithTilesetToObjectDataMapCD>();
             NeedDatabase();
             base.OnCreate();
         }
-        protected override void OnStartRunning()
-        {
-            base.OnStartRunning();
-        }
         protected override void OnUpdate()
         {
+            placeCD = math.max(0, placeCD - World.Time.DeltaTime);
+            var starts = this.starts;
+            var startArchetype = this.startArchetype;
+            var ecb = CreateCommandBuffer();
+            tileSetMap = SystemAPI.GetSingleton<TileWithTilesetToObjectDataMapCD>();
+
             var entities = this.entities;
             var tiles = this.tiles;
             var entityArchetype = this.entityArchetype;
             var tileArchetype = this.tileArchetype;
-            var ecb = CreateCommandBuffer();
-            tileSetMap = SystemAPI.GetSingleton<TileWithTilesetToObjectDataMapCD>();
-            while (entities.TryDequeue(out var entity))
+            while (starts.TryDequeue(out var start))
             {
-                var e = ecb.CreateEntity(entityArchetype);
-                ecb.SetComponent(e, entity);
+                var e = ecb.CreateEntity(startArchetype);
+                ecb.SetComponent(e, start);
+                //Debug.Log($"Send place start, id: {start.ID}");
             }
             while (tiles.TryDequeue(out var tile))
             {
                 var e = ecb.CreateEntity(tileArchetype);
                 ecb.SetComponent(e, tile);
             }
+            while (entities.TryDequeue(out var entity))
+            {
+                var e = ecb.CreateEntity(entityArchetype);
+                ecb.SetComponent(e, entity);
+            }
             base.OnUpdate();
         }
-        public void Place(int2 mouse, BuildingInfo info, int2 offset)
+        public void Place(BuildingInfo info, int2 origin)
         {
+            if (placeCD > 0)
+                return;
             var entitiesQueue = entities;
             var tilesQueue = tiles;
             var player = Manager.main.player.entity;
+            StartPlaceRPC counter = new() { ID = ++id, Player = player };
             foreach (var tiles in info.TileInfos)
             {
-                foreach (var tile in tiles.Tiles.OrderBy(t => GetPlaceOrder(t.tileType)))
+                foreach (var tile in tiles.Tiles)
                 {
                     var obj = TileToObject(tile);
                     tilesQueue.Enqueue(new()
                     {
+                        ID = id,
                         ObjectID = obj.objectID,
                         Variation = obj.variation,
                         Tile = tile,
-                        Pos = tiles.Position + mouse + offset,
+                        Pos = tiles.Position + origin,
                         Player = player
                     });
+                    switch (TilesInfo.GetPlaceOrder(tile.tileType))
+                    {
+                        case 0:
+                            counter.Count_1++;
+                            break;
+                        case 1:
+                            counter.Count_2++;
+                            break;
+                        case 2:
+                            counter.Count_3++;
+                            break;
+                        case 3:
+                            counter.Count_4++;
+                            break;
+
+                    }
                 }
             }
             foreach (var entities in info.EntityInfos)
@@ -86,24 +119,22 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                 {
                     entitiesQueue.Enqueue(new()
                     {
+                        ID = id,
                         ObjectID = entity.ObjectID,
                         Variation = entity.Variation,
-                        Pos = entities.Position + mouse + offset,
+                        Pos = entities.Position + origin,
                         Direction = entity.Direction,
                         Color = entity.Color,
                         Player = player,
                     });
+                    counter.Count_5++;
                 }
             }
+            starts.Enqueue(counter);
+            int requests = counter.Count_1 + counter.Count_2 + counter.Count_3 + counter.Count_4 + counter.Count_5;
+            placeCD = math.min(3, PlaceCooldownBase + requests * PlaceCooldownPerRequest);
         }
-
-
-        private int GetPlaceOrder(TileType tileType)
-        {
-            // 只有 Ground 和 Water 必须最先放
-            return (tileType is TileType.water or TileType.ground) ? 0 : 1;
-        }
-        public void Destory(EntityCD entity, int2 pos, Entity player)
+        public void Destory(EntityCD entity, Entity player)
         {
             entities.Enqueue(new()
             {
@@ -150,14 +181,17 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
     {
         private ComponentLookup<PlaceEntityRpc> entityLookup;
         private ComponentLookup<PlaceTileRpc> tileLookup;
+        private ComponentLookup<StartPlaceRPC> startLookup;
         private ComponentLookup<AlwaysDropSpecificVariationCD> dropSpecificVariationLookup;
         private ComponentLookup<HealthCD> healthLookup;
         private ComponentLookup<PlayerGhost> playerLookup;
         private ComponentLookup<DurabilityCD> durabilityLookup;
         private ComponentLookup<GodModeCD> godLookup;
         private ComponentLookup<EntityDestroyedCD> destroyedLookup;
+        private BufferLookup<PlaceValidateBuffer> placeLookup;
         private BufferLookup<ContainedObjectsBuffer> containedLookup;
         private TileAccessor tileAccessor;
+        private uint tickRate;
 
         protected override void OnCreate()
         {
@@ -166,14 +200,18 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             RequireForUpdate<TileUpdateBuffer>();
             RequireForUpdate<InventoryChangeBuffer>();
             RequireForUpdate<TileWithTilesetToObjectDataMapCD>();
+            RequireForUpdate<NetworkTime>();
+            tickRate = (uint)PlatformConfiguration.Instance.SessionConfiguration.SimulationTickRate;
             entityLookup = SystemAPI.GetComponentLookup<PlaceEntityRpc>();
             tileLookup = SystemAPI.GetComponentLookup<PlaceTileRpc>();
+            startLookup = SystemAPI.GetComponentLookup<StartPlaceRPC>();
             dropSpecificVariationLookup = SystemAPI.GetComponentLookup<AlwaysDropSpecificVariationCD>();
             healthLookup = SystemAPI.GetComponentLookup<HealthCD>();
             playerLookup = SystemAPI.GetComponentLookup<PlayerGhost>();
             durabilityLookup = SystemAPI.GetComponentLookup<DurabilityCD>();
             godLookup = SystemAPI.GetComponentLookup<GodModeCD>();
             destroyedLookup = SystemAPI.GetComponentLookup<EntityDestroyedCD>();
+            placeLookup = SystemAPI.GetBufferLookup<PlaceValidateBuffer>();
             containedLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
             base.OnCreate();
         }
@@ -186,12 +224,14 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         {
             var entityLookup = this.entityLookup;
             var tileLookup = this.tileLookup;
+            var startLookup = this.startLookup;
             var dropSpecificVariationLookup = this.dropSpecificVariationLookup;
             var healthLookup = this.healthLookup;
             var playerLookup = this.playerLookup;
             var durabilityLookup = this.durabilityLookup;
             var godLookup = this.godLookup;
             var destroyedLookup = this.destroyedLookup;
+            var placeLookup = this.placeLookup;
             var containedLookup = this.containedLookup;
             var tileAccessor = this.tileAccessor;
             var database = this.database;
@@ -202,88 +242,63 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             bool guest = WorldInfo.guestMode;
             var tileSetMap = SystemAPI.GetSingleton<TileWithTilesetToObjectDataMapCD>();
             bool adminOnly = BuildingBlueprint.DestoryPrivileges.Value;
+            var tickRate = this.tickRate;
+            var currentTick = SystemAPI.GetSingleton<NetworkTime>().ServerTick;
             Entities.ForEach((Entity e) =>
             {
-                ecb.DestroyEntity(e);
-                if (entityLookup.TryGetComponent(e, out var entity))
+                if (startLookup.TryGetComponent(e, out var start))
                 {
-                    var targetE = entity.Entity;
-                    var playerE = entity.Player;
-                    if (targetE != Entity.Null)
+                    ecb.DestroyEntity(e);
+                    if (placeLookup.TryGetBuffer(start.Player, out var validate))
                     {
-                        if (!playerLookup.TryGetComponent(playerE, out var player))
-                            return;
-                        if (adminOnly ? player.adminPrivileges <= 0 : guest)
-                            return;
-                        if (healthLookup.TryGetComponent(targetE, out var health))
-                        {
-                            var h = health;
-                            h.health = 0;
-                            ecb.SetComponent(targetE, h);
-                        }
-                        else
-                            destroyedLookup.SetComponentEnabled(targetE, true);
-                        return;
-                    }
-                    if (!containedLookup.TryGetBuffer(playerE, out var inv))
-                        return;
-                    var objectID = entity.ObjectID;
-                    var primary = PugDatabase.GetPrimaryPrefabEntity(objectID, database);
-                    var variation = entity.Variation;
-                    var findVari = dropSpecificVariationLookup.HasComponent(primary) ? 0 : variation;
-                    int index = -1;
-                    bool dontConsume = godLookup.IsComponentEnabled(playerE);
-                    if (!dontConsume)
-                    {
-                        for (int i = 0; i < inv.Length; i++)
-                        {
-                            var slot = inv[i];
-                            if (slot.objectID == objectID && slot.variation == findVari)
-                            {
-                                var amount = slot.amount;
-                                if (amount > 0)
-                                {
-                                    index = i;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (dontConsume || index > -1)
-                    {
-                        var create = EntityUtility.CreateEntity(ecb, entity.Pos.ToFloat3(), objectID, 1, database, variation);
-                        if (!entity.Direction.Equals(int2.zero))
-                        {
-                            ecb.SetComponent(create, new DirectionCD() { direction = entity.Direction.ToFloat3() });
-                        }
-                        if (entity.Color != PaintableColor.Unpainted)
-                        {
-                            ecb.SetComponent(create, new PaintableObjectCD() { color = entity.Color });
-                        }
-                        if (dontConsume)
-                            return;
-                        if (durabilityLookup.HasComponent(primary))
-                        {
-                            var slot = inv[index];
-                            slot.objectData.amount--;
-                            inv[index] = slot;
-                        }
-                        else
-                        {
-                            invChange.Add(new()
-                            {
-                                inventoryChangeData = Create.ConsumeEntityAt(playerE, index, 1, true, false)
-                            });
-                        }
+                        PlaceValidateBuffer b = new();
+                        b.Start(start);
+                        if (!b.Finished)
+                            validate.Add(b);
                     }
                 }
                 else if (tileLookup.TryGetComponent(e, out var tile))
                 {
-                    var objectID = tile.ObjectID;
+                    var playerE = tile.Player;
                     var tileCD = tile.Tile;
+                    if ((int)tile.ObjectID != -1)
+                    {
+                        if (!tile.Timer.isRunning)
+                        {
+                            tile.Timer.Start(currentTick, 10, tickRate);
+                            ecb.SetComponent(e, tile);
+                        }
+                        else if (tile.Timer.IsTimerElapsed(currentTick))
+                        {
+                            ecb.DestroyEntity(e);
+                            return;
+                        }
+                        bool collect = false;
+                        if (placeLookup.TryGetBuffer(playerE, out var validates))
+                        {
+                            var id = tile.ID;
+                            for (int i = 0; i < validates.Length; i++)
+                            {
+                                var info = validates[i];
+                                if (info.ID != id)
+                                    continue;
+                                if (!info.Collect(TilesInfo.GetPlaceOrder(tileCD.tileType), currentTick))
+                                    continue;
+                                collect = true;
+                                if (info.Finished)
+                                    validates.RemoveAt(i);
+                                else
+                                    validates[i] = info;
+                                break;
+                            }
+                        }
+                        if (!collect)
+                            return;
+                    }
+                    ecb.DestroyEntity(e);
+                    var objectID = tile.ObjectID;
                     var tileType = tileCD.tileType;
                     var tileset = tileCD.tileset;
-                    var playerE = tile.Player;
                     var pos = tile.Pos;
                     if ((int)objectID == -1)
                     {
@@ -374,13 +389,122 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         }
                     }
                 }
+                else if (entityLookup.TryGetComponent(e, out var entity))
+                {
+                    var playerE = entity.Player;
+                    if (entity.Entity == Entity.Null)
+                    {
+                        if (!entity.Timer.isRunning)
+                        {
+                            entity.Timer.Start(currentTick, 10, tickRate);
+                            ecb.SetComponent(e, entity);
+                        }
+                        else if (entity.Timer.IsTimerElapsed(currentTick))
+                        {
+                            ecb.DestroyEntity(e);
+                            return;
+                        }
+                        bool collect = false;
+                        if (placeLookup.TryGetBuffer(playerE, out var validates))
+                        {
+                            var id = entity.ID;
+                            for (int i = 0; i < validates.Length; i++)
+                            {
+                                var info = validates[i];
+                                if (info.ID != id)
+                                    continue;
+                                if (!info.Collect(4, currentTick))
+                                    continue;
+                                collect = true;
+                                if (info.Finished)
+                                    validates.RemoveAt(i);
+                                else
+                                    validates[i] = info;
+                                break;
+                            }
+                        }
+                        if (!collect)
+                            return;
+                    }
+                    ecb.DestroyEntity(e);
+                    var targetE = entity.Entity;
+                    if (targetE != Entity.Null)
+                    {
+                        if (!playerLookup.TryGetComponent(playerE, out var player))
+                            return;
+                        if (adminOnly ? player.adminPrivileges <= 0 : guest)
+                            return;
+                        if (healthLookup.TryGetComponent(targetE, out var health))
+                        {
+                            var h = health;
+                            h.health = 0;
+                            ecb.SetComponent(targetE, h);
+                        }
+                        else
+                            destroyedLookup.SetComponentEnabled(targetE, true);
+                        return;
+                    }
+                    if (!containedLookup.TryGetBuffer(playerE, out var inv))
+                        return;
+                    var objectID = entity.ObjectID;
+                    var primary = PugDatabase.GetPrimaryPrefabEntity(objectID, database);
+                    var variation = entity.Variation;
+                    var findVari = dropSpecificVariationLookup.HasComponent(primary) ? 0 : variation;
+                    int index = -1;
+                    bool dontConsume = godLookup.IsComponentEnabled(playerE);
+                    if (!dontConsume)
+                    {
+                        for (int i = 0; i < inv.Length; i++)
+                        {
+                            var slot = inv[i];
+                            if (slot.objectID == objectID && slot.variation == findVari)
+                            {
+                                var amount = slot.amount;
+                                if (amount > 0)
+                                {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (dontConsume || index > -1)
+                    {
+                        var create = EntityUtility.CreateEntity(ecb, entity.Pos.ToFloat3(), objectID, 1, database, variation);
+                        if (!entity.Direction.Equals(int2.zero))
+                        {
+                            ecb.SetComponent(create, new DirectionCD() { direction = entity.Direction.ToFloat3() });
+                        }
+                        if (entity.Color != PaintableColor.Unpainted)
+                        {
+                            ecb.SetComponent(create, new PaintableObjectCD() { color = entity.Color });
+                        }
+                        if (dontConsume)
+                            return;
+                        if (durabilityLookup.HasComponent(primary))
+                        {
+                            var slot = inv[index];
+                            slot.objectData.amount--;
+                            inv[index] = slot;
+                        }
+                        else
+                        {
+                            invChange.Add(new()
+                            {
+                                inventoryChangeData = Create.ConsumeEntityAt(playerE, index, 1, true, false)
+                            });
+                        }
+                    }
+                }
             })
                 .WithName("PlaceBuildingSystem")
                 .WithAll<ReceiveRpcCommandRequest>()
-                .WithAny<PlaceEntityRpc, PlaceTileRpc>()
+                .WithAny<PlaceEntityRpc, PlaceTileRpc, StartPlaceRPC>()
                 .WithBurst()
                 .Schedule();
             base.OnUpdate();
         }
+
+
     }
 }

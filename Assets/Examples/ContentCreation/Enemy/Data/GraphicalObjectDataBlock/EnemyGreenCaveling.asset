@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 789715323, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: EnemyGreenCaveling
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: -8542154138329976800
+    m_high: -5902568566451042616
+  m_dynamicCollections:
+    m_list: []
+  prefab: {fileID: 1006423812089600, guid: b3b04a38a27bc0348bac864012965ed8, type: 3}
+  poolParams:
+    m_address:
+      m_low: 8927380387929206228
+      m_high: -4924425506434116102
+  references:
+    version: 2
+    RefIds: []

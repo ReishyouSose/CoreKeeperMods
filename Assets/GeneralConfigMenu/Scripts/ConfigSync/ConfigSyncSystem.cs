@@ -22,6 +22,7 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
         private ComponentLookup<ConfigChunkRpc> chunkLookup;
         private ComponentLookup<ReceiveRpcCommandRequest> receiveLookup;
         private ComponentLookup<PlayerGhost> playerLookup;
+        private ComponentLookup<ConnectionAdminLevelCD> adminLookup;
         private EntityArchetype syncArchetype;
         private EntityArchetype entryArchetype;
         private EntityArchetype chunkArchetype;
@@ -33,26 +34,15 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
         protected override void OnCreate()
         {
             send = new();
-            configs = new();
+            configs = OrderedSyncEntries();
+            foreach (var entry in configs)
+                entry.ConfigFile.SaveOnConfigSet = false;
             if (isServer)
             {
                 playerLookup = SystemAPI.GetComponentLookup<PlayerGhost>();
+                adminLookup = SystemAPI.GetComponentLookup<ConnectionAdminLevelCD>();
                 RequireForUpdate<WorldInfoCD>();
             }
-            foreach (var configFile in ConfigFile.AllConfigFilesReadOnly)
-            {
-                if (configFile.ConfigFilePath.StartsWith("CoreLib"))
-                    continue;
-                configFile.SaveOnConfigSet = false;
-                foreach (var entry in configFile.Entries.Values)
-                {
-                    if (!entry.Scope.ShouldSync)
-                        continue;
-                    configs.Add(entry);
-                }
-            }
-
-            Debug.Log($"Registered {configs.Count} configs");
             syncAll = new(Allocator.Persistent);
             syncArchetype = EntityManager.CreateArchetype(typeof(ConfigSyncRpc), typeof(SendRpcCommandRequest));
             entryArchetype = EntityManager.CreateArchetype(typeof(ConfigEntryRpc), typeof(SendRpcCommandRequest));
@@ -79,11 +69,7 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
             EntityCommandBuffer ecb = CreateCommandBuffer();
             bool isServer = this.isServer;
             var send = this.send;
-            var configs = this.configs;
             var syncAll = this.syncAll;
-            var syncArchetype = this.syncArchetype;
-            var entryArchetype = this.entryArchetype;
-            var chunkArchetype = this.chunkArchetype;
             var syncLookup = this.syncLookup;
             var entryLookup = this.entryLookup;
             var chunkLookup = this.chunkLookup;
@@ -148,82 +134,18 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
             }
 
             var collectorKeys = collectors.Keys.ToArray();
-            bool guest = false;
-            bool adminOnly = false;
-            if (isServer)
-            {
-                if (SystemAPI.TryGetSingleton(out WorldInfoCD worldInfo))
-                    guest = worldInfo.guestMode;
-                adminOnly = GeneralConfigMenuMod.config.AdminOnly.Value;
-            }
             foreach (var key in collectorKeys)
             {
                 var collector = collectors[key];
-                if (collector.Completed)
-                {
-                    collectors.Remove(key);
-                    pendingEntries.Remove(key);
-                    pendingChunks.Remove(key);
-                    bool apply = collector.ShouldApply;
-                    if (isServer || !apply)
-                    {
-                        var sync = ecb.CreateEntity(syncArchetype);
-                        int syncID = collector.SyncID;
-                        Entity connect = isServer && !apply ? key.connect : Entity.Null;
-                        var player = collector.Player;
-                        ecb.SetComponent(sync, new ConfigSyncRpc(syncID, collector.ConfigCount, player));
-                        ecb.SetComponent(sync, new SendRpcCommandRequest() { TargetConnection = connect });
-                        int privileges = apply ? playerLookup[player].adminPrivileges : 0;
-                        foreach (var (id, change) in collector.Changes)
-                        {
-                            var entry = ecb.CreateEntity(entryArchetype);
-                            var config = configs[id];
-                            string name = config.GetFullName();
-                            string value = Encoding.UTF8.GetString(change.Value);
-                            if (apply)
-                            {
-                                if (privileges > 0 || (!guest && !adminOnly && config.Scope.accessLevel == ConfigAccessLevel.Server))
-                                {
-                                    config.SetSerializedValue(value);
-                                    value = config.GetSerializedValue();
-                                    Debug.Log($"Accepted {name} = {value}");
-                                }
-                                else
-                                    Debug.Log("Rejected " + name);
-                            }
-                            byte[] bytes = Encoding.UTF8.GetBytes(value);
-                            int count = (bytes.Length - 1) / 16 + 1;
-                            ecb.SetComponent(entry, new ConfigEntryRpc(syncID, id, count, bytes.Length));
-                            ecb.SetComponent(entry, new SendRpcCommandRequest() { TargetConnection = connect });
-                            for (int i = 0; i < count; i++)
-                            {
-                                var chunk = ecb.CreateEntity(chunkArchetype);
-                                ecb.SetComponent(chunk, new ConfigChunkRpc(syncID, id, i * 16, bytes));
-                                ecb.SetComponent(chunk, new SendRpcCommandRequest() { TargetConnection = connect });
-                            }
-                        }
-                        if (apply && Manager.networking.currentSessionIsDedicatedServer)
-                        {
-                            var file = configs[collector.Changes.Keys.First()].ConfigFile;
-                            file.Save();
-                            Debug.Log("Saved " + file.ConfigFilePath);
-                        }
-                    }
-                    else
-                    {
-                        var menu = ModConfigMenu.Instance;
-                        var syncID = collector.SyncID;
-                        if (syncID == 0 || syncID == sendTimes)
-                            menu.SetWaitState(false);
-                        var receive = menu.Receive;
-                        foreach (var (id, change) in collector.Changes)
-                        {
-                            var entry = ecb.CreateEntity(entryArchetype);
-                            string value = Encoding.UTF8.GetString(change.Value);
-                            receive.Add((id, value));
-                        }
-                    }
-                }
+                if (!collector.Completed)
+                    continue;
+                collectors.Remove(key);
+                pendingEntries.Remove(key);
+                pendingChunks.Remove(key);
+                if (isServer)
+                    ApplyIncoming(ecb, key.connect, collector);
+                else
+                    DeliverToMenu(collector);
             }
 
             while (send.Count > 0)
@@ -231,20 +153,18 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
                 foreach (var (target, modifies) in send)
                 {
                     int syncID = isServer ? 0 : ++sendTimes;
-                    ConfigSyncCollector collector = new()
-                    {
-                        SyncID = syncID,
-                        ConfigCount = modifies.Count,
-                        Player = isServer ? Entity.Null : Manager.main.player.entity,
-                    };
-                    collectors.Add((syncID, target), collector);
-                    var changes = collector.Changes;
+                    var changes = new Dictionary<int, ConfigEntryCollector>();
                     foreach (var (id, value) in modifies)
                     {
                         byte[] bytes = Encoding.UTF8.GetBytes(value);
-                        int count = (bytes.Length - 1) / 16 + 1;
-                        var change = changes[id] = new() { ChunkCount = count, Value = bytes };
+                        changes[id] = new()
+                        {
+                            ChunkCount = (bytes.Length - 1) / 16 + 1,
+                            Value = bytes,
+                        };
                     }
+                    var player = isServer || !Manager.main.player ? Entity.Null : Manager.main.player.entity;
+                    SendSnapshot(ecb, syncID, isServer ? target : Entity.Null, player, changes);
                 }
                 send.Clear();
             }
@@ -264,14 +184,7 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
             while (syncAll.TryDequeue(out var connect))
             {
                 if (isServer)
-                {
-                    List<(int, string)> changes = new();
-                    for (int i = 0; i < configs.Count; i++)
-                    {
-                        changes.Add(((ushort)i, configs[i].GetSerializedValue()));
-                    }
-                    send.Add((connect, changes));
-                }
+                    SendValues(ecb, connect);
                 else
                 {
                     var e = ecb.CreateEntity();
@@ -281,14 +194,151 @@ namespace Assets.GeneralConfigMenu.Scripts.ConfigSync
             }
             base.OnUpdate();
         }
-        public ConfigEntryBase GetEntryByID(int id) => configs[id];
-        public void RequestSyncAll() => syncAll.Enqueue(Entity.Null);
+        private void ApplyIncoming(EntityCommandBuffer ecb, Entity connection, ConfigSyncCollector collector)
+        {
+            adminLookup.Update(this);
+            playerLookup.Update(this);
+            int privileges = 0;
+            if (adminLookup.TryGetComponent(connection, out var admin))
+                privileges = admin.adminPrivileges;
+            if (privileges <= 0 && playerLookup.TryGetComponent(collector.Player, out var ghost))
+                privileges = ghost.adminPrivileges;
+            bool guest = SystemAPI.TryGetSingleton(out WorldInfoCD worldInfo) && worldInfo.guestMode;
+            bool adminOnly = GeneralConfigMenuMod.config.AdminOnly.Value;
+            bool accepted = false;
+            foreach (var (id, change) in collector.Changes)
+            {
+                if ((uint)id >= (uint)configs.Count || configs[id] == null)
+                {
+                    Debug.Log("Rejected unknown config id " + id);
+                    continue;
+                }
+                var config = configs[id];
+                string name = config.GetFullName();
+                string requested = Encoding.UTF8.GetString(change.Value);
+                bool allowed = privileges > 0
+                    || (!guest && !adminOnly && config.Scope.accessLevel == ConfigAccessLevel.Server);
+                if (allowed)
+                {
+                    config.SetSerializedValue(requested);
+                    accepted = true;
+                    Debug.Log($"Accepted {name} = {config.GetSerializedValue()}");
+                }
+                else
+                    Debug.Log($"Rejected {name}, privileges {privileges}, guest {guest}, adminOnly {adminOnly}");
+                byte[] stored = Encoding.UTF8.GetBytes(config.GetSerializedValue());
+                change.ChunkCount = (stored.Length - 1) / 16 + 1;
+                change.Value = stored;
+            }
+            SendSnapshot(ecb, collector.SyncID, Entity.Null, collector.Player, collector.Changes);
+            if (!accepted || !Manager.networking.currentSessionIsDedicatedServer)
+                return;
+            var saved = new HashSet<ConfigFile>();
+            foreach (var id in collector.Changes.Keys)
+            {
+                var file = configs[id].ConfigFile;
+                if (!saved.Add(file))
+                    continue;
+                file.Save();
+                Debug.Log("Saved " + file.ConfigFilePath);
+            }
+        }
 
+        private void DeliverToMenu(ConfigSyncCollector collector)
+        {
+            var menu = ModConfigMenu.Instance;
+            if (menu != null && collector.SyncID != 0 && collector.SyncID == sendTimes)
+                menu.SetWaitState(false);
+            bool listenHost = Manager.ecs != null && Manager.ecs.ServerWorld != null;
+            foreach (var (id, change) in collector.Changes)
+            {
+                string value = Encoding.UTF8.GetString(change.Value);
+                if ((uint)id >= (uint)configs.Count)
+                    continue;
+                if (!(listenHost && collector.SyncID == 0))
+                    configs[id].SetSerializedValue(value);
+                if (menu != null)
+                    menu.Receive.Add((id, value));
+            }
+        }
+
+        private void SendSnapshot(EntityCommandBuffer ecb, int syncID, Entity target, Entity player, Dictionary<int, ConfigEntryCollector> changes)
+        {
+            var sync = ecb.CreateEntity(syncArchetype);
+            ecb.SetComponent(sync, new ConfigSyncRpc(syncID, changes.Count, player));
+            ecb.SetComponent(sync, new SendRpcCommandRequest { TargetConnection = target });
+            foreach (var (id, change) in changes)
+            {
+                var bytes = change.Value;
+                var entry = ecb.CreateEntity(entryArchetype);
+                ecb.SetComponent(entry, new ConfigEntryRpc(syncID, id, change.ChunkCount, bytes.Length));
+                ecb.SetComponent(entry, new SendRpcCommandRequest { TargetConnection = target });
+                for (int i = 0; i < change.ChunkCount; i++)
+                {
+                    var chunk = ecb.CreateEntity(chunkArchetype);
+                    ecb.SetComponent(chunk, new ConfigChunkRpc(syncID, id, i * 16, bytes));
+                    ecb.SetComponent(chunk, new SendRpcCommandRequest { TargetConnection = target });
+                }
+            }
+        }
+
+        public ConfigEntryBase GetEntryByID(int id)
+        {
+            if ((uint)id >= (uint)configs.Count)
+                return null;
+            return configs[id];
+        }
+        public void RequestSyncAll() => syncAll.Enqueue(Entity.Null);
         public List<(int, string)> SendConfigChange()
         {
             List<(int, string)> modifies = new();
             send.Add((Entity.Null, modifies));
             return modifies;
+        }
+
+        public static List<ConfigEntryBase> OrderedSyncEntries()
+        {
+            var entries = new List<ConfigEntryBase>();
+            foreach (var configFile in ConfigFile.AllConfigFilesReadOnly)
+            {
+                if (configFile.ConfigFilePath.StartsWith("CoreLib"))
+                    continue;
+                foreach (var entry in configFile.Entries.Values)
+                {
+                    if (entry.Scope.ShouldSync)
+                        entries.Add(entry);
+                }
+            }
+            entries.Sort(CompareSyncEntry);
+            return entries;
+        }
+
+        private static int CompareSyncEntry(ConfigEntryBase a, ConfigEntryBase b)
+        {
+            int path = string.CompareOrdinal(a.ConfigFile.ConfigFilePath, b.ConfigFile.ConfigFilePath);
+            if (path != 0)
+                return path;
+            int section = string.CompareOrdinal(a.Definition.Section, b.Definition.Section);
+            if (section != 0)
+                return section;
+            return string.CompareOrdinal(a.Definition.Key, b.Definition.Key);
+        }
+
+        private static ConfigEntryCollector Pack(string value)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(value);
+            return new()
+            {
+                ChunkCount = bytes.Length == 0 ? 1 : (bytes.Length + 15) / 16,
+                Value = bytes,
+            };
+        }
+        private void SendValues(EntityCommandBuffer ecb, Entity connect)
+        {
+            var changes = new Dictionary<int, ConfigEntryCollector>();
+            for (int i = 0; i < configs.Count; i++)
+                changes[i] = Pack(configs[i].GetSerializedValue());
+            SendSnapshot(ecb, 0, connect, Entity.Null, changes);
         }
     }
 }

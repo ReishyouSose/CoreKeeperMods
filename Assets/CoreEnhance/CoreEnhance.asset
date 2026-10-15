@@ -24,6 +24,8 @@ MonoBehaviour:
     files:
     - path: Scripts/Scripts/Tiles/BoulderDemolishEM.cs
       guid: 1ef597e7ef260164dba9c355452c69bc
+    - path: Scripts/Scripts/Systems/Quick/InstantHook.cs
+      guid: e7a1c4b92d6f4a83b5e0c17d8f3a6b24
     - path: Scripts/Scripts/Systems/Quick/OpenLockedMelody.cs
       guid: 6443762876343db44b222d5f8cbc82ca
     - path: Scripts/Scripts/Systems/Quick/OpenLockedChest.cs
@@ -64,6 +66,8 @@ MonoBehaviour:
       guid: 9ed10b3b71f6e66469b090b01aa26617
     - path: Scripts/Scripts/Systems/Automation/Door.cs
       guid: 513d9244a8201a6488ea56297cd0141c
+    - path: Scripts/Scripts/Systems/Automation/AutoFish.cs
+      guid: c4a8e2f17b3d4e9a8f6c1d0b5a7e3c21
     - path: Scripts/Scripts/Systems/Accelerate/Plants.cs
       guid: 33c413be7793b374a9f55b74ea7e348a
     - path: Scripts/Scripts/Systems/Accelerate/Level.cs
@@ -158,8 +162,6 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/Assets.CoreEnhance.Scripts.Systems.Misc_PetModifierRPCCommandSerializer.cs
       guid: 
-    - path: Scripts/Generated/Assets.CoreEnhance.Scripts.Systems.Quick_HoverChestRPCCommandSerializer.cs
-      guid: 
     - path: Scripts/Generated/Assets.CoreEnhance.Scripts.Systems.Quick_MoveChestContentRPCCommandSerializer.cs
       guid: 
     - path: Scripts/Generated/Assets.CoreEnhance.Scripts.Systems.Quick_QuickOpenLockedChestRPCCommandSerializer.cs
@@ -245,6 +247,12 @@ MonoBehaviour:
     hash: 1040AD0F9FFF0B5B9853CEDDCF4EA1E4D36CFE4EACAE329563595D56DA251B3B:2f3e080350417b5d8ba5e938252df285
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/Door.asset
     hash: 5EF591E82924E3F82AE7661B77975EFEA13E26A9E1068347DB2CBB468268EF8F:3872777e620391caadcb74c6b73b8420
+  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/AutoFish.asset
+    hash: 4AD8BF92868027D2D4DAF90DD7ECB75846951C23BD1927419E454AEFF597FA37:232087b94c66935f917c77d4a7da9b88
+  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/AutoFishInvincible.asset
+    hash: 686BC5395A7DAE2DC674F70367386A48AC38D899469579FBD30DBC331DD15754:40238e5880984cf8b0c9cec8bf02932b
+  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/AutoFishRefill.asset
+    hash: 13C78E760165C8F6BDC4A186AD957438E601D279A01246457C77ECE59659ED25:16dbc60b6fd33a8ac86a3941f280c6b0
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/FishingNetCanGetItem.asset
     hash: 4F95B43B508A4D82C10A828AEFAF389B71A7AED01723B5FF9676F46B7614681C:47ef611306bd636cd59402b63cdf260b
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/FishingNetCanGetItemValue.asset
@@ -255,12 +263,6 @@ MonoBehaviour:
     hash: DFD75C1C445577D95535CDB68AB9271AC99FD5DF60C79DF8D447CEF980961FE4:3fd755da4e2242e89c7260f951dc2ce6
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/GoldenPlantToSeedValue.asset
     hash: E904F87D4CDD447BCE621EEF00DAACFDD7D435BC2D9E7C4FD42E4E4CF2429BC8:d939acfb306fc414a66f122aae187775
-  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/Salvage.asset
-    hash: 0DB2EAC0CF5A1704B4CB50C7B7342A1A7BAE3DB202FAFAB37D21546225194E31:eca7efc5b90e7338e3064b182f3416b1
-  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/SalvageAmount.asset
-    hash: 82BA4008CC9769F88D66A5E824C9E4706606929DB80B98C89DC53E13D3146402:f0a243d7aba7afb4c16a70dd1fce26fa
-  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Automation/SalvageTimer.asset
-    hash: 1EE2A3D1D306936A6333C0DD3A0D5A0E20DA481B4D858719F2CFB52F7A3E9F84:d853419b180f22ab8f2b50015ae50516
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Infinity/Arena.asset
     hash: A3A51B01AD0786DF9D2DF63391B8BE22F2EFB224608E55303FED2D1C07201E33:f8e66e0b0f38f0e3e8e14cf93b76cb1c
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Infinity/ArenaValue.asset
@@ -321,6 +323,8 @@ MonoBehaviour:
     hash: 9925C62A83A4431D6396DF21655FB6D0E507614B3006393A668A0C64E3253FA2:552bcc26c3ccaf95456a997524eb0dc9
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Pet/TalentDisplay.asset
     hash: A1E25E9C3CDAFC66BAC189AF3E50832FB50DD4F12BB554313F950E43D9691E8A:c44a3b62b29265752ac7ca0702b2601a
+  - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Quick/InstantHook.asset
+    hash: 81F67DC201C30D135E889005B69713D3E791BCE7CB870743EE503F41D862098A:3108262013c8422da3738b0be7016250
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Quick/MoveChestContent.asset
     hash: 7B038A63F113F8721D9F9C295D13870857C87F3ECFB3990900528E2A5071DEA0:eff5fda206a6b4c3bbd1e8f664741dac
   - path: Assets/CoreEnhance/Data/TextDataBlock/CoreEnhance_Config_Quick/OpenLockedChest.asset

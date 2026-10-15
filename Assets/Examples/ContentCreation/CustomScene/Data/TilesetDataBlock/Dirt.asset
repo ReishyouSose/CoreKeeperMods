@@ -1,0 +1,610 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1635233506, guid: 548e3dd2d27c1e2d0bdf82f0889cb8a7, type: 3}
+  m_Name: Dirt
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 5005902092684797389
+      m_high: -6889447438154927436
+  m_address:
+    m_low: 3500555046184792177
+    m_high: -8611499021154175141
+  m_dynamicCollections:
+    m_list: []
+  tilesetType: 0
+  layerDefinition:
+    m_address:
+      m_low: 4883085067395134159
+      m_high: 4184577129432716687
+  overrideMaterials:
+  - layerName: 10
+    overrideMaterial: {fileID: 2100000, guid: 324f77445a950634e933fd8248758dee, type: 2}
+    editorOverrideMaterial: {fileID: 2100000, guid: 324f77445a950634e933fd8248758dee,
+      type: 2}
+    seasonalOverrideMaterial:
+    - season: 3
+      overrideMaterial: {fileID: 2100000, guid: 484800c47ddde4f42997f5679e392306,
+        type: 2}
+  - layerName: 11
+    overrideMaterial: {fileID: 2100000, guid: 324f77445a950634e933fd8248758dee, type: 2}
+    editorOverrideMaterial: {fileID: 2100000, guid: 324f77445a950634e933fd8248758dee,
+      type: 2}
+    seasonalOverrideMaterial:
+    - season: 3
+      overrideMaterial: {fileID: 2100000, guid: 484800c47ddde4f42997f5679e392306,
+        type: 2}
+  - layerName: 17
+    overrideMaterial: {fileID: 2100000, guid: 4e0d41f2b6e3a514abb003e1bbcb79dd, type: 2}
+    editorOverrideMaterial: {fileID: 2100000, guid: 4e0d41f2b6e3a514abb003e1bbcb79dd,
+      type: 2}
+    seasonalOverrideMaterial: []
+  overrideParticles: []
+  tilesetTextures:
+    textureRef:
+      m_AssetGUID: b0b01ede0f44f864abd42c021b500036
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    emissiveTextureRef:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    effectMaskTextureRef:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    normalsTextureRef:
+      m_AssetGUID: 
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    seasonalTextureRefs:
+    - season: 3
+      textureRef:
+        m_AssetGUID: 82cf1edf5aa3d914895c13fd1cb532c2
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+    - season: 4
+      textureRef:
+        m_AssetGUID: ef5c3bac8371e344cb5d519b013d7d24
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+    - season: 1
+      textureRef:
+        m_AssetGUID: 0337a618e42f46e4e927a695981c0042
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+  adaptiveTilesetTextures:
+    keys: 0200000003000000080000000a0000000f0000002f0000003900000010000000110000001200000015000000
+    values:
+    - textureRef:
+        m_AssetGUID: ee0618e6434a2dc4e8187dcb764b9c17
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 136266ceda9de8d4987651bfae8b2ca2
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 136266ceda9de8d4987651bfae8b2ca2
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 9d861deccc03e9c41a51dd4556fa203c
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 7413be06472e6c24c9f33ea269ff7010
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 327f7b13e47351b49a12531d0933d2c0
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 327f7b13e47351b49a12531d0933d2c0
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 327f7b13e47351b49a12531d0933d2c0
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: a4bbbba4948a0914d943878637210e8b
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: bbfafddd3cb6b814b9d231e2595d810b
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 255ed92f3f1d7e44a8f450570973a08b
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 9175c85564fb5194d96b646dc27efd13
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 170c31ad8a2dbbf45962012ebf401552
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 40811028023ffc1458e1ceabd1dc21ef
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: d51ec7b5bd1552f4db12836dd90100dd
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: d51ec7b5bd1552f4db12836dd90100dd
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 8f30311b550b0eb4c928178f91c6e67e
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 18aafb8dd208d77428119ce7efc49e72
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 761aca206b61468448e82b2e378ef7cd
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 761aca206b61468448e82b2e378ef7cd
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 97fce7fb7d055e9499570013328560d5
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 97fce7fb7d055e9499570013328560d5
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 18d4d46dc818d244eb85fd4c4f4bbd14
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: af2a6c561e69a0d419117a75a105b267
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: e44e6db2c572ee84baf88756b897db7d
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: e44e6db2c572ee84baf88756b897db7d
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: e44e6db2c572ee84baf88756b897db7d
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 69d5f7e262bf37b4c91df256037cf758
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 673439a9021cfed438a3e42bf1d329af
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 32568c14f52d8ac4096dea43b3553680
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 32568c14f52d8ac4096dea43b3553680
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 664485f5397ba854186cacbc9f6c1d58
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: cd4d5f41e331e97448759aa6f6b14d5f
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 1670598465643744a9854eab87830e70
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 1670598465643744a9854eab87830e70
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+    - textureRef:
+        m_AssetGUID: 1c27b9819906fa6488e609471aae140a
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      emissiveTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      effectMaskTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      normalsTextureRef:
+        m_AssetGUID: 
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_SubObjectGUID: 
+        m_EditorAssetChanged: 0
+      seasonalTextureRefs:
+      - season: 3
+        textureRef:
+          m_AssetGUID: 826931ff981359b42aaf4477684a91cf
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 4
+        textureRef:
+          m_AssetGUID: 826931ff981359b42aaf4477684a91cf
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+      - season: 1
+        textureRef:
+          m_AssetGUID: 826931ff981359b42aaf4477684a91cf
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+  references:
+    version: 2
+    RefIds: []

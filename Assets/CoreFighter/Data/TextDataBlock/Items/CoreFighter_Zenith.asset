@@ -54,8 +54,8 @@ MonoBehaviour:
         m_address:
           m_low: 8319415704751845611
           m_high: -6023042414290333943
-      title: "\u5929\u9876\u6CD5\u6756"
-      description: "\u4F60\u88AB\u5F3A\u5316\u4E86\uFF0C\u5FEB\u4E0A\uFF01"
+      title: "\u5929\u9876\u5251"
+      description: "\u6325\u821E\u65F6\u671D\u5149\u6807\u8FDE\u7EED\u5C04\u51FA\u98DE\u5251\uFF0C\u6CBF\u5F27\u7EBF\u7A7F\u8FC7\u76EE\u6807\u540E\u56DE\u5230\u8EAB\u4FA7\u3002\u7B2C\u4E00\u628A\u4E0D\u8FFD\u8E2A\uFF0C\u5176\u4F59\u4F1A\u6251\u5411\u5149\u6807\u9644\u8FD1\u7684\u654C\u4EBA\u3002"
     - m_language:
         m_address:
           m_low: -2957573344710624914
@@ -66,8 +66,8 @@ MonoBehaviour:
         m_address:
           m_low: 681352171529052915
           m_high: 2314507893210082619
-      title: Zenith Staff
-      description: You are enhanced
+      title: Zenith
+      description: Swings loose a stream of swords that arc through the cursor and return. The first sword does not home; the rest dive at enemies near the cursor.
     - m_language:
         m_address:
           m_low: 6040640903323332866
@@ -134,8 +134,8 @@ MonoBehaviour:
       m_address:
         m_low: 0
         m_high: 0
-    title: Zenith Staff
-    description: You are enhanced
+    title: Zenith
+    description: Swings loose a stream of swords that arc through the cursor and return. The first sword does not home; the rest dive at enemies near the cursor.
   m_shouldBeLocalized: 1
   m_header: 
   references:

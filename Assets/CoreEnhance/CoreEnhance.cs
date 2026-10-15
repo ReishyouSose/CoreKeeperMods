@@ -39,12 +39,14 @@ namespace Assets.CoreEnhance
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
             AutoDoorSystem.MarkDoor(entity, authoringData, entityManager);
+            AutoFishCastSystem.MarkPlayer(entity, authoringData, entityManager);
             InfinityArenaSystem.MarkArena(entity, authoringData, entityManager);
             DataModify.AuthoringPostModify(entity, authoringData, entityManager);
             ContainerDisplaySystem.MarkHighLight(entity, authoringData, entityManager);
             SledgeRangeSystem.MarkSledge(entity, authoringData, entityManager);
             InfinityBossScanSystem.MarkCircleMoveBoss(entity, authoringData, entityManager);
             MoveChestClient.AddHoveredChest(entity, authoringData, entityManager);
+            MoveChestClient.MarkPlayer(entity, authoringData, entityManager);
             ProjectileTimerMultiplierSystem.MarkProjectileTileLeft(entity, authoringData, entityManager);
             //CraftStationRangeSystem.MarkCraftStation(entity, authoringData, entityManager);
             Test(entity, authoringData, entityManager);

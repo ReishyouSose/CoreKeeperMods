@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -769792378, guid: 5a7e404e57a3ed387bf565f46c30b9c1, type: 3}
+  m_Name: NewPantsReplacementColorsModExample
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 5211850491171525092
+    m_high: -2008466061767371318
+  m_useManualAddress: 0
+  m_dynamicCollections:
+    m_list: []
+  m_staticReferences:
+  - m_dataBlockRef:
+      m_address:
+        m_low: 5076917937245670657
+        m_high: -6458173576579774438
+    m_data:
+      rid: -2
+  - m_dataBlockRef:
+      m_address:
+        m_low: 2153916708700087524
+        m_high: 3220465077850772024
+    m_data:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

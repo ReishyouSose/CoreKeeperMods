@@ -1,0 +1,230 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1079032877593378099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6981032852217893977}
+  - component: {fileID: 4164507214345634789}
+  - component: {fileID: -1478544940693495349}
+  - component: {fileID: 1105150543261938069}
+  - component: {fileID: 3413805604924547519}
+  - component: {fileID: 428661482023962843}
+  - component: {fileID: -4570732332860542086}
+  - component: {fileID: 9187267917636277961}
+  - component: {fileID: 1935432500092334590}
+  - component: {fileID: 5067895322398067584}
+  m_Layer: 0
+  m_Name: MyNewBag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6981032852217893977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4164507214345634789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 318086258, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: MyNewBag1
+  initialAmount: 250
+  variation: 0
+  variationIsDynamic: 1
+  variationToToggleTo: 0
+  objectType: 106
+  tags: 1900000022000000
+  rarity: 3
+  salvageMultiplier: 1
+  graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: 600319718480594351
+      m_high: -4433199792789880150
+  isCustomScenePrefab: 0
+  additionalSprites: []
+--- !u!114 &-1478544940693495349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sellValue: -1
+  buyValueMultiplier: 1
+  icon: {fileID: 1747394606, guid: 5b7ea7e2c381e5c4e974132b46b51294, type: 3}
+  iconOffset: {x: 0, y: 0}
+  smallIcon: {fileID: 1747394606, guid: 5b7ea7e2c381e5c4e974132b46b51294, type: 3}
+  isStackable: 0
+  requiredObjectsToCraft:
+  - objectName: Wood
+    amount: 5
+  craftingTime: 3
+--- !u!114 &1105150543261938069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -955471450, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 250
+  durabilityMultiplier: 1
+  maxDurability: 250
+  repairMultiplier: 0.5
+  reinforceCostMultiplier: 1
+  entityMono: {fileID: 0}
+--- !u!114 &3413805604924547519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1263341004, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedCooldownIdentifier: 0
+  cooldown: 0.3
+  casualCharacterIgnoresCustomCooldown: 0
+--- !u!114 &428661482023962843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateValuesFromLevel: 0
+  givesConditionsWhenHeldInHand: 1
+  isArmor: 0
+  givesConditionsWhenEquipped:
+  - id: 45
+    valueMultiplier: 1.5
+    value: 4
+  - id: 140
+    valueMultiplier: 3
+    value: 31
+  - id: 126
+    valueMultiplier: 1
+    value: 1
+--- !u!114 &-4570732332860542086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462739941, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaLevel: 61
+  level: 14
+  entityMono: {fileID: 0}
+  forceGenerateLevelEntities: 0
+--- !u!114 &9187267917636277961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1754845523, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mechanic: 3
+  windupTiers: 4
+  cancelAttackIfNotAtWindupTier: 0
+  windupAreaSizeMultiplier: 1
+  extraDamageMultiplier: 1
+  movementSpeedMultiplier: 0.5
+  projectileSpeedMultiplier: 1
+  windupTime: 1.12
+  windupTimeMultiplier: 0.4
+  manaCostMultiplier: 2
+  windupExplosionSequenceStart: 0
+  windupExplosionSequenceIncrement: 0
+  useAimingAnimationDuringWindup: 0
+  knockback: 0
+  weaponEffectType: 0
+  useTerm: 1
+  minionToSpawn: 0
+--- !u!114 &1935432500092334590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1596865243, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  termKey: MyNewBag1
+  languageGenders: []
+--- !u!114 &5067895322398067584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1361191240, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sameSizeForAllLevels:
+    hasValue: 0
+    value: 0
+  canOnlyContainObjectsWithCategoryTags: 
+  isPouch: 0

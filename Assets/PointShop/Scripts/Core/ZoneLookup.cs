@@ -200,6 +200,7 @@ namespace Assets.PointShop.Scripts.Core
                 case LootTableID.AlienChest:
                 case LootTableID.AlienTechDestructible:
                 case LootTableID.LargeAlienTechDestructible:
+                case LootTableID.AlienEventTerminal:
                     zone = Alien;
                     return true;
                 case LootTableID.PassageChest:

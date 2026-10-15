@@ -3,6 +3,7 @@ using Assets.CoreEnhance.Scripts.Helpers;
 using Interaction;
 using Inventory;
 using Outlines.Systems;
+using PlayerEquipment;
 using Pug.UnityExtensions;
 using Unity.Collections;
 using Unity.Entities;
@@ -18,15 +19,22 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
         public Entity MoveFrom;
         public Entity MoveTo;
     }
-    public struct HoverChestRPC : IRpcCommand
-    {
-        public bool Hover;
-        public Entity Chest;
-    }
     public struct HoverChestCD : IComponentData
     {
         public bool Hovered;
         public float lockTime;
+    }
+
+    [GhostComponent]
+    public struct MoveChestBlockInputCD : IComponentData
+    {
+        [GhostField]
+        public bool block;
+    }
+    public struct MoveChestBlockInputRPC : IRpcCommand
+    {
+        public bool Block;
+        public Entity Player;
     }
 
     [UpdateAfter(typeof(VisualOutlineDisplaySystem))]
@@ -36,9 +44,10 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
     {
         private NativeList<Entity> selected;
         private EntityArchetype moveArchetype;
-        private EntityArchetype hoverArchetype;
+        private EntityArchetype blockArchetype;
         private ComponentLookup<DirectionCD> directionLookup;
         private float timer;
+        private bool held;
         protected override void OnCreate()
         {
             NeedDatabase();
@@ -48,30 +57,45 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
                 Entity.Null
             };
             moveArchetype = EntityManager.CreateArchetype(typeof(SendRpcCommandRequest), typeof(MoveChestContentRPC));
-            hoverArchetype = EntityManager.CreateArchetype(typeof(SendRpcCommandRequest), typeof(HoverChestRPC));
+            blockArchetype = EntityManager.CreateArchetype(typeof(MoveChestBlockInputRPC), typeof(SendRpcCommandRequest));
             base.OnCreate();
         }
         protected override void OnUpdate()
         {
-            if (!EnhanceConfig.IsEnable(EnhanceCategory.MoveChestContent))
-                return;
             var player = Manager.main.player;
             if (player == null)
+            {
+                base.OnUpdate();
                 return;
+            }
+            var ecb = CreateCommandBuffer();
+            bool enabled = EnhanceConfig.IsEnable(EnhanceCategory.MoveChestContent);
+            bool press = enabled && player.inputModule.rewiredPlayer.GetButton(ModKeyBind.MoveChest);
+            if (press != held)
+            {
+                held = press;
+                var blockSend = ecb.CreateEntity(blockArchetype);
+                ecb.SetComponent(blockSend, new MoveChestBlockInputRPC { Block = press, Player = player.entity });
+            }
+            if (!enabled)
+            {
+                base.OnUpdate();
+                return;
+            }
             var selected = this.selected;
-            bool press = player.inputModule.rewiredPlayer.GetButton(ModKeyBind.MoveChest);
             if (press)
                 timer = 1.6f;
             if (timer <= 0)
+            {
+                base.OnUpdate();
                 return;
+            }
             var delta = World.Time.DeltaTime;
             timer -= delta;
             var mouse = MiscHelper.MouseWorld.ToFloat2();
             var database = this.database;
             bool click = Input.GetMouseButtonDown(0);
-            var ecb = CreateCommandBuffer();
             var moveArchetype = this.moveArchetype;
-            var hoverArchetype = this.hoverArchetype;
             var directionLookup = this.directionLookup;
             if (selected[0] != Entity.Null && !EntityManager.Exists(selected[0]))
                 selected[0] = Entity.Null;
@@ -115,18 +139,10 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
                         }
                     }
                     if (!hovered)
-                    {
                         hovered = true;
-                        var e = ecb.CreateEntity(hoverArchetype);
-                        ecb.SetComponent(e, new HoverChestRPC() { Hover = true, Chest = entity });
-                    }
                 }
                 else if (hovered)
-                {
                     hovered = false;
-                    var e = ecb.CreateEntity(hoverArchetype);
-                    ecb.SetComponent(e, new HoverChestRPC() { Hover = false, Chest = entity });
-                }
             })
                 .WithName("ChooseChest")
                 .WithoutBurst()
@@ -142,6 +158,55 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
                 manager.AddComponent<HoverChestCD>(e);
             }
         }
+        internal static void MarkPlayer(Entity entity, GameObject authoringData, EntityManager manager)
+        {
+            if (!authoringData.HasComponent<PlayerAuthoring>())
+                return;
+            manager.AddComponentData(entity, new MoveChestBlockInputCD());
+        }
+    }
+
+    [UpdateInGroup(typeof(EquipmentUpdateSystemGroup))]
+    [UpdateBefore(typeof(EquipmentUpdateSystem))]
+    [WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation | WorldSystemFilterFlags.ServerSimulation)]
+    public partial class MoveChestBlockInputSystem : PugSimulationSystemBase
+    {
+        private ComponentLookup<MoveChestBlockInputCD> blockLookup;
+        protected override void OnCreate()
+        {
+            blockLookup = SystemAPI.GetComponentLookup<MoveChestBlockInputCD>();
+            base.OnCreate();
+        }
+        protected override void OnUpdate()
+        {
+            var ecb = CreateCommandBuffer();
+            var blocks = blockLookup;
+            Entities.ForEach((Entity e, in MoveChestBlockInputRPC rpc) =>
+            {
+                ecb.DestroyEntity(e);
+                var option = blocks.GetRefRWOptional(rpc.Player);
+                if (option.IsValid)
+                {
+                    option.ValueRW.block = rpc.Block;
+                }
+            })
+                .WithName("MoveChestBlockInputRPC")
+                .WithAll<ReceiveRpcCommandRequest>()
+                .WithBurst()
+                .Schedule();
+
+            Entities.ForEach((ref ClientInput input, in MoveChestBlockInputCD block) =>
+            {
+                if (!block.block)
+                    return;
+                input.SetButtonState(CommandInputButtonStateNames.Interact_HeldDown, false);
+                input.SetButtonState(CommandInputButtonStateNames.SecondInteract_HeldDown, false);
+            })
+                .WithName("BlockInputWhenMoveChest")
+                .WithBurst()
+                .Schedule();
+            base.OnUpdate();
+        }
     }
 
     [UpdateInGroup(typeof(InventorySystemGroup))]
@@ -151,7 +216,6 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
         private BufferLookup<ContainedObjectsBuffer> containerLookup;
         private BufferLookup<InventoryBuffer> invLookup;
         private ComponentLookup<LocalTransform> transLookup;
-        private ComponentLookup<DamageReductionCD> reductionLookup;
         private const int MaxStack = 9999;
 
         // 用于记录槽位容量信息的结构
@@ -169,7 +233,6 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
             containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
             invLookup = SystemAPI.GetBufferLookup<InventoryBuffer>();
             transLookup = SystemAPI.GetComponentLookup<LocalTransform>();
-            reductionLookup = SystemAPI.GetComponentLookup<DamageReductionCD>();
             base.OnCreate();
         }
 
@@ -181,17 +244,7 @@ namespace Assets.CoreEnhance.Scripts.Systems.Quick
             var containerLookup = this.containerLookup;
             var invLookup = this.invLookup;
             var transLookup = this.transLookup;
-            var reductionLookup = this.reductionLookup;
             var database = this.database;
-
-            Entities.ForEach((Entity e, in HoverChestRPC rpc) =>
-            {
-                ecb.DestroyEntity(e);
-                reductionLookup.GetRefRW(rpc.Chest).ValueRW.reduction = rpc.Hover ? 9999999 : 0;
-            })
-                .WithName("SetHoverChest")
-                .WithBurst()
-                .Schedule();
 
             Entities.ForEach((Entity e, in MoveChestContentRPC rpc) =>
             {

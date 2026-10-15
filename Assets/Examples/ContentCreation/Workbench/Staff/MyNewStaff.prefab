@@ -1,0 +1,351 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1079032877593378099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6981032852217893977}
+  - component: {fileID: 4164507214345634789}
+  - component: {fileID: -1478544940693495349}
+  - component: {fileID: 1105150543261938069}
+  - component: {fileID: 428661482023962843}
+  - component: {fileID: 3413805604924547519}
+  - component: {fileID: -4570732332860542086}
+  - component: {fileID: 5895919786395064997}
+  - component: {fileID: 9187267917636277961}
+  - component: {fileID: 1935432500092334590}
+  - component: {fileID: 7458675531300742457}
+  - component: {fileID: -6157031817805698017}
+  - component: {fileID: -5436266693138724566}
+  m_Layer: 0
+  m_Name: MyNewStaff
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6981032852217893977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4164507214345634789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 318086258, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: MyNewStaff1
+  initialAmount: 250
+  variation: 0
+  variationIsDynamic: 1
+  variationToToggleTo: 0
+  objectType: 501
+  tags: 1900000022000000
+  rarity: 3
+  salvageMultiplier: 1
+  graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: -7789993363009580029
+      m_high: -6108072561215991926
+  isCustomScenePrefab: 0
+  additionalSprites:
+  - {fileID: -552457499, guid: 4ffb9c802d8fc9b42ba6869968172840, type: 3}
+--- !u!114 &-1478544940693495349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sellValue: -1
+  buyValueMultiplier: 1
+  icon: {fileID: -552457499, guid: 4ffb9c802d8fc9b42ba6869968172840, type: 3}
+  iconOffset: {x: 0, y: 0.1}
+  smallIcon: {fileID: -552457499, guid: 4ffb9c802d8fc9b42ba6869968172840, type: 3}
+  isStackable: 0
+  requiredObjectsToCraft:
+  - objectName: Wood
+    amount: 5
+  craftingTime: 3
+--- !u!114 &1105150543261938069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -955471450, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 167
+  durabilityMultiplier: 1
+  maxDurability: 167
+  repairMultiplier: 0.5
+  reinforceCostMultiplier: 1
+  entityMono: {fileID: 0}
+--- !u!114 &428661482023962843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateValuesFromLevel: 0
+  givesConditionsWhenHeldInHand: 1
+  isArmor: 0
+  givesConditionsWhenEquipped:
+  - id: 96
+    valueMultiplier: 3
+    value: 27
+  - id: 17
+    valueMultiplier: 1
+    value: 50
+  - id: 189
+    valueMultiplier: 1
+    value: 1
+  - id: 261
+    valueMultiplier: 1
+    value: 89
+--- !u!114 &3413805604924547519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1263341004, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedCooldownIdentifier: 0
+  cooldown: 0.9
+  casualCharacterIgnoresCustomCooldown: 0
+--- !u!114 &-4570732332860542086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462739941, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaLevel: 61
+  level: 14
+  entityMono: {fileID: 0}
+  forceGenerateLevelEntities: 0
+--- !u!114 &5895919786395064997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 273
+  damageMultiplier: 0.5
+  isRange: 0
+  isMagic: 1
+  level: {fileID: -4570732332860542086}
+  entityMono: {fileID: 0}
+  cooldown: {fileID: 3413805604924547519}
+--- !u!114 &9187267917636277961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1754845523, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mechanic: 1
+  windupTiers: 2
+  cancelAttackIfNotAtWindupTier: 0
+  windupAreaSizeMultiplier: 1
+  extraDamageMultiplier: 1
+  movementSpeedMultiplier: 0.5
+  projectileSpeedMultiplier: 1
+  windupTime: 1.4
+  windupTimeMultiplier: 1
+  manaCostMultiplier: 2
+  windupExplosionSequenceStart: 0
+  windupExplosionSequenceIncrement: 0
+  useAimingAnimationDuringWindup: 0
+  knockback: 0
+  weaponEffectType: 0
+  useTerm: 1
+  minionToSpawn: 0
+--- !u!114 &1935432500092334590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1596865243, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  termKey: MyNewStaff1
+  languageGenders: []
+--- !u!114 &7458675531300742457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 606060924, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileID: 9263
+  rotateFreely: 0
+  recoilForce: 5
+  overrideAnimation: 
+  secondaryProjectileVariationID: 0
+  secondaryProjectileBasedOnCondition: 0
+  conditionID: 0
+  spawnRandomProjectile: 0
+  alternativeProjectiles: []
+  explosionUseWeaponDamage: 1
+  spawnOffsetDistance: 0
+  extraProjectiles: 2
+  spreadAngle: 30
+  explosionSize: 0
+  pierceAtMaxWindup: 0
+  bounceAtMaxWindup: 1
+  mortarRaycastToTarget: 0
+  mortarTargetRange: 0
+  minMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  secondaryMinMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  scaleMortarAirTimeWithDistance: 0
+  secondaryScaleMortarAirTimeWithDistance: 0
+  minMortarAirTimePercentage: 0
+  secondaryDistanceBetweenHits: 0
+--- !u!114 &-6157031817805698017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1410114798, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EffectType>k__BackingField: 2
+  <Weapon>k__BackingField:
+    <StartPosition>k__BackingField: 2
+    <EndPosition>k__BackingField: 3
+    <Strength>k__BackingField: 2
+  <Vibration>k__BackingField:
+    <Position>k__BackingField: 0
+    <Amplitude>k__BackingField: 0
+    <Frequency>k__BackingField: 0
+  <MultiplePositionVibration>k__BackingField:
+    <Frequency>k__BackingField: 0
+    <Amplitude>k__BackingField:
+      <Position0>k__BackingField: 0
+      <Position1>k__BackingField: 0
+      <Position2>k__BackingField: 0
+      <Position3>k__BackingField: 0
+      <Position4>k__BackingField: 0
+      <Position5>k__BackingField: 0
+      <Position6>k__BackingField: 0
+      <Position7>k__BackingField: 0
+      <Position8>k__BackingField: 0
+      <Position9>k__BackingField: 0
+  <MultiplePositionFeedback>k__BackingField:
+    <Strength>k__BackingField:
+      <Position0>k__BackingField: 0
+      <Position1>k__BackingField: 0
+      <Position2>k__BackingField: 0
+      <Position3>k__BackingField: 0
+      <Position4>k__BackingField: 0
+      <Position5>k__BackingField: 0
+      <Position6>k__BackingField: 0
+      <Position7>k__BackingField: 0
+      <Position8>k__BackingField: 0
+      <Position9>k__BackingField: 0
+  <SlopeFeedback>k__BackingField:
+    <StartPosition>k__BackingField: 0
+    <EndPosition>k__BackingField: 0
+    <StartStrength>k__BackingField: 0
+    <EndStrength>k__BackingField: 0
+  <Feedback>k__BackingField:
+    <Position>k__BackingField: 0
+    <Strength>k__BackingField: 0
+--- !u!114 &-5436266693138724566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079032877593378099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1869734531, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 11
+  manaCostMultiplier: 0.2
+  levelAuthoring: {fileID: -4570732332860542086}
+  cooldownAuth: {fileID: 3413805604924547519}
+  weaponDamage: {fileID: 5895919786395064997}
+  secondaryUse: {fileID: 9187267917636277961}

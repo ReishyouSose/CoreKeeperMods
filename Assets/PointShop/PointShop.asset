@@ -94,32 +94,6 @@ MonoBehaviour:
       guid: a78f53962cc8b7644b593153c3dd858b
     - path: Scripts/PointShop.cs
       guid: 17b9590c60c6ffb44bfd9ffcc35425ae
-    - path: Scripts/Generated/AlienPointSystem__System_17336099950.g.cs
-      guid: 
-    - path: Scripts/Generated/ChestPointSystem__System_16681369490.g.cs
-      guid: 
-    - path: Scripts/Generated/DropLootPointSystem__System_1247313290.g.cs
-      guid: 
-    - path: Scripts/Generated/GainPointSystem__System_11030126530.g.cs
-      guid: 
-    - path: Scripts/Generated/PlayerPlacedWallSystem__System_18992928100.g.cs
-      guid: 
-    - path: Scripts/Generated/PointGainReportSystem__System_6540641390.g.cs
-      guid: 
-    - path: Scripts/Generated/PointShopSystem__System_11569199260.g.cs
-      guid: 
-    - path: Scripts/Generated/PointShopSystem__System_11569199261.g.cs
-      guid: 
-    - path: Scripts/Generated/Assets.PointShop.Scripts.Core_PointCurrencyBufferSerializer.cs
-      guid: 
-    - path: Scripts/Generated/Assets.PointShop.Scripts.Core_PointGainReportRPCCommandSerializer.cs
-      guid: 
-    - path: Scripts/Generated/Assets.PointShop.Scripts.Systems_BuyFailureRPCCommandSerializer.cs
-      guid: 
-    - path: Scripts/Generated/Assets.PointShop.Scripts.Systems_PointShopRPCCommandSerializer.cs
-      guid: 
-    - path: Scripts/Generated/GhostComponentSerializerCollection.cs
-      guid: 
     - path: Bundles/PointShop_Windows.assetbundle
       guid: 
     - path: Bundles/PointShop_Windows.assetbundle.manifest
@@ -134,7 +108,7 @@ MonoBehaviour:
   modPath: Assets\PointShop
   forceReimport: 1
   buildBundles: 1
-  cacheBundles: 0
+  cacheBundles: 1
   buildLinux: 1
   assets:
   - path: Assets/PointShop/Currency.prefab
@@ -1757,6 +1731,8 @@ MonoBehaviour:
     hash: 7DC814A4E2D6C3AF9CC5AD0B7A4DEEAC235F4EB27CC009A257D5820BC0B27752:61c6dc8ad7e29ee179d814c6791aaa73
   - path: Assets/PointShop/Data/TextDataBlock/ItemCategory/Environment_VoidBiome.asset
     hash: 5CA615B53ACF397EACF87CF4679AA5FC077E50044A70D95150B0F94E48192E1B:dd6c88b383cbbee850841664b8cb925d
+  - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_AnimalPoint.asset
+    hash: 2D7C369DCE109D75863C8BF8B01D1F460D822C5E82879B9A700DE3ABB657F957:9d257f75483daa9ecaa739d533a36a2e
   - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_BossPoint.asset
     hash: B6196E888DD13650956EB112423211ACD20205BF7CC1937DB901A7721731A72A:918e462443be19950cf10a0bf5793685
   - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_ChestPoint.asset
@@ -1767,12 +1743,14 @@ MonoBehaviour:
     hash: 8A0356D4081596977832A2BF3219F748C9D7AC797CE3D2E659C954D649185FCC:52f5712f993997d2dc1c1055766be046
   - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_ExplorePoint.asset
     hash: 88480FA3A60922189239BE50D4BB85DDD4B4528F38098E39FD8E32DAEEAF50FA:8112a07a09ccc925b9e5fb238c7e7b53
+  - path: Assets/PointShop/Data/TextDataBlock/Items/PointShop_WallPoint.asset
+    hash: 868B8F4688D42ECC1431EAED22DF66A0FC9044A6E3A4694382E7AD6E75855273:69c0813b4adec7a64330dc7aa16068a3
   - path: Assets/PointShop/Data/TextDataBlock/PointShop/Config.asset
     hash: 220C6A4EFAA2C38ACF9794A9574045FBA7CB25CBF63A93746076DCCD9E4E8D5D:a9e17ee0bca807c2108fb7de978d2196
   - path: Assets/PointShop/Data/TextDataBlock/PointShop/NeedDefeat.asset
     hash: 52871EAAE0401AD3CC0A513F14ED6D8B7D55E50D7BB08F211945814AE501C874:534a6883597cfebf4123dd4c9e7ae0ff
   - path: Assets/PointShop/Data/TextDataBlock/PointShop/PointReport.asset
-    hash: ED44316A094650FC937A2104D1FCCFACBEE1249EAB3DD4B2A754356F5A8296B5:37287f1155342dc04a53be6474c0e520
+    hash: A8EF127AD158B4986361DA5FBAAAF2424E2BF4EE5C2A5696532C2EFC853CC865:3782f13a9535e284a19275c492da7f9f
   - path: Assets/PointShop/Data/TextDataBlock/PointShop/RightClickToSwitchColor.asset
     hash: D38FEE552FC749390C99398F3F4A94115FEFB962363B43101C87D026A9A929C8:3a446268dc2e4f9fd3df9db5819cff46
   - path: Assets/PointShop/Data/TextDataBlock/PointShop_Config/General.asset

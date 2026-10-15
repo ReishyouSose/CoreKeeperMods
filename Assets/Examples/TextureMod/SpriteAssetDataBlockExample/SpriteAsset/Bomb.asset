@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -217761678, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
+  m_Name: Bomb
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: -4664430850310105192
+      m_high: -7015185661119771285
+  m_address:
+    m_low: 6738561419929885460
+    m_high: 3393110972692861560
+  m_dynamicCollections:
+    m_list: []
+  m_defaultPrimaryGradientMap: {fileID: 0}
+  m_defaultSecondaryGradientMap: {fileID: 0}
+  m_defaultTertiaryGradientMap: {fileID: 0}
+  m_defaultPrimaryGradientMapRef:
+    m_address:
+      m_low: 2437779720882495682
+      m_high: -8656588325640964645
+  m_defaultSecondaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_defaultTertiaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_editorHideEmissive: 0
+  m_staticSpriteData:
+    texture: {fileID: 0}
+    emissiveTexture: {fileID: 0}
+    normalTexture: {fileID: 0}
+    pivot: {x: 0.5, y: 0.5}
+    positionalData: []
+    inheritPivot: 1
+  m_staticVariants: []
+  m_animations:
+  - m_guid: 06862f97-45c1-469e-b9f4-5d2846dd194d
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 4b2ace13abad88c408f283e03decef20, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.5}
+      positionalData: []
+      inheritPivot: 0
+    srcFrameCount: 6
+    fps: 1.2
+    loop: 1
+    m_exitAnimationGuid: 
+    m_variants: []
+    m_transitions: []
+    frameData:
+    - holdFrames: 0
+      eventMask: 0
+    - holdFrames: 0
+      eventMask: 0
+    - holdFrames: 0
+      eventMask: 0
+    - holdFrames: 0
+      eventMask: 0
+    - holdFrames: 0
+      eventMask: 0
+    - holdFrames: 10
+      eventMask: 0
+  m_events: []
+  m_positionalData: []
+  references:
+    version: 2
+    RefIds: []

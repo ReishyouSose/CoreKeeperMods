@@ -2,7 +2,6 @@
 using Assets.BuildingBlueprint.Scripts.Systems;
 using CoreLib.Submodule.UserInterface.Interface;
 using Pug.UnityExtensions;
-using PugTilemap;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -520,11 +519,11 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             foreach (var r in remove)
                 tileRecord.Remove(r);
             bool any = false;
-            foreach (var (pos, entity) in entityRecord)
+            foreach (var entity in entityRecord.Values)
             {
                 foreach (var e in entity.Entities)
                 {
-                    sys.Destory(e, pos, pe);
+                    sys.Destory(e, pe);
                     any = true;
                 }
             }

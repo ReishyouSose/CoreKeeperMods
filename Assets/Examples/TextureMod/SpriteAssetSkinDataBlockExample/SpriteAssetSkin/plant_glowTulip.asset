@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297384836, guid: 292700ef68995bdb2163e35989fc7eb0, type: 3}
+  m_Name: plant_glowTulip
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 1676489950586146931
+      m_high: 9031636205501217242
+  m_address:
+    m_low: -8371002667960575300
+    m_high: 3950751436530702010
+  m_dynamicCollections:
+    m_list: []
+  m_defaultPrimaryGradientMap: {fileID: 0}
+  m_defaultSecondaryGradientMap: {fileID: 0}
+  m_defaultTertiaryGradientMap: {fileID: 0}
+  m_defaultPrimaryGradientMapRef:
+    m_address:
+      m_low: 2167420543260238376
+      m_high: -529366236310980008
+  m_defaultSecondaryGradientMapRef:
+    m_address:
+      m_low: -1534364251472904114
+      m_high: 7447135690913637003
+  m_defaultTertiaryGradientMapRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_editorHideEmissive: 0
+  m_targetAsset: {fileID: 0}
+  m_targetAssetRef:
+    m_address:
+      m_low: -6155091646943179004
+      m_high: -5634966638474872903
+  m_staticReplacementData:
+    m_guid: 
+    m_spriteData:
+      texture: {fileID: 0}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.5}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  m_replacementData:
+  - m_guid: b8494491-7990-48ce-81ba-07471eaa1256
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 890a5cb3846727945b65fa562cf18c1d, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.4375}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 4b586008-f12d-42f9-8ab8-cca2e5d1a72a
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 27abb1f2b9f2cd74e88dd9a87f5ec1e9, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.25}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: 90f86024-4ea9-4eb2-9130-4a2cabf57388
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 64f836f61bdae58428c49a06d523b587, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.25}
+      positionalData: []
+      inheritPivot: 0
+    m_variants: []
+  - m_guid: baa28a18-c02e-41e2-9262-253bbec99fbc
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 746c5783d1c3eb64ca3b4cf70ad641be, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.25}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  - m_guid: 69b5b586-8193-4f9d-aaba-b69b4d262b4b
+    m_spriteData:
+      texture: {fileID: 2800000, guid: 2b1a6b58b45182c48ae3d53f00905ea5, type: 3}
+      emissiveTexture: {fileID: 0}
+      normalTexture: {fileID: 0}
+      pivot: {x: 0.5, y: 0.25}
+      positionalData: []
+      inheritPivot: 1
+    m_variants: []
+  references:
+    version: 2
+    RefIds: []
