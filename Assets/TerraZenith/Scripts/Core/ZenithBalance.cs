@@ -10,8 +10,8 @@ namespace Assets.TerraZenith.Scripts.Core
         public const int SwordTypes = 21;       // FinalFractalHelper 的 21 套颜色和剑长
         public const float HomeRadius = 25f;    // 400 像素 / 16，第 2、3 把剑的索敌半径
         public const float MinAimDistance = 4f; // 准星贴在身上时给一个最短瞄准，避免零向量
-        // 现在原版一次射击只出一把，飞行系统登记时剑序号固定为 0。
-        // 改成大于 1 后，每发弹幕在登记时自己随机一个 1..20 的序号，不再有单独的连射系统。
+        // 现在一次挥砍只出一把，预测生成时剑序号固定为 0。
+        // 改成大于 1 后，每发弹幕在生成时从玩家的随机序列里取一个 1..20 的序号。
         public const int ShotsPerSwing = 1;
 
         // 塞进弹幕 variation：低 8 位剑序号，接着 8 位相位，再 1 位左右。

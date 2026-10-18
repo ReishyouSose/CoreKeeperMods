@@ -15,14 +15,16 @@ namespace Assets.TerraZenith
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
-            // 武器走原版远程攻击，弹幕 ID 在这里接到天顶剑弹幕上。伤害仍由武器上的近战标记决定。
+            // projectileID 留空，原版 RangeWeaponSlot.AttackWithItem 看到 None 会直接返回。
+            // 冷却、朝向和弹幕改由天顶剑的预测攻击系统来做，伤害仍是武器上的近战标记。
             if (!authoringData.TryGetComponent<ObjectAuthoring>(out var authoring) || authoring.objectName != ZenithBalance.WeaponName)
                 return;
             if (!authoringData.TryGetComponent<RangeWeaponAuthoring>(out _))
                 return;
-            var range = entityManager.GetComponentData<RangeWeaponCD>(entity);
-            range.projectileID = API.Authoring.GetObjectID(ZenithBalance.SwordName);
-            entityManager.SetComponentData(entity, range);
+            entityManager.AddComponentData(entity, new ZenithWeaponCD
+            {
+                projectileID = API.Authoring.GetObjectID(ZenithBalance.SwordName)
+            });
         }
 
         public void Init()

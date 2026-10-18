@@ -104,7 +104,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             HideTrail();
         }
 
-        // 剑的颜色和长度跟着同步过来的 variation。客户端生成时参数可能还没到，所以每帧再看一次。
+        // 剑的颜色和长度跟着这发弹幕自己的 variation。生成当帧参数已经写上，这里再读一次即可。
         void ApplyLook()
         {
             if (!TryGetVariation(out int variation) || variation == appliedVariation)
