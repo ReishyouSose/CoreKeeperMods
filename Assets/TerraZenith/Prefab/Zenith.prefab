@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &451001001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 451001002}
+  - component: {fileID: 451001003}
+  - component: {fileID: 451001004}
+  - component: {fileID: 451001006}
+  - component: {fileID: 451001007}
+  - component: {fileID: 451001008}
+  - component: {fileID: 451001009}
+  - component: {fileID: -1841621026496413328}
+  - component: {fileID: 451001013}
+  - component: {fileID: 5168322800609107000}
+  m_Layer: 0
+  m_Name: Zenith
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &451001002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &451001003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 318086258, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: TerraZenith_Zenith
+  initialAmount: 1
+  variation: 0
+  variationIsDynamic: 0
+  variationToToggleTo: 0
+  objectType: 501
+  tags: 1900000022000000
+  rarity: 4
+  salvageMultiplier: 1
+  graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: -1845124725945702735
+      m_high: 5742481447200520986
+  isCustomScenePrefab: 0
+  additionalSprites: []
+--- !u!114 &451001004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sellValue: -1
+  buyValueMultiplier: 1
+  icon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  iconOffset: {x: 0, y: 0}
+  smallIcon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  isStackable: 0
+  requiredObjectsToCraft: []
+  craftingTime: 0
+--- !u!114 &451001006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1263341004, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedCooldownIdentifier: 0
+  cooldown: 0.125
+  casualCharacterIgnoresCustomCooldown: 0
+--- !u!114 &451001007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateValuesFromLevel: 0
+  givesConditionsWhenHeldInHand: 0
+  isArmor: 0
+  givesConditionsWhenEquipped:
+  - id: 9
+    valueMultiplier: 1
+    value: 3000
+--- !u!114 &451001008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462739941, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaLevel: 85
+  level: 20
+  entityMono: {fileID: 0}
+  forceGenerateLevelEntities: 0
+--- !u!114 &451001009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 320
+  damageMultiplier: 3
+  isRange: 0
+  isMagic: 0
+  level: {fileID: 451001008}
+  entityMono: {fileID: 0}
+  cooldown: {fileID: 451001006}
+--- !u!114 &-1841621026496413328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &451001013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 987389087, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeedMultiplier: 1
+--- !u!114 &5168322800609107000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451001001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 606060924, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileID: 0
+  rotateFreely: 0
+  recoilForce: 0
+  overrideAnimation: 
+  secondaryProjectileVariationID: 0
+  secondaryProjectileBasedOnCondition: 0
+  conditionID: 0
+  spawnRandomProjectile: 0
+  alternativeProjectiles: []
+  explosionUseWeaponDamage: 0
+  spawnOffsetDistance: 0
+  extraProjectiles: 0
+  spreadAngle: 0
+  explosionSize: 0
+  pierceAtMaxWindup: 0
+  bounceAtMaxWindup: 0
+  mortarRaycastToTarget: 0
+  mortarTargetRange: 0
+  minMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  secondaryMinMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  scaleMortarAirTimeWithDistance: 0
+  secondaryScaleMortarAirTimeWithDistance: 0
+  minMortarAirTimePercentage: 0
+  secondaryDistanceBetweenHits: 0

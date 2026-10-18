@@ -1,0 +1,374 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1757291656488981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4041108565535486}
+  - component: {fileID: 114848950575117266}
+  - component: {fileID: 114312348991044549}
+  - component: {fileID: 114159304926532887}
+  - component: {fileID: 114440853430520918}
+  - component: {fileID: 114921749253602439}
+  - component: {fileID: 114585995548029334}
+  - component: {fileID: 114927063818089712}
+  - component: {fileID: 114599343753963280}
+  - component: {fileID: 114642741500508012}
+  - component: {fileID: 114777558952331207}
+  - component: {fileID: 114031602225415891}
+  m_Layer: 0
+  m_Name: LegendaryScepterEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4041108565535486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114848950575117266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1814889704, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInfo:
+    objectID: 9187
+    initialAmount: 1
+    variation: 0
+    variationIsDynamic: 1
+    variationToToggleTo: 0
+    objectType: 501
+    tags: 22000000
+    rarity: 4
+    salvageMultiplier: 1
+    level: 0
+    sellValue: -1
+    buyValueMultiplier: 1
+    icon: {fileID: 21300000, guid: aacee4743491be04981b8c1df94c3d16, type: 2}
+    iconOffset: {x: 0, y: 0}
+    iconSkinAssetRef:
+      m_address:
+        m_low: 0
+        m_high: 0
+    smallIcon: {fileID: 21300000, guid: 25a9fe64e17b58247bfc32eb1498595f, type: 2}
+    isStackable: 0
+    prefabTileSize: {x: 1, y: 1}
+    prefabCornerOffset: {x: 0, y: 0}
+    centerIsAtEntityPosition: 0
+    additionalSprites:
+    - {fileID: 21300000, guid: 32061c62b1cb43148bcb56e8443c4396, type: 2}
+    - {fileID: 21300000, guid: 32191dda18d756c48b5df09f5566b71c, type: 2}
+    tileset: 0
+    tileType: 0
+    prefabInfo:
+      graphicalRef:
+        m_address:
+          m_low: 0
+          m_high: 0
+      authoringRef:
+        m_address:
+          m_low: 6135083782704374609
+          m_high: -2571856524596554646
+      prefab: {fileID: 0}
+      authoring: {fileID: 0}
+    craftingSettings:
+      canOnlyUseAnyMaterialsWithTag: 0
+      iconType: 0
+    requiredObjectsToCraft: []
+    craftingTime: 1
+    appearInMapUI: 0
+    mapColor: {r: 0, g: 0, b: 0, a: 0}
+    isCustomScenePrefab: 0
+    languageGenders: []
+  optionalPreviewPrefab: {fileID: 0}
+--- !u!114 &114312348991044549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateValuesFromLevel: 0
+  givesConditionsWhenHeldInHand: 1
+  isArmor: 0
+  givesConditionsWhenEquipped:
+  - id: 358
+    valueMultiplier: 1
+    value: 1
+  - id: 360
+    valueMultiplier: 1
+    value: 40
+--- !u!114 &114159304926532887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1263341004, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedCooldownIdentifier: 0
+  cooldown: 0.7
+  casualCharacterIgnoresCustomCooldown: 0
+--- !u!114 &114440853430520918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 606060924, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileID: 9277
+  rotateFreely: 0
+  recoilForce: 0
+  overrideAnimation: 
+  secondaryProjectileVariationID: 9345
+  secondaryProjectileBasedOnCondition: 1
+  conditionID: 359
+  spawnRandomProjectile: 0
+  alternativeProjectiles:
+  - objectID: 9345
+    variation: 0
+    damageMultiplier: 2
+  - objectID: 9345
+    variation: 0
+    damageMultiplier: 2.5
+  - objectID: 9345
+    variation: 0
+    damageMultiplier: 3
+  - objectID: 9345
+    variation: 1
+    damageMultiplier: 3.5
+  - objectID: 9345
+    variation: 1
+    damageMultiplier: 4
+  - objectID: 9345
+    variation: 2
+    damageMultiplier: 5
+  explosionUseWeaponDamage: 0
+  spawnOffsetDistance: 0
+  extraProjectiles: 0
+  spreadAngle: 0
+  explosionSize: 0
+  pierceAtMaxWindup: 0
+  bounceAtMaxWindup: 0
+  mortarRaycastToTarget: 0
+  mortarTargetRange: 0
+  minMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  secondaryMinMaxRandomSpreadDistance:
+    x: 0
+    y: 0
+  scaleMortarAirTimeWithDistance: 0
+  secondaryScaleMortarAirTimeWithDistance: 0
+  minMortarAirTimePercentage: 0
+  secondaryDistanceBetweenHits: 0
+--- !u!114 &114921749253602439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 156
+  damageMultiplier: 0.45
+  isRange: 1
+  isMagic: 1
+  level: {fileID: 114585995548029334}
+  entityMono: {fileID: 114848950575117266}
+  cooldown: {fileID: 114159304926532887}
+--- !u!114 &114585995548029334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462739941, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaLevel: 80
+  level: 19
+  entityMono: {fileID: 114848950575117266}
+  forceGenerateLevelEntities: 0
+--- !u!114 &114927063818089712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1600091730, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSoundId:
+    value: 0
+  flightSoundId:
+    value: 0
+  impactSoundId:
+    value: 243157193
+  windupSound:
+    value: -1307580193
+  windupCancelSound:
+    value: 0
+  strongAttackSound:
+    value: 0
+--- !u!114 &114599343753963280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1754845523, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mechanic: 1
+  windupTiers: 1
+  cancelAttackIfNotAtWindupTier: 1
+  windupAreaSizeMultiplier: 1
+  extraDamageMultiplier: 1
+  movementSpeedMultiplier: 0.2
+  projectileSpeedMultiplier: 1
+  windupTime: 1.4
+  windupTimeMultiplier: 1
+  manaCostMultiplier: 1.4
+  windupExplosionSequenceStart: 0
+  windupExplosionSequenceIncrement: 0
+  useAimingAnimationDuringWindup: 1
+  knockback: 0
+  weaponEffectType: 1
+  useTerm: 20
+  minionToSpawn: 0
+--- !u!114 &114642741500508012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1410114798, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <EffectType>k__BackingField: 2
+  <Weapon>k__BackingField:
+    <StartPosition>k__BackingField: 2
+    <EndPosition>k__BackingField: 3
+    <Strength>k__BackingField: 2
+  <Vibration>k__BackingField:
+    <Position>k__BackingField: 0
+    <Amplitude>k__BackingField: 0
+    <Frequency>k__BackingField: 0
+  <MultiplePositionVibration>k__BackingField:
+    <Frequency>k__BackingField: 0
+    <Amplitude>k__BackingField:
+      <Position0>k__BackingField: 0
+      <Position1>k__BackingField: 0
+      <Position2>k__BackingField: 0
+      <Position3>k__BackingField: 0
+      <Position4>k__BackingField: 0
+      <Position5>k__BackingField: 0
+      <Position6>k__BackingField: 0
+      <Position7>k__BackingField: 0
+      <Position8>k__BackingField: 0
+      <Position9>k__BackingField: 0
+  <MultiplePositionFeedback>k__BackingField:
+    <Strength>k__BackingField:
+      <Position0>k__BackingField: 0
+      <Position1>k__BackingField: 0
+      <Position2>k__BackingField: 0
+      <Position3>k__BackingField: 0
+      <Position4>k__BackingField: 0
+      <Position5>k__BackingField: 0
+      <Position6>k__BackingField: 0
+      <Position7>k__BackingField: 0
+      <Position8>k__BackingField: 0
+      <Position9>k__BackingField: 0
+  <SlopeFeedback>k__BackingField:
+    <StartPosition>k__BackingField: 0
+    <EndPosition>k__BackingField: 8
+    <StartStrength>k__BackingField: 8
+    <EndStrength>k__BackingField: 1
+  <Feedback>k__BackingField:
+    <Position>k__BackingField: 0
+    <Strength>k__BackingField: 0
+--- !u!114 &114777558952331207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 87057327, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionID: 359
+--- !u!114 &114031602225415891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757291656488981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1869734531, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manaCost: 20
+  manaCostMultiplier: 1
+  levelAuthoring: {fileID: 114585995548029334}
+  cooldownAuth: {fileID: 114159304926532887}
+  weaponDamage: {fileID: 114921749253602439}
+  secondaryUse: {fileID: 114599343753963280}
