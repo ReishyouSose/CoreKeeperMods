@@ -115,7 +115,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 index = 0;
             if (index >= ZenithBalance.SwordTypes)
                 index = ZenithBalance.SwordTypes - 1;
-            size = index == 0 ? 0.55f : 0.8f;
+            size /*= index == 0 ? 0.55f : 0.8f*/= 1f;
             size *= BladeLengths[index] / ReferenceLength;
             bladeSpan = BladeLengths[index];
             trailColor = TrailColors[index];
@@ -166,6 +166,12 @@ namespace Assets.TerraZenith.Scripts.Graphic
             {
                 ZenithTrail point = trail[i];
                 history[i] = new Vector3(point.position.x, point.position.y, point.position.z);
+                // 相邻采样不该隔开十几格。隔开的是漏记的一跳，连上去会拉成三角形，后面的旧点也不要了。
+                if (i > 0 && Vector3.Distance(history[i], history[i - 1]) > 12f)
+                {
+                    filled = i;
+                    break;
+                }
                 // 几乎重叠的点直接沿用上一段，避免零距离把朝向算成奇点。
                 if (i > 0 && Vector3.Distance(history[i], history[i - 1]) < 0.001f)
                 {

@@ -123,52 +123,36 @@ namespace Assets.TerraZenith.Scripts.System
                 float bladeAngle = 0f;
                 bool alive = true;
 
-                // 计算这一帧玩家移动了多少距离（用于拖尾跟随）
+                // 玩家这一拍走了多远。第一拍还没有上一格坐标，位移是 0，不会拿世界坐标去减。
                 float2 playerDelta = flight.hasTrailPlayer != 0 ? playerPos - flight.trailPlayer : float2.zero;
+                float height = transform.Position.y;
 
-                // ==========================================
-                // 2. 推进时间与计算位置
-                // ==========================================
-
-                // 一帧只走一步、只压一个轨迹点。末尾这个 0.5 是推进倍率，觉得快就调小。
-                float ageStep = math.lerp(0.7f, 2f, closeness) * dt * 60f * 0.5f;
-                age += ageStep;
-
-                // 寿命到了，准备销毁
-                if (age >= 120f)
+                // 客户端不累加 age，也不改位置。按服务器同步过来的 age，把中间漏掉的弧补进本地轨迹。
+                if (!server)
                 {
-                    alive = false;
+                    CatchUpTrail(trail, velocity, ellipse, closeness, playerPos, height, flight.age, playerDelta);
+                    flight.trailPlayer = playerPos;
+                    flight.hasTrailPlayer = 1;
+                    return;
                 }
-                else
+
+                // 这一拍的 age 预算。末尾 0.5 是推进倍率，觉得快就调小。60Hz 下一拍大约是 Lerp(0.7, 2) 的一半。
+                // 单步最多 0.5。dt 突然变大时拆开压点，刀光沿着椭圆走，不会拉成一条直线。
+                float budget = math.lerp(0.7f, 2f, closeness) * dt * 60f * 0.5f;
+                bool firstStep = true;
+                while (budget > 0f && alive)
                 {
-                    // spin：0 到 1 代表前半段旋转进度（对应原版转完一圈）
-                    float spin = Saturate(age / 60f);
-                    float aimAngle = math.atan2(velocity.y, velocity.x); // 瞄准方向的弧度
-                    float signX = velocity.x > 0f ? 1f : -1f;            // 朝右还是朝左
-
-                    // 当前旋转角（泰拉 num7）
-                    float sweep = math.PI + signX * spin * (math.PI * 2f);
-
-                    // 半径：基础半径 + 后半段额外扩张 40 像素
-                    float radius = math.length(velocity) + Saturate((spin - 0.5f) / 0.5f) * (40f / 16f);
-                    if (radius < 60f / 16f)
-                        radius = 60f / 16f; // 最短半径限制
-
-                    // 计算椭圆上的点（乘以 ellipse 形成椭圆，再按 closeness 收缩）
-                    float2 spun = new float2(math.cos(sweep), math.sin(sweep)) * new float2(radius, ellipse * math.lerp(2f, 1f, closeness));
-
-                    // 椭圆中心：玩家位置 + 半程瞄准向量；再旋转到瞄准方向
-                    float2 orbit = playerPos + velocity + Rotate(spun, aimAngle);
-
-                    // 起手偏移：前半段有一股反向拉扯，转到一半时消失
-                    float lead = 1f - Saturate(spin / 0.5f);
-                    pos = orbit + lead * new float2(signX * -radius * 0.1f, -ellipse * 0.3f);
-
-                    // 剑身朝向：如果是负椭圆反向转，则反转旋转方向
-                    bladeAngle = ellipse < 0f ? math.PI - signX * spin * (math.PI * 2f) + aimAngle : sweep + aimAngle;
-
-                    // 写入轨迹缓冲：让图形能够读出这条华丽的螺旋线
-                    PushTrail(trail, new float3(pos.x, transform.Position.y, pos.y), bladeAngle, spin, playerDelta, true);
+                    float step = math.min(0.5f, budget);
+                    budget -= step;
+                    age += step;
+                    if (age >= 120f)
+                    {
+                        alive = false;
+                        break;
+                    }
+                    SampleOrbit(age, velocity, ellipse, closeness, playerPos, out pos, out bladeAngle, out float spin);
+                    PushTrail(trail, new float3(pos.x, height, pos.y), bladeAngle, spin, age, playerDelta, firstStep);
+                    firstStep = false;
                 }
 
                 // 写回组件数据
@@ -198,24 +182,54 @@ namespace Assets.TerraZenith.Scripts.System
             base.OnUpdate();
         }
 
-        // 对照 TrailingMode 4：旧点先整体后移，第一步再加玩家这一拍的地面位移，最新位置写在下标 0。
-        private static void PushTrail(DynamicBuffer<ZenithTrail> trail, float3 position, float angle, float spin, float2 playerDelta, bool applyPlayerDelta)
+        // 客户端本地轨迹补到服务器的 age。缓冲是空的就只补最近 60 步，不从原点连一条线过来。
+        private static void CatchUpTrail(DynamicBuffer<ZenithTrail> trail, float2 velocity, float ellipse, float closeness, float2 playerPos, float height, float targetAge, float2 playerDelta)
+        {
+            float cursor = trail.Length > 0 ? trail[0].age : math.max(0f, targetAge - 0.5f * (ZenithTrail.Capacity - 1));
+            bool firstStep = true;
+            int guard = 0;
+            while (cursor < targetAge - 0.001f && guard < ZenithTrail.Capacity)
+            {
+                cursor = math.min(targetAge, cursor + 0.5f);
+                SampleOrbit(cursor, velocity, ellipse, closeness, playerPos, out float2 pos, out float bladeAngle, out float spin);
+                PushTrail(trail, new float3(pos.x, height, pos.y), bladeAngle, spin, cursor, playerDelta, firstStep);
+                firstStep = false;
+                guard++;
+            }
+        }
+
+        // 对照 AI_182。age 是唯一的进度，同一组 velocity、ellipse 在两端算出同一个点。
+        private static void SampleOrbit(float age, float2 velocity, float ellipse, float closeness, float2 playerPos, out float2 pos, out float bladeAngle, out float spin)
+        {
+            spin = Saturate(age / 60f);
+            float aimAngle = math.atan2(velocity.y, velocity.x);
+            float signX = velocity.x > 0f ? 1f : -1f;
+            float sweep = math.PI + signX * spin * (math.PI * 2f);
+            float radius = math.length(velocity) + Saturate((spin - 0.5f) / 0.5f) * (40f / 16f);
+            if (radius < 60f / 16f)
+                radius = 60f / 16f;
+            float2 spun = new float2(math.cos(sweep), math.sin(sweep)) * new float2(radius, ellipse * math.lerp(2f, 1f, closeness));
+            float2 orbit = playerPos + velocity + Rotate(spun, aimAngle);
+            float lead = 1f - Saturate(spin / 0.5f);
+            pos = orbit + lead * new float2(signX * -radius * 0.1f, -ellipse * 0.3f);
+            bladeAngle = ellipse < 0f ? math.PI - signX * spin * (math.PI * 2f) + aimAngle : sweep + aimAngle;
+        }
+
+        // 对照 TrailingMode 4：旧点先整体后移，这一拍的第一步再加玩家地面位移，最新位置写在下标 0。
+        private static void PushTrail(DynamicBuffer<ZenithTrail> trail, float3 position, float angle, float spin, float age, float2 playerDelta, bool applyPlayerDelta)
         {
             if (trail.Length < ZenithTrail.Capacity)
                 trail.Add(default);
 
-            // 数组后移操作：从后往前遍历，把前一个点的数据赋给后一个点
             for (int i = trail.Length - 1; i > 0; i--)
             {
                 ZenithTrail point = trail[i - 1];
-                // 如果玩家移动了，历史轨迹也要跟着平移，否则残影会被留在原地扯断
                 if (applyPlayerDelta)
                     point.position += new float3(playerDelta.x, 0f, playerDelta.y);
                 trail[i] = point;
             }
 
-            // 最新计算出的位置放在 0 号位
-            trail[0] = new ZenithTrail { position = position, angle = angle, spin = spin };
+            trail[0] = new ZenithTrail { position = position, angle = angle, spin = spin, age = age };
         }
 
         // 准星周围 25 格内最近的活着的敌人。对照 GetZenithTarget。

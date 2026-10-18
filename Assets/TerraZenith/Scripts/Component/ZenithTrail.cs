@@ -13,5 +13,6 @@ namespace Assets.TerraZenith.Scripts.Component
         public float3 position; // 模拟世界坐标，和 LocalTransform.Position 同一套
         public float angle;     // 这一拍的剑身角
         public float spin;      // 0 起手，1 转满。后半段是收回玩家身后，用来把刀光收尾变淡
+        public float age;       // 这个采样对应的 localAI。客户端用最新一格判断已经补到哪
     }
 }

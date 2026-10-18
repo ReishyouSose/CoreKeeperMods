@@ -18,7 +18,8 @@ namespace Assets.TerraZenith.Scripts.Component
         public int variation;      // 剑序号、相位、左右。原发射系统删了，改在这一次登记里算
         [GhostField]
         public byte initialized;   // 0 表示服务器还没写过参数
-        public float age;          // localAI[0]，到 120 销毁。只在本地累加
+        [GhostField]
+        public float age;          // localAI[0]，到 120 销毁。只由服务器累加，客户端靠它把漏掉的弧补进本地轨迹
         public float2 trailPlayer; // 上一拍玩家的地面坐标，用来给旧刀光加 TrailingMode 4 的位移
         public byte hasTrailPlayer;
     }
