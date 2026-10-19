@@ -327,6 +327,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 float progress = i / (float)(MaxPoints - 1);
                 Vector3 a = space.InverseTransformPoint(tips[i]);  // 剑尖
                 Vector3 b = space.InverseTransformPoint(hilts[i]); // 剑根
+                //(a, b) = (b, a);//疑似翻了，加一个交换
                 float distance = Vector3.Distance(a, b) * 16f; // 还原成像素，shader 用这个当 V 的跨度
                 int v = count * 2;
                 vertices[v] = a;

@@ -140,68 +140,70 @@ namespace Assets.TerraZenith.Scripts.System
             uint rate = tickRate;
             Entity inventoryEntity = SystemAPI.GetSingletonEntity<InventoryChangeBuffer>();
 
-            Entities
-                .WithAll<AttackWithEquipmentTag, Simulate>()
-                .ForEach((Entity entity, in EquippedObjectCD equipped, in ClientInput input, in EquipmentSlotCD slot, in PlayerRoutineCD routine) =>
+            Entities.ForEach((Entity entity, in EquippedObjectCD equipped, in ClientInput input, in EquipmentSlotCD slot, in PlayerRoutineCD routine) =>
+            {
+                if (routine.activeRoutine != PlayerRoutines.Inactive && routine.activeRoutine != PlayerRoutines.Shielding)
+                    return;
+                Entity prefab = equipped.equipmentPrefab;
+                if (!weapons.HasComponent(prefab) || equipped.isBroken)
+                    return;
+                secondaryUses.TryGetComponent(prefab, out var secondary);
+                if (slot.currentWindup > 0f && slot.currentWindupTier < secondary.cancelAttackIfNotAtWindupTier)
+                    return;
+                if (slot.atMaxWindup && aoeAttacks.HasComponent(prefab))
+                    return;
+
+                if (mana.TryGetComponent(entity, out var playerMana) && !playerMana.isUnlimited)
                 {
-                    if (routine.activeRoutine != PlayerRoutines.Inactive && routine.activeRoutine != PlayerRoutines.Shielding)
-                        return;
-                    Entity prefab = equipped.equipmentPrefab;
-                    if (!weapons.HasComponent(prefab) || equipped.isBroken)
-                        return;
-                    secondaryUses.TryGetComponent(prefab, out var secondary);
-                    if (slot.currentWindup > 0f && slot.currentWindupTier < secondary.cancelAttackIfNotAtWindupTier)
-                        return;
-                    if (slot.atMaxWindup && aoeAttacks.HasComponent(prefab))
-                        return;
-
-                    if (mana.TryGetComponent(entity, out var playerMana) && !playerMana.isUnlimited)
+                    int cost = EquipmentSlot.GetManaCost(entity, prefab, equipped, slot, secondary, manaCosts, levelEntities, levels, properties, conditions);
+                    if (cost != 0)
                     {
-                        int cost = EquipmentSlot.GetManaCost(entity, prefab, equipped, slot, secondary, manaCosts, levelEntities, levels, properties, conditions);
-                        if (cost != 0)
+                        playerMana.mana = math.clamp(playerMana.mana - cost, 0, playerMana.maxMana);
+                        playerMana.delay = true;
+                        mana.GetRefRW(entity).ValueRW = playerMana;
+                    }
+                    if (queuedMana.HasComponent(entity))
+                        queuedMana.GetRefRW(entity).ValueRW = new ManaCostForQueuedAttackCD { manaCost = cost };
+                }
+
+                // 对照 RangeWeaponSlot.CalculateCooldown。41、65 是那份攻速条件的下标。
+                float cooldownTime = 0.6f;
+                if (cooldowns.TryGetComponent(prefab, out var cooldown))
+                    cooldownTime = cooldown.cooldown;
+                DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effects[entity];
+                float attackSpeed = math.max(1f + effectBuffer[41].value / 1000f + effectBuffer[65].value / 1000f, 0.1f);
+                cooldownTime /= attackSpeed;
+
+                var attackCooldown = attackCooldowns.GetRefRW(entity);
+                EquipmentSlot.StartCooldownForItem(in equipped, ref attackCooldown.ValueRW, sharedCooldowns[entity], tick, rate, in database, cooldowns, cooldownTime);
+                orientations.GetRefRW(entity).ValueRW.facingDirection = Direction.FromVector(input.aimDirection, 0f);
+                queueHits.SetComponentEnabled(entity, true);
+                triggers.SetComponentEnabled(entity, true);
+
+                if (durabilities.HasComponent(prefab))
+                {
+                    reduceDurability.SetComponentEnabled(entity, true);
+                    reduceDurability.GetRefRW(entity).ValueRW.triggerCounter++;
+                }
+                else
+                {
+                    ObjectDataCD objectData = equipped.containedObject.objectData;
+                    ref PugDatabase.EntityObjectInfo info = ref PugDatabase.GetEntityObjectInfo(objectData.objectID, database.databaseBankBlob, objectData.variation);
+                    float keepChance = EntityUtility.GetConditionValue(ConditionID.ChanceToNotConsumeExplosives, entity, conditions) / 100f;
+                    if (info.rarity != Rarity.Legendary && randoms.GetRefRW(entity).ValueRW.Value.NextFloat() > keepChance)
+                    {
+                        inventoryChanges[inventoryEntity].Add(new InventoryChangeBuffer
                         {
-                            playerMana.mana = math.clamp(playerMana.mana - cost, 0, playerMana.maxMana);
-                            playerMana.delay = true;
-                            mana.GetRefRW(entity).ValueRW = playerMana;
-                        }
-                        if (queuedMana.HasComponent(entity))
-                            queuedMana.GetRefRW(entity).ValueRW = new ManaCostForQueuedAttackCD { manaCost = cost };
+                            inventoryChangeData = Create.ConsumeEntityAt(entity, equipped.equippedSlotIndex, 1, true, godMode.IsComponentEnabled(entity)),
+                            playerEntity = entity
+                        });
                     }
-
-                    // 对照 RangeWeaponSlot.CalculateCooldown。41、65 是那份攻速条件的下标。
-                    float cooldownTime = 0.6f;
-                    if (cooldowns.TryGetComponent(prefab, out var cooldown))
-                        cooldownTime = cooldown.cooldown;
-                    DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effects[entity];
-                    float attackSpeed = math.max(1f + effectBuffer[41].value / 1000f + effectBuffer[65].value / 1000f, 0.1f);
-                    cooldownTime /= attackSpeed;
-
-                    var attackCooldown = attackCooldowns.GetRefRW(entity);
-                    EquipmentSlot.StartCooldownForItem(in equipped, ref attackCooldown.ValueRW, sharedCooldowns[entity], tick, rate, in database, cooldowns, cooldownTime);
-                    orientations.GetRefRW(entity).ValueRW.facingDirection = Direction.FromVector(input.aimDirection, 0f);
-                    queueHits.SetComponentEnabled(entity, true);
-                    triggers.SetComponentEnabled(entity, true);
-
-                    if (durabilities.HasComponent(prefab))
-                    {
-                        reduceDurability.SetComponentEnabled(entity, true);
-                        reduceDurability.GetRefRW(entity).ValueRW.triggerCounter++;
-                    }
-                    else
-                    {
-                        ObjectDataCD objectData = equipped.containedObject.objectData;
-                        ref PugDatabase.EntityObjectInfo info = ref PugDatabase.GetEntityObjectInfo(objectData.objectID, database.databaseBankBlob, objectData.variation);
-                        float keepChance = EntityUtility.GetConditionValue(ConditionID.ChanceToNotConsumeExplosives, entity, conditions) / 100f;
-                        if (info.rarity != Rarity.Legendary && randoms.GetRefRW(entity).ValueRW.Value.NextFloat() > keepChance)
-                        {
-                            inventoryChanges[inventoryEntity].Add(new InventoryChangeBuffer
-                            {
-                                inventoryChangeData = Create.ConsumeEntityAt(entity, equipped.equippedSlotIndex, 1, true, godMode.IsComponentEnabled(entity)),
-                                playerEntity = entity
-                            });
-                        }
-                    }
-                }).WithoutBurst().Run();
+                }
+            })
+                .WithName("ZenithAttackSystem")
+                .WithAll<AttackWithEquipmentTag, Simulate>()
+                .WithBurst()
+                .Schedule();
 
             base.OnUpdate();
         }

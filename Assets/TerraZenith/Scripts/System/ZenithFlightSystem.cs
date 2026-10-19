@@ -109,7 +109,10 @@ namespace Assets.TerraZenith.Scripts.System
             float2 orbit = playerPos + velocity + Rotate(spun, aimAngle);
             float lead = 1f - Saturate(spin / 0.5f);
             pos = orbit + lead * new float2(signX * -radius * 0.1f, -ellipse * 0.3f);
+            // 这里先是泰拉的参数角。Blade 铺在地面上，尖在 28×28 贴图的右上，比 Direction.forward 超前 π/4。
+            // 减掉这个偏角之后，LookAt 再叠上贴图，剑尖才落到参数角上。
             bladeAngle = ellipse < 0f ? math.PI - signX * spin * (math.PI * 2f) + aimAngle : sweep + aimAngle;
+            bladeAngle -= math.PI * 0.25f;
         }
 
         // 对照 TrailingMode 4：旧点先整体后移，这一拍的第一步再加玩家地面位移，最新位置写在下标 0。
