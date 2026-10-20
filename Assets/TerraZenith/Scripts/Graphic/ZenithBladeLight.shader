@@ -33,7 +33,7 @@ Shader "Zenith/ZenithBladeLight"
             {
                 float4 vertex : POSITION;
                 float4 color : COLOR;
-                float3 uv : TEXCOORD0;
+                float2 uv : TEXCOORD0;
             };
 
             struct v2f
@@ -49,7 +49,7 @@ Shader "Zenith/ZenithBladeLight"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.color = v.color;
                 // 这里的 uv.x 是 0~1 的进度，uv.y 是剑根到剑尖的横向进度
-                o.uv = float2(v.uv.x, v.uv.y / max(0.001, v.uv.z)); 
+                o.uv = float2(v.uv.x, v.uv.y); 
                 return o;
             }
 

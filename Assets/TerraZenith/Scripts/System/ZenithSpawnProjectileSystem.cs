@@ -91,12 +91,11 @@ namespace Assets.TerraZenith.Scripts.System
             var conditionsTable = SystemAPI.GetSingleton<ConditionsTableCD>();
             bool firstTime = SystemAPI.GetSingleton<NetworkTime>().IsFirstTimeFullyPredictingTick;
             var ecb = CreateCommandBuffer();
-
+            int blades = ZenithBalance.Blades.Count;
             // 注意：你这里使用了 enemyTransforms 和 enemyHealth，但在前面并没有定义，可能是你之前查敌人的数组没贴上来
             // 如果编译报错，请自己补充使用 enemies.ToComponentDataArray 的逻辑
             // var enemyTransforms = enemies.ToComponentDataArray<LocalTransform>(Allocator.Temp);
             // var enemyHealth = enemies.ToComponentDataArray<HealthCD>(Allocator.Temp);
-
             Entities.ForEach((Entity entity, ref RandomCD random, in EquippedObjectCD equipped, in ClientInput input, in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost, in DynamicBuffer<NearbyEntitiesBufferCD> nearby) =>
             {
                 triggerLookup.SetComponentEnabled(entity, false);
@@ -109,8 +108,9 @@ namespace Assets.TerraZenith.Scripts.System
 
                 //随机都得拨
                 ref var rng = ref random.Value;
-                float shortAxis = rng.NextFloat(-50f, 51f) / 16f;
-                int variation = 0/*rng.NextInt(ZenithBalance.SwordTypes)*/;
+                int sign = rng.NextBool() ? 1 : -1;
+                float shortAxis = rng.NextInt(16, 49) / 16f * sign;
+                int variation = rng.NextInt(blades);
                 var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
 
                 // 如果不是完整的预测帧（比如回滚重放阶段），拨完随机数就退出，防止重复生成实体
@@ -121,7 +121,7 @@ namespace Assets.TerraZenith.Scripts.System
                 if (projectilePrefab == Entity.Null)
                     return;
 
-                float2 playerPos = transform.Position.xz;
+                float2 playerPos = transform.Position.xz + new float2(0, 0.5f);
                 float2 target = input.mouseOrJoystickWorldPoint - playerPos;
                 //float2 aim = ZenithBalance.ClampAim(playerPos, input.mouseOrJoystickWorldPoint);
                 bool searchEnemy = false;
@@ -182,16 +182,25 @@ namespace Assets.TerraZenith.Scripts.System
                 // ==========================================
                 Entity projectile = ecb.Instantiate(projectilePrefab);
                 ecb.SetComponent(projectile, LocalTransform.FromPosition(transform.Position));
+                float back = 1f;
+                float dist = math.length(target);
+                if (dist < 1e-4f)
+                    target = new float2(1f, 0f);
+                float2 dir = math.normalize(target);
+                float rot = math.atan2(dir.y, dir.x);
 
-                target /= 2f;
-                var rot = math.atan2(target.y, target.x);
-                ecb.SetComponent(projectile, new ZenithOrbitCD
+                float halfAxis = (dist + back) * 0.5f; // 半长轴
+
+                var orbit = new ZenithOrbitCD
                 {
-                    Offset = target,
-                    LongAxis = math.length(target),
-                    ShortAxis = shortAxis,
-                    Rotation = rot,
-                });
+                    // 【核心修正】Offset 是从“玩家(也就是椭圆短轴端点)”指向“椭圆中心”的向量
+                    Offset = dir * ((dist - back) * 0.5f),
+                    LongAxis = halfAxis,
+                    ShortAxis = shortAxis, // 比如 0.4f，侧向摆动幅度
+                    Rotation = rot + math.PI,
+                    Sign = (int)math.sign(target.x)
+                };
+                ecb.SetComponent(projectile, orbit);
 
                 if (objectDataLookup.TryGetComponent(projectilePrefab, out var objectData))
                 {
