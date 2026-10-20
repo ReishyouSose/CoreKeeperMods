@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 451002012}
   - component: {fileID: 451002013}
   - component: {fileID: 9070923067057204195}
+  - component: {fileID: 7631283816470571687}
+  - component: {fileID: 7495483328247254010}
   m_Layer: 0
   m_Name: ZenithSword
   m_TagString: Untagged
@@ -222,5 +224,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42f325483b8a92d469988e7151e35901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7631283816470571687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451002001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -773745774, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7495483328247254010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451002001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

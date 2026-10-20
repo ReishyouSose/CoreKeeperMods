@@ -1,363 +1,364 @@
 using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
-using Pug.Sprite;
-using Unity.Entities;
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Assets.TerraZenith.Scripts.Graphic
 {
-    // 天顶剑的图像。刀光对照 FinalFractalHelper.Draw 里的 PrepareStrip，残影对照 Main 里 type 933 的 oldPos 绘制。
-    // 点列来自弹幕上的 ZenithTrailPoint，飞行系统每改一次位置写一格。这里不再补弧线。
-    // 画的时候减去镜头原点。地核用 XZ。泰拉 +Y 朝下，放在 +Z。贴图 +Y 朝上，V 在 shader 里翻转。
     public class ZenithSwordGraphic : Projectile
     {
-        public SpriteObject blade;         // 剑身。新版本图像用 SpriteObject，不再用 SpriteRenderer
-        public MeshFilter ribbon;          // 刀光网格
-        public SpriteRenderer[] trail;     // 残影，实际只用前 3 个
-        const int MaxPoints = ZenithTrail.Capacity;
-        const int IllusionSpacing = 15;    // 残影取 oldPos[15]、[30]、[45]
-        const float ReferenceLength = 70f; // 剑身缩放的参照长度
-        static readonly Color[] TrailColors = // FinalFractalHelper 字典顺序的 21 种刀光颜色
-        {
-            new Color(236f / 255f, 62f / 255f, 192f / 255f),
-            new Color(255f / 255f, 231f / 255f, 69f / 255f),
-            new Color(122f / 255f, 66f / 255f, 191f / 255f),
-            new Color(254f / 255f, 158f / 255f, 35f / 255f),
-            new Color(107f / 255f, 203f / 255f, 0f / 255f),
-            new Color(236f / 255f, 200f / 255f, 19f / 255f),
-            new Color(236f / 255f, 200f / 255f, 19f / 255f),
-            new Color(179f / 255f, 54f / 255f, 201f / 255f),
-            new Color(179f / 255f, 54f / 255f, 201f / 255f),
-            new Color(84f / 255f, 234f / 255f, 245f / 255f),
-            new Color(91f / 255f, 158f / 255f, 232f / 255f),
-            new Color(252f / 255f, 95f / 255f, 4f / 255f),
-            new Color(254f / 255f, 194f / 255f, 250f / 255f),
-            new Color(237f / 255f, 63f / 255f, 133f / 255f),
-            new Color(80f / 255f, 222f / 255f, 122f / 255f),
-            new Color(56f / 255f, 78f / 255f, 210f / 255f),
-            new Color(237f / 255f, 28f / 255f, 36f / 255f),
-            new Color(143f / 255f, 215f / 255f, 29f / 255f),
-            new Color(178f / 255f, 255f / 255f, 180f / 255f),
-            new Color(235f / 255f, 166f / 255f, 135f / 255f),
-            new Color(178f / 255f, 255f / 255f, 180f / 255f)
-        };
-        static readonly float[] BladeLengths = // 对应上面每套的 fullBladeLength，单位是泰拉像素
-        {
-            48f, 48f, 48f, 76f, 70f, 70f, 70f, 70f, 70f, 70f,
-            48f, 76f, 76f, 70f, 70f, 70f, 70f, 80f, 45f, 45f, 86f
-        };
-        Vector3[] history;    // 从缓冲抄出来的世界坐标，下标 0 是最新点
-        Vector3[] tips;       // 该采样时刻剑尖的世界坐标
-        Vector3[] hilts;      // 该采样时刻剑根的世界坐标
-        float[] spins;        // 该采样在整段挥砍里的进度，后半段收尾变淡
-        float[] oldRot;       // 泰拉的 projectile.rotation = 剑身角 + π/2
-        Quaternion[] facing;  // 残影用的剑身旋转
-        int filled;
-        float size = 0.8f;
-        float bladeSpan = 70f;
-        Color trailColor = Color.white;
-        int appliedVariation = -1;
-        Mesh mesh;
-        Vector3[] vertices;
-        Color[] colors;
-        Vector3[] uvs;
-        int[] triangles;
+        //public SpriteObject Blade;              // 剑身模型
+        public MeshFilter Ribbon;               // 刀光网格
+        public List<SpriteRenderer> trails;     // 残影列表
+
+        private const int Split = 15;           // 原版残影间隔
+        private int trailCount;
+
+        private Mesh _mesh;
+        private Vector3[] _vertices;
+        private Color[] _colors;
+        private Vector2[] _uvs;
+        private int[] _triangles;
+
+        // 插值后的完整序列（用于网格 + 方向计算）
+        private List<float2> _tempPositions = new List<float2>(256);
+        private List<float> _tempTimers = new List<float>(256);
+
+        // 原始记录点（不插值，用于残影位置 + 网格分段边界）
+        private List<float2> _rawPositions = new List<float2>(64);
+        private List<float> _rawTimers = new List<float>(64);
+        // 原始点 -> _tempPositions 中的索引
+        private List<int> _rawToTemp = new List<int>(64);
+
+        // 残影标记：存的是 _rawPositions 的下标（每 stride 个原始点取一个）
+        private List<int> _trailMarks = new List<int>(4);
+
+        // 复用的映射数组，避免 BuildRibbon 每帧分配
+        private int[] _markInTemp = new int[8];
 
         protected override void OnSpawn()
         {
             base.OnSpawn();
-            filled = 0;
-            size = 0.8f;
-            trailColor = Color.white;
-            appliedVariation = -1;
-            ApplyLook();
             EnsureMesh();
-            ClearRibbon();
             HideTrail();
-            PaintBlade();
         }
 
         public override void ManagedLateUpdate()
         {
             base.ManagedLateUpdate();
-            ApplyLook();
-            PaintBlade();
-            if (hasExploded)
-            {
-                ClearRibbon();
-                HideTrail();
+            //transform.localPosition = Manager.main.player.WorldPosition;
+            var orbit = world.EntityManager.GetComponentData<ZenithOrbitCD>(entity);
+            if (orbit.Timer >= 2)
                 return;
-            }
-            ReadTrail();
-            if (ribbon != null)
-            {
-                EnsureMesh();
-                BuildRibbon();
-            }
+            ReadOrbit();
+            BuildRibbon();
             PaintTrail();
         }
 
-        protected override void OnDeath()
+        private void EnsureMesh()
         {
-            base.OnDeath();
-            ClearRibbon();
+            if (Ribbon == null || _mesh != null)
+                return;
+
+            _mesh = new Mesh();
+            _mesh.name = "ZenithBladeLight";
+            _mesh.MarkDynamic();
+            Ribbon.sharedMesh = _mesh;
+
+            int maxCapacity = 256;
+            _vertices = new Vector3[maxCapacity * 2];
+            _colors = new Color[maxCapacity * 2];
+            _uvs = new Vector2[maxCapacity * 2];
+            _triangles = new int[(maxCapacity - 1) * 12];
+        }
+
+        private void ClearMesh()
+        {
+            if (_mesh != null)
+                _mesh.Clear();
             HideTrail();
         }
 
-        // 剑的颜色和长度跟着这发弹幕自己的 variation。生成当帧参数已经写上，这里再读一次即可。
-        void ApplyLook()
+        private void ReadOrbit()
         {
-            if (!TryGetVariation(out int variation) || variation == appliedVariation)
-                return;
-            appliedVariation = variation;
-            ZenithBalance.UnpackVariation(variation, out int index, out _, out _);
-            if (index < 0)
-                index = 0;
-            if (index >= ZenithBalance.SwordTypes)
-                index = ZenithBalance.SwordTypes - 1;
-            size /*= index == 0 ? 0.55f : 0.8f*/= 1f;
-            size *= BladeLengths[index] / ReferenceLength;
-            bladeSpan = BladeLengths[index];
-            trailColor = TrailColors[index];
-        }
-
-        bool TryGetVariation(out int variation)
-        {
-            variation = 0;
             var manager = world.EntityManager;
-            if (!manager.Exists(entity) || !manager.HasComponent<ZenithFlightCD>(entity))
-                return false;
-            ZenithFlightCD flight = manager.GetComponentData<ZenithFlightCD>(entity);
-            if (flight.initialized == 0)
-                return false;
-            variation = flight.variation;
-            return true;
-        }
-
-        // 把飞行系统记下的位置抄到网格数组。剑尖方向用记录的剑身角相对当前朝向的差转出来。
-        void ReadTrail()
-        {
-            if (history == null)
+            if (!manager.Exists(entity))
             {
-                history = new Vector3[MaxPoints];
-                tips = new Vector3[MaxPoints];
-                hilts = new Vector3[MaxPoints];
-                spins = new float[MaxPoints];
-                oldRot = new float[MaxPoints];
-                facing = new Quaternion[MaxPoints];
+                Debug.Log("entity not exists");
             }
-            filled = 0;
-            var manager = world.EntityManager;
-            if (!manager.Exists(entity) || !manager.HasBuffer<ZenithTrail>(entity))
-                return;
-            DynamicBuffer<ZenithTrail> trail = manager.GetBuffer<ZenithTrail>(entity, true);
-            filled = trail.Length;
-            if (filled > MaxPoints)
-                filled = MaxPoints;
-            Transform body = SwordBody();
-            Vector3 tipLocal = TipLocal(body);
-            Vector3 tipNow = body.TransformPoint(tipLocal);
-            Vector3 hiltNow = body.TransformPoint(-tipLocal);
-            Vector3 pivotNow = body.position;
-            Vector3 rootNow = transform.position;
-            float current = BladeAngle();
-            Quaternion face = body.rotation;
-            for (int i = 0; i < filled; i++)
+            if (!manager.HasBuffer<ZenithTrail>(entity))
             {
-                ZenithTrail point = trail[i];
-                history[i] = new Vector3(point.position.x, point.position.y, point.position.z);
-                // 相邻采样不该隔开十几格。隔开的是漏记的一跳，连上去会拉成三角形，后面的旧点也不要了。
-                if (i > 0 && Vector3.Distance(history[i], history[i - 1]) > 12f)
-                {
-                    filled = i;
-                    break;
-                }
-                // 几乎重叠的点直接沿用上一段，避免零距离把朝向算成奇点。
-                if (i > 0 && Vector3.Distance(history[i], history[i - 1]) < 0.001f)
-                {
-                    tips[i] = tips[i - 1];
-                    hilts[i] = hilts[i - 1];
-                    facing[i] = facing[i - 1];
-                    spins[i] = spins[i - 1];
-                    oldRot[i] = oldRot[i - 1];
+                Debug.Log("no trail buffer");
+                return;
+            }
+            var zenithTrail = manager.GetBuffer<ZenithTrail>(entity, true);
+            trailCount = zenithTrail.Length;
+
+            _tempPositions.Clear();
+            _tempTimers.Clear();
+            _rawPositions.Clear();
+            _rawTimers.Clear();
+            _rawToTemp.Clear();
+            _trailMarks.Clear();
+
+            if (trailCount < 2)
+                return;
+
+            int update = ZenithBalance.ExtraUpdates;
+
+            // 倒序遍历：从最新（末尾）到最老（开头）
+            for (int i = trailCount - 1; i >= 0; i--)
+            {
+
+                var current = zenithTrail[i];
+                float2 pos = current.Pos;
+                float timer = current.Timer;
+
+                // ---- 记录原始点 ----
+                _rawPositions.Add(pos);
+                _rawTimers.Add(timer);
+                // 记录该原始点在 _tempPositions 中的位置（在把原始点加入之前记录）
+                _rawToTemp.Add(_tempPositions.Count);
+
+                // ---- 把原始点也放进插值序列 ----
+                _tempPositions.Add(pos);
+                _tempTimers.Add(timer);
+                if (i == 0)
                     continue;
-                }
-                // 相对剑自身的偏航差，不绕世界 Y 轴，扫过特定角度时不会翻面。
-                Quaternion targetRot = Quaternion.Euler(0f, point.angle * Mathf.Rad2Deg, 0f);
-                Quaternion currentRot = Quaternion.Euler(0f, current * Mathf.Rad2Deg, 0f);
-                Quaternion turn = targetRot * Quaternion.Inverse(currentRot);
-                Vector3 root = history[i] - Manager.camera.RenderOrigo;
-                Vector3 pivot = root + turn * (pivotNow - rootNow);
-                tips[i] = pivot + turn * (tipNow - pivotNow);
-                hilts[i] = pivot + turn * (hiltNow - pivotNow);
-                facing[i] = turn * face;
-                spins[i] = point.spin;
-                oldRot[i] = point.angle + Mathf.PI * 0.5f;
-            }
-        }
 
-        Transform SwordBody()
-        {
-            if (blade != null)
-                return blade.transform;
-            if (directionTransform != null)
-            {
-                Transform body = directionTransform.Find("Blade");
-                if (body != null)
-                    return body;
-                return directionTransform;
-            }
-            return transform;
-        }
+                var older = zenithTrail[i - 1];
+                float2 nextPos = older.Pos;
+                float dist = math.length(nextPos - pos);
 
-        // 剑贴图的尖在网格右上。用网格自身的半宽，这样刀光外沿贴着现在这把剑的剑尖，缩放也算进去。
-        Vector3 TipLocal(Transform body)
-        {
-            MeshFilter filter = body.GetComponent<MeshFilter>();
-            if (filter != null && filter.sharedMesh != null)
-            {
-                Vector3 extents = filter.sharedMesh.bounds.extents;
-                if (extents.x > 0.001f || extents.y > 0.001f)
-                    return new Vector3(extents.x, extents.y, 0f);
-            }
-            return new Vector3(1f, 1f, 0f).normalized * (bladeSpan * 0.5f / 16f);
-        }
-
-        // 方向节点的 forward 在地面上。Atan2(z, x) 里的 z 对应泰拉朝下的 Y。
-        float BladeAngle()
-        {
-            Transform body = SwordBody();
-            Transform aim = body.parent != null ? body.parent : body;
-            return Mathf.Atan2(aim.forward.z, aim.forward.x);
-        }
-
-        // 三道残影，贴图用剑身自己的。透明度大约 0.75、0.5、0.25。
-        void PaintTrail()
-        {
-            if (trail == null)
-                return;
-            for (int i = 0; i < trail.Length; i++)
-            {
-                SpriteRenderer ghost = trail[i];
-                if (ghost == null)
-                    continue;
-                int sample = (i + 1) * IllusionSpacing;
-                if (i >= 3 || sample >= filled)
+                if (dist >= 0.001f)
                 {
-                    ghost.enabled = false;
-                    continue;
+                    // 用 float2 算方向夹角
+                    float2 dir1 = (i < trailCount - 1)
+                        ? math.normalizesafe(pos - zenithTrail[i + 1].Pos, new float2(1, 0))
+                        : math.normalizesafe(nextPos - pos, new float2(1, 0));
+                    float2 dir2 = math.normalizesafe(nextPos - pos, new float2(1, 0));
+                    float angleDiff = Vector2.Angle(dir1, dir2) * Mathf.Deg2Rad;
+
+                    float2 p0 = (i < trailCount - 1) ? zenithTrail[i + 1].Pos : pos + (pos - nextPos);
+                    float2 p3 = (i - 1 >= 0) ? zenithTrail[i - 1].Pos : nextPos + (nextPos - pos);
+
+                    int steps = Mathf.CeilToInt(angleDiff / (Mathf.PI / 24f));
+                    if (steps > 1)
+                    {
+                        for (int s = 1; s < steps; s++)
+                        {
+                            float t = s / (float)steps;
+                            float2 interpolatedPos = CatmullRom(p0, pos, nextPos, p3, t);
+                            float interpolatedTimer = Mathf.Lerp(timer, older.Timer, t);
+
+                            _tempPositions.Add(interpolatedPos);
+                            _tempTimers.Add(interpolatedTimer);
+                        }
+                    }
                 }
-                ghost.enabled = true;
-                ghost.gameObject.SetActive(true);
-                ghost.transform.SetPositionAndRotation(history[sample] - Manager.camera.RenderOrigo, facing[sample]); // 画的时候回到镜头坐标
-                float alpha = (MaxPoints - sample) / (float)MaxPoints;
-                ghost.color = new Color(1f, 1f, 1f, alpha);
-                ghost.transform.localScale = new Vector3(size, size, size);
             }
-        }
 
-        void HideTrail()
-        {
-            if (trail == null)
-                return;
-            for (int i = 0; i < trail.Length; i++)
+            // ---- 所有点填完后，按间隔从原始点里挑残影位置 ----
+            int stride = Mathf.Max(1, update * 8);
+            for (int k = 0; k < _rawPositions.Count && _trailMarks.Count < 4; k += stride)
             {
-                if (trail[i] != null)
-                    trail[i].enabled = false;
+                _trailMarks.Add(k);
             }
         }
 
-        void PaintBlade()
+        private void BuildRibbon()
         {
-            if (blade == null)
+            if (_mesh == null || _tempPositions.Count < 2)
                 return;
-            blade.color = Color.Lerp(trailColor, Color.white, 0.35f);
-            blade.transform.localScale = new Vector3(size, size, size);
-            blade.ApplyVisualChange();
-        }
 
-        void EnsureMesh()
-        {
-            if (ribbon == null)
-                return;
-            if (mesh != null)
-                return;
-            mesh = new Mesh();
-            mesh.name = "ZenithBladeLight";
-            mesh.MarkDynamic();
-            ribbon.sharedMesh = mesh;
-            vertices = new Vector3[MaxPoints * 2];
-            colors = new Color[MaxPoints * 2];
-            uvs = new Vector3[MaxPoints * 2];
-            triangles = new int[(MaxPoints - 1) * 12]; // 每段 6 个正面索引 + 6 个背面，includeBacksides
-        }
+            // ---- 把 _trailMarks（原始点下标）映射到 _tempPositions（插值序列）下标 ----
+            // 分段边界正好落在"每 N 次物理更新的原始记录点"上
+            int markCount = _trailMarks.Count;
+            if (_markInTemp.Length < markCount)
+                _markInTemp = new int[markCount];
 
-        void ClearRibbon()
-        {
-            filled = 0;
-            if (mesh != null)
-                mesh.Clear();
-        }
-
-        void BuildRibbon()
-        {
-            if (mesh == null)
-                return;
-            int count = PrepareStrip(ribbon.transform);
-            if (count < 2)
+            for (int m = 0; m < markCount; m++)
             {
-                mesh.Clear();
-                return;
+                int rawIndex = _trailMarks[m];
+                if (rawIndex < _rawToTemp.Count)
+                    _markInTemp[m] = _rawToTemp[rawIndex];
+                else
+                    _markInTemp[m] = _tempPositions.Count - 1;
             }
-            mesh.Clear();
-            mesh.SetVertices(vertices, 0, count * 2);
-            mesh.SetColors(colors, 0, count * 2);
-            mesh.SetUVs(0, uvs, 0, count * 2);
-            mesh.SetTriangles(triangles, 0, (count - 1) * 12, 0, true, 0);
-            mesh.RecalculateBounds();
-            ribbon.sharedMesh = mesh; // Clear 之后渲染器会丢掉网格，要重新挂上
-        }
 
-        // 对照 VertexStrip.PrepareStrip + AddVertexPair。进度用 60 而不是当前点数，这样淡出和泰拉一样按整段缓存算。
-        int PrepareStrip(Transform space)
-        {
             int count = 0;
-            for (int i = 0; i < filled; i++)
+            float halfLength = 0.5f;
+
+            int currentMarkIndex = 0;
+
+            for (int i = 0; i < _tempPositions.Count; i++)
             {
-                float progress = i / (float)(MaxPoints - 1);
-                Vector3 a = space.InverseTransformPoint(tips[i]);  // 剑尖
-                Vector3 b = space.InverseTransformPoint(hilts[i]); // 剑根
-                //(a, b) = (b, a);//疑似翻了，加一个交换
-                float distance = Vector3.Distance(a, b) * 16f; // 还原成像素，shader 用这个当 V 的跨度
+                float2 center = _tempPositions[i];
+                float timer = _tempTimers[i];
+
+                // 前进到当前 i 所属的段边界
+                while (currentMarkIndex < markCount && i >= _markInTemp[currentMarkIndex])
+                {
+                    currentMarkIndex++;
+                }
+
+                int segmentStart = (currentMarkIndex == 0) ? 0 : _markInTemp[currentMarkIndex - 1];
+                int segmentEnd = (currentMarkIndex < markCount) ? _markInTemp[currentMarkIndex] : _tempPositions.Count - 1;
+
+                float localProgress = 0f;
+                if (segmentEnd > segmentStart)
+                {
+                    localProgress = (i - segmentStart) / (float)(segmentEnd - segmentStart);
+                }
+
+                // 用 float2 算法线
+                float2 dir;
+                if (i == 0)
+                    dir = _tempPositions[1] - _tempPositions[0];
+                else if (i == _tempPositions.Count - 1)
+                    dir = _tempPositions[i] - _tempPositions[i - 1];
+                else
+                    dir = _tempPositions[i + 1] - _tempPositions[i - 1];
+
+                dir = math.normalizesafe(dir, new float2(1, 0));
+                float2 normal = new float2(dir.y, -dir.x);
+
+                float2 a2 = center + normal * halfLength;
+                float2 b2 = center - normal * halfLength;
+
+                // 最后转成 Vector3 给网格
+                Vector3 a = new Vector3(a2.x, 0f, a2.y);
+                Vector3 b = new Vector3(b2.x, 0f, b2.y);
+
                 int v = count * 2;
-                vertices[v] = a;
-                vertices[v + 1] = b;
-                uvs[v] = new Vector3(progress, distance, distance); // 剑尖：V = 整段距离
-                uvs[v + 1] = new Vector3(progress, 0f, distance);    // 剑根：V = 0。Unity 里再由 shader 翻转
-                Color color = trailColor * (1f - Mathf.InverseLerp(0f, 0.98f, progress)); // 旧点变淡
-                color.a *= 1f - Mathf.InverseLerp(0.5f, 1f, spins[i]); // 转过一半之后，收回身后的那段逐渐透明
-                color.a /= 2f;
-                colors[v] = colors[v + 1] = color;
+                _vertices[v] = a;
+                _vertices[v + 1] = b;
+
+                float globalProgress = i / (float)(_tempPositions.Count - 1);
+
+                _uvs[v] = new Vector2(localProgress, 1f);
+                _uvs[v + 1] = new Vector2(localProgress, 0f);
+
+                Color c = Color.white;
+                c.a *= 1f - globalProgress;
+                c.a *= 1f - Mathf.InverseLerp(0.0f, 1.0f, localProgress);
+
+                // Timer 是 0~2，算 spin 需要 /1
+                float spin = Mathf.Clamp01(timer / 1f);
+                c.a *= 1f - Mathf.InverseLerp(0.5f, 1f, spin);
+
+                c.a *= 0.5f;
+
+                _colors[v] = c;
+                _colors[v + 1] = c;
+
                 count++;
             }
+
             int tri = 0;
             for (int i = 0; i < count - 1; i++)
             {
                 int v = i * 2;
-                triangles[tri++] = v;       // 正面，对照 PrepareIndices 前 6 个
-                triangles[tri++] = v + 1;
-                triangles[tri++] = v + 2;
-                triangles[tri++] = v + 2;
-                triangles[tri++] = v + 1;
-                triangles[tri++] = v + 3;
-                triangles[tri++] = v + 2;   // 背面
-                triangles[tri++] = v + 1;
-                triangles[tri++] = v;
-                triangles[tri++] = v + 2;
-                triangles[tri++] = v + 3;
-                triangles[tri++] = v + 1;
+                _triangles[tri++] = v;
+                _triangles[tri++] = v + 1;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 1;
+                _triangles[tri++] = v + 3;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 1;
+                _triangles[tri++] = v;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 3;
+                _triangles[tri++] = v + 1;
             }
-            return count;
+
+            _mesh.Clear();
+            _mesh.SetVertices(_vertices, 0, count * 2);
+            _mesh.SetColors(_colors, 0, count * 2);
+            _mesh.SetUVs(0, _uvs, 0, count * 2);
+            _mesh.SetTriangles(_triangles, 0, (count - 1) * 12, 0, true, 0);
+            _mesh.RecalculateBounds();
+            Ribbon.sharedMesh = _mesh;
+        }
+
+        private void PaintTrail()
+        {
+            if (trails == null)
+                return;
+
+            for (int i = 0; i < trails.Count; i++)
+            {
+                SpriteRenderer sr = trails[i];
+                if (sr == null)
+                    continue;
+
+                if (i >= _trailMarks.Count)
+                {
+                    sr.enabled = false;
+                    continue;
+                }
+
+                int rawIndex = _trailMarks[i];          // 原始点下标
+                if (rawIndex >= _rawPositions.Count)
+                {
+                    sr.enabled = false;
+                    continue;
+                }
+
+                sr.enabled = true;
+
+                // ---- 位置：直接取原始记录点 ----
+                float2 pos2 = _rawPositions[rawIndex];
+                sr.transform.localPosition = new Vector3(pos2.x, 0, pos2.y);
+
+                // ---- 朝向：用插值后的邻点算（取原始点在 _tempPositions 中的前后各一点）----
+                int tempIndex = _rawToTemp[rawIndex];
+                int prevT = math.max(tempIndex - 1, 0);
+                int nextT = math.min(tempIndex + 1, _tempPositions.Count - 1);
+
+                float2 dir2 = math.normalizesafe(
+                    _tempPositions[prevT] - _tempPositions[nextT],
+                    new float2(1, 0));
+
+                if (math.lengthsq(dir2) > 1e-6f)
+                {
+                    float angleRad = math.atan2(dir2.y, dir2.x);
+                    sr.transform.localRotation = Quaternion.Euler(0, 0, angleRad * Mathf.Rad2Deg);
+                }
+                Debug.Log((sr.transform.position, sr.transform.rotation));
+                // 否则保留上一帧 localRotation，不重置
+
+                // ---- 透明度 ----
+                float progress = rawIndex / (float)math.max(_rawPositions.Count - 1, 1);
+                float alpha = Mathf.Lerp(1f, 0f, progress);
+                sr.color = new Color(1, 1, 1, alpha);
+            }
+        }
+
+        private void HideTrail()
+        {
+            if (trails == null)
+                return;
+            foreach (var sr in trails)
+            {
+                if (sr != null)
+                    sr.enabled = false;
+            }
+        }
+
+        // 【核心】：重构成 float2 的 Catmull-Rom
+        private float2 CatmullRom(float2 p0, float2 p1, float2 p2, float2 p3, float t)
+        {
+            float t2 = t * t;
+            float t3 = t2 * t;
+            return 0.5f * (
+                (2f * p1) +
+                (-p0 + p2) * t +
+                (2f * p0 - 5f * p1 + 4f * p2 - p3) * t2 +
+                (-p0 + 3f * p1 - 3f * p2 + p3) * t3
+            );
         }
     }
 }

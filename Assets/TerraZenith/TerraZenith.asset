@@ -24,23 +24,31 @@ MonoBehaviour:
     files:
     - path: Scripts/TerraZenith.cs
       guid: f2133df94b75bfe4a90d778d13a2ff3f
+    - path: Scripts/Scripts/System/ZenithSpawnProjectileSystem.cs
+      guid: 8e1f6c20d4a53b7e9c0d1a2b3f4e5d67
     - path: Scripts/Scripts/System/ZenithFlightSystem.cs
       guid: 13be8dff43c62cd49b33f78fd608fa3c
+    - path: Scripts/Scripts/System/ZenithAttackSystem.cs
+      guid: 5d3a7e90c1b24f6a8e9d0c1b2a3f4e56
     - path: Scripts/Scripts/Graphic/ZenithSwordGraphic.cs
       guid: 98ca1d07ceacf6b41aad125c69be94ec
     - path: Scripts/Scripts/Core/ZenithBalance.cs
       guid: b9b9ee41b672f1a4cb5dc45843e8af4a
+    - path: Scripts/Scripts/Component/ZenithWeaponTriggerTag.cs
+      guid: 2f8b1c64e0a74d3c9b5e6a7d8c9f0b12
+    - path: Scripts/Scripts/Component/ZenithWeaponCD.cs
+      guid: 7c4e9a21b6d84f0e9a3c5d7e1f2b4a60
     - path: Scripts/Scripts/Component/ZenithTrail.cs
       guid: 212e17c45acc44d43b951a25ebcdc88e
     - path: Scripts/Scripts/Component/ZenithProjectileAuthoring.cs
       guid: 42f325483b8a92d469988e7151e35901
-    - path: Scripts/Scripts/Component/ZenithFlightCD.cs
-      guid: a97075235e115e84ead495dd3b787c77
+    - path: Scripts/Scripts/Component/ZenithOrbitCD.cs
+      guid: 0b2979aa7bc3b15478deee85b2c56666
+    - path: Scripts/Generated/ZenithAttackSystem__System_13894897950.g.cs
+      guid: 
     - path: Scripts/Generated/ZenithFlightSystem__System_21108940390.g.cs
       guid: 
-    - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_ZenithFlightCDSerializer.cs
-      guid: 
-    - path: Scripts/Generated/GhostComponentSerializerCollection.cs
+    - path: Scripts/Generated/ZenithSpawnProjectileSystem__System_15966622450.g.cs
       guid: 
     - path: Bundles/TerraZenith_Windows.assetbundle
       guid: 
@@ -84,9 +92,9 @@ MonoBehaviour:
   - path: Assets/TerraZenith/Prefab/Zenith.prefab
     hash: 9F71F7583562C81A88107A787695E903087196A319E03F74CD1DBE273D198EBD:832172374e61daa5506b44a4ea58a18c
   - path: Assets/TerraZenith/Prefab/ZenithSword.prefab
-    hash: 1A7F16C1EA38C9495501B807A3B3DBEC21DBB46A9942590DA6E35DFCDE061DD2:2166b1b0422e9a9fbd97042126151cfe
+    hash: 2AC78FAA473EB0E007D09D44927680188DEE1CC985001981D39872982E890F6B:8d26e1275bcbf6e8305839ecb6840096
   - path: Assets/TerraZenith/Prefab/ZenithSwordGraphic.prefab
-    hash: 4442B94A7CE1F804F2EF5893B21C17862A5AD6738936A4EDC8F9F77B4C411198:474fa49b019823912e7bac71286e9d01
+    hash: 54064668D4B514E79F8D133486E4286BA0684F62FDB33A3FEEBC777DA62BCB35:af6a34924963032a0b9fc47f4608bc16
   - path: Assets/TerraZenith/Scripts/Graphic/Extra_193.png
     hash: FC024FCE6E648DB811CCA10FC11E3D2C6EBB9D0761EF18DACBE8EF15A7431187:5b8b8f6bdf3cca7d105f73d0b8e3b4d8
   - path: Assets/TerraZenith/Scripts/Graphic/Extra_201.png

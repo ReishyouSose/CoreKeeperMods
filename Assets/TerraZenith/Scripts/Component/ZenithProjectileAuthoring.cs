@@ -10,8 +10,7 @@ namespace Assets.TerraZenith.Scripts.Component
     {
         protected override void Convert(ZenithProjectileAuthoring authoring)
         {
-            // 烘焙时放上，预测生成才能直接改参数。这组参数不进快照，两端各写各的。
-            AddComponentData(new ZenithFlightCD());
+            AddComponentData(new ZenithOrbitCD());
             EnsureHasBuffer<ZenithTrail>();
         }
     }
