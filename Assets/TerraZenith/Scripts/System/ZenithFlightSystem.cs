@@ -15,80 +15,71 @@ namespace Assets.TerraZenith.Scripts.System
     public partial class ZenithFlightSystem : PugSimulationSystemBase
     {
         private ComponentLookup<LocalTransform> transformLookup;
-        private ComponentLookup<EntityDestroyedCD> destroyLookup;
-        private ComponentLookup<MovementSpeedCD> moveLookup;
 
         protected override void OnCreate()
         {
             transformLookup = GetComponentLookup<LocalTransform>();
-            destroyLookup = GetComponentLookup<EntityDestroyedCD>();
-            moveLookup = SystemAPI.GetComponentLookup<MovementSpeedCD>();
             base.OnCreate();
         }
 
         protected override void OnUpdate()
         {
             var owners = transformLookup;
-            var destroyed = destroyLookup;
-            var moveLookup = this.moveLookup;
             float dt = SystemAPI.Time.fixedDeltaTime;
-            int extraUpdates = ZenithBalance.ExtraUpdates;
-            int timeLeft = ZenithBalance.TimeLeft;
-            int killTime = timeLeft * extraUpdates;
+            int extraUpdates = ZenithBalance.UpdateCount;
+            int killTime = ZenithBalance.TimeLeft * extraUpdates;
             var ecb = CreateCommandBuffer();
-            Entities.ForEach((Entity entity, ref LocalTransform transform, /*ref ProjectileCD projectile,*/ ref ZenithOrbitCD orbit,
+            Entities.ForEach((Entity entity, ref LocalTransform transform, ref ZenithOrbitCD orbit, ref ProjectileCD proj,
                 ref DynamicBuffer<ZenithTrail> trail, in OwnerReferenceCD owner) =>
             {
-                /*if (moveLookup.HasComponent(entity))
-                    ecb.RemoveComponent<MovementSpeedCD>(entity);*/
                 Entity ownerEntity = owner.owner;
-                if (!owners.TryGetComponent(ownerEntity, out var ownerTransform))
-                {
-                    destroyed.SetComponentEnabled(entity, true);
-                    return;
-                }
-
                 float longAxis = orbit.LongAxis;
                 float shortAxis = orbit.ShortAxis;
                 float2 offset = orbit.Offset;
-                float2 playerPos = ownerTransform.Position.xz + new float2(0, 0.5f);
                 float near = math.clamp(longAxis / 14f, 0, 1);
                 ref float timer = ref orbit.Timer;
-                float scale = 0.75f;
+                float scale = 1f;
                 float step = math.lerp(2f, 0.7f, near) * dt * scale;
-                int sign = orbit.Sign;
 
                 for (int i = 0; i < extraUpdates; i++)
                 {
-                    timer += step;
-                    // 在循环内：计算世界坐标
-                    float progress = math.lerp(0, 1, timer / timeLeft);
-                    float x = progress * math.PI * 2;
-                    // 局部椭圆坐标（原点为椭圆中心，长轴为 X 轴）
-                    float2 localPos = new(math.cos(x) * longAxis, math.sin(x) * shortAxis);
+                    timer = math.min(timer + step, killTime);
+                    float progress = timer / killTime;
 
-                    // 如果保留拉扯感，要加在局部坐标里
-                    float lead = 1f - math.clamp(timer / 0.5f, 0f, 1f);
-                    float2 leadOffset = lead * new float2(sign * -longAxis * 0.1f, -shortAxis * 0.3f);
-                    //localPos += lead;
+                    //在一半的时间内就完成一圈，剩余的时间给拖尾
+                    float lerpValue2 = math.clamp(progress / 0.5f, 0f, 1f);
+                    float x = lerpValue2 * math.PI * 2f;
 
-                    // 局部坐标 -> 旋转
+                    // 位置：用 x 算椭圆点
+                    math.sincos(x, out var sin, out var cos);
+                    float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
+                    float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
+
+                    // lead 拉扯
+                    float lead = 1f - math.clamp(progress / 0.25f, 0f, 1f);
+                    float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
+                    localPos += leadOffset;
+
+                    //计算拉扯后应用方向修正
                     float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
 
-                    trail.Add(new ZenithTrail { Pos = worldPos, Progress = timer });
+                    //参数角也需要方向修正
+                    trail.Add(new ZenithTrail { Pos = worldPos, Dir = ZenithBalance.Rotate(basePos, orbit.Rotation), Progress = progress });
 
-                    // 【核心修正】循环外：实体本身要贴在椭圆中心
-                    transform.Position = (playerPos + offset).X0Y();
+                    if (timer >= killTime)
+                    {
+                        ecb.SetComponentEnabled<EntityDestroyedCD>(entity, true);
+                        break;
+                    }
                 }
-
-                if (timer >= killTime)
+                if (!owners.TryGetComponent(ownerEntity, out var ownerTransform))
                 {
-                    destroyed.SetComponentEnabled(entity, true);
+                    transform.Position = proj.prevPrevPos.X0Y();
                     return;
                 }
+                float2 playerPos = ownerTransform.Position.xz;
 
                 // 7. 强行覆盖实体位置，让 ECS 更新到世界中
-                //projectile.SetDirection(targetPos);
                 transform.Position = (offset + playerPos).X0Y();
             })
                 .WithName("ZenithOrbitSystem")

@@ -19,7 +19,5 @@ namespace Assets.TerraZenith.Scripts.Component
         public float Rotation;
         [GhostField]
         public float Timer;
-        [GhostField]
-        public int Sign;
     }
 }

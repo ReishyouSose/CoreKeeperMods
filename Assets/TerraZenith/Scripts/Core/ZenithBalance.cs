@@ -9,10 +9,11 @@ namespace Assets.TerraZenith.Scripts.Core
         public const string WeaponName = "TerraZenith_Zenith";
         public const string SwordName = "TerraZenith_ZenithSword";
         public const float SearchRadiumSqrt = 36;    // 6格索敌半径
-        public const int ExtraUpdates = 2;
+        public const int UpdateCount = 2;
         public const int TimeLeft = 1;
+        public const int TrailCount = 4;
         public static ZenithSlashColorDataBlock[] Slashs;
-        public static float2 GlobalOffset = new float2(0, 0.25f);
+        public static float2 GlobalOffset = new float2(0, 0f);
 
         public static float2 Rotate(float2 value, float angle)
         {

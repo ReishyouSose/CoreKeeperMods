@@ -98,7 +98,7 @@ namespace Assets.TerraZenith.Scripts.System
                 in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost) =>
             {
                 int count = trigger.Count;
-                trigger.Count = (count + 1) % 7;
+                trigger.Count = (count + 1) % 3;
                 triggerLookup.SetComponentEnabled(entity, false);
                 Entity prefab = equipped.equipmentPrefab;
                 if (!zenithLookup.TryGetComponent(prefab, out var weapon))
@@ -109,10 +109,12 @@ namespace Assets.TerraZenith.Scripts.System
 
                 //随机都得拨
                 ref var rng = ref random.Value;
+                bool vari = count != 0;
+                float randomRot = vari ? (rng.NextInt(-15, 15) / 180f) : 0;
                 int sign = rng.NextBool() ? 1 : -1;
                 float shortAxis = rng.NextInt(8, 49) / 16f * sign;
                 float longOffset = rng.NextInt(-16, 17) / 16f;
-                int variation = count == 0 ? 0 : (rng.NextInt(blades) + 1);
+                int variation = vari ? (rng.NextInt(blades) + 1) : 0;
                 var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
 
                 // 如果不是完整的预测帧（比如回滚重放阶段），拨完随机数就退出，防止重复生成实体
@@ -123,12 +125,10 @@ namespace Assets.TerraZenith.Scripts.System
                 if (projectilePrefab == Entity.Null)
                     return;
 
-                float2 playerPos = transform.Position.xz + new float2(0, 0.5f);
+                float2 playerPos = transform.Position.xz /*+ new float2(0, 0.5f)*/;
                 float2 target = input.mouseOrJoystickWorldPoint - playerPos;
-                //float2 aim = ZenithBalance.ClampAim(playerPos, input.mouseOrJoystickWorldPoint);
-                bool searchEnemy = count != 0;
                 // 特定的剑（序号 1、2）会寻找附近的敌人（索敌）
-                if (searchEnemy && nearbyLookup.TryGetBuffer(entity, out var nearby))
+                if (vari && nearbyLookup.TryGetBuffer(entity, out var nearby))
                 {
                     float minDis = ZenithBalance.SearchRadiumSqrt;
                     foreach (var enemy in nearby)
@@ -150,6 +150,8 @@ namespace Assets.TerraZenith.Scripts.System
                         target = totar;
                     }
                 }
+                else
+                    ZenithBalance.Rotate(target, randomRot);
 
 
                 // ==========================================
@@ -202,7 +204,7 @@ namespace Assets.TerraZenith.Scripts.System
                     LongAxis = halfAxis,
                     ShortAxis = shortAxis, // 比如 0.4f，侧向摆动幅度
                     Rotation = rot + math.PI,
-                    Sign = (int)math.sign(target.x)
+                    // Sign = target.x >= 0 ? 1 : -1
                 };
                 ecb.SetComponent(projectile, orbit);
 

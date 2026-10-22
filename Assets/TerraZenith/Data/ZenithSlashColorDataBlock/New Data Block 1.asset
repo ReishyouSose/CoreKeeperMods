@@ -27,6 +27,9 @@ MonoBehaviour:
       m_high: -4191821848688967847
   Sprite: {fileID: 21300000, guid: 93501582dc25d774c8458d407dde1796, type: 2}
   Color: {r: 0.8235295, g: 0.6039216, b: 0.48627454, a: 1}
+  Offset:
+    x: 0
+    y: -0.125
   references:
     version: 2
     RefIds: []
