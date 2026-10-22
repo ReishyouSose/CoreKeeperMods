@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603cb75fd37f9be43ba599f391a1e32a, type: 3}
+  m_Name: WoodSwordEntity
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 5437051480481582486
+    m_high: 8951075205974021035
+  m_dynamicCollections:
+    m_list: []
+  AuthoringRef:
+    m_address:
+      m_low: -3358536434639492876
+      m_high: -4191821848688967847
+  Sprite: {fileID: 21300000, guid: 93501582dc25d774c8458d407dde1796, type: 2}
+  Color: {r: 0.8235295, g: 0.6039216, b: 0.48627454, a: 1}
+  references:
+    version: 2
+    RefIds: []

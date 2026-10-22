@@ -15,12 +15,6 @@ namespace Assets.TerraZenith
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
-            if (authoringData.TryGetComponent<MeleeWeaponAuthoring>(out _)
-                && authoringData.TryGetComponent<EntityMonoBehaviourData>(out var vanilla)
-                && vanilla.ObjectInfo.objectType == ObjectType.MeleeWeapon)
-            {
-                ZenithBalance.Blades.Add(vanilla.ObjectInfo.objectID);
-            }
             if (authoringData.TryGetComponent(out PlayerAuthoring _))
             {
                 entityManager.AddComponent<ZenithWeaponTriggerTag>(entity);
@@ -40,6 +34,7 @@ namespace Assets.TerraZenith
 
         public void Init()
         {
+            ZenithBalance.LoadSlash();
         }
 
         public void ModObjectLoaded(Object obj)

@@ -54,7 +54,7 @@ namespace Assets.TerraZenith.Scripts.System
                 float2 playerPos = ownerTransform.Position.xz + new float2(0, 0.5f);
                 float near = math.clamp(longAxis / 14f, 0, 1);
                 ref float timer = ref orbit.Timer;
-                float scale = 0.5f;
+                float scale = 0.75f;
                 float step = math.lerp(2f, 0.7f, near) * dt * scale;
                 int sign = orbit.Sign;
 
@@ -62,7 +62,7 @@ namespace Assets.TerraZenith.Scripts.System
                 {
                     timer += step;
                     // 在循环内：计算世界坐标
-                    float progress = math.clamp(math.lerp(0, 1, timer / timeLeft), 0, 1);
+                    float progress = math.lerp(0, 1, timer / timeLeft);
                     float x = progress * math.PI * 2;
                     // 局部椭圆坐标（原点为椭圆中心，长轴为 X 轴）
                     float2 localPos = new(math.cos(x) * longAxis, math.sin(x) * shortAxis);
@@ -75,7 +75,7 @@ namespace Assets.TerraZenith.Scripts.System
                     // 局部坐标 -> 旋转
                     float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
 
-                    trail.Add(new ZenithTrail { Pos = worldPos, Progress = timer }); // 如果之前是相对，请改成 worldPos - playerPos
+                    trail.Add(new ZenithTrail { Pos = worldPos, Progress = timer });
 
                     // 【核心修正】循环外：实体本身要贴在椭圆中心
                     transform.Position = (playerPos + offset).X0Y();

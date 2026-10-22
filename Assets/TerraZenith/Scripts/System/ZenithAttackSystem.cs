@@ -100,6 +100,7 @@ namespace Assets.TerraZenith.Scripts.System
             var database = SystemAPI.GetSingleton<PugDatabase.DatabaseBankCD>();
             var tick = SystemAPI.GetSingleton<NetworkTime>().ServerTick;
             uint tickRate = this.tickRate;
+            var ecb = CreateCommandBuffer();
             Entity inventoryEntity = SystemAPI.GetSingletonEntity<InventoryChangeBuffer>();
 
             Entities.ForEach((Entity entity, in EquippedObjectCD equipped, in ClientInput input, in EquipmentSlotCD slot, in PlayerRoutineCD routine) =>
@@ -132,7 +133,8 @@ namespace Assets.TerraZenith.Scripts.System
                 if (cooldownLookup.TryGetComponent(prefab, out var cooldown))
                     cooldownTime = cooldown.cooldown;
                 DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effectsLookup[entity];
-                float attackSpeed = math.max(1f + effectBuffer[41].value / 1000f + effectBuffer[65].value / 1000f, 0.1f);
+                float attackSpeed = math.max(1f + effectBuffer[(int)ConditionEffect.MeleeAttackSpeed].value / 1000f
+                    + effectBuffer[(int)ConditionEffect.AttackSpeed].value / 1000f, 0.1f);
                 cooldownTime /= attackSpeed;
 
                 var attackCooldown = attackCooldownLookup.GetRefRW(entity);

@@ -2,7 +2,6 @@ using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
 using PlayerEquipment;
 using Pug.UnityExtensions;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
@@ -38,6 +37,7 @@ namespace Assets.TerraZenith.Scripts.System
         private BufferLookup<LevelEntitiesBuffer> levelEntitiesLookup;
         private BufferLookup<SummarizedConditionEffectsBuffer> effectBufferLookup;
         private BufferLookup<SummarizedConditionsBuffer> conditionsLookup;
+        private BufferLookup<NearbyEntitiesBufferCD> nearbyLookup;
 
         protected override void OnCreate()
         {
@@ -59,6 +59,7 @@ namespace Assets.TerraZenith.Scripts.System
             levelEntitiesLookup = SystemAPI.GetBufferLookup<LevelEntitiesBuffer>(true);
             effectBufferLookup = SystemAPI.GetBufferLookup<SummarizedConditionEffectsBuffer>(true);
             conditionsLookup = SystemAPI.GetBufferLookup<SummarizedConditionsBuffer>(true);
+            nearbyLookup = SystemAPI.GetBufferLookup<NearbyEntitiesBufferCD>(true);
             RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             RequireForUpdate<PugDatabase.DatabaseBankCD>();
             RequireForUpdate<ConditionsTableCD>();
@@ -87,17 +88,17 @@ namespace Assets.TerraZenith.Scripts.System
             var levelEntitiesLookup = this.levelEntitiesLookup;
             var effectLookup = this.effectBufferLookup;
             var conditionsLookup = this.conditionsLookup;
+            var nearbyLookup = this.nearbyLookup;
             var database = SystemAPI.GetSingleton<PugDatabase.DatabaseBankCD>();
             var conditionsTable = SystemAPI.GetSingleton<ConditionsTableCD>();
             bool firstTime = SystemAPI.GetSingleton<NetworkTime>().IsFirstTimeFullyPredictingTick;
             var ecb = CreateCommandBuffer();
-            int blades = ZenithBalance.Blades.Count;
-            // 注意：你这里使用了 enemyTransforms 和 enemyHealth，但在前面并没有定义，可能是你之前查敌人的数组没贴上来
-            // 如果编译报错，请自己补充使用 enemies.ToComponentDataArray 的逻辑
-            // var enemyTransforms = enemies.ToComponentDataArray<LocalTransform>(Allocator.Temp);
-            // var enemyHealth = enemies.ToComponentDataArray<HealthCD>(Allocator.Temp);
-            Entities.ForEach((Entity entity, ref RandomCD random, in EquippedObjectCD equipped, in ClientInput input, in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost, in DynamicBuffer<NearbyEntitiesBufferCD> nearby) =>
+            int blades = ZenithBalance.Slashs.Length;
+            Entities.ForEach((Entity entity, ref RandomCD random, ref ZenithWeaponTriggerTag trigger, in EquippedObjectCD equipped, in ClientInput input,
+                in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost) =>
             {
+                int count = trigger.Count;
+                trigger.Count = (count + 1) % 7;
                 triggerLookup.SetComponentEnabled(entity, false);
                 Entity prefab = equipped.equipmentPrefab;
                 if (!zenithLookup.TryGetComponent(prefab, out var weapon))
@@ -109,8 +110,9 @@ namespace Assets.TerraZenith.Scripts.System
                 //随机都得拨
                 ref var rng = ref random.Value;
                 int sign = rng.NextBool() ? 1 : -1;
-                float shortAxis = rng.NextInt(16, 49) / 16f * sign;
-                int variation = rng.NextInt(blades);
+                float shortAxis = rng.NextInt(8, 49) / 16f * sign;
+                float longOffset = rng.NextInt(-16, 17) / 16f;
+                int variation = count == 0 ? 0 : (rng.NextInt(blades) + 1);
                 var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
 
                 // 如果不是完整的预测帧（比如回滚重放阶段），拨完随机数就退出，防止重复生成实体
@@ -124,9 +126,9 @@ namespace Assets.TerraZenith.Scripts.System
                 float2 playerPos = transform.Position.xz + new float2(0, 0.5f);
                 float2 target = input.mouseOrJoystickWorldPoint - playerPos;
                 //float2 aim = ZenithBalance.ClampAim(playerPos, input.mouseOrJoystickWorldPoint);
-                bool searchEnemy = false;
+                bool searchEnemy = count != 0;
                 // 特定的剑（序号 1、2）会寻找附近的敌人（索敌）
-                if (searchEnemy)
+                if (searchEnemy && nearbyLookup.TryGetBuffer(entity, out var nearby))
                 {
                     float minDis = ZenithBalance.SearchRadiumSqrt;
                     foreach (var enemy in nearby)
@@ -184,13 +186,15 @@ namespace Assets.TerraZenith.Scripts.System
                 ecb.SetComponent(projectile, LocalTransform.FromPosition(transform.Position));
                 float back = 1f;
                 float dist = math.length(target);
+                dist += ((dist + longOffset < 0) ? -1 : 1) * longOffset;
                 if (dist < 1e-4f)
                     target = new float2(1f, 0f);
                 float2 dir = math.normalize(target);
                 float rot = math.atan2(dir.y, dir.x);
 
                 float halfAxis = (dist + back) * 0.5f; // 半长轴
-
+                if (math.abs(shortAxis) * 4 < halfAxis)
+                    shortAxis *= 2;
                 var orbit = new ZenithOrbitCD
                 {
                     // 【核心修正】Offset 是从“玩家(也就是椭圆短轴端点)”指向“椭圆中心”的向量
@@ -244,27 +248,6 @@ namespace Assets.TerraZenith.Scripts.System
             // enemyTransforms.Dispose();
             // enemyHealth.Dispose();
             base.OnUpdate();
-        }
-
-        // 准星周围 25 格内最近的活着的敌人。
-        private static bool TryHome(float2 aim, NativeArray<LocalTransform> transforms, NativeArray<HealthCD> healths, out float2 home)
-        {
-            float best = ZenithBalance.SearchRadiumSqrt * ZenithBalance.SearchRadiumSqrt;
-            home = aim;
-            bool found = false;
-            for (int i = 0; i < transforms.Length; i++)
-            {
-                if (healths[i].health <= 0)
-                    continue;
-                float2 point = transforms[i].Position.xz;
-                float distance = math.lengthsq(point - aim);
-                if (distance >= best)
-                    continue;
-                best = distance;
-                home = point;
-                found = true;
-            }
-            return found;
         }
     }
 }

@@ -1,0 +1,293 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1485382805550811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4544875726506406}
+  - component: {fileID: 114506469320090503}
+  - component: {fileID: 114818899737034817}
+  - component: {fileID: 114699567525731105}
+  - component: {fileID: 114573747017166204}
+  - component: {fileID: 114644612435849634}
+  - component: {fileID: 114191452440930483}
+  - component: {fileID: 114210461835956736}
+  - component: {fileID: 114494088638873640}
+  - component: {fileID: 114452655005872260}
+  - component: {fileID: 114576389652933463}
+  m_Layer: 0
+  m_Name: LegendarySwordEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4544875726506406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114506469320090503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1814889704, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInfo:
+    objectID: 8951
+    initialAmount: 1
+    variation: 0
+    variationIsDynamic: 1
+    variationToToggleTo: 0
+    objectType: 500
+    tags: 22000000
+    rarity: 4
+    salvageMultiplier: 1
+    level: 0
+    sellValue: -1
+    buyValueMultiplier: 1
+    icon: {fileID: 21300000, guid: b524369d2dc7fae42a7cf9df27fdaec0, type: 2}
+    iconOffset: {x: 0, y: -0.125}
+    iconSkinAssetRef:
+      m_address:
+        m_low: 0
+        m_high: 0
+    smallIcon: {fileID: 21300000, guid: b524369d2dc7fae42a7cf9df27fdaec0, type: 2}
+    isStackable: 0
+    prefabTileSize: {x: 1, y: 1}
+    prefabCornerOffset: {x: 0, y: 0}
+    centerIsAtEntityPosition: 0
+    additionalSprites:
+    - {fileID: 21300000, guid: b524369d2dc7fae42a7cf9df27fdaec0, type: 2}
+    - {fileID: 21300000, guid: dbd8314a5f46df54f80d08fee3179700, type: 2}
+    tileset: 0
+    tileType: 0
+    prefabInfo:
+      graphicalRef:
+        m_address:
+          m_low: 0
+          m_high: 0
+      authoringRef:
+        m_address:
+          m_low: -5520170020370573831
+          m_high: -673374816400038920
+      prefab: {fileID: 0}
+      authoring: {fileID: 0}
+    craftingSettings:
+      canOnlyUseAnyMaterialsWithTag: 0
+      iconType: 0
+    requiredObjectsToCraft:
+    - objectID: 8950
+      amount: 1
+    - objectID: 9900
+      amount: 1
+    - objectID: 9901
+      amount: 1
+    - objectID: 1002
+      amount: 50
+    - objectID: 1600
+      amount: 10
+    craftingTime: 1
+    appearInMapUI: 0
+    mapColor: {r: 0, g: 0, b: 0, a: 0}
+    isCustomScenePrefab: 0
+    languageGenders: []
+  optionalPreviewPrefab: {fileID: 0}
+--- !u!114 &114818899737034817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateValuesFromLevel: 0
+  givesConditionsWhenHeldInHand: 1
+  isArmor: 0
+  givesConditionsWhenEquipped:
+  - id: 19
+    valueMultiplier: 3.2
+    value: 10
+  - id: 86
+    valueMultiplier: 0.8
+    value: 5
+--- !u!114 &114699567525731105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1263341004, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedCooldownIdentifier: 0
+  cooldown: 0.4
+  casualCharacterIgnoresCustomCooldown: 0
+--- !u!114 &114573747017166204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 259
+  damageMultiplier: 1.1
+  isRange: 0
+  isMagic: 0
+  level: {fileID: 114644612435849634}
+  entityMono: {fileID: 114506469320090503}
+  cooldown: {fileID: 114699567525731105}
+--- !u!114 &114644612435849634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1462739941, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  areaLevel: 50
+  level: 13
+  entityMono: {fileID: 114506469320090503}
+  forceGenerateLevelEntities: 0
+--- !u!114 &114191452440930483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -155993072, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disable: 0
+  baseHitColliderSize: 1.5
+  extraHitColliderReachSize: 0
+  overrideAnimation: 
+  quickHit: 0
+  isBigSpearWeapon: 0
+  isBigSwingWeapon: 0
+  skipAnticipationAnimation: 0
+  lungeForce: 0
+  tileDamageAOE: 0
+  attackFXType: 0
+  arcAngle: 5
+--- !u!114 &114210461835956736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1600091730, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSoundId:
+    value: -1838783722
+  flightSoundId:
+    value: 0
+  impactSoundId:
+    value: 38064714
+  windupSound:
+    value: -724843208
+  windupCancelSound:
+    value: 0
+  strongAttackSound:
+    value: 512091904
+--- !u!114 &114494088638873640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1754845523, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mechanic: 1
+  windupTiers: 3
+  cancelAttackIfNotAtWindupTier: 0
+  windupAreaSizeMultiplier: 0
+  extraDamageMultiplier: 1
+  movementSpeedMultiplier: 0.5
+  projectileSpeedMultiplier: 1
+  windupTime: 1.5
+  windupTimeMultiplier: 1
+  manaCostMultiplier: 2
+  windupExplosionSequenceStart: 0
+  windupExplosionSequenceIncrement: 0
+  useAimingAnimationDuringWindup: 1
+  knockback: 0
+  weaponEffectType: 2
+  useTerm: 15
+  minionToSpawn: 0
+--- !u!114 &114452655005872260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 782416644, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.2216981, g: 0.8895359, b: 1, a: 1}
+  intensity: 1
+--- !u!114 &114576389652933463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485382805550811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1907328949, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaveTrail: 1
+  trails: 6
+  trailObjectID: 9267

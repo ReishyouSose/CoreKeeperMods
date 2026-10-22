@@ -87,7 +87,7 @@ MonoBehaviour:
   sellValue: -1
   buyValueMultiplier: 1
   icon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
-  iconOffset: {x: 0, y: 0}
+  iconOffset: {x: 0, y: -0.1875}
   smallIcon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
   isStackable: 0
   requiredObjectsToCraft: []

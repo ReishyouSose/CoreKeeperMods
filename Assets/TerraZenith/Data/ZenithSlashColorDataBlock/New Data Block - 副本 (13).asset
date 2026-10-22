@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603cb75fd37f9be43ba599f391a1e32a, type: 3}
+  m_Name: PoisonousSickle
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 5266323076539392363
+    m_high: 3278635115440093883
+  m_dynamicCollections:
+    m_list: []
+  AuthoringRef:
+    m_address:
+      m_low: -3709827457512960549
+      m_high: 8420340764213523976
+  Sprite: {fileID: 21300000, guid: 76f835617e25e7b45bdf05a0e76d7d24, type: 2}
+  Color: {r: 0.8207547, g: 0.43747774, b: 0.81543124, a: 1}
+  references:
+    version: 2
+    RefIds: []

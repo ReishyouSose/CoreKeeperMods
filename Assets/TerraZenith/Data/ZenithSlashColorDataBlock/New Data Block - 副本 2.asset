@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603cb75fd37f9be43ba599f391a1e32a, type: 3}
+  m_Name: ShardClubEntity
+  m_EditorClassIdentifier: 
+  m_overload:
+    m_address:
+      m_low: 0
+      m_high: 0
+  m_address:
+    m_low: 1951346221886849715
+    m_high: 710123278503758344
+  m_dynamicCollections:
+    m_list: []
+  AuthoringRef:
+    m_address:
+      m_low: 2172066077962838888
+      m_high: 1338767930684308330
+  Sprite: {fileID: 21300000, guid: 3f16552188dabfb40a5ada8f6b1b363d, type: 2}
+  Color: {r: 0.5803922, g: 0.9686275, b: 0.86666673, a: 1}
+  references:
+    version: 2
+    RefIds: []
