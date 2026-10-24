@@ -13,7 +13,6 @@ namespace Assets.TerraZenith.Scripts.Core
         public const int TimeLeft = 1;
         public const int TrailCount = 4;
         public static ZenithSlashColorDataBlock[] Slashs;
-        public static float2 GlobalOffset = new float2(0, 0f);
 
         public static float2 Rotate(float2 value, float angle)
         {

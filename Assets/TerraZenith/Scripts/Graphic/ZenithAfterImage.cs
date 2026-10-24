@@ -6,6 +6,5 @@ namespace Assets.TerraZenith.Scripts.Graphic
     {
         public SpriteRenderer Sprite;
         public SpriteMask Mask;
-        public ZenithStarSparkle StarSparkle;
     }
 }

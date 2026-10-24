@@ -44,27 +44,30 @@ namespace Assets.TerraZenith.Scripts.System
                 for (int i = 0; i < extraUpdates; i++)
                 {
                     timer = math.min(timer + step, killTime);
-                    float progress = timer / killTime;
+                    float life = timer / killTime;
 
                     //在一半的时间内就完成一圈，剩余的时间给拖尾
-                    float lerpValue2 = math.clamp(progress / 0.5f, 0f, 1f);
-                    float x = lerpValue2 * math.PI * 2f;
+                    float progress = math.clamp(life / 0.5f, 0f, 1f);
 
-                    // 位置：用 x 算椭圆点
-                    math.sincos(x, out var sin, out var cos);
-                    float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
-                    float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
+                    if (progress <= 1f)
+                    {
+                        float x = progress * math.PI * 2f;
+                        // 位置：用 x 算椭圆点
+                        math.sincos(x, out var sin, out var cos);
+                        float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
+                        float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
 
-                    // lead 拉扯
-                    float lead = 1f - math.clamp(progress / 0.25f, 0f, 1f);
-                    float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
-                    localPos += leadOffset;
+                        // lead 拉扯
+                        float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
+                        float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
+                        localPos += leadOffset;
 
-                    //计算拉扯后应用方向修正
-                    float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
+                        //计算拉扯后应用方向修正
+                        float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
 
-                    //参数角也需要方向修正
-                    trail.Add(new ZenithTrail { Pos = worldPos, Dir = ZenithBalance.Rotate(basePos, orbit.Rotation), Progress = progress });
+                        //参数角也需要方向修正
+                        trail.Add(new ZenithTrail { Pos = worldPos });
+                    }
 
                     if (timer >= killTime)
                     {
@@ -84,6 +87,7 @@ namespace Assets.TerraZenith.Scripts.System
             })
                 .WithName("ZenithOrbitSystem")
                 .WithBurst()
+                .WithNone<EntityDestroyedCD>()
                 .Schedule();
 
             base.OnUpdate();

@@ -2,6 +2,7 @@ using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
 using Pug.UnityExtensions;
 using System.Collections.Generic;
+using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -10,14 +11,15 @@ namespace Assets.TerraZenith.Scripts.Graphic
     public class ZenithSwordGraphic : Projectile
     {
         public MeshFilter Ribbon;               // 刀光网格
-        public List<ZenithAfterImage> trails;     // 残影列表
+        public List<ZenithAfterImage> Trails;     // 残影列表
+        public List<ZenithStarSparkle> Stars;
+        public List<SpriteRenderer> Colliders;
 
 
         public MeshRenderer ribbonRenderer;
         public Color PrimaryColor;
         public Sprite PrimarySprite;
         public float2 PrimaryOffset;
-        private int trailCount;
         private int oldVari;
         private Color currentColor;
 
@@ -26,22 +28,29 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private Color[] _colors;
         private Vector2[] _uvs;
         private int[] _triangles;
-
-        private List<float2> _tempPositions = new(512);
-        private List<float> _tempProgress = new(512);
-        private List<float2> _tempDirs = new(512);      // ★ 与 _tempPositions 同索引的剑身方向（单位向量）
-
-        private List<float2> _rawPositions = new(128);
-        private List<float> _rawTimers = new(128);
-        private List<int> _rawToTemp = new(128);
-
-        private List<int> _trailMarks = new(4);
+        private float timer;
+        private const int TrailLength = 512;
+        private readonly List<float2> oldPos = new(TrailLength);
+        private readonly List<float2> oldRot = new(TrailLength);
+        private readonly List<float> oldLife = new(TrailLength);
+        private float oldLong;
+        private float oldShort;
         protected override void OnSpawn()
         {
             base.OnSpawn();
             EnsureMesh();
+            oldPos.Clear();
+            oldRot.Clear();
+            oldLife.Clear();
             HideTrail();
             oldVari = -2;
+            timer = 0;
+            var manager = world.EntityManager;
+            var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
+            var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
+            CheckSlash(vari);
+            oldLong = orbit.LongAxis;
+            oldShort = orbit.ShortAxis;
         }
         private void CheckSlash(int vari)
         {
@@ -63,7 +72,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 currentColor = slash.Color;
                 offset = slash.Offset;
             }
-            foreach (var trail in trails)
+            foreach (var trail in Trails)
             {
                 trail.Sprite.sprite = target;
                 trail.Mask.transform.localPosition = new(-offset.x, 0, -offset.y);
@@ -75,9 +84,24 @@ namespace Assets.TerraZenith.Scripts.Graphic
             var manager = world.EntityManager;
             var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
             var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
-            CheckSlash(vari);
-            ReadOrbit();
+            // CheckSlash(vari);
+            SimulateOrbit(orbit);
             BuildRibbonAndTrail(orbit);
+            DebugCollider(manager.GetBuffer<ZenithTrail>(entity));
+        }
+
+        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
+        {
+            for (int i = 0; i < zenithTrails.Length; i++)
+            {
+                while (Colliders.Count <= i)
+                {
+                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
+                }
+                var collider = Colliders[i];
+                collider.gameObject.SetActive(true);
+                collider.transform.localPosition = zenithTrails[i].Pos.X0Y();
+            }
         }
 
         private void EnsureMesh()
@@ -87,259 +111,214 @@ namespace Assets.TerraZenith.Scripts.Graphic
             if (_mesh != null)
                 return;
 
-            _mesh = new Mesh();
-            _mesh.name = "ZenithBladeLight";
+            _mesh = new Mesh
+            {
+                name = "ZenithBladeLight"
+            };
             _mesh.MarkDynamic();
             Ribbon.sharedMesh = _mesh;
 
-            int maxCapacity = 1024;
+            int maxCapacity = TrailLength;
             _vertices = new Vector3[maxCapacity * 2];
             _colors = new Color[maxCapacity * 2];
             _uvs = new Vector2[maxCapacity * 2];
-            _triangles = new int[(maxCapacity - 1) * 12];
+            _triangles = new int[(maxCapacity - 1) * 6];
         }
 
         private void HideTrail()
         {
-            if (trails == null)
+            if (Trails == null)
                 return;
-            foreach (var sr in trails)
-                sr.gameObject.SetActive(false);
+            for (int i = 0; i < Trails.Count; i++)
+            {
+                Trails[i].gameObject.SetActive(false);
+                Stars[i].gameObject.SetActive(false);
+            }
+            foreach (var go in Colliders)
+            {
+                go.gameObject.SetActive(false);
+            }
         }
 
-        private void ReadOrbit()
+        private void SimulateOrbit(ZenithOrbitCD orbit)
         {
-            var manager = world.EntityManager;
-            if (!manager.Exists(entity) || !manager.HasBuffer<ZenithTrail>(entity))
-                return;
-
-            var zenithTrail = manager.GetBuffer<ZenithTrail>(entity, true);
-            trailCount = zenithTrail.Length;
-
-            _tempPositions.Clear();
-            _tempProgress.Clear();
-            _tempDirs.Clear();                              // ★
-            _rawPositions.Clear();
-            _rawTimers.Clear();
-            _rawToTemp.Clear();
-            _trailMarks.Clear();
-
-            if (trailCount < 2)
-                return;
-
-            int update = ZenithBalance.UpdateCount;
-
-            for (int i = trailCount - 1; i >= 0; i--)
+            float longAxis = orbit.LongAxis;
+            float shortAxis = orbit.ShortAxis;
+            if (longAxis != oldLong || shortAxis != oldShort)
             {
-                var current = zenithTrail[i];
-                float2 pos = current.Pos;
-                float timer = current.Progress;
-                float2 dir = current.Dir;                   // ★ 读方向
-
-                _rawPositions.Add(pos);
-                _rawTimers.Add(timer);
-                _rawToTemp.Add(_tempPositions.Count);
-
-                _tempPositions.Add(pos);
-                _tempProgress.Add(timer);
-                _tempDirs.Add(dir);                         // ★
-
-                if (i == 0)
-                    continue;
-
-                var older = zenithTrail[i - 1];
-                float2 nextPos = older.Pos;
-                float2 nextDir = older.Dir;                 // ★
-                float dist = math.length(nextPos - pos);
-
-                if (dist >= 0.001f)
-                {
-                    float2 dir1 = (i < trailCount - 1)
-                        ? math.normalizesafe(pos - zenithTrail[i + 1].Pos, new float2(1, 0))
-                        : math.normalizesafe(nextPos - pos, new float2(1, 0));
-                    float2 dir2 = math.normalizesafe(nextPos - pos, new float2(1, 0));
-                    float angleDiff = Vector2.Angle(dir1, dir2) * Mathf.Deg2Rad;
-
-                    float2 p0 = (i < trailCount - 1) ? zenithTrail[i + 1].Pos : pos + (pos - nextPos);
-                    float2 p3 = (i - 1 >= 0) ? zenithTrail[i - 1].Pos : nextPos + (nextPos - pos);
-
-                    int steps = Mathf.CeilToInt(angleDiff / (Mathf.PI / 12f));
-                    if (steps > 1)
-                    {
-                        for (int s = 1; s < steps; s++)
-                        {
-                            float t = s / (float)steps;
-                            float2 interpPos = CatmullRom(p0, pos, nextPos, p3, t);
-                            _tempPositions.Add(interpPos);
-                            _tempProgress.Add(Mathf.Lerp(timer, older.Progress, t));
-                            // ★ 方向向量线性插值后归一化（不是 LerpAngle）
-                            _tempDirs.Add(math.normalizesafe(math.lerp(dir, nextDir, t), dir));
-                        }
-                    }
-                }
+                Debug.Log($"跳变！ long:{oldLong} {longAxis}, short:{oldShort} {shortAxis} timer:{timer} ");
+                oldLong = longAxis;
+                oldShort = shortAxis;
             }
-
-            int stride = Mathf.Max(1, update * 5);
-            for (int k = 0; k < _rawPositions.Count && _trailMarks.Count < trails.Count; k += stride)
+            float near = math.clamp(longAxis / 14f, 0, 1);
+            float step = math.lerp(2f, 0.7f, near) * Time.deltaTime;
+            int updateCount = ZenithBalance.UpdateCount;
+            int killTime = ZenithBalance.TimeLeft * updateCount;
+            float life = 0;
+            if (timer >= killTime)
+                return;
+            for (int i = 0; i < updateCount; i++)
             {
-                _trailMarks.Add(k);
+                bool dense = life is < 0.1f or > 0.9f or (> 0.4f and < 0.6f);
+                int denseCount = dense ? 3 : 1;
+                for (int j = 0; j < denseCount; j++)
+                {
+                    timer = math.min(timer + step / denseCount, killTime);
+                    life = timer / killTime;
+
+                    //在一半的时间内就完成一圈，剩余的时间给拖尾
+                    float progress = math.clamp(life / 0.5f, 0f, 1f);
+                    float x = progress * math.PI * 2f;
+
+                    math.sincos(x, out var sin, out var cos);
+                    float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
+                    float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
+
+                    float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
+                    float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
+                    localPos += leadOffset;
+
+                    float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
+                    oldPos.Add(worldPos);
+                    oldRot.Add(ZenithBalance.Rotate(basePos, orbit.Rotation));
+                    oldLife.Add(life);
+                    if (timer >= killTime)
+                        return;
+                }
             }
         }
         private void BuildRibbonAndTrail(ZenithOrbitCD orbit)
         {
-            if (_mesh == null || _tempPositions.Count < 2)
+            int i = oldPos.Count - 1;
+            if (i < 2)
                 return;
-
-            int count = 0;
             float halfWidth = 0.75f;
-            float2 offset = ZenithBalance.GlobalOffset;
-            int nextTrailIndex = 0;
-            int nextRawIndex = _trailMarks.Count > 0 ? _trailMarks[0] : -1;
             int killTime = ZenithBalance.UpdateCount * ZenithBalance.TimeLeft;
 
-            float fix = Mathf.Clamp01(orbit.Timer / killTime);
+            float fix = Mathf.Clamp01(timer / killTime);
             fix = Mathf.Clamp01((1f - fix) / 0.25f);
             bool reverse = orbit.ShortAxis < 0;
 
-            int sectionStartIndex = 0;
-            int nextSectionEndIndex = (nextRawIndex >= 0) ? _rawToTemp[nextRawIndex] : _tempPositions.Count - 1;
-            float invLast = 1f / (_tempPositions.Count - 1);
-            float opacityPerTrail = trails.Count > 0 ? 1f / trails.Count : 0f;
-
-            for (int i = 0; i < _tempPositions.Count; i++)
+            int trailCount = ZenithBalance.TrailCount;
+            float lifePerTrail = 1f / trailCount;
+            float trailOpacity = 1 + lifePerTrail;
+            int trailIndex = -1;
+            int trailInterval;
+            int trailStart = i;
+            int trailEnd = 0;
+            int j = 0;
+            float nextInterval = oldLife[^1];
+            int total = TrailLength * 2;
+            while (i > 0)
             {
-                float2 center = _tempPositions[i];
-                float progress = _tempProgress[i];
-                float2 dir = _tempDirs[i];
-
-                float2 normal = dir;
-
-                float fadeIn = Mathf.Clamp01(progress / 0.2f);
-                float fadeOut = Mathf.Clamp01((0.6f - progress) / 0.1f);
-                float baseAlpha = fadeIn * fadeOut * fix;
-
-                bool isBoundary = (nextRawIndex >= 0 && i == _rawToTemp[nextRawIndex]);
-
-                if (isBoundary)
+                float2 center = oldPos[i];
+                float2 dir = oldRot[i];
+                float life = oldLife[i];
+                bool mark = false;
+                if (life <= nextInterval)
                 {
-                    if (trails != null && nextTrailIndex < trails.Count)
+                    trailIndex++;
+                    if (trailIndex >= trailCount)
+                        break;
+                    mark = true;
+                    trailOpacity -= lifePerTrail;//模拟从1开始
+                    trailStart = i;
+                    nextInterval -= lifePerTrail;
+                    bool find = false;
+                    for (int k = i - 1; k > 0; k--)
                     {
-                        var trail = trails[nextTrailIndex];
-                        if (baseAlpha <= 0.01f)
+                        if (oldLife[k] <= nextInterval)
                         {
-                            trail.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            trail.gameObject.SetActive(true);
-                            SpriteRenderer sr = trail.Sprite;
-                            sr.flipX = reverse;
-                            float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-
-                            // 修正位置和旋转
-                            trail.transform.SetLocalPositionAndRotation(
-                                new Vector3(center.x, ZenithBalance.GlobalOffset.y, center.y),
-                                Quaternion.Euler(0, 0, angleDeg));
-
-                            float trailAlpha = 1.0f - (nextTrailIndex * opacityPerTrail);
-                            Color finalTrailColor = new Color(1, 1, 1, baseAlpha * trailAlpha);
-                            sr.color = finalTrailColor;
-
-                            // ★★★ 核心修改：处理星光 ★★★
-                            if (trail.StarSparkle != null)
-                            {
-                                // 1. 设定颜色（受基础透明度和残影衰减影响）
-                                Color starColor = currentColor; // 使用当前刀光的颜色
-                                starColor.a = finalTrailColor.a;
-                                trail.StarSparkle.Set(starColor);
-
-                                // 2. 设定脉冲缩放
-                                // 原版效果：星星有一个先变大再变小的过程，我们利用 progress 来模拟
-                                // 假设 progress 0->1 是一把剑的寿命。
-                                // 我们让它在 0.2 之前变大，0.6 之后缩小。
-                                float starScale = Mathf.Clamp01(progress / 0.2f) * Mathf.Clamp01((0.8f - progress) / 0.2f);
-                                starScale = Mathf.Lerp(0.5f, 1.5f, starScale) / 8f; // 最小 0.5，最大 1.5 倍缩放
-
-                                trail.StarSparkle.transform.localScale = new float3(starScale, starScale, 1);
-                            }
+                            trailEnd = k;
+                            find = true;
+                            break;
                         }
                     }
-                    nextTrailIndex++;
-                    nextRawIndex = (nextTrailIndex < _trailMarks.Count) ? _trailMarks[nextTrailIndex] : -1;
-
-                    sectionStartIndex = i;
-                    nextSectionEndIndex = (nextRawIndex >= 0) ? _rawToTemp[nextRawIndex] : _tempPositions.Count - 1;
+                    if (!find)
+                        trailEnd = 0;
                 }
-
-                // 处理网格（保持原样）
-                int sectionLength = nextSectionEndIndex - sectionStartIndex;
-                if (sectionLength <= 0)
-                    sectionLength = 1;
-                float progressRatio = (i - sectionStartIndex) / (float)sectionLength;
-                float localProgress = progressRatio;
-                if (i == _tempPositions.Count - 1)
-                    localProgress = 0f;
-                localProgress = Mathf.Clamp01(localProgress);
-
-                center += offset;
-                float t = i * invLast;
-                float globalFade = 1f - math.smoothstep(0.2f, 1.0f, t);
-                float finalBaseAlpha = globalFade * baseAlpha;
-
-                float2 a2 = center - 2f * halfWidth * normal;
-                float2 b2 = center + 1f * halfWidth * normal;
-
-                if (isBoundary && i > 0)
+                trailInterval = trailStart - trailEnd;
+                if (trailInterval < 1)
+                    break;
+                float fadeIn = Mathf.Clamp01(life / 0.2f);
+                float fadeOut = Mathf.Clamp01((0.6f - life) / 0.1f);
+                float baseAlpha = fadeIn * fadeOut * fix;
+                float trailProgress = 1 - (i - trailEnd) / (float)trailInterval;
+                float currentOpacity = trailOpacity - math.lerp(lifePerTrail, 0, trailProgress);
+                currentOpacity *= baseAlpha;
+                Color c = currentColor;
+                c.a = currentOpacity;
+                int amount = 1;
+                float3 a2 = (center - 2f * halfWidth * dir).X0Y();
+                float3 b2 = (center + 1f * halfWidth * dir).X0Y();
+                if (mark)
                 {
-                    // ... 边界断点逻辑保持不变 ...
-                    int v0 = count * 2;
-                    _vertices[v0] = a2.X0Y();
-                    _vertices[v0 + 1] = b2.X0Y();
-                    _uvs[v0] = new Vector2(1f, 1f);
-                    _uvs[v0 + 1] = new Vector2(1f, 0f);
-                    Color c0 = currentColor;
-                    c0.a = 0f;
-                    _colors[v0] = c0;
-                    _colors[v0 + 1] = c0;
-                    count++;
+                    amount = 2;
+                    while (Trails.Count <= trailIndex)
+                    {
+                        Trails.Add(Instantiate(Trails[0], Trails[0].transform.parent));
+                        Stars.Add(Instantiate(Stars[0], Stars[0].transform.parent));
+                    }
+                    var trail = Trails[trailIndex];
+                    var star = Stars[trailIndex];
+                    if (baseAlpha <= 0.01f)
+                    {
+                        trail.gameObject.SetActive(false);
+                        star.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        trail.gameObject.SetActive(true);
+                        star.gameObject.SetActive(true);
+                        SpriteRenderer sr = trail.Sprite;
+                        sr.flipX = reverse;
+                        float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
 
-                    int v1 = count * 2;
-                    _vertices[v1] = a2.X0Y();
-                    _vertices[v1 + 1] = b2.X0Y();
-                    _uvs[v1] = new Vector2(0f, 1f);
-                    _uvs[v1 + 1] = new Vector2(0f, 0f);
-                    Color c1 = currentColor;
-                    c1.a = finalBaseAlpha;
-                    _colors[v1] = c1;
-                    _colors[v1 + 1] = c1;
-                    count++;
+                        // 修正位置和旋转
+                        trail.transform.SetLocalPositionAndRotation(
+                            new Vector3(center.x, 0, center.y),
+                            Quaternion.Euler(0, 0, angleDeg));
+
+                        Color finalTrailColor = new(1, 1, 1, currentOpacity);
+                        sr.color = finalTrailColor;
+
+                        star.Set(c);
+
+                        // 2. 设定脉冲缩放
+                        // 原版效果：星星有一个先变大再变小的过程，我们利用 progress 来模拟
+                        // 假设 progress 0->1 是一把剑的寿命。
+                        // 我们让它在 0.2 之前变大，0.6 之后缩小。
+                        float starScale = Mathf.Clamp01(life / 0.2f) * Mathf.Clamp01((0.8f - life) / 0.2f);
+                        starScale = Mathf.Lerp(0.5f, 1.5f, starScale) / 8f; // 最小 0.5，最大 1.5 倍缩放
+                        star.transform.localPosition = b2;
+                        star.transform.localScale = new float3(starScale, starScale, 1);
+                    }
                 }
-                else
+
+                for (int l = 0; l < amount; l++)
                 {
-                    int v = count * 2;
-                    _vertices[v] = a2.X0Y();
-                    _vertices[v + 1] = b2.X0Y();
-                    _uvs[v] = new Vector2(localProgress, 1f);
-                    _uvs[v + 1] = new Vector2(localProgress, 0f);
-                    Color c = currentColor;
-                    c.a = localProgress * finalBaseAlpha;
-                    _colors[v] = c;
-                    _colors[v + 1] = c;
-                    count++;
+                    if (l == 1)
+                    {
+                        c.a = 0;
+                    }
+                    int v = j * 2;
+                    if (v + 1 < total)
+                    {
+                        _vertices[v] = a2;
+                        _vertices[v + 1] = b2;
+                        _uvs[v] = new Vector2(trailProgress, 1f);
+                        _uvs[v + 1] = new Vector2(trailProgress, 0f);
+                        _colors[v] = c;
+                        _colors[v + 1] = c;
+                        j++;
+                    }
                 }
+                i--;
             }
-
-            for (int i = nextTrailIndex; i < trails.Count; i++)
-            {
-                if (trails[i] != null)
-                    trails[i].enabled = false;
-            }
-
-            // ... 生成网格索引和 Mesh 刷新逻辑保持不变 ...
             int tri = 0;
-            for (int i = 0; i < count - 1; i++)
+            for (int k = 0; k < j - 1; k++)
             {
-                int v = i * 2;
+                int v = k * 2;
                 _triangles[tri++] = v;
                 _triangles[tri++] = v + 1;
                 _triangles[tri++] = v + 2;
@@ -349,9 +328,9 @@ namespace Assets.TerraZenith.Scripts.Graphic
             }
 
             _mesh.Clear();
-            _mesh.SetVertices(_vertices, 0, count * 2);
-            _mesh.SetColors(_colors, 0, count * 2);
-            _mesh.SetUVs(0, _uvs, 0, count * 2);
+            _mesh.SetVertices(_vertices, 0, j * 2);
+            _mesh.SetColors(_colors, 0, j * 2);
+            _mesh.SetUVs(0, _uvs, 0, j * 2);
             _mesh.SetTriangles(_triangles, 0, tri, 0, true, 0);
             _mesh.RecalculateBounds();
             Ribbon.sharedMesh = _mesh;

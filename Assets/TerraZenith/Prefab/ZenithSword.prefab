@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 2026792211, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRadius: 0.75
+  damageRadius: 1
   damageRadiusClient: 1
   tileDamageRadius: 0
   piercesEnemies: 1

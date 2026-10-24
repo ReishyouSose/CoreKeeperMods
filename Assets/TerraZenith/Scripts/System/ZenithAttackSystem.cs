@@ -165,7 +165,8 @@ namespace Assets.TerraZenith.Scripts.System
                 attackTagLookup.SetComponentEnabled(entity, false);
             })
                 .WithName("ZenithAttackSystem")
-                .WithAll<AttackWithEquipmentTag, Simulate>()
+                .WithAll<AttackWithEquipmentTag>()
+                .WithAll<Simulate>()
                 .WithBurst()
                 .Schedule();
 

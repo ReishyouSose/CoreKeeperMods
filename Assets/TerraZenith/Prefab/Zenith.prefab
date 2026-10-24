@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 451001009}
   - component: {fileID: -1841621026496413328}
   - component: {fileID: 451001013}
-  - component: {fileID: 5168322800609107000}
   m_Layer: 0
   m_Name: Zenith
   m_TagString: Untagged
@@ -71,7 +70,9 @@ MonoBehaviour:
       m_low: -1845124725945702735
       m_high: 5742481447200520986
   isCustomScenePrefab: 0
-  additionalSprites: []
+  additionalSprites:
+  - {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  - {fileID: 21300000, guid: dbd8314a5f46df54f80d08fee3179700, type: 2}
 --- !u!114 &451001004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,43 +187,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedMultiplier: 1
---- !u!114 &5168322800609107000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 451001001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 606060924, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileID: 0
-  rotateFreely: 0
-  recoilForce: 0
-  overrideAnimation: 
-  secondaryProjectileVariationID: 0
-  secondaryProjectileBasedOnCondition: 0
-  conditionID: 0
-  spawnRandomProjectile: 0
-  alternativeProjectiles: []
-  explosionUseWeaponDamage: 0
-  spawnOffsetDistance: 0
-  extraProjectiles: 0
-  spreadAngle: 0
-  explosionSize: 0
-  pierceAtMaxWindup: 0
-  bounceAtMaxWindup: 0
-  mortarRaycastToTarget: 0
-  mortarTargetRange: 0
-  minMaxRandomSpreadDistance:
-    x: 0
-    y: 0
-  secondaryMinMaxRandomSpreadDistance:
-    x: 0
-    y: 0
-  scaleMortarAirTimeWithDistance: 0
-  secondaryScaleMortarAirTimeWithDistance: 0
-  minMortarAirTimePercentage: 0
-  secondaryDistanceBetweenHits: 0

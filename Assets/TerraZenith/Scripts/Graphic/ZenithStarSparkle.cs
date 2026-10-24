@@ -21,7 +21,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private static void Set(SpriteRenderer sr, Color color)
         {
             sr.color = color;
-            sr.transform.rotation = Quaternion.identity;
         }
     }
 }
