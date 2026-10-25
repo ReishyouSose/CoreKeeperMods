@@ -137,7 +137,7 @@ MonoBehaviour:
   ExplodeOnEnemyCollision: 0
   collideWithNonWalkableTiles: 0
   maxBounceCount: 0
-  onlyAttackEveryXSecond: 0.16
+  onlyAttackEveryXSecond: 0.25
 --- !u!114 &451002009
 MonoBehaviour:
   m_ObjectHideFlags: 0

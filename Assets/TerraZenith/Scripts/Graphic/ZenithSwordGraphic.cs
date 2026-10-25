@@ -12,7 +12,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
     {
         public MeshFilter Ribbon;               // 刀光网格
         public List<ZenithAfterImage> Trails;     // 残影列表
-        public List<ZenithStarSparkle> Stars;
+        public ZenithStarSparkle Star;
         public List<SpriteRenderer> Colliders;
 
 
@@ -130,8 +130,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
             for (int i = 0; i < Trails.Count; i++)
             {
                 Trails[i].gameObject.SetActive(false);
-                Stars[i].gameObject.SetActive(false);
             }
+            Star.gameObject.SetActive(false);
             foreach (var go in Colliders)
             {
                 go.gameObject.SetActive(false);
@@ -149,7 +149,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 oldShort = shortAxis;
             }
             float near = math.clamp(longAxis / 14f, 0, 1);
-            float step = math.lerp(2f, 0.7f, near) * Time.deltaTime;
+            float step = math.lerp(2f, 0.7f, near) * Time.deltaTime * orbit.Scale;
             int updateCount = ZenithBalance.UpdateCount;
             int killTime = ZenithBalance.TimeLeft * updateCount;
             float life = 0;
@@ -158,7 +158,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 HideTrail();
                 return;
             }
-            DebugCollider(zenithTrails);
+            //DebugCollider(zenithTrails);
             for (int i = 0; i < updateCount; i++)
             {
                 timer = math.min(timer + step, killTime);
@@ -254,41 +254,49 @@ namespace Assets.TerraZenith.Scripts.Graphic
                     while (Trails.Count <= trailIndex)
                     {
                         Trails.Add(Instantiate(Trails[0], Trails[0].transform.parent));
-                        Stars.Add(Instantiate(Stars[0], Stars[0].transform.parent));
                     }
                     var trail = Trails[trailIndex];
-                    var star = Stars[trailIndex];
                     if (baseAlpha <= 0.01f)
                     {
                         trail.gameObject.SetActive(false);
-                        star.gameObject.SetActive(false);
                     }
                     else
                     {
                         trail.gameObject.SetActive(true);
-                        star.gameObject.SetActive(true);
                         SpriteRenderer sr = trail.Sprite;
                         sr.flipX = reverse;
                         float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
 
                         // 修正位置和旋转
-                        trail.transform.SetLocalPositionAndRotation(
-                            new Vector3(center.x, 0, center.y),
-                            Quaternion.Euler(0, 0, angleDeg));
+                        trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
 
                         Color finalTrailColor = new(1, 1, 1, currentOpacity);
                         sr.color = finalTrailColor;
 
-                        star.Set(c);
-
-                        // 2. 设定脉冲缩放
-                        // 原版效果：星星有一个先变大再变小的过程，我们利用 progress 来模拟
-                        // 假设 progress 0->1 是一把剑的寿命。
-                        // 我们让它在 0.2 之前变大，0.6 之后缩小。
-                        float starScale = Mathf.Clamp01(life / 0.2f) * Mathf.Clamp01((0.8f - life) / 0.2f);
-                        starScale = Mathf.Lerp(0.5f, 1.5f, starScale) / 8f; // 最小 0.5，最大 1.5 倍缩放
-                        star.transform.localPosition = b2;
-                        star.transform.localScale = new float3(starScale, starScale, 1);
+                        if (trailIndex == 0)
+                        {
+                            var star = Star;
+                            // 2. 设定脉冲缩放
+                            // 原版效果：星星有一个先变大再变小的过程，我们利用 progress 来模拟
+                            // 假设 progress 0->1 是一把剑的寿命。
+                            // 我们让它在 0.2 之前变大，0.6 之后缩小。
+                            life /= 0.5f;
+                            float starScale = Mathf.Clamp01((life - 0.25f) / 0.25f) * Mathf.Clamp01((0.75f - life) / 0.25f);
+                            starScale = Mathf.Lerp(0.5f, 1.5f, starScale); // 最小 0.5，最大 1.5 倍缩放
+                            if (life >= 1)
+                            {
+                                star.gameObject.SetActive(false);
+                            }
+                            else
+                            {
+                                star.gameObject.SetActive(true);
+                                star.transform.localPosition = b2;
+                                star.transform.localScale = new float3(starScale, starScale, 1);
+                                Color s = currentColor;
+                                s.a = baseAlpha * 0.5f;   // 或 baseAlpha * 0.5f 对齐原版 trailColor.A/=2
+                                star.Set(s, starScale);
+                            }
+                        }
                     }
                 }
 

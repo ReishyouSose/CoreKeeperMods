@@ -120,6 +120,7 @@ namespace Assets.TerraZenith.Scripts.System
                  int sign = rng.NextBool() ? 1 : -1;
                  float shortAxis = rng.NextInt(8, 49) / 16f * sign;
                  float longOffset = rng.NextInt(-16, 17) / 16f;
+                 float scale = rng.NextInt(-10, 11) / 100f;
                  int variation = vari ? (rng.NextInt(blades) + 1) : 0;
                  var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
 
@@ -211,6 +212,7 @@ namespace Assets.TerraZenith.Scripts.System
                      LongAxis = halfAxis,
                      ShortAxis = shortAxis, // 比如 0.4f，侧向摆动幅度
                      Rotation = rot + math.PI,
+                     Scale = 1 + scale,
                      // Sign = target.x >= 0 ? 1 : -1
                  };
                  ecb.SetComponent(projectile, orbit);

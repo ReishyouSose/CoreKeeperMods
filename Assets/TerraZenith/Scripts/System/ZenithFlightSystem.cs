@@ -61,7 +61,7 @@ namespace Assets.TerraZenith.Scripts.System
 
                 // 图形类：step = lerp(2, 0.7, near) * DeltaTime
                 // ECS：DeltaTime → secondsPerTick * ticksElapsed
-                float step = math.lerp(2f, 0.7f, near) * (secondsPerTick * ticksElapsed) * updateCount;
+                float step = math.lerp(2f, 0.7f, near) * (secondsPerTick * ticksElapsed) * updateCount * orbit.Scale;
 
                 ref float timer = ref orbit.Timer;
                 float targetTimer = math.min(timer + step, killTime);
