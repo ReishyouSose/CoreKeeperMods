@@ -1,4 +1,3 @@
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
@@ -19,5 +18,7 @@ namespace Assets.TerraZenith.Scripts.Component
         public float Rotation;
         [GhostField]
         public float Timer;
+        [GhostField]
+        public NetworkTick LastUpdateTick;   // 上次推进的 tick
     }
 }

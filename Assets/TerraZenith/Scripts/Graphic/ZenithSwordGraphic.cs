@@ -85,9 +85,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
             var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
             var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
             // CheckSlash(vari);
-            SimulateOrbit(orbit);
+            SimulateOrbit(orbit, manager.GetBuffer<ZenithTrail>(entity));
             BuildRibbonAndTrail(orbit);
-            DebugCollider(manager.GetBuffer<ZenithTrail>(entity));
         }
 
         private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
@@ -99,6 +98,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                     Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
                 }
                 var collider = Colliders[i];
+                collider.color = currentColor;
                 collider.gameObject.SetActive(true);
                 collider.transform.localPosition = zenithTrails[i].Pos.X0Y();
             }
@@ -127,8 +127,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
 
         private void HideTrail()
         {
-            if (Trails == null)
-                return;
             for (int i = 0; i < Trails.Count; i++)
             {
                 Trails[i].gameObject.SetActive(false);
@@ -140,7 +138,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             }
         }
 
-        private void SimulateOrbit(ZenithOrbitCD orbit)
+        private void SimulateOrbit(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
         {
             float longAxis = orbit.LongAxis;
             float shortAxis = orbit.ShortAxis;
@@ -156,35 +154,34 @@ namespace Assets.TerraZenith.Scripts.Graphic
             int killTime = ZenithBalance.TimeLeft * updateCount;
             float life = 0;
             if (timer >= killTime)
+            {
+                HideTrail();
                 return;
+            }
+            DebugCollider(zenithTrails);
             for (int i = 0; i < updateCount; i++)
             {
-                bool dense = life is < 0.1f or > 0.9f or (> 0.4f and < 0.6f);
-                int denseCount = dense ? 3 : 1;
-                for (int j = 0; j < denseCount; j++)
-                {
-                    timer = math.min(timer + step / denseCount, killTime);
-                    life = timer / killTime;
+                timer = math.min(timer + step, killTime);
+                life = timer / killTime;
 
-                    //在一半的时间内就完成一圈，剩余的时间给拖尾
-                    float progress = math.clamp(life / 0.5f, 0f, 1f);
-                    float x = progress * math.PI * 2f;
+                //在一半的时间内就完成一圈，剩余的时间给拖尾
+                float progress = math.clamp(life / 0.5f, 0f, 1f);
+                float x = progress * math.PI * 2f;
 
-                    math.sincos(x, out var sin, out var cos);
-                    float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
-                    float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
+                math.sincos(x, out var sin, out var cos);
+                float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
+                float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
 
-                    float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
-                    float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
-                    localPos += leadOffset;
+                float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
+                float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
+                localPos += leadOffset;
 
-                    float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
-                    oldPos.Add(worldPos);
-                    oldRot.Add(ZenithBalance.Rotate(basePos, orbit.Rotation));
-                    oldLife.Add(life);
-                    if (timer >= killTime)
-                        return;
-                }
+                float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
+                oldPos.Add(worldPos);
+                oldRot.Add(ZenithBalance.Rotate(basePos, orbit.Rotation));
+                oldLife.Add(life);
+                if (timer >= killTime)
+                    return;
             }
         }
         private void BuildRibbonAndTrail(ZenithOrbitCD orbit)
