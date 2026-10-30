@@ -6,6 +6,7 @@ using Pug.UnityExtensions;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
+using UnityEngine;
 
 // 天顶剑的服务器逻辑。发射对照玩家挥砍时连续生成 FinalFractal，飞行对照 Projectile.AI_182_FinalFractal。
 namespace Assets.TerraZenith.Scripts.System
@@ -127,7 +128,6 @@ namespace Assets.TerraZenith.Scripts.System
                     if (manaCostLookup.HasComponent(entity))
                         manaCostLookup.GetRefRW(entity).ValueRW = new ManaCostForQueuedAttackCD { manaCost = cost };
                 }
-
                 // 对照 RangeWeaponSlot.CalculateCooldown。41、65 是那份攻速条件的下标。
                 float cooldownTime = 0.6f;
                 if (cooldownLookup.TryGetComponent(prefab, out var cooldown))

@@ -33,8 +33,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private readonly List<float2> oldPos = new(TrailLength);
         private readonly List<float2> oldRot = new(TrailLength);
         private readonly List<float> oldLife = new(TrailLength);
-        private float oldLong;
-        private float oldShort;
         protected override void OnSpawn()
         {
             base.OnSpawn();
@@ -46,11 +44,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
             oldVari = -2;
             timer = 0;
             var manager = world.EntityManager;
-            var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
             var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
             CheckSlash(vari);
-            oldLong = orbit.LongAxis;
-            oldShort = orbit.ShortAxis;
         }
         private void CheckSlash(int vari)
         {
@@ -142,26 +137,27 @@ namespace Assets.TerraZenith.Scripts.Graphic
         {
             float longAxis = orbit.LongAxis;
             float shortAxis = orbit.ShortAxis;
-            if (longAxis != oldLong || shortAxis != oldShort)
+            /*if (longAxis != oldLong || shortAxis != oldShort)
             {
                 Debug.Log($"跳变！ long:{oldLong} {longAxis}, short:{oldShort} {shortAxis} timer:{timer} ");
                 oldLong = longAxis;
                 oldShort = shortAxis;
-            }
-            float near = math.clamp(longAxis / 14f, 0, 1);
-            float step = math.lerp(2f, 0.7f, near) * Time.deltaTime * orbit.Scale;
+            }*/
             int updateCount = ZenithBalance.UpdateCount;
-            int killTime = ZenithBalance.TimeLeft * updateCount;
-            float life = 0;
+            float killTime = ZenithBalance.TimeLeft * updateCount;
+            float step = Time.deltaTime * ZenithBalance.NearFix(longAxis) * updateCount;
+            float targetTimer = math.min(timer + step, killTime);
+            float life;
+            float sampler = 1 / 60f;
             if (timer >= killTime)
             {
                 HideTrail();
                 return;
             }
             //DebugCollider(zenithTrails);
-            for (int i = 0; i < updateCount; i++)
+            while (timer < targetTimer)
             {
-                timer = math.min(timer + step, killTime);
+                timer = math.min(timer + sampler, killTime);
                 life = timer / killTime;
 
                 //在一半的时间内就完成一圈，剩余的时间给拖尾
@@ -180,8 +176,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 oldPos.Add(worldPos);
                 oldRot.Add(ZenithBalance.Rotate(basePos, orbit.Rotation));
                 oldLife.Add(life);
-                if (timer >= killTime)
-                    return;
             }
         }
         private void BuildRibbonAndTrail(ZenithOrbitCD orbit)

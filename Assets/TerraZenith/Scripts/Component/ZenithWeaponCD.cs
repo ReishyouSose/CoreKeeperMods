@@ -6,5 +6,6 @@ namespace Assets.TerraZenith.Scripts.Component
     public struct ZenithWeaponCD : IComponentData
     {
         public ObjectID projectileID;
+        public ObjectID fakeProjID;
     }
 }

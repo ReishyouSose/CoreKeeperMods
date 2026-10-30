@@ -11,7 +11,7 @@ namespace Assets.TerraZenith.Scripts.Core
         public const float SearchRadiumSqrt = 36;    // 6格索敌半径
         public const int UpdateCount = 2;
         public const int TimeLeft = 1;
-        public const int TrailCount = 4;
+        public const int TrailCount = 6;
         public static ZenithSlashColorDataBlock[] Slashs;
 
         public static float2 Rotate(float2 value, float angle)
@@ -24,6 +24,11 @@ namespace Assets.TerraZenith.Scripts.Core
             if (!ScriptableData.TryGetDataBlocks<ZenithSlashColorDataBlock>(out var dataBlocks))
                 return;
             Slashs = dataBlocks.ToArray();
+        }
+        public static float NearFix(float longAxis)
+        {
+            float near = math.clamp(longAxis / 7.5f, 0, 1);
+            return math.lerp(1.5f, 0.7f, near);
         }
     }
 }

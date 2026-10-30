@@ -60,7 +60,7 @@ MonoBehaviour:
   variationIsDynamic: 1
   variationToToggleTo: 0
   objectType: 1
-  tags: 1900000022000000
+  tags: 
   rarity: 0
   salvageMultiplier: 1
   graphicalPrefab: {fileID: 710001001, guid: 261611c478408f64f86cdd1f376cbbb5, type: 3}
@@ -109,8 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 2026792211, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRadius: 1
-  damageRadiusClient: 1
+  damageRadius: 0
+  damageRadiusClient: 0
   tileDamageRadius: 0
   piercesEnemies: 1
   piercesWallTypes: 

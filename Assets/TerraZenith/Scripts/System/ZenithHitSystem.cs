@@ -44,6 +44,7 @@ namespace Assets.TerraZenith.Scripts.System
         private ComponentLookup<HealthCD> healthLookup;
         private ComponentLookup<EntityPartCD> partLookup;
         private ComponentLookup<UseLagCompensationCD> useLagCompLookup;
+        private ComponentLookup<ObjectDataCD> objLookup;
         private BufferLookup<SummarizedConditionsBuffer> conditionsLookup;
         private BufferLookup<SummarizedConditionEffectsBuffer> effectBufferLookup;
 
@@ -56,6 +57,7 @@ namespace Assets.TerraZenith.Scripts.System
 
         protected override void OnCreate()
         {
+            Enabled = false;
             factionLookup = SystemAPI.GetComponentLookup<FactionCD>(true);
             behaviourLookup = SystemAPI.GetComponentLookup<BehaviourTagsCD>(true);
             enemyLookup = SystemAPI.GetComponentLookup<EnemyCD>(true);
@@ -63,6 +65,7 @@ namespace Assets.TerraZenith.Scripts.System
             healthLookup = SystemAPI.GetComponentLookup<HealthCD>(true);
             partLookup = SystemAPI.GetComponentLookup<EntityPartCD>(true);
             useLagCompLookup = SystemAPI.GetComponentLookup<UseLagCompensationCD>(true);
+            objLookup = SystemAPI.GetComponentLookup<ObjectDataCD>(true);
             conditionsLookup = SystemAPI.GetBufferLookup<SummarizedConditionsBuffer>(true);
             effectBufferLookup = SystemAPI.GetBufferLookup<SummarizedConditionEffectsBuffer>(true);
 
@@ -107,6 +110,7 @@ namespace Assets.TerraZenith.Scripts.System
             var healthLookup = this.healthLookup;
             var partLookup = this.partLookup;
             var useLagCompLookup = this.useLagCompLookup;
+            var objLookup = this.objLookup;
             var conditionsLookup = this.conditionsLookup;
             var effectBufferLookup = this.effectBufferLookup;
             var attackHelper = this.attackHelper;
@@ -212,7 +216,10 @@ namespace Assets.TerraZenith.Scripts.System
                                 isExecutedBeforePhysics = true,
                                 attackTime = 2f / tickRate,
                             };
-
+                            /*if (objLookup.TryGetComponent(target, out var objdata))
+                            {
+                                Debug.Log(PlayerController.GetObjectName(new ContainedObjectsBuffer() { objectData = objdata }, true));
+                            }*/
                             if (attackHelper.Attack(ecb, in p))
                             {
                                 // hitAny = true;

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 451001009}
   - component: {fileID: -1841621026496413328}
   - component: {fileID: 451001013}
-  - component: {fileID: -6170917804043842}
+  - component: {fileID: -6528191316423136943}
   m_Layer: 0
   m_Name: Zenith
   m_TagString: Untagged
@@ -57,7 +57,7 @@ MonoBehaviour:
   variation: 0
   variationIsDynamic: 0
   variationToToggleTo: 0
-  objectType: 501
+  objectType: 500
   tags: 1900000022000000
   rarity: 4
   salvageMultiplier: 1
@@ -88,7 +88,7 @@ MonoBehaviour:
   buyValueMultiplier: 1
   icon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
   iconOffset: {x: 0, y: -0.1875}
-  smallIcon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  smallIcon: {fileID: 21300000, guid: 0c3bcc43767035146b4b29bcacf75dc3, type: 3}
   isStackable: 0
   requiredObjectsToCraft: []
   craftingTime: 0
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 427
-  damageMultiplier: 3
+  damage: 185
+  damageMultiplier: 1.3
   isRange: 0
   isMagic: 0
   level: {fileID: 451001008}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedMultiplier: 1
---- !u!114 &-6170917804043842
+--- !u!114 &-6528191316423136943
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,34 +195,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 451001001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 606060924, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Script: {fileID: -155993072, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileID: 0
-  rotateFreely: 0
-  recoilForce: 0
+  disable: 0
+  baseHitColliderSize: 0
+  extraHitColliderReachSize: 0
   overrideAnimation: 
-  secondaryProjectileVariationID: 0
-  secondaryProjectileBasedOnCondition: 0
-  conditionID: 0
-  spawnRandomProjectile: 0
-  alternativeProjectiles: []
-  explosionUseWeaponDamage: 0
-  spawnOffsetDistance: 0
-  extraProjectiles: 0
-  spreadAngle: 0
-  explosionSize: 0
-  pierceAtMaxWindup: 0
-  bounceAtMaxWindup: 0
-  mortarRaycastToTarget: 0
-  mortarTargetRange: 0
-  minMaxRandomSpreadDistance:
-    x: 0
-    y: 0
-  secondaryMinMaxRandomSpreadDistance:
-    x: 0
-    y: 0
-  scaleMortarAirTimeWithDistance: 0
-  secondaryScaleMortarAirTimeWithDistance: 0
-  minMortarAirTimePercentage: 0
-  secondaryDistanceBetweenHits: 0
+  quickHit: 0
+  isBigSpearWeapon: 0
+  isBigSwingWeapon: 0
+  skipAnticipationAnimation: 0
+  lungeForce: 0
+  tileDamageAOE: 0
+  attackFXType: 0
+  arcAngle: 1

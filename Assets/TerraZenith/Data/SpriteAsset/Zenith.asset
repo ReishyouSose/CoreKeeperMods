@@ -47,7 +47,7 @@ MonoBehaviour:
       m_high: 0
   m_editorHideEmissive: 0
   m_staticSpriteData:
-    texture: {fileID: 2800000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+    texture: {fileID: 2800000, guid: 044db52ec11dc2f4e83be9430fdda857, type: 3}
     emissiveTexture: {fileID: 0}
     normalTexture: {fileID: 0}
     pivot: {x: 0.5, y: 0.5}
