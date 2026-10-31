@@ -55,7 +55,7 @@ MonoBehaviour:
           m_low: 8319415704751845611
           m_high: -6023042414290333943
       title: "\u5929\u9876\u5251"
-      description: 
+      description: "\"\u8D85\u8D8A\u65E0\u6781\u4E4B\u5251\"\n\u540C\u65F6\u6309\u4F4F\u53F3\u952E\u5C06\u9020\u6210\u6316\u6398\u4F24\u5BB3"
     - m_language:
         m_address:
           m_low: -2957573344710624914
@@ -67,7 +67,10 @@ MonoBehaviour:
           m_low: 681352171529052915
           m_high: 2314507893210082619
       title: Zenith
-      description: 
+      description: '"Infinity +1 Sword"
+
+        Holding right-click at the same
+        time will deal mining damage'
     - m_language:
         m_address:
           m_low: 6040640903323332866
@@ -135,7 +138,10 @@ MonoBehaviour:
         m_low: 0
         m_high: 0
     title: Zenith
-    description: 
+    description: '"Infinity +1 Sword"
+
+      Holding right-click at the same time
+      will deal mining damage'
   m_shouldBeLocalized: 1
   m_header: Items
   references:

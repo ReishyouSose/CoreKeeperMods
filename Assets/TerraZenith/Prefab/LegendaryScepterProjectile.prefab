@@ -318,7 +318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   XScaler: {fileID: 4611564845033636}
   shadow: {fileID: 0}
-  indirectLightEmitters: []
+  indirectLightEmitters:
+  - {fileID: 0}
   animator: {fileID: 0}
   interactable: {fileID: 0}
   spriteObjects:

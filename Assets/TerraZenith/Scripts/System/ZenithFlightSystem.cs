@@ -97,7 +97,7 @@ namespace Assets.TerraZenith.Scripts.System
 
                     float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
                     //if (life <= 0.5f)
-                    trail.Add(new ZenithTrail { Pos = worldPos });
+                    trail.Add(new ZenithTrail { Pos = worldPos, CanDamage = progress < 1 });
                 }
                 int k = fakes.Length;
                 if (timer >= realKillTime)
@@ -134,35 +134,59 @@ namespace Assets.TerraZenith.Scripts.System
                         break;
                     }
                 }*/
+                // 在 ZenithFlightSystem 的循环中
                 int j = 0;
                 l = trail.Length - 1;
                 for (int i = l; i >= 0; i--)
                 {
                     if (j >= k)
                         break;
-                    float2 partPos = final + trail[i].Pos;
+
+                    // 当前帧的目标位置（这一段的终点）
+                    var trailBuffer = trail[i];
+                    float2 partPos = final + trailBuffer.Pos;
                     var fake = fakes[j++].Entity;
                     if (fake == Entity.Null)
                         continue;
-                    /*var projCD = proj;
-                    projCD.prevPos = projCD.prevPrevPos = partPos;
-                    if (!projLookup.HasComponent(fake))
+
+                    // 1. 尝试从拖尾点里找“上一段”的位置
+                    // 注意：这里的 i 是当前拖尾点的索引，i - 1 就是轨迹上的上一个点
+                    float2 prevPartPos = partPos; // 默认跟当前点一样
+                    if (i > 0)
                     {
-                        ecb.AddComponent(fake, projCD);
+                        prevPartPos = final + trail[i - 1].Pos;
+                    }
+
+                    // 2. 激活伤害（如果是刚激活，为了避免第一帧跨屏幕扫，直接强制历史为当前位置）
+                    ref var fakeSetup = ref setupLookup.GetRefRW(fake).ValueRW;
+                    // 3. 强行填充历史数据
+                    ref var fakeProj = ref projLookup.GetRefRW(fake).ValueRW;
+                    ref var fakeTrans = ref transLookup.GetRefRW(fake).ValueRW;
+                    if (trailBuffer.CanDamage)
+                    {
+                        if (fakeSetup.damage == 0)
+                        {
+                            fakeSetup.damage = setup.damage;
+                            // 刚刚激活，历史位置和当前位置重合，退化为点检测，避免乱扫
+                            fakeProj.prevPrevPos = fakeProj.prevPos = partPos;
+                        }
+                        else
+                        {
+                            // 正常情况：用拖尾点填充历史位置，形成连续射线
+                            fakeProj.prevPrevPos = fakeProj.prevPos; // 上上帧的历史
+                            fakeProj.prevPos = prevPartPos;          // 上帧用【拖尾点的上一个点】填充
+                        }
                     }
                     else
-                        ecb.SetComponent(fake, projCD);*/
-                    ref var fakeSetup = ref setupLookup.GetRefRW(fake).ValueRW;
-                    if (fakeSetup.damage == 0)
-                        fakeSetup.damage = setup.damage;
-                    ref var fakeProj = ref projLookup.GetRefRW(fake).ValueRW;
-                    fakeProj.prevPrevPos = fakeProj.prevPos = partPos;
-                    transLookup.GetRefRW(fake).ValueRW.Position = partPos.X0Y();
-                    //ecb.SetComponent(fake, partTrans);
-                    /*if (anyHit)
-                        cdLookup.GetRefRW(fake).ValueRW.attackCooldown = cdTick;*/
-                    if (j >= k)
-                        break;
+                    {
+                        if (fakeSetup.damage > 0)
+                        {
+                            fakeSetup.damage = 0;
+                        }
+                    }
+
+                    // 4. 将假体的真实物理位置设为这一帧的拖尾点
+                    fakeTrans.Position = partPos.X0Y();
                 }
             })
                 .WithName("ZenithOrbitSystem")

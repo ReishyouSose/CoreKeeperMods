@@ -56,7 +56,7 @@ MonoBehaviour:
   objectName: TerraZenith_ZenithFakeProj
   initialAmount: 1
   variation: 0
-  variationIsDynamic: 1
+  variationIsDynamic: 0
   variationToToggleTo: 0
   objectType: 1
   tags: 
@@ -154,8 +154,8 @@ MonoBehaviour:
   eatsTags: 
   dataBlockRef:
     m_address:
-      m_low: -638319326277819699
-      m_high: -3074621198175539239
+      m_low: 298516227696100595
+      m_high: 2484697487267308472
 --- !u!114 &451002010
 MonoBehaviour:
   m_ObjectHideFlags: 0

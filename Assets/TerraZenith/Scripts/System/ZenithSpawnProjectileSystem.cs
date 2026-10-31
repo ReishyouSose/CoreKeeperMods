@@ -113,7 +113,6 @@ namespace Assets.TerraZenith.Scripts.System
                 Entity prefab = equipped.equipmentPrefab;
                 if (!zenithLookup.TryGetComponent(prefab, out var weapon))
                     return;
-
                 //随机都得拨
                 ref var rng = ref random.Value;
                 bool vari = count != 0;
@@ -130,7 +129,9 @@ namespace Assets.TerraZenith.Scripts.System
                     return;
 
                 Entity projectilePrefab = PugDatabase.GetPrimaryPrefabEntity(weapon.projectileID, database.databaseBankBlob, 0);
-                Entity fakeProj = PugDatabase.GetPrimaryPrefabEntity(weapon.fakeProjID, database.databaseBankBlob, 0);
+                bool holdRight = input.IsButtonStateSet(CommandInputButtonStateNames.SecondInteract_HeldDown);
+                Entity fakeProj = PugDatabase.GetPrimaryPrefabEntity(weapon.fakeProjID, database.databaseBankBlob,
+                    holdRight ? 1 : 0);
                 if (projectilePrefab == Entity.Null || fakeProj == Entity.Null)
                 {
                     return;
@@ -273,7 +274,6 @@ namespace Assets.TerraZenith.Scripts.System
                     if (factionLookup.HasComponent(projectilePrefab))
                         EntityUtility.InheritFaction(ecb, entity, projectile, factionLookup);
                 }
-
             })
                  .WithName("ZenithWeaponTriggerSystem")
                  .WithBurst()

@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontCalculateValuesFromLevel: 0
-  givesConditionsWhenHeldInHand: 0
+  dontCalculateValuesFromLevel: 1
+  givesConditionsWhenHeldInHand: 1
   isArmor: 0
   givesConditionsWhenEquipped:
   - id: 9

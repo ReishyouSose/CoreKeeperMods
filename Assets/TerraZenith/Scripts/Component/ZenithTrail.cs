@@ -8,5 +8,7 @@ namespace Assets.TerraZenith.Scripts.Component
     {
         [GhostField]
         public float2 Pos;
+        [GhostField]
+        public bool CanDamage;
     }
 }
