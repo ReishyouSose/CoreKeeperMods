@@ -22,14 +22,35 @@ namespace Assets.TerraZenith
             }
             // projectileID 留空，原版 RangeWeaponSlot.AttackWithItem 看到 None 会直接返回。
             // 冷却、朝向和弹幕改由天顶剑的预测攻击系统来做，伤害仍是武器上的近战标记。
-            if (!authoringData.TryGetComponent<ObjectAuthoring>(out var authoring) || authoring.objectName != ZenithBalance.WeaponName)
-                return;
-            var projID = API.Authoring.GetObjectID(ZenithBalance.SwordName);
-            entityManager.AddComponentData(entity, new ZenithWeaponCD
+            if (authoringData.TryGetComponent<ObjectAuthoring>(out var authoring) )
             {
-                projectileID = projID,
-                fakeProjID = API.Authoring.GetObjectID("TerraZenith_ZenithFakeProj")
-            });
+                if(authoring.objectName == ZenithBalance.WeaponName)
+                {
+                    var projID = API.Authoring.GetObjectID(ZenithBalance.SwordName);
+                    entityManager.AddComponentData(entity, new ZenithWeaponCD
+                    {
+                        projectileID = projID,
+                        fakeProjID = API.Authoring.GetObjectID("TerraZenith_ZenithFakeProj")
+                    });
+                }
+                if (authoringData.TryGetComponent<RecipeAuthoring>(out var recipe) && authoring.objectName == ZenithBalance.RecipeName)
+                {
+                    entityManager.SetComponentData(entity, new RecipeCD
+                    {
+                        objectToCraft = new()
+                        {
+                            objectID = API.Authoring.GetObjectID(ZenithBalance.WeaponName),
+                            amount = 1,
+                        },
+                        requiresNearbyObject = recipe.requiresNearbyObject,
+                    });
+                }
+            }
+            if (authoringData.TryGetComponent<EntityMonoBehaviourData>(out var vanilla) && vanilla.ObjectInfo.objectID == ObjectID.WallBoss)
+            {
+                var buffer = entityManager.GetBuffer<DropsLootBuffer>(entity);
+                buffer.Add(new() { lootDropID = API.Authoring.GetObjectID(ZenithBalance.RecipeName), amount = 1 });
+            }
         }
 
         public void Init()

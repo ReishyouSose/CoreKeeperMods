@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1838203538400731952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6581034056303310161}
+  - component: {fileID: -8051888596597564223}
+  - component: {fileID: 375431370160481895}
+  - component: {fileID: 1900374073340946628}
+  - component: {fileID: -6316873386041184360}
+  m_Layer: 0
+  m_Name: ZenithRecipe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6581034056303310161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838203538400731952}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8051888596597564223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838203538400731952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 318086258, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectName: TerraZenith_ZenithRecipe
+  initialAmount: 1
+  variation: 0
+  variationIsDynamic: 0
+  variationToToggleTo: 0
+  objectType: 602
+  tags: 
+  rarity: 4
+  salvageMultiplier: 1
+  graphicalPrefab: {fileID: 0}
+  graphicalRef:
+    m_address:
+      m_low: 0
+      m_high: 0
+  authoringRef:
+    m_address:
+      m_low: 1050575614738708029
+      m_high: 3560097271616778170
+  isCustomScenePrefab: 0
+  additionalSprites: []
+--- !u!114 &375431370160481895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838203538400731952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sellValue: 9999
+  buyValueMultiplier: 1
+  icon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  iconOffset: {x: 0, y: -0.1875}
+  smallIcon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  isStackable: 0
+  requiredObjectsToCraft: []
+  craftingTime: 0
+--- !u!114 &1900374073340946628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838203538400731952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2014588969, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castTime: 13
+  useType: 1
+  achievement: 0
+  castCompleteEffect: 0
+  allowHoldToRepeat: 0
+  hasUniqueCombineTooltip: 0
+--- !u!114 &-6316873386041184360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838203538400731952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1687984742, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToCraft:
+    objectID: 0
+    variation: 0
+    amount: 1
+  requiresNearbyObject: 5880

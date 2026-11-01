@@ -8,6 +8,7 @@ namespace Assets.TerraZenith.Scripts.Core
     {
         public const string WeaponName = "TerraZenith_Zenith";
         public const string SwordName = "TerraZenith_ZenithSword";
+        public const string RecipeName = "TerraZenith_ZenithRecipe";
         public const float SearchRadiumSqrt = 36;    // 6格索敌半径
         public const int UpdateCount = 2;
         public const int TimeLeft = 1;

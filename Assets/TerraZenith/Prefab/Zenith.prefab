@@ -90,7 +90,23 @@ MonoBehaviour:
   iconOffset: {x: 0, y: -0.1875}
   smallIcon: {fileID: 21300000, guid: 0c3bcc43767035146b4b29bcacf75dc3, type: 3}
   isStackable: 0
-  requiredObjectsToCraft: []
+  requiredObjectsToCraft:
+  - objectName: LegendaryBow
+    amount: 1
+  - objectName: LegendaryMiningPick
+    amount: 1
+  - objectName: LegendaryMortar
+    amount: 1
+  - objectName: LegendaryScepter
+    amount: 1
+  - objectName: LegendaryStaff
+    amount: 1
+  - objectName: LegendarySword
+    amount: 1
+  - objectName: LightningGun
+    amount: 1
+  - objectName: RadiationCrystal
+    amount: 30
   craftingTime: 0
 --- !u!114 &451001006
 MonoBehaviour:

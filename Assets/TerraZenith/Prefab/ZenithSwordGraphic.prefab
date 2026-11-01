@@ -1112,7 +1112,7 @@ MonoBehaviour:
     m_address:
       m_low: 0
       m_high: 0
-  material: {fileID: 2100000, guid: 6c211da8d67997143ab2f48e28ced047, type: 2}
+  material: {fileID: 2100000, guid: e831066d8b0f6354baadba4fd4a4016a, type: 2}
   m_startAnimationHash: 0
   m_startVariantHash: 0
   animationTimescale: 1

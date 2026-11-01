@@ -47,6 +47,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
             var manager = world.EntityManager;
             var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
             CheckSlash(vari);
+            Light.gameObject.SetActive(false);
+            Light.emissiveColor = Color.white;
         }
         private void CheckSlash(int vari)
         {
@@ -271,6 +273,9 @@ namespace Assets.TerraZenith.Scripts.Graphic
                                 Color s = currentColor;
                                 s.a = baseAlpha * 0.5f;   // 或 baseAlpha * 0.5f 对齐原版 trailColor.A/=2
                                 star.Set(s, starScale);
+                                Light.emissiveColor = currentColor * 0.5f;
+                                Light.emissiveColor.a = 1f;
+                                //Light.color.a = s.a;
                                 Light.gameObject.SetActive(true);
                                 Light.transform.localPosition = new Vector3(b2.x, -0.4f, b2.z);
                             }
