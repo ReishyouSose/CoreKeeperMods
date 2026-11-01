@@ -165,7 +165,6 @@ namespace Assets.TerraZenith.Scripts.System
                 else
                     ZenithBalance.Rotate(target, randomRot);
 
-
                 // ==========================================
                 // 3. 计算伤害、等级、武器冷却等数据
                 // ==========================================
@@ -242,6 +241,8 @@ namespace Assets.TerraZenith.Scripts.System
                         LocalTransform p = LocalTransform.Identity;
                         p.Position = (playerPos + offset).X0Y();
                         ecb.SetComponent(projectile, p);
+                        ecb.SetComponent(projectile, new OwnerReferenceCD { owner = entity });
+                        //ecb.AddComponent<PetCD>(projectile);
                     }
                     else
                     {
@@ -253,6 +254,7 @@ namespace Assets.TerraZenith.Scripts.System
                             damage = 0,
                             isMagic = isMagic
                         });
+                        ecb.SetComponent(projectile, new OwnerReferenceCD { owner = main });
                     }
 
                     slotLookup.TryGetComponent(entity, out var slot);
@@ -267,7 +269,6 @@ namespace Assets.TerraZenith.Scripts.System
                     });
 
                     ecb.SetComponent(projectile, ghostOwner);
-                    ecb.SetComponent(projectile, new OwnerReferenceCD { owner = entity });
                     ecb.SetComponent(projectile, new RandomCD { Value = inherited });
 
                     EntityUtility.InheritAttackData(ecb, entity, projectile, conditionsTable, behaviourLookup, conditionsLookup);

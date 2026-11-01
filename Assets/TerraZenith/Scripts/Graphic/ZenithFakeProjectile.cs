@@ -4,10 +4,11 @@ namespace Assets.TerraZenith.Scripts.Graphic
 {
     public class ZenithFakeProjectile : Projectile
     {
+        public SpriteRenderer Collider;
         protected override void Awake()
         {
             base.Awake();
-            GetComponentInChildren<SpriteRenderer>().enabled = false;
+            Collider.gameObject.SetActive(false);
         }
     }
 }

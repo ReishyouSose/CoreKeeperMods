@@ -1,5 +1,6 @@
 using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
+using Pug.Sprite;
 using Pug.UnityExtensions;
 using System.Collections.Generic;
 using Unity.Entities;
@@ -13,7 +14,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
         public MeshFilter Ribbon;               // 刀光网格
         public List<ZenithAfterImage> Trails;     // 残影列表
         public ZenithStarSparkle Star;
-        public List<SpriteRenderer> Colliders;
+        public SpriteObject Light;
 
 
         public MeshRenderer ribbonRenderer;
@@ -72,31 +73,16 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 trail.Sprite.sprite = target;
                 trail.Mask.transform.localPosition = new(-offset.x, 0, -offset.y);
             }
+            Light.emissiveColor = currentColor * 0.5f;
+            Light.emissiveColor.a = 1;
         }
         public override void ManagedLateUpdate()
         {
             base.ManagedLateUpdate();
             var manager = world.EntityManager;
             var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
-            var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
-            // CheckSlash(vari);
             SimulateOrbit(orbit, manager.GetBuffer<ZenithTrail>(entity));
             BuildRibbonAndTrail(orbit);
-        }
-
-        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
-        {
-            for (int i = 0; i < zenithTrails.Length; i++)
-            {
-                while (Colliders.Count <= i)
-                {
-                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
-                }
-                var collider = Colliders[i];
-                collider.color = currentColor;
-                collider.gameObject.SetActive(true);
-                collider.transform.localPosition = zenithTrails[i].Pos.X0Y();
-            }
         }
 
         private void EnsureMesh()
@@ -127,10 +113,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 Trails[i].gameObject.SetActive(false);
             }
             Star.gameObject.SetActive(false);
-            foreach (var go in Colliders)
-            {
-                go.gameObject.SetActive(false);
-            }
         }
 
         private void SimulateOrbit(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
@@ -263,7 +245,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
 
                         // 修正位置和旋转
                         trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
-
                         Color finalTrailColor = new(1, 1, 1, currentOpacity);
                         sr.color = finalTrailColor;
 
@@ -280,6 +261,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                             if (life >= 1)
                             {
                                 star.gameObject.SetActive(false);
+                                Light.gameObject.SetActive(false);
                             }
                             else
                             {
@@ -289,6 +271,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
                                 Color s = currentColor;
                                 s.a = baseAlpha * 0.5f;   // 或 baseAlpha * 0.5f 对齐原版 trailColor.A/=2
                                 star.Set(s, starScale);
+                                Light.gameObject.SetActive(true);
+                                Light.transform.localPosition = new Vector3(b2.x, -0.4f, b2.z);
                             }
                         }
                     }

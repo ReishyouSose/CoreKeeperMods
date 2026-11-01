@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pug.Sprite;
+using UnityEngine;
 
 namespace Assets.TerraZenith.Scripts.Graphic
 {
@@ -6,5 +7,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
     {
         public SpriteRenderer Sprite;
         public SpriteMask Mask;
+        public SpriteObject Light;
     }
 }
