@@ -1,5 +1,6 @@
 using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
+using CoreLib.Submodule.LootDrop;
 using PugMod;
 using Unity.Entities;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Assets.TerraZenith
         public void EarlyInit()
         {
             API.Authoring.OnObjectTypeAdded += Authoring_OnObjectTypeAdded;
+            CoreLib.CoreLibMod.LoadSubmodule(typeof(LootDropModule));
+            LootDropModule.AddNewDrop(LootTableID.WallBoss, new() { itemName = ZenithBalance.RecipeName, minAmount = 1, maxAmount = 1, weight = 10 });
         }
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
@@ -22,9 +25,9 @@ namespace Assets.TerraZenith
             }
             // projectileID 留空，原版 RangeWeaponSlot.AttackWithItem 看到 None 会直接返回。
             // 冷却、朝向和弹幕改由天顶剑的预测攻击系统来做，伤害仍是武器上的近战标记。
-            if (authoringData.TryGetComponent<ObjectAuthoring>(out var authoring) )
+            if (authoringData.TryGetComponent<ObjectAuthoring>(out var authoring))
             {
-                if(authoring.objectName == ZenithBalance.WeaponName)
+                if (authoring.objectName == ZenithBalance.WeaponName)
                 {
                     var projID = API.Authoring.GetObjectID(ZenithBalance.SwordName);
                     entityManager.AddComponentData(entity, new ZenithWeaponCD
@@ -45,11 +48,6 @@ namespace Assets.TerraZenith
                         requiresNearbyObject = recipe.requiresNearbyObject,
                     });
                 }
-            }
-            if (authoringData.TryGetComponent<EntityMonoBehaviourData>(out var vanilla) && vanilla.ObjectInfo.objectID == ObjectID.WallBoss)
-            {
-                var buffer = entityManager.GetBuffer<DropsLootBuffer>(entity);
-                buffer.Add(new() { lootDropID = API.Authoring.GetObjectID(ZenithBalance.RecipeName), amount = 1 });
             }
         }
 

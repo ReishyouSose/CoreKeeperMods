@@ -2,7 +2,6 @@ using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
 using PlayerEquipment;
 using Pug.UnityExtensions;
-using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
@@ -34,6 +33,7 @@ namespace Assets.TerraZenith.Scripts.System
         private ComponentLookup<CattleCD> cattleLookup;
         private ComponentLookup<LocalTransform> transLookup;
         private ComponentLookup<HealthCD> healthLookup;
+        private ComponentLookup<ImmuneToDamageCD> immuneLookup;
         private BufferLookup<LevelEntitiesBuffer> levelEntitiesLookup;
         private BufferLookup<SummarizedConditionEffectsBuffer> effectBufferLookup;
         private BufferLookup<SummarizedConditionsBuffer> conditionsLookup;
@@ -58,6 +58,7 @@ namespace Assets.TerraZenith.Scripts.System
             cattleLookup = SystemAPI.GetComponentLookup<CattleCD>(true);
             transLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
             healthLookup = SystemAPI.GetComponentLookup<HealthCD>(true);
+            immuneLookup = SystemAPI.GetComponentLookup<ImmuneToDamageCD>(true);
             levelEntitiesLookup = SystemAPI.GetBufferLookup<LevelEntitiesBuffer>(true);
             effectBufferLookup = SystemAPI.GetBufferLookup<SummarizedConditionEffectsBuffer>(true);
             conditionsLookup = SystemAPI.GetBufferLookup<SummarizedConditionsBuffer>(true);
@@ -92,6 +93,7 @@ namespace Assets.TerraZenith.Scripts.System
             var cattleLookup = this.cattleLookup;
             var transLookup = this.transLookup;
             var healthLookup = this.healthLookup;
+            var immuneLookup = this.immuneLookup;
             var levelEntitiesLookup = this.levelEntitiesLookup;
             var effectLookup = this.effectBufferLookup;
             var conditionsLookup = this.conditionsLookup;
@@ -102,7 +104,7 @@ namespace Assets.TerraZenith.Scripts.System
             bool firstTime = SystemAPI.GetSingleton<NetworkTime>().IsFirstTimeFullyPredictingTick;
             var ecb = CreateCommandBuffer();
             int blades = ZenithBalance.Slashs.Length;
-            var enemies = query.ToEntityArray(Allocator.TempJob);
+            //var enemies = query.ToEntityArray(Allocator.TempJob);
 
             Entities.ForEach((Entity entity, ref RandomCD random, ref ZenithWeaponTriggerTag trigger, in EquippedObjectCD equipped, in ClientInput input,
                  in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost) =>
@@ -140,12 +142,15 @@ namespace Assets.TerraZenith.Scripts.System
                 float2 playerPos = transform.Position.xz /*+ new float2(0, 0.5f)*/;
                 float2 target = input.mouseOrJoystickWorldPoint - playerPos;
                 // 特定的剑（序号 1、2）会寻找附近的敌人（索敌）
-                if (vari)
+                /*if (vari)
                 {
                     float minDis = ZenithBalance.SearchRadiumSqrt;
                     foreach (var enemy in enemies)
                     {
                         var enemyE = enemy;
+                        immuneLookup.TryGetComponent(enemyE, out var immune);
+                        if (immune.Value == ImmuneToDamageState.Immune)
+                            continue;
                         if (!enemyLookup.HasComponent(enemyE))
                             continue;
                         if (cattleLookup.HasComponent(enemyE))
@@ -154,6 +159,11 @@ namespace Assets.TerraZenith.Scripts.System
                             continue;
                         if (!transLookup.TryGetComponent(enemyE, out var trans))
                             continue;
+                        if (conditionsLookup.TryGetBuffer(enemyE, out var conds))
+                        {
+                            if (conds[(int)ConditionEffect.ProtectiveArmor].value > 0)
+                                continue;
+                        }
                         float2 totar = trans.Position.XZ() - playerPos;
                         float dis = math.lengthsq(totar);
                         if (dis > minDis)
@@ -162,8 +172,8 @@ namespace Assets.TerraZenith.Scripts.System
                         target = totar;
                     }
                 }
-                else
-                    ZenithBalance.Rotate(target, randomRot);
+                else*/
+                ZenithBalance.Rotate(target, randomRot);
 
                 // ==========================================
                 // 3. 计算伤害、等级、武器冷却等数据
@@ -279,7 +289,7 @@ namespace Assets.TerraZenith.Scripts.System
                  .WithName("ZenithWeaponTriggerSystem")
                  .WithBurst()
                  .WithAll<ZenithWeaponTriggerTag>()
-                 .WithDisposeOnCompletion(enemies)
+                 //.WithDisposeOnCompletion(enemies)
                  .Schedule();
             base.OnUpdate();
         }

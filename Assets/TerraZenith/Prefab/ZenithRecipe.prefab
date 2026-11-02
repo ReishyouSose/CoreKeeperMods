@@ -79,11 +79,11 @@ MonoBehaviour:
   m_Script: {fileID: 244469479, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellValue: 9999
+  sellValue: 999
   buyValueMultiplier: 1
-  icon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
-  iconOffset: {x: 0, y: -0.1875}
-  smallIcon: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
+  icon: {fileID: 21300000, guid: 83c4c4ddf9b74fb47b44235fa2e0c2c8, type: 3}
+  iconOffset: {x: 0, y: 0}
+  smallIcon: {fileID: 21300000, guid: d3d5620f865610847a44f105feed40bd, type: 3}
   isStackable: 0
   requiredObjectsToCraft: []
   craftingTime: 0

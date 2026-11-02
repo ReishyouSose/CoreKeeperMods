@@ -1,0 +1,7 @@
+[h1][b]Coreria[/b][/h1]
+Will gradually add Terraria items (though I'm pretty lazy, of course)
+
+[h2][b]Current Items[/b][/h2]
+[list]
+Zenith (parchment drops at 1% from Core Commander and bosses of later progression)
+[/list]

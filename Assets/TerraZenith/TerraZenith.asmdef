@@ -1,5 +1,6 @@
-﻿{
+{
     "name": "TerraZenith",
+    "rootNamespace": "",
     "references": [
         "Unity.Burst",
         "Unity.Collections",
@@ -14,7 +15,8 @@
         "Unity.Physics.Hybrid",
         "Unity.Properties",
         "Unity.Transforms",
-        "PugMod.SDK"
+        "PugMod.SDK",
+        "CoreLib"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -258,5 +260,5 @@
     "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
-    "useGUIDs": false
+    "noEngineReferences": false
 }
