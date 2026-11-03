@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using Rng = UnityEngine.Random;
 
 namespace Assets.TerraZenith.Scripts.Graphic
 {
@@ -13,8 +15,10 @@ namespace Assets.TerraZenith.Scripts.Graphic
     {
         public MeshFilter Ribbon;               // 刀光网格
         public List<ZenithAfterImage> Trails;     // 残影列表
+        public List<ZenithDust> Dusts;
         public ZenithStarSparkle Star;
         public SpriteObject Light;
+        public List<SpriteRenderer> Colliders;
 
 
         public MeshRenderer ribbonRenderer;
@@ -42,6 +46,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             oldRot.Clear();
             oldLife.Clear();
             HideTrail();
+            Dusts.ForEach(d => d.gameObject.SetActive(false));
             oldVari = -2;
             timer = 0;
             var manager = world.EntityManager;
@@ -108,6 +113,25 @@ namespace Assets.TerraZenith.Scripts.Graphic
             _triangles = new int[(maxCapacity - 1) * 6];
         }
 
+        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
+        {
+            int j = 0;
+            for (int i = zenithTrails.Length - 1; i >= 0; i--)
+            {
+                if (j >= 33)
+                    break;
+                while (Colliders.Count <= j)
+                {
+                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
+                }
+                var collider = Colliders[j];
+                collider.color = currentColor;
+                collider.gameObject.SetActive(true);
+                collider.transform.localPosition = zenithTrails[i].Pos.X0Y();
+                j++;
+            }
+        }
+
         private void HideTrail()
         {
             for (int i = 0; i < Trails.Count; i++)
@@ -115,6 +139,10 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 Trails[i].gameObject.SetActive(false);
             }
             Star.gameObject.SetActive(false);
+            foreach (var go in Colliders)
+            {
+                go.gameObject.SetActive(false);
+            }
         }
 
         private void SimulateOrbit(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
@@ -138,7 +166,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 HideTrail();
                 return;
             }
-            //DebugCollider(zenithTrails);
+            DebugCollider(zenithTrails);
             while (timer < targetTimer)
             {
                 timer = math.min(timer + sampler, killTime);
@@ -155,10 +183,10 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
                 float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
                 localPos += leadOffset;
-
+                var rot = ZenithBalance.Rotate(basePos, orbit.Rotation);
                 float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
                 oldPos.Add(worldPos);
-                oldRot.Add(ZenithBalance.Rotate(basePos, orbit.Rotation));
+                oldRot.Add(rot);
                 oldLife.Add(life);
             }
         }
@@ -279,6 +307,20 @@ namespace Assets.TerraZenith.Scripts.Graphic
                                 Light.gameObject.SetActive(true);
                                 Light.transform.localPosition = new Vector3(b2.x, -0.4f, b2.z);
                             }
+                            if (life <= 0.5f) // 只在半程前生成
+                            {
+                                int count = 1; // 如果觉得稀可以改成 2 或 3
+                                var dustDir = ZenithBalance.Rotate(dir, (reverse ? -1 : 1) * math.PI / 2f);
+                                for (int k = 0; k < count; k++)
+                                {
+                                    float randomOffset = Rng.Range(0.5f, 1f);
+                                    // 这里 worldPos 是相对坐标，需要加上弹幕实际的世界位置
+                                    float3 spawnPos = transform.position.ToFloat3() + (center + halfWidth * randomOffset * dustDir).X0Y();
+
+                                    // 传 forward，让 SpawnDust 去算切线速度
+                                    SpawnDust(spawnPos, dustDir, currentColor);
+                                }
+                            }
                         }
                     }
                 }
@@ -322,6 +364,32 @@ namespace Assets.TerraZenith.Scripts.Graphic
             _mesh.SetTriangles(_triangles, 0, tri, 0, true, 0);
             _mesh.RecalculateBounds();
             Ribbon.sharedMesh = _mesh;
+        }
+        private void SpawnDust(float3 worldPos, float2 tangent, Color color)
+        {
+            if (Rng.value >= 0.2f)
+                return;
+            for (int j = 0; j < 5; j++)
+            {
+                int i = Dusts.FindIndex(0, x => !x.gameObject.activeSelf);
+                if (i < 0)
+                {
+                    Dusts.Add(Instantiate(Dusts[0], Dusts[0].transform.parent));
+                    i = Dusts.Count - 1;
+                }
+                ZenithDust dust = Dusts[i];
+                dust.gameObject.SetActive(true);
+                // 让 Dust 继承弹幕的颜色
+                dust.SR.color = color;
+
+                // 2. 随机速度大小 + 抖动
+                float speed = Rng.Range(5.5f, 10.5f) * (0.6f + 0.2f * j);
+                float2 randomJitter = new float2(Rng.Range(-1f, 1f), Rng.Range(-1f, 1f)) * 3.5f;
+                float2 velocity = (tangent * speed) + randomJitter;
+
+                // 传给 Init
+                dust.Init(worldPos, velocity);
+            }
         }
 
         private float2 CatmullRom(float2 p0, float2 p1, float2 p2, float2 p3, float t)

@@ -206,7 +206,7 @@ namespace Assets.TerraZenith.Scripts.System
                 // 4. 在 ECS 中实例化实体并赋予数据
                 // ==========================================
                 Entity main = default;
-                for (int i = 0; i < 34; i++)
+                for (int i = 0; i < /*34*/1; i++)
                 {
                     Entity projectile = ecb.Instantiate(i == 0 ? projectilePrefab : fakeProj);
                     if (i == 0)

@@ -80,6 +80,10 @@ namespace Assets.TerraZenith.Scripts.System
                 float life = 0;
                 int l = trail.Length - 1;
                 // 照图形类：每 tick 推进 updateCount 次（dense 时 3 倍）
+                if (trail.Length == 0)
+                {
+                    timer -= sampler;
+                }
                 while (timer < targetTimer)
                 {
                     timer = math.min(timer + sampler, realKillTime);
@@ -97,16 +101,16 @@ namespace Assets.TerraZenith.Scripts.System
 
                     float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
                     //if (life <= 0.5f)
-                    trail.Add(new ZenithTrail { Pos = worldPos, CanDamage = progress < 1 });
+                    trail.Add(new ZenithTrail { Pos = worldPos, CanDamage = life <= 0.5f });
                 }
                 int k = fakes.Length;
                 if (timer >= realKillTime)
                 {
                     ecb.SetComponentEnabled<EntityDestroyedCD>(entity, true);
-                    for (int i = 0; i < k; i++)
+                    /*for (int i = 0; i < k; i++)
                     {
                         ecb.SetComponentEnabled<EntityDestroyedCD>(fakes[i].Entity, true);
-                    }
+                    }*/
                     return;
                 }
 
@@ -135,7 +139,7 @@ namespace Assets.TerraZenith.Scripts.System
                     }
                 }*/
                 // 在 ZenithFlightSystem 的循环中
-                int j = 0;
+                /*int j = 0;
                 l = trail.Length - 1;
                 for (int i = l; i >= 0; i--)
                 {
@@ -187,7 +191,7 @@ namespace Assets.TerraZenith.Scripts.System
 
                     // 4. 将假体的真实物理位置设为这一帧的拖尾点
                     fakeTrans.Position = partPos.X0Y();
-                }
+                }*/
             })
                 .WithName("ZenithOrbitSystem")
                 .WithBurst()

@@ -1,6 +1,5 @@
 using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
-using CoreLib.Submodule.LootDrop;
 using PugMod;
 using Unity.Entities;
 using UnityEngine;
@@ -12,8 +11,6 @@ namespace Assets.TerraZenith
         public void EarlyInit()
         {
             API.Authoring.OnObjectTypeAdded += Authoring_OnObjectTypeAdded;
-            CoreLib.CoreLibMod.LoadSubmodule(typeof(LootDropModule));
-            LootDropModule.AddNewDrop(LootTableID.WallBoss, new() { itemName = ZenithBalance.RecipeName, minAmount = 1, maxAmount = 1, weight = 10 });
         }
 
         private void Authoring_OnObjectTypeAdded(Entity entity, GameObject authoringData, EntityManager entityManager)
