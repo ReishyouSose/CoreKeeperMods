@@ -117,7 +117,7 @@ namespace Assets.TerraZenith.Scripts.System
             // 更新 Attack Helper 的 lookup + 历史碰撞世界
             tileAccessor.Update(ref CheckedStateRef);
             attackHelper.Update(ref CheckedStateRef, currentTick, this.tickRate);
-            var collision = this.collision;
+            var collision = attackHelper.physicsWorld.CollisionWorld;
             Entities.ForEach((Entity e, ref ContinouslyDamagingProjectileCD attackCD, in ProjectileCD proj, in LocalTransform trans,
                  in OwnerReferenceCD owner, in BehaviourTagsCD attackTags, in ProjectileSetupCD setup, in DynamicBuffer<ZenithTrail> trails) =>
             {
@@ -147,7 +147,7 @@ namespace Assets.TerraZenith.Scripts.System
                 float3 origin = trans.Position + up;
                 for (int i = trails.Length - 1; i > 0; i--)
                 {
-                    if (j >= 33)
+                    if (j >= 60)
                         break;
                     var trail = trails[i];
                     var preTrail = trails[i - 1];
@@ -165,15 +165,15 @@ namespace Assets.TerraZenith.Scripts.System
                         /*bool useLag = w == 0;
                         var world = useLag ? worldInterpolated : worldPredicted;*/
                         var world = collision;
-
+                        var totar = trailPos - preTrail.Pos;
                         castHits.Clear();
-                        bool hitanything = world.SphereCastAll(pos, 0.5f, (preTrail.Pos - trailPos).X0Y() + up, 0, ref castHits, filter, QueryInteraction.Default);
+                        bool hitanything = world.SphereCastAll(pos, 0.5f, math.normalizesafe(totar).X0Y(), math.length(totar), ref castHits, filter, QueryInteraction.Default);
                         if (!hitanything)
                         {
                             j++;
                             continue;
                         }
-                        Debug.Log($"hit index {j} count {castHits.Length}");
+                        //Debug.Log($"hit index {j} count {castHits.Length}");
                         foreach (var hit in castHits)
                         {
                             // 延迟补偿匹配
@@ -184,26 +184,26 @@ namespace Assets.TerraZenith.Scripts.System
                                 target = part.mainEntity;
                             if (!enemyLookup.HasComponent(target))
                             {
-                                Debug.Log("no emeny");
+                                //Debug.Log("no emeny");
                                 continue;
                             }
                             if (!healthLookup.TryGetComponent(target, out var health) || health.health <= 0)
                             {
-                                Debug.Log("no health");
+                                //Debug.Log("no health");
                                 continue;
                             }
                             if (!transLookup.TryGetComponent(target, out var targetTrans))
                             {
-                                Debug.Log("no transform");
+                                //Debug.Log("no transform");
                                 continue;
                             }
                             if (hitEntities.Add(target))
                             {
                                 hitInfos.Add(new ZenithHitInfo { Pos = targetTrans.Position });
-                                if (objLookup.TryGetComponent(target, out var objData))
+                                /*if (objLookup.TryGetComponent(target, out var objData))
                                 {
                                     Debug.Log("hit " + objData.objectID);
-                                }
+                                }*/
                             }
                         }
                     }
@@ -279,7 +279,7 @@ namespace Assets.TerraZenith.Scripts.System
                 .WithAll<GhostInstance>()
                 .WithAll<Simulate>()
                 .WithNone<EntityDestroyedCD>()
-                .Run();
+                .Schedule();
             base.OnUpdate();
         }
 

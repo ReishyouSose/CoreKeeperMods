@@ -82,13 +82,13 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/GhostComponentSerializerCollection.cs
       guid: 
-    - path: Bundles/TerraZenith_Linux.assetbundle
-      guid: 
-    - path: Bundles/TerraZenith_Linux.assetbundle.manifest
-      guid: 
     - path: Bundles/TerraZenith_Windows.assetbundle
       guid: 
     - path: Bundles/TerraZenith_Windows.assetbundle.manifest
+      guid: 
+    - path: Bundles/TerraZenith_Linux.assetbundle
+      guid: 
+    - path: Bundles/TerraZenith_Linux.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib
@@ -241,7 +241,7 @@ MonoBehaviour:
   - path: Assets/TerraZenith/Prefab/ZenithRecipe_Small.png
     hash: 9492B21DEA1736545C6B45C11FF6BE8DCF2E56C4BF72D44CF4DEF76FA142921D:5e4d2c301c26b1c751382e9cc2762d52
   - path: Assets/TerraZenith/Prefab/ZenithSword.prefab
-    hash: 393559644C60106AFB1570D737FC1AD020615F176919B83D81C501715638670A:af6cd51ad6c80c598abbcad1da2dbe18
+    hash: 18785BCE1A327B1A49DA3ECAC6070D26CB265EC44EC1F201F2E62899D71BC8B2:c871de7266550debfb94f1ececac1ca4
   - path: Assets/TerraZenith/Prefab/ZenithSwordGraphic.prefab
     hash: 5830C59C33B920454E7B74880C15A5F10F05CA2E82D54DBDE9B23CCBDF0E7BFC:154639adeeaa81cd055d847fcdfca844
   - path: Assets/TerraZenith/Scripts/Core/WorkShopDesc_ZH.txt

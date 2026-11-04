@@ -166,7 +166,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 HideTrail();
                 return;
             }
-            DebugCollider(zenithTrails);
+            //DebugCollider(zenithTrails);
             while (timer < targetTimer)
             {
                 timer = math.min(timer + sampler, killTime);
