@@ -11,7 +11,7 @@ using Unity.Transforms;
 namespace Assets.TerraZenith.Scripts.System
 {
     [UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
-    [UpdateAfter(typeof(ZenithHitSystem))]
+    [UpdateAfter(typeof(ZenithFlightSystem))]
     [UpdateBefore(typeof(ProjectileSystem))]   // 关键：同帧结算
     [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation)]
     public partial class ZenitHitSystem : PugSimulationSystemBase
@@ -73,7 +73,6 @@ namespace Assets.TerraZenith.Scripts.System
         }
         protected override void OnUpdate()
         {
-
             var networkTime = SystemAPI.GetSingleton<NetworkTime>();
             var currentTick = networkTime.ServerTick;
             if (networkTime.IsPartialTick)

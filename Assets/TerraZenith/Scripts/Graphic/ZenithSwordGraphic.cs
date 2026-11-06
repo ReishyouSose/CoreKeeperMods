@@ -188,7 +188,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 float stripFade = /*math.clamp(1f - (stripProgress / 0.98f), 0f, 1f)*/trailFix;
 
                 // ★ 核心：直接乘！千万不要乱加 lifeFade，也不要乱乘 trailFix！
-                Color c = currentColor * stripFade;
+                Color c = currentColor * stripFade * 1.5f;
                 // ★ 核心：Alpha 减半（原版 result.A /= 2）
                 //c.a *= 0.5f;
                 int v = meshVerticeCount * 2;
