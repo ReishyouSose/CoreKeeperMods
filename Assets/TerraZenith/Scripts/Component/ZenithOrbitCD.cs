@@ -17,6 +17,8 @@ namespace Assets.TerraZenith.Scripts.Component
         [GhostField]
         public float Rotation;
         [GhostField]
+        public int TileDamage;
+        [GhostField]
         public NetworkTick LastUpdateTick;   // 上次推进的 tick
     }
 }

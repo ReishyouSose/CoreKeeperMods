@@ -12,7 +12,7 @@ namespace Assets.TerraZenith.Scripts.System
     [UpdateAfter(typeof(ProjectileMovementSystem))]
     [UpdateBefore(typeof(ProjectileSystem))]
     [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation)]
-    public partial class ZenithFlightSystem : PugSimulationSystemBase
+    public partial class ZenithHitSystem : PugSimulationSystemBase
     {
         private float tickRate;
         private ComponentLookup<LocalTransform> transformLookup;

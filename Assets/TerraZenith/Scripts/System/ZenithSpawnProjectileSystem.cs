@@ -198,7 +198,6 @@ namespace Assets.TerraZenith.Scripts.System
                  DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effectLookup[entity];
                  float attackSpeed = math.max(1f + effectBuffer[(int)ConditionEffect.MeleeAttackSpeed].value / 1000f
                      + effectBuffer[(int)ConditionEffect.AttackSpeed].value / 1000f, 0.1f);
-                 int tileD = effectBuffer[(int)ConditionEffect.minn]
                  weaponCooldown /= attackSpeed;
 
                  // ==========================================
@@ -214,18 +213,17 @@ namespace Assets.TerraZenith.Scripts.System
                  float rot = math.atan2(dir.y, dir.x);
 
                  float halfAxis = (dist + back) * 0.5f; // 半长轴
-                 if (math.abs(shortAxis) * 4 < halfAxis)
-                     shortAxis *= 2;
                  var offset = dir * ((dist - back) * 0.5f);
-
                  var orbit = new ZenithOrbitCD
                  {
-                     // 【核心修正】Offset 是从“玩家(也就是椭圆短轴端点)”指向“椭圆中心”的向量
                      Offset = offset,
                      LongAxis = halfAxis,
                      ShortAxis = shortAxis,
                      Rotation = rot + math.PI,
                      LastUpdateTick = currentTick,
+                     TileDamage = input.IsButtonStateSet(CommandInputButtonStateNames.SecondInteract_HeldDown) ?
+                     (int)math.round(effectBuffer[(int)ConditionEffect.Mining].value
+                          * math.max(1f + effectBuffer[(int)ConditionEffect.MiningPercentage].value / 100f, 0)) : 0,
                  };
                  ecb.SetComponent(projectile, orbit);
                  ecb.SetComponent(projectile, new ProjectileSetupCD

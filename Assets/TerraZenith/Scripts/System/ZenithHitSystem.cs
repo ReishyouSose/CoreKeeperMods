@@ -11,7 +11,7 @@ using Unity.Transforms;
 namespace Assets.TerraZenith.Scripts.System
 {
     [UpdateInGroup(typeof(PredictedSimulationSystemGroup))]
-    [UpdateAfter(typeof(ZenithFlightSystem))]
+    [UpdateAfter(typeof(ZenithHitSystem))]
     [UpdateBefore(typeof(ProjectileSystem))]   // 关键：同帧结算
     [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation | WorldSystemFilterFlags.ClientSimulation)]
     public partial class ZenitHitSystem : PugSimulationSystemBase
@@ -41,9 +41,9 @@ namespace Assets.TerraZenith.Scripts.System
         private BufferLookup<SummarizedConditionEffectsBuffer> effectLookup;
 
         private AttackSystem.Helper attackHelper;
-        private TileAccessor tileAccessor;
         private uint tickRate;
         private static float3 up = math.up() * 0.5f;
+        private TileAccessor tileAccessor;
 
         protected override void OnCreate()
         {
@@ -68,7 +68,7 @@ namespace Assets.TerraZenith.Scripts.System
         {
             tickRate = (uint)PlatformConfiguration.Instance.SessionConfiguration.SimulationTickRate;
             attackHelper = new AttackSystem.Helper(ref CheckedStateRef, (int)tickRate);
-            tileAccessor = new TileAccessor(ref CheckedStateRef, true);
+            tileAccessor = CreateTileAccessor();
             base.OnStartRunning();
         }
         protected override void OnUpdate()
@@ -93,11 +93,11 @@ namespace Assets.TerraZenith.Scripts.System
             var effectLookup = this.effectLookup;
             var up = ZenitHitSystem.up;
             // 更新 Attack Helper 的 lookup + 历史碰撞世界
-            tileAccessor.Update(ref CheckedStateRef);
             attackHelper.Update(ref CheckedStateRef, currentTick, this.tickRate);
             var collision = attackHelper.physicsWorld.CollisionWorld;
+            var manager = EntityManager;
             Entities.ForEach((Entity e, ref ContinouslyDamagingProjectileCD attackCD, in ProjectileCD proj, in LocalTransform trans,
-                 in OwnerReferenceCD owner, in BehaviourTagsCD attackTags, in ProjectileSetupCD setup, in DynamicBuffer<ZenithTrail> trails) =>
+                 in ZenithOrbitCD orbit, in BehaviourTagsCD attackTags, in ProjectileSetupCD setup, in DynamicBuffer<ZenithTrail> trails) =>
             {
                 // ===== 1. 频率控制：冷却未到直接跳过 =====
                 ref var cd = ref attackCD.attackCooldown;
@@ -114,7 +114,8 @@ namespace Assets.TerraZenith.Scripts.System
                 var hitInfos = new NativeList<ZenithHitInfo>(16, Allocator.Temp);
                 int j = 0;
                 float3 origin = trans.Position + up;
-                int tileDamage = effectLookup[owner.owner][66].value;
+                var tileDamage = orbit.TileDamage;
+                bool hitTile = tileDamage > 0;
                 for (int i = trails.Length - 1; i > 0; i--)
                 {
                     var trail = trails[i];
@@ -126,41 +127,49 @@ namespace Assets.TerraZenith.Scripts.System
                     }
                     var trailPos = trail.Pos;
                     float3 pos = trailPos.X0Y() + origin;
-                    var tile = pos.RoundToInt2();
-                    if (hitTiles.Add(tile))
+                    if (hitTile)
                     {
-                        tileDamageBuffer.Add(new()
+                        var dir = math.normalizesafe(trailPos);
+                        for (int k = -1; k <= 1; k++)
                         {
-                            position = tile,
-                            damage = tileDamage,
-                            causedByEntity = e,
-                            dontHitBridges = true,
-                            canHitLowColliders = true
-                        });
+                            var tilePos = (pos + (proj.tileDamageRadius * k * dir).X0Y()).RoundToInt2();
+
+                            var tile = tileAccessor.GetTopDamageableTile(tilePos);
+                            if (tile.tileType == PugTilemap.TileType.wall && hitTiles.Add(tilePos))
+                            {
+                                tileDamageBuffer.Add(new()
+                                {
+                                    position = tilePos,
+                                    damage = tileDamage,
+                                    causedByEntity = e,
+                                    dontHitBridges = true,
+                                    canHitLowColliders = true,
+                                });
+                            }
+                        }
                     }
                     var world = collision;
                     var totar = trailPos - preTrail.Pos;
                     castHits.Clear();
-                    bool hitanything = world.SphereCastAll(pos, proj.damageRadius, math.normalizesafe(totar).X0Y(), math.length(totar), ref castHits, filter, QueryInteraction.Default);
+                    bool hitanything = world.SphereCastAll(pos, proj.damageRadius, math.normalizesafe(totar).X0Y(), math.length(totar), ref castHits, filter);
                     if (!hitanything)
                     {
                         j++;
                         continue;
                     }
-                    //Debug.Log($"hit index {j} count {castHits.Length}");
                     foreach (var hit in castHits)
                     {
                         Entity target = hit.Entity;
                         if (partLookup.TryGetComponent(target, out var part))
                             target = part.mainEntity;
-                        if (!enemyLookup.HasComponent(target))
-                        {
-                            //Debug.Log("no emeny");
-                            continue;
-                        }
                         if (!healthLookup.TryGetComponent(target, out var health) || health.health <= 0)
                         {
                             //Debug.Log("no health");
+                            continue;
+                        }
+                        if (!enemyLookup.HasComponent(target))
+                        {
+                            //Debug.Log("no emeny");
                             continue;
                         }
                         if (!transLookup.TryGetComponent(target, out var targetTrans))
@@ -183,6 +192,7 @@ namespace Assets.TerraZenith.Scripts.System
                 // ===== 5. 逐段构造扫掠体，对每个目标调 Attack =====
                 int n = hitInfos.Length;
                 float3 center = trans.Position;
+                var attackType = hitTile ? CanOnlyAttackType.All : CanOnlyAttackType.EnemyAndPlayer;
                 for (int i = 0; i < n; i++)
                 {
                     float3 offset = hitInfos[i].Pos - center;
@@ -197,7 +207,7 @@ namespace Assets.TerraZenith.Scripts.System
                         radius = 0.1f,
                         damage = setup.damage,
                         playerDamage = setup.damage,
-                        canOnlyAttackType = CanOnlyAttackType.EnemyAndPlayer,
+                        canOnlyAttackType = attackType,
                         behaviourTags = attackTags,
                         isMagic = setup.isMagic,
                         isPredicted = true,
