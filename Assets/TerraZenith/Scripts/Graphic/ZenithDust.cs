@@ -8,32 +8,31 @@ namespace Assets.TerraZenith.Scripts.Graphic
     public class ZenithDust : MonoBehaviour
     {
         public SpriteObject SR;
-        public float3 Vel;
-        public float3 Pos;
-        public float Scale;
+        private float3 vel;
+        private float3 pos;
+        private float scale;
         private void Update()
         {
-            Pos += Vel * Time.deltaTime;
-            Vel *= 0.95f;
-            Scale *= 0.98f;
-            transform.position = new(Pos.x, transform.parent.position.y, Pos.z + 0.5f);
-            transform.localScale = new(Scale, Scale, 1f);
-            //var c = SR.color;
-            SR.color.a = Scale;
-            if (Scale <= 0.01f)
+            pos += vel * Time.deltaTime;
+            vel *= 0.95f;
+            scale *= 0.98f;
+            transform.position = new(pos.x, transform.parent.position.y, pos.z + 0.5f);
+            transform.localScale = new(scale, scale, 1f);
+            SR.emissiveColor.a = scale;
+            if (scale <= 0.01f)
             {
                 gameObject.SetActive(false);
             }
         }
-        public void Init(float3 pos, float2 vel)
+        public void Init(float3 pos, float2 vel, Color color)
         {
-            Pos = pos;
-            Vel = vel.X0Y();
-            Scale = 1;
-            transform.position = Pos;
-            //transform.localScale = Vector3.one * Scale;
-            var c = SR.color;
-            SR.emissiveColor = new Color(c.r, c.g, c.b, 1f);
+            this.pos = pos;
+            this.vel = vel.X0Y();
+            scale = 1;
+            transform.position = this.pos;
+            var c = color;
+            c.a = 1f;
+            SR.emissiveColor = c;
         }
     }
 }

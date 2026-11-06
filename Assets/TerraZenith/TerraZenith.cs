@@ -19,6 +19,7 @@ namespace Assets.TerraZenith
             {
                 entityManager.AddComponent<ZenithWeaponTriggerTag>(entity);
                 entityManager.SetComponentEnabled<ZenithWeaponTriggerTag>(entity, false);
+                entityManager.AddComponent<DropZenithCD>(entity);
             }
             // projectileID 留空，原版 RangeWeaponSlot.AttackWithItem 看到 None 会直接返回。
             // 冷却、朝向和弹幕改由天顶剑的预测攻击系统来做，伤害仍是武器上的近战标记。
@@ -30,7 +31,6 @@ namespace Assets.TerraZenith
                     entityManager.AddComponentData(entity, new ZenithWeaponCD
                     {
                         projectileID = projID,
-                        fakeProjID = API.Authoring.GetObjectID("TerraZenith_ZenithFakeProj")
                     });
                 }
                 if (authoringData.TryGetComponent<RecipeAuthoring>(out var recipe) && authoring.objectName == ZenithBalance.RecipeName)

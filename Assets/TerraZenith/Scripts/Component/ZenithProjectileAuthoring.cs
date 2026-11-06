@@ -12,7 +12,6 @@ namespace Assets.TerraZenith.Scripts.Component
         {
             AddComponentData(new ZenithOrbitCD());
             EnsureHasBuffer<ZenithTrail>();
-            EnsureHasBuffer<ZenithFakeProjBuffer>();
         }
     }
 

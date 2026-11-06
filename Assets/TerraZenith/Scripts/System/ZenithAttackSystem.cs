@@ -101,7 +101,6 @@ namespace Assets.TerraZenith.Scripts.System
             var database = SystemAPI.GetSingleton<PugDatabase.DatabaseBankCD>();
             var tick = SystemAPI.GetSingleton<NetworkTime>().ServerTick;
             uint tickRate = this.tickRate;
-            var ecb = CreateCommandBuffer();
             Entity inventoryEntity = SystemAPI.GetSingletonEntity<InventoryChangeBuffer>();
 
             Entities.ForEach((Entity entity, in EquippedObjectCD equipped, in ClientInput input, in EquipmentSlotCD slot, in PlayerRoutineCD routine) =>
@@ -128,7 +127,6 @@ namespace Assets.TerraZenith.Scripts.System
                     if (manaCostLookup.HasComponent(entity))
                         manaCostLookup.GetRefRW(entity).ValueRW = new ManaCostForQueuedAttackCD { manaCost = cost };
                 }
-                // 对照 RangeWeaponSlot.CalculateCooldown。41、65 是那份攻速条件的下标。
                 float cooldownTime = 0.6f;
                 if (cooldownLookup.TryGetComponent(prefab, out var cooldown))
                     cooldownTime = cooldown.cooldown;

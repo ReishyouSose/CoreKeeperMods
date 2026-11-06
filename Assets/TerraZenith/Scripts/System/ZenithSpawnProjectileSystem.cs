@@ -2,7 +2,9 @@ using Assets.TerraZenith.Scripts.Component;
 using Assets.TerraZenith.Scripts.Core;
 using PlayerEquipment;
 using Pug.UnityExtensions;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
@@ -37,9 +39,10 @@ namespace Assets.TerraZenith.Scripts.System
         private BufferLookup<LevelEntitiesBuffer> levelEntitiesLookup;
         private BufferLookup<SummarizedConditionEffectsBuffer> effectBufferLookup;
         private BufferLookup<SummarizedConditionsBuffer> conditionsLookup;
-        private BufferLookup<NearbyEntitiesBufferCD> nearbyLookup;
-        private BufferLookup<ZenithFakeProjBuffer> trailLookup;
-        private EntityQuery query;
+        private EntityQuery EnemyQueue;
+        private EntityQuery PlayerQueue;
+        private PlayerAttackLookups lookups;
+        private PlayerAttackShared shared;
 
         protected override void OnCreate()
         {
@@ -62,14 +65,14 @@ namespace Assets.TerraZenith.Scripts.System
             levelEntitiesLookup = SystemAPI.GetBufferLookup<LevelEntitiesBuffer>(true);
             effectBufferLookup = SystemAPI.GetBufferLookup<SummarizedConditionEffectsBuffer>(true);
             conditionsLookup = SystemAPI.GetBufferLookup<SummarizedConditionsBuffer>(true);
-            nearbyLookup = SystemAPI.GetBufferLookup<NearbyEntitiesBufferCD>(true);
-            trailLookup = SystemAPI.GetBufferLookup<ZenithFakeProjBuffer>();
-            query = EntityManager.CreateEntityQuery(new EntityQueryDesc()
+            EnemyQueue = EntityManager.CreateEntityQuery(new EntityQueryDesc()
             {
                 All = new ComponentType[] { typeof(EnemyCD), typeof(HealthCD), typeof(LocalTransform) },
                 None = new ComponentType[] { typeof(CattleCD), typeof(EntityDestroyedCD) }
             });
-            RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
+            PlayerQueue = EntityManager.CreateEntityQuery(typeof(PlayerGhost));
+            lookups = new(ref CheckedStateRef);
+            shared = new(ref CheckedStateRef);
             RequireForUpdate<PugDatabase.DatabaseBankCD>();
             RequireForUpdate<ConditionsTableCD>();
             RequireForUpdate<NetworkTime>();
@@ -97,200 +100,175 @@ namespace Assets.TerraZenith.Scripts.System
             var levelEntitiesLookup = this.levelEntitiesLookup;
             var effectLookup = this.effectBufferLookup;
             var conditionsLookup = this.conditionsLookup;
-            var nearbyLookup = this.nearbyLookup;
-            var trailLookup = this.trailLookup;
             var database = SystemAPI.GetSingleton<PugDatabase.DatabaseBankCD>();
             var conditionsTable = SystemAPI.GetSingleton<ConditionsTableCD>();
-            bool firstTime = SystemAPI.GetSingleton<NetworkTime>().IsFirstTimeFullyPredictingTick;
+            var networkTime = SystemAPI.GetSingleton<NetworkTime>();
+            bool firstTime = networkTime.IsFirstTimeFullyPredictingTick;
+            var currentTick = networkTime.ServerTick;
             var ecb = CreateCommandBuffer();
             int blades = ZenithBalance.Slashs.Length;
+            lookups.Update(ref CheckedStateRef);
+            var players = PlayerQueue.ToEntityListAsync(Allocator.TempJob, out var jobWait);
+            shared.Update(ref CheckedStateRef, ecb, players);
             //var enemies = query.ToEntityArray(Allocator.TempJob);
+            var job = Entities.ForEach((Entity entity, ref RandomCD random, ref ZenithWeaponTriggerTag trigger, in EquippedObjectCD equipped, in ClientInput input,
+                  in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost) =>
+             {
+                 int count = trigger.Count;
+                 trigger.Count = (count + 1) % 3;
+                 triggerLookup.SetComponentEnabled(entity, false);
+                 Entity prefab = equipped.equipmentPrefab;
+                 if (!zenithLookup.TryGetComponent(prefab, out var weapon))
+                     return;
+                 //随机都得拨
+                 ref var rng = ref random.Value;
+                 bool vari = count != 0;
+                 float randomRot = vari ? (rng.NextInt(-15, 15) / 180f) : 0;
+                 float shortAxis = rng.NextInt(-48, 49) / 16f;
+                 float longOffset = rng.NextInt(-16, 17) / 16f;
+                 int variation = vari ? (rng.NextInt(blades) + 1) : 0;
+                 var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
+                 // 如果不是完整的预测帧（比如回滚重放阶段），拨完随机数就退出，防止重复生成实体
+                 if (!firstTime)
+                     return;
 
-            Entities.ForEach((Entity entity, ref RandomCD random, ref ZenithWeaponTriggerTag trigger, in EquippedObjectCD equipped, in ClientInput input,
-                 in LocalTransform transform, in GhostOwner ghostOwner, in ManaCostForQueuedAttackCD manaCost) =>
-            {
-                int count = trigger.Count;
-                trigger.Count = (count + 1) % 3;
-                triggerLookup.SetComponentEnabled(entity, false);
-                Entity prefab = equipped.equipmentPrefab;
-                if (!zenithLookup.TryGetComponent(prefab, out var weapon))
-                    return;
-                //随机都得拨
-                ref var rng = ref random.Value;
-                bool vari = count != 0;
-                float randomRot = vari ? (rng.NextInt(-15, 15) / 180f) : 0;
-                int sign = rng.NextBool() ? 1 : -1;
-                float shortAxis = rng.NextInt(8, 49) / 16f * sign;
-                float longOffset = rng.NextInt(-16, 17) / 16f;
-                float scale = rng.NextInt(-10, 11) / 100f;
-                int variation = vari ? (rng.NextInt(blades) + 1) : 0;
-                var inherited = PugRandom.InheritRngFromEntity(ref random.Value);
+                 Entity projectilePrefab = PugDatabase.GetPrimaryPrefabEntity(weapon.projectileID, database.databaseBankBlob, 0);
+                 if (projectilePrefab == Entity.Null)
+                     return;
 
-                // 如果不是完整的预测帧（比如回滚重放阶段），拨完随机数就退出，防止重复生成实体
-                if (!firstTime)
-                    return;
+                 float2 playerPos = transform.Position.xz /*+ new float2(0, 0.5f)*/;
+                 float2 target = input.mouseOrJoystickWorldPoint - playerPos;
+                 // 特定的剑（序号 1、2）会寻找附近的敌人（索敌）
+                 /*if (vari)
+                 {
+                     float minDis = ZenithBalance.SearchRadiumSqrt;
+                     foreach (var enemy in enemies)
+                     {
+                         var enemyE = enemy;
+                         immuneLookup.TryGetComponent(enemyE, out var immune);
+                         if (immune.Value == ImmuneToDamageState.Immune)
+                             continue;
+                         if (!enemyLookup.HasComponent(enemyE))
+                             continue;
+                         if (cattleLookup.HasComponent(enemyE))
+                             continue;
+                         if (!healthLookup.TryGetComponent(enemyE, out var health) || health.health <= 0)
+                             continue;
+                         if (!transLookup.TryGetComponent(enemyE, out var trans))
+                             continue;
+                         if (conditionsLookup.TryGetBuffer(enemyE, out var conds))
+                         {
+                             if (conds[(int)ConditionEffect.ProtectiveArmor].value > 0)
+                                 continue;
+                         }
+                         float2 totar = trans.Position.XZ() - playerPos;
+                         float dis = math.lengthsq(totar);
+                         if (dis > minDis)
+                             continue;
+                         minDis = dis;
+                         target = totar;
+                     }
+                 }
+                 else*/
+                 ZenithBalance.Rotate(target, randomRot);
 
-                Entity projectilePrefab = PugDatabase.GetPrimaryPrefabEntity(weapon.projectileID, database.databaseBankBlob, 0);
-                bool holdRight = input.IsButtonStateSet(CommandInputButtonStateNames.SecondInteract_HeldDown);
-                Entity fakeProj = PugDatabase.GetPrimaryPrefabEntity(weapon.fakeProjID, database.databaseBankBlob,
-                    holdRight ? 1 : 0);
-                if (projectilePrefab == Entity.Null || fakeProj == Entity.Null)
-                {
-                    return;
-                }
+                 // ==========================================
+                 // 3. 计算伤害、等级、武器冷却等数据
+                 // ==========================================
+                 ObjectDataCD held = equipped.containedObject.objectData;
+                 int damage = 10;
+                 bool reinforced = false;
+                 if (durabilityLookup.TryGetComponent(prefab, out var durability))
+                     reinforced = durability.IsReinforced(held.amount);
 
-                float2 playerPos = transform.Position.xz /*+ new float2(0, 0.5f)*/;
-                float2 target = input.mouseOrJoystickWorldPoint - playerPos;
-                // 特定的剑（序号 1、2）会寻找附近的敌人（索敌）
-                /*if (vari)
-                {
-                    float minDis = ZenithBalance.SearchRadiumSqrt;
-                    foreach (var enemy in enemies)
-                    {
-                        var enemyE = enemy;
-                        immuneLookup.TryGetComponent(enemyE, out var immune);
-                        if (immune.Value == ImmuneToDamageState.Immune)
-                            continue;
-                        if (!enemyLookup.HasComponent(enemyE))
-                            continue;
-                        if (cattleLookup.HasComponent(enemyE))
-                            continue;
-                        if (!healthLookup.TryGetComponent(enemyE, out var health) || health.health <= 0)
-                            continue;
-                        if (!transLookup.TryGetComponent(enemyE, out var trans))
-                            continue;
-                        if (conditionsLookup.TryGetBuffer(enemyE, out var conds))
-                        {
-                            if (conds[(int)ConditionEffect.ProtectiveArmor].value > 0)
-                                continue;
-                        }
-                        float2 totar = trans.Position.XZ() - playerPos;
-                        float dis = math.lengthsq(totar);
-                        if (dis > minDis)
-                            continue;
-                        minDis = dis;
-                        target = totar;
-                    }
-                }
-                else*/
-                ZenithBalance.Rotate(target, randomRot);
+                 Entity levelEntity = EntityUtility.GetLevelEntity(prefab, held, levelEntitiesLookup, levelLookup);
+                 if (levelEntity != Entity.Null && levelDamageLookup.TryGetComponent(levelEntity, out var levelDamage))
+                     damage = levelDamage.GetDamage(reinforced);
 
-                // ==========================================
-                // 3. 计算伤害、等级、武器冷却等数据
-                // ==========================================
-                ObjectDataCD held = equipped.containedObject.objectData;
-                int damage = 10;
-                bool reinforced = false;
-                if (durabilityLookup.TryGetComponent(prefab, out var durability))
-                    reinforced = durability.IsReinforced(held.amount);
+                 bool isMagic = weaponDamageLookup.TryGetComponent(prefab, out var marker) && marker.isMagic;
 
-                Entity levelEntity = EntityUtility.GetLevelEntity(prefab, held, levelEntitiesLookup, levelLookup);
-                if (levelEntity != Entity.Null && levelDamageLookup.TryGetComponent(levelEntity, out var levelDamage))
-                    damage = levelDamage.GetDamage(reinforced);
+                 int weaponLevel = held.variation > 0 ? held.variation : 1;
+                 if (held.variation <= 0 && levelLookup.TryGetComponent(prefab, out var level))
+                     weaponLevel = level.level;
 
-                bool isMagic = weaponDamageLookup.TryGetComponent(prefab, out var marker) && marker.isMagic;
+                 float weaponCooldown = 0.6f;
+                 if (cooldownLookup.TryGetComponent(prefab, out var cooldown))
+                     weaponCooldown = cooldown.cooldown;
 
-                int weaponLevel = held.variation > 0 ? held.variation : 1;
-                if (held.variation <= 0 && levelLookup.TryGetComponent(prefab, out var level))
-                    weaponLevel = level.level;
+                 DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effectLookup[entity];
+                 float attackSpeed = math.max(1f + effectBuffer[(int)ConditionEffect.MeleeAttackSpeed].value / 1000f
+                     + effectBuffer[(int)ConditionEffect.AttackSpeed].value / 1000f, 0.1f);
+                 int tileD = effectBuffer[(int)ConditionEffect.minn]
+                 weaponCooldown /= attackSpeed;
 
-                float weaponCooldown = 0.6f;
-                if (cooldownLookup.TryGetComponent(prefab, out var cooldown))
-                    weaponCooldown = cooldown.cooldown;
+                 // ==========================================
+                 // 4. 在 ECS 中实例化实体并赋予数据
+                 // ==========================================
+                 Entity projectile = ecb.Instantiate(projectilePrefab);
+                 float back = 1f;
+                 float dist = math.length(target);
+                 dist += ((dist + longOffset < 0) ? -1 : 1) * longOffset;
+                 if (dist < 1e-4f)
+                     target = new float2(1f, 0f);
+                 float2 dir = math.normalize(target);
+                 float rot = math.atan2(dir.y, dir.x);
 
-                DynamicBuffer<SummarizedConditionEffectsBuffer> effectBuffer = effectLookup[entity];
-                float attackSpeed = math.max(1f + effectBuffer[41].value / 1000f + effectBuffer[65].value / 1000f, 0.1f);
-                weaponCooldown /= attackSpeed;
+                 float halfAxis = (dist + back) * 0.5f; // 半长轴
+                 if (math.abs(shortAxis) * 4 < halfAxis)
+                     shortAxis *= 2;
+                 var offset = dir * ((dist - back) * 0.5f);
 
-                // ==========================================
-                // 4. 在 ECS 中实例化实体并赋予数据
-                // ==========================================
-                Entity main = default;
-                for (int i = 0; i < /*34*/1; i++)
-                {
-                    Entity projectile = ecb.Instantiate(i == 0 ? projectilePrefab : fakeProj);
-                    if (i == 0)
-                    {
-                        main = projectile;
-                        float back = 1f;
-                        float dist = math.length(target);
-                        dist += ((dist + longOffset < 0) ? -1 : 1) * longOffset;
-                        if (dist < 1e-4f)
-                            target = new float2(1f, 0f);
-                        float2 dir = math.normalize(target);
-                        float rot = math.atan2(dir.y, dir.x);
+                 var orbit = new ZenithOrbitCD
+                 {
+                     // 【核心修正】Offset 是从“玩家(也就是椭圆短轴端点)”指向“椭圆中心”的向量
+                     Offset = offset,
+                     LongAxis = halfAxis,
+                     ShortAxis = shortAxis,
+                     Rotation = rot + math.PI,
+                     LastUpdateTick = currentTick,
+                 };
+                 ecb.SetComponent(projectile, orbit);
+                 ecb.SetComponent(projectile, new ProjectileSetupCD
+                 {
+                     damage = damage,
+                     directionRadians = rot,
+                     isMagic = isMagic
+                 });
 
-                        float halfAxis = (dist + back) * 0.5f; // 半长轴
-                        if (math.abs(shortAxis) * 4 < halfAxis)
-                            shortAxis *= 2;
-                        var offset = dir * ((dist - back) * 0.5f);
-                        var orbit = new ZenithOrbitCD
-                        {
-                            // 【核心修正】Offset 是从“玩家(也就是椭圆短轴端点)”指向“椭圆中心”的向量
-                            Offset = offset,
-                            LongAxis = halfAxis,
-                            ShortAxis = shortAxis, // 比如 0.4f，侧向摆动幅度
-                            Rotation = rot + math.PI,
-                            Scale = 1 + scale,
-                            // Sign = target.x >= 0 ? 1 : -1
-                        };
-                        ecb.SetComponent(projectile, orbit);
-                        ecb.SetComponent(projectile, new ProjectileSetupCD
-                        {
-                            damage = damage,
-                            directionRadians = rot,
-                            isMagic = isMagic
-                        });
+                 if (objectDataLookup.TryGetComponent(projectilePrefab, out var objectData))
+                 {
+                     objectData.variation = variation;
+                     ecb.SetComponent(projectile, objectData);
+                 }
 
-                        if (objectDataLookup.TryGetComponent(projectilePrefab, out var objectData))
-                        {
-                            objectData.variation = variation;
-                            ecb.SetComponent(projectile, objectData);
-                        }
+                 LocalTransform p = LocalTransform.Identity;
+                 p.Position = (playerPos + offset).X0Y();
+                 ecb.SetComponent(projectile, p);
+                 ecb.SetComponent(projectile, new OwnerReferenceCD { owner = entity });
 
-                        LocalTransform p = LocalTransform.Identity;
-                        p.Position = (playerPos + offset).X0Y();
-                        ecb.SetComponent(projectile, p);
-                        ecb.SetComponent(projectile, new OwnerReferenceCD { owner = entity });
-                        //ecb.AddComponent<PetCD>(projectile);
-                    }
-                    else
-                    {
-                        ecb.SetComponent(projectile, LocalTransform.FromPosition(transform.Position));
-                        // ecb.RemoveComponent<ProjectileCD>(projectile);
-                        ecb.AppendToBuffer(main, new ZenithFakeProjBuffer() { Entity = projectile });
-                        ecb.SetComponent(projectile, new ProjectileSetupCD
-                        {
-                            damage = 0,
-                            isMagic = isMagic
-                        });
-                        ecb.SetComponent(projectile, new OwnerReferenceCD { owner = main });
-                    }
+                 slotLookup.TryGetComponent(entity, out var slot);
+                 ecb.SetComponent(projectile, new ProjectileSourceCD
+                 {
+                     shotFromReinforcedWeapon = reinforced,
+                     weaponLevel = weaponLevel,
+                     sequenceExplosionTotalExplosions = -1,
+                     weaponCooldown = weaponCooldown,
+                     manaCost = manaCost.manaCost,
+                     isSecondaryAttack = slot.currentWindupTier > 0
+                 });
 
-                    slotLookup.TryGetComponent(entity, out var slot);
-                    ecb.SetComponent(projectile, new ProjectileSourceCD
-                    {
-                        shotFromReinforcedWeapon = reinforced,
-                        weaponLevel = weaponLevel,
-                        sequenceExplosionTotalExplosions = -1,
-                        weaponCooldown = weaponCooldown,
-                        manaCost = manaCost.manaCost,
-                        isSecondaryAttack = slot.currentWindupTier > 0
-                    });
+                 ecb.SetComponent(projectile, ghostOwner);
+                 ecb.SetComponent(projectile, new RandomCD { Value = inherited });
 
-                    ecb.SetComponent(projectile, ghostOwner);
-                    ecb.SetComponent(projectile, new RandomCD { Value = inherited });
-
-                    EntityUtility.InheritAttackData(ecb, entity, projectile, conditionsTable, behaviourLookup, conditionsLookup);
-                    if (factionLookup.HasComponent(projectilePrefab))
-                        EntityUtility.InheritFaction(ecb, entity, projectile, factionLookup);
-                }
-            })
-                 .WithName("ZenithWeaponTriggerSystem")
-                 .WithBurst()
-                 .WithAll<ZenithWeaponTriggerTag>()
-                 //.WithDisposeOnCompletion(enemies)
-                 .Schedule();
+                 EntityUtility.InheritAttackData(ecb, entity, projectile, conditionsTable, behaviourLookup, conditionsLookup);
+                 if (factionLookup.HasComponent(projectilePrefab))
+                     EntityUtility.InheritFaction(ecb, entity, projectile, factionLookup);
+             })
+                  .WithName("ZenithWeaponTriggerSystem")
+                  .WithBurst()
+                  .WithAll<ZenithWeaponTriggerTag>()
+                  //.WithDisposeOnCompletion(enemies)
+                  .ScheduleParallel(JobHandle.CombineDependencies(Dependency, jobWait));
             base.OnUpdate();
         }
     }

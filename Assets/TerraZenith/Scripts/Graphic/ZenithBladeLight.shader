@@ -1,6 +1,3 @@
-// 天顶剑刀光。像素部分对照你给的 Zenith.fx（pass 名 FinalFractalVertex）。
-// 泰拉贴图 V 从上往下增大；Unity 的 V 从下往上增大。顶点里把剑身方向的 V 翻成 1-across，
-// 这样剑尖仍采到形状图亮边，剑根采到暗边。沿刀光的 U 不翻，左右两边都是朝右为正。
 Shader "Zenith/ZenithBladeLight"
 {
     Properties
@@ -15,7 +12,8 @@ Shader "Zenith/ZenithBladeLight"
         Tags { "Queue"="Transparent" "RenderType"="Transparent" }
         Cull Off
         ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        // 原版使用的是非预乘的 Alpha 混合，或者 Additive 混合
+        Blend SrcAlpha OneMinusSrcAlpha 
 
         Pass
         {
@@ -48,8 +46,7 @@ Shader "Zenith/ZenithBladeLight"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.color = v.color;
-                // 这里的 uv.x 是 0~1 的进度，uv.y 是剑根到剑尖的横向进度
-                o.uv = float2(v.uv.x, v.uv.y); 
+                o.uv = v.uv; 
                 return o;
             }
 
@@ -58,26 +55,31 @@ Shader "Zenith/ZenithBladeLight"
                 float2 coord = i.uv;
                 float4 color = i.color;
                 
-                // 1. 纯正的渐隐：随着进度 x 增加，整体变暗
-                float fade = 1.0 - coord.x;
+                // 1. 还原原版的 s 和 u 计算
+                float s = coord.x * _Data.x + _Data.y; // 对应原版 s = coord.x * 4
+                float f = frac(abs(s));
+                // 原版有一个符号处理，如果 s > 0，取 f，否则取 -f
+                float u = (s >= 0.0) ? f : -f;
                 
-                // 2. 取形状图（剑的实体形状），不折叠 U，直接采样
-                float4 base = tex2D(_Image0, coord);
+                // 2. 还原原版的 threshold
+                float threshold = coord.x * 1.5 - 0.5;
                 
-                // 3. 取噪声图，如果想让噪声流动，可以用 _Time.x 让 X 轴滚动
-                float noise = tex2D(_Image1, float2(coord.x * 2.0 - _Time.x * 2.0, coord.y)).r;
+                // 3. 还原原版的 fade
+                float fade = 1.0 - s / _Data.w; // _Data.w = 4
                 
-                // 4. 只在尾部削去一点形状，模拟“被侵蚀”的感觉
-                float erosion = smoothstep(0.1, 0.6, noise * (1.0 - coord.x)); 
+                // 4. 取样
+                float2 uv = float2(u, coord.y);
+                float4 maskTex = tex2D(_Image1, uv);
+                float4 base = tex2D(_Image0, uv);
                 
-                // 5. 叠加颜色
-                float4 col = base.r * color; // 形状只乘一次 color
+                // 5. 核心颜色混合 (原版只取 base.x 即 R 通道)
+                float4 col = base.x * color * _Opacity;
                 
-                // 6. 应用侵蚀和渐隐
-                col *= fade;
-                col *= 1.0 - saturate(erosion); // 侵蚀掉尾部
+                // 6. 侵蚀遮罩 (原版的 saturate 两倍反差)
+                col *= saturate(2.0 * (maskTex.x - threshold));
                 
-                return col;
+                // 7. 最终渐隐
+                return col * fade;
             }
             ENDCG
         }

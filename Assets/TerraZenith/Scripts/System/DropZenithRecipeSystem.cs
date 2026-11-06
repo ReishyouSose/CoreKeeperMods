@@ -1,4 +1,5 @@
-﻿using Assets.TerraZenith.Scripts.Core;
+﻿using Assets.TerraZenith.Scripts.Component;
+using Assets.TerraZenith.Scripts.Core;
 using PugMod;
 using Unity.Entities;
 using Unity.NetCode;
@@ -12,10 +13,12 @@ namespace Assets.PointShop.Scripts.Systems
     public partial class DropZenithRecipeSystem : PugSimulationSystemBase
     {
         private struct RolledZenithRecipeCD : IComponentData { }
+        private ComponentLookup<DropZenithCD> chanceLookup;
         private ObjectID recipe;
         protected override void OnCreate()
         {
             RequireForUpdate<NetworkTime>();
+            chanceLookup = SystemAPI.GetComponentLookup<DropZenithCD>();
             NeedDatabase();
             base.OnCreate();
         }
@@ -31,15 +34,23 @@ namespace Assets.PointShop.Scripts.Systems
             var ecb = CreateCommandBuffer();
             var recipe = this.recipe;
             var database = this.database;
-            var world = this.World;
+            var chanceLookup = this.chanceLookup;
             Entities.ForEach((Entity entity, ref RandomCD random, in KilledByPlayerCD killed, in LocalTransform trans, in LevelCD level) =>
             {
                 ecb.AddComponent<RolledZenithRecipeCD>(entity);
                 if (level.areaLevel < AreaLevel.Crystal)
                     return;
-                if (random.Value.NextInt(100) == 0)
+                var rw = chanceLookup.GetRefRWOptional(killed.playerEntity);
+                if (rw.IsValid)
                 {
-                    EntityUtility.CreateAndDropItem(recipe, 0, 1, trans.Position, Entity.Null, database, ecb);
+                    ref var chance = ref rw.ValueRW.AdditiveChance;
+                    if (random.Value.NextInt(100) < chance)
+                    {
+                        chance = 1;
+                        EntityUtility.CreateAndDropItem(recipe, 0, 1, trans.Position, Entity.Null, database, ecb);
+                    }
+                    else
+                        chance++;
                 }
 
             })

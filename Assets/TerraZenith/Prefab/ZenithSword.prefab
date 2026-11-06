@@ -20,6 +20,9 @@ GameObject:
   - component: {fileID: 9070923067057204195}
   - component: {fileID: 7631283816470571687}
   - component: {fileID: 7495483328247254010}
+  - component: {fileID: 2421633238854800643}
+  - component: {fileID: -3061435873901752249}
+  - component: {fileID: 5916830004081779603}
   m_Layer: 0
   m_Name: ZenithSword
   m_TagString: Untagged
@@ -109,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 2026792211, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRadius: 0
-  damageRadiusClient: 0
-  tileDamageRadius: 0
+  damageRadius: 0.5
+  damageRadiusClient: 0.5
+  tileDamageRadius: 0.5
   piercesEnemies: 1
   piercesWallTypes: 
   damagesTiles: 0
@@ -155,8 +158,8 @@ MonoBehaviour:
   eatsTags: 
   dataBlockRef:
     m_address:
-      m_low: -7492607145799513429
-      m_high: 3614698387223830568
+      m_low: -638319326277819699
+      m_high: -3074621198175539239
 --- !u!114 &451002010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,3 +253,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2421633238854800643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451002001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1594252633, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontCalculateHealthFromLevel: 0
+  overrideStartHealth: 0
+  normalizedOverrideStartHealth: 1
+  startHealth: 10
+  maxHealth: 10
+  maxHealthMultiplier: 1
+  hasHealthRegeneration: 0
+  healInCombatAsWell: 0
+  healthIncreasePercentPerFiveSeconds: 100
+  healDelayAfterLeavingCombat: 5
+  level: {fileID: 0}
+--- !u!114 &-3061435873901752249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451002001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5757bfe29763c4da3b909bbd5a3274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExtraUpdates: 1
+  ScaleProgress: 0
+--- !u!114 &5916830004081779603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451002001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1012e1bfd4343794d8af08a228c6b213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 1
+  DefaultRatio: 0

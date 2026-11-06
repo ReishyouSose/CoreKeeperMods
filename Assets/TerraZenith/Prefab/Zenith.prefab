@@ -170,9 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 87
+  damage: 185
   damageMultiplier: 1.3
-  isRange: 1
+  isRange: 0
   isMagic: 0
   level: {fileID: 451001008}
   entityMono: {fileID: 0}

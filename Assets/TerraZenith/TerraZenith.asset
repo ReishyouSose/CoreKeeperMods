@@ -44,12 +44,12 @@ MonoBehaviour:
       guid: b3ae024a8b27feb4399adb232baa38cd
     - path: Scripts/Scripts/Graphic/ZenithAfterImage.cs
       guid: b4d7113e258ceae49b0e079698ddc6a2
+    - path: Scripts/Scripts/Core/ZenithTrailData.cs
+      guid: 9dcf8e343e4c01748be5c2f17f95391c
     - path: Scripts/Scripts/Core/ZenithSlashColorDataBlock.cs
       guid: 603cb75fd37f9be43ba599f391a1e32a
     - path: Scripts/Scripts/Core/ZenithBalance.cs
       guid: b9b9ee41b672f1a4cb5dc45843e8af4a
-    - path: Scripts/Scripts/Core/DropLootPatch.cs
-      guid: f02df155c2bc7234381223d64c4ae1d4
     - path: Scripts/Scripts/Component/ZenithWeaponTriggerTag.cs
       guid: 2f8b1c64e0a74d3c9b5e6a7d8c9f0b12
     - path: Scripts/Scripts/Component/ZenithWeaponCD.cs
@@ -60,8 +60,12 @@ MonoBehaviour:
       guid: 42f325483b8a92d469988e7151e35901
     - path: Scripts/Scripts/Component/ZenithOrbitCD.cs
       guid: 0b2979aa7bc3b15478deee85b2c56666
-    - path: Scripts/Scripts/Component/ZenithFakeProjBuffer.cs
-      guid: 8502c6d7b6a784a40b0a35ad2a507082
+    - path: Scripts/Scripts/Component/LifeProgressAuthoring.cs
+      guid: 1012e1bfd4343794d8af08a228c6b213
+    - path: Scripts/Scripts/Component/ExtraUpdateAuthoring.cs
+      guid: 4b5757bfe29763c4da3b909bbd5a3274
+    - path: Scripts/Scripts/Component/DropZenithCD.cs
+      guid: bedac18de1533534dbe86d692e66b2be
     - path: Scripts/Generated/DropZenithRecipeSystem__System_6107022640.g.cs
       guid: 
     - path: Scripts/Generated/ZenithAttackSystem__System_13894897950.g.cs
@@ -72,7 +76,11 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/ZenithSpawnProjectileSystem__System_15966622450.g.cs
       guid: 
-    - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_ZenithFakeProjBufferSerializer.cs
+    - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_DropZenithCDSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_ExtraUpdateCDSerializer.cs
+      guid: 
+    - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_LifeProgressCDSerializer.cs
       guid: 
     - path: Scripts/Generated/Assets.TerraZenith.Scripts.Component_ZenithOrbitCDSerializer.cs
       guid: 
@@ -99,22 +107,12 @@ MonoBehaviour:
   cacheBundles: 1
   buildLinux: 1
   assets:
-  - path: Assets/TerraZenith/Data/BehaviourTagsDataBlock/ZenithFake.asset
-    hash: BCCB77022819F7769510A49CE9C34C30CED016726133A91FFF1CA34083FBC826:ce5253fe28a6253b13c836ef8e5dfca6
-  - path: Assets/TerraZenith/Data/BehaviourTagsDataBlock/ZenithMain.asset
-    hash: 24A7A71A08A0B9275792B04216316F2ED1E8D8930BA6C4181EA004E504DF0883:5434d82d4b4fd8c8c039d68953f82a90
   - path: Assets/TerraZenith/Data/EntityAuthoringDataBlock/Zenith.asset
     hash: ACAC5609A67D4FBFA075938661E508A56680DBC5FD7C94A6FB7D42BDC86A15A5:ec3d33fadbd2fa497825b51e89a05bdc
-  - path: Assets/TerraZenith/Data/EntityAuthoringDataBlock/ZenithFakeProj 1.asset
-    hash: D3732E20AEBFD9151AD965BEEE243CFDE4B4CC9911B98613A88852E084274939:eb2c9b9d7eeac00a3c94abc1fcf24b32
-  - path: Assets/TerraZenith/Data/EntityAuthoringDataBlock/ZenithFakeProj.asset
-    hash: 5545445CB78013F91D962C5D31DDE4E859A158CB614DBD81E008761EDDF46193:5215121307bcce6c798601277c901bf6
   - path: Assets/TerraZenith/Data/EntityAuthoringDataBlock/ZenithProjectile.asset
     hash: 326889FF7ADD4E2557AF6A6C86EDF6173614BDE300A77FBC3D082352A11C6688:a6df041816f01847c21c3343ad162f6e
   - path: Assets/TerraZenith/Data/EntityAuthoringDataBlock/ZenithRecipe.asset
     hash: CD6DA57AFA8189A1D2D0F11762CDC109DA701E577BC66B86E8B124F532B7A3B1:ad9fcfb3e599e2a6bdd7469ea86247f4
-  - path: Assets/TerraZenith/Data/GraphicalObjectDataBlock/ZenithFakeProj.asset
-    hash: F40054DFA537CB7B9E68B011C1FA037882B958AFBE95509299F94BADDCFF52A9:89f5a16c462c22723fe3e8d19ddb3ca8
   - path: Assets/TerraZenith/Data/GraphicalObjectDataBlock/ZenithProjectile.asset
     hash: 0C116F527E1DC681BEA1929C8BE4C0C12F3222AB5F91FD3DC0F4382E55EFF180:6830bc989b3b559836ba7609963ad7e3
   - path: Assets/TerraZenith/Data/SpriteAsset/Zenith.asset
@@ -227,13 +225,7 @@ MonoBehaviour:
   - path: Assets/TerraZenith/Prefab/Zenith.png
     hash: 5DFEFCB2F9DF20926D8147B273CFC1A13FF939CBB7E74FB5AA0270F507BAB1C7:146faae02052952a90f6677e90f60373
   - path: Assets/TerraZenith/Prefab/Zenith.prefab
-    hash: 704F4FB82B1DBBDBB3FD3AC6207F1FD8B4D7CB2D91B7983F725C874816290E7B:c7df09a3ea1e897fe51b603b5c1ae142
-  - path: Assets/TerraZenith/Prefab/ZenithFakeProj 1.prefab
-    hash: 5E4539F016B36268C5ADFF6F855545BFDCAC0B6BE49692334DA72713CDF623B8:564a221d87107c7b81ccaccee9060ffa
-  - path: Assets/TerraZenith/Prefab/ZenithFakeProj.prefab
-    hash: 6FE2672F36B38F39C1AD5EE23386F162C4259E9A5E4BA811E08725A91D8D1E3C:e92b804e6af40f6afdcd5b53f491676f
-  - path: Assets/TerraZenith/Prefab/ZenithFakeProjGraphic.prefab
-    hash: 0E2CCB1D1F57675E120F50C528B2B8130D9B13667D9B7D1B249897A346684FC7:493ed72e30f659a8e6e0bdad3a15d840
+    hash: DFA81F8ED99AF7E19179051FBD3F1C6C7239446BA74E2FD59CEFB591AE614EC0:8d16184c32d901578f9c68f8b9e68546
   - path: Assets/TerraZenith/Prefab/ZenithRecipe.png
     hash: 061C96C44A64CD9707B330C0B26BA2236C10C162F8D658DF3120788E81A711FA:deb6b8a00ff524a238d375e28a4f6efd
   - path: Assets/TerraZenith/Prefab/ZenithRecipe.prefab
@@ -241,9 +233,9 @@ MonoBehaviour:
   - path: Assets/TerraZenith/Prefab/ZenithRecipe_Small.png
     hash: 9492B21DEA1736545C6B45C11FF6BE8DCF2E56C4BF72D44CF4DEF76FA142921D:5e4d2c301c26b1c751382e9cc2762d52
   - path: Assets/TerraZenith/Prefab/ZenithSword.prefab
-    hash: 18785BCE1A327B1A49DA3ECAC6070D26CB265EC44EC1F201F2E62899D71BC8B2:c871de7266550debfb94f1ececac1ca4
+    hash: C015AE5F89EF5C1813FD6F71A950441AE27D0387831131C27E9A78C80E0A5C01:74197f7af19c389e82a20a96710ea3b8
   - path: Assets/TerraZenith/Prefab/ZenithSwordGraphic.prefab
-    hash: 5830C59C33B920454E7B74880C15A5F10F05CA2E82D54DBDE9B23CCBDF0E7BFC:154639adeeaa81cd055d847fcdfca844
+    hash: A1D089CF251ECAC82392A62F4440BBE0CBF7EB392DA162E03BD6CF5E03EA8995:d18f5abdf19a54789a459441b7570a9a
   - path: Assets/TerraZenith/Scripts/Core/WorkShopDesc_ZH.txt
     hash: 8F1810373E8F5B1072CAA5934378F9253C3B85F9656050F4EEFC1BEEB723E3F2:2c0fede04aa609674d185ec9abc35a0b
   - path: Assets/TerraZenith/Scripts/Graphic/Extra_193.png
@@ -251,9 +243,9 @@ MonoBehaviour:
   - path: Assets/TerraZenith/Scripts/Graphic/Extra_201.png
     hash: F8B81FEAC435338CFCA0FE362736490E930B38C24E549BAFE4A24065B1B331F5:3a514d87e77b45de586643d19abcde69
   - path: Assets/TerraZenith/Scripts/Graphic/ZenithBladeLight.mat
-    hash: 2CC7F20F71AD26A16C3E214485EA7A1D3021717BEA122C36CF2BC79F9C74F9F0:23081d3a0a574eafe50363354aa2ab8d
+    hash: 44A7179F0D225789D4C62E1F7A3046DA7C6CA0192D304925EAC3E898EC428656:6174cef82edee66fa778dd71f5bccdc7
   - path: Assets/TerraZenith/Scripts/Graphic/ZenithBladeLight.shader
-    hash: 5708C4E646F812C3817D75A189538379754AFC1BAF0383A2DCA3048D32F7D63E:cdc3fc8be173c1cb3ce74b0078fd41c3
+    hash: 8548B272CC601CCF6BB3CF50B147DA16604E84B5FED7DE3932D28E1D17D8C221:b14a5f110254134ce054d2776739fda7
   - path: Assets/TerraZenith/SpriteAssetManifest.asset
     hash: 4B2DCECF8901794512379345BF89B4E07A487382049F80B664260FC5ACB4E7CB:85b98bf494b7c0b32d297b939dc056e7
   lastBuildLinux: 1

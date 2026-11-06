@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 using Rng = UnityEngine.Random;
 
 namespace Assets.TerraZenith.Scripts.Graphic
@@ -19,42 +18,275 @@ namespace Assets.TerraZenith.Scripts.Graphic
         public ZenithStarSparkle Star;
         public SpriteObject Light;
         public List<SpriteRenderer> Colliders;
-
-
-        public MeshRenderer ribbonRenderer;
         public Color PrimaryColor;
         public Sprite PrimarySprite;
         public float2 PrimaryOffset;
+
         private int oldVari;
         private Color currentColor;
-
         private Mesh _mesh;
         private Vector3[] _vertices;
         private Color[] _colors;
         private Vector2[] _uvs;
         private int[] _triangles;
-        private float timer;
+        private float progress;
+        private float killTime;
+        private int totalUpdate;
+        private ZenithOrbitCD orbit;
+        private float nearFix;
         private const int TrailLength = 512;
-        private readonly List<float2> oldPos = new(TrailLength);
-        private readonly List<float2> oldRot = new(TrailLength);
-        private readonly List<float> oldLife = new(TrailLength);
+        private readonly List<ZenithTrailData> olds = new();
+        private bool end;
         protected override void OnSpawn()
         {
             base.OnSpawn();
             EnsureMesh();
-            oldPos.Clear();
-            oldRot.Clear();
-            oldLife.Clear();
             HideTrail();
+            olds.Clear();
             Dusts.ForEach(d => d.gameObject.SetActive(false));
             oldVari = -2;
-            timer = 0;
+            progress = 0;
+            end = false;
             var manager = world.EntityManager;
+            killTime = manager.GetComponentData<LifeProgressCD>(entity).Max;
             var vari = manager.GetComponentData<ObjectDataCD>(entity).variation - 1;
+            orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
+            totalUpdate = manager.GetComponentData<ExtraUpdateCD>(entity).TotalUpdate;
+            nearFix = ZenithBalance.NearFix(orbit.LongAxis);
             CheckSlash(vari);
             Light.gameObject.SetActive(false);
             Light.emissiveColor = Color.white;
         }
+        public override void ManagedLateUpdate()
+        {
+            base.ManagedLateUpdate();
+            if (end)
+                return;
+            SimulateOrbit(orbit);
+            HandleVisual(orbit);
+        }
+
+        private void SimulateOrbit(ZenithOrbitCD orbit)
+        {
+            float step = Time.deltaTime * nearFix;
+            int updateCount = totalUpdate;
+            while (updateCount-- > 0)
+            {
+                progress += step;
+                ZenithBalance.CalculateOrbit(orbit, progress, killTime, totalUpdate, out float lifeRatio, out float ellipse, out float2 basePos, out float2 relativePos);
+                if (lifeRatio >= 1)
+                {
+                    HideTrail();
+                    end = true;
+                    return;
+                }
+                olds.Add(new ZenithTrailData { RelativePos = relativePos, Rot = ZenithBalance.Rotate(basePos, orbit.Rotation), LifeRatio = lifeRatio, Ellipse = ellipse });
+            }
+        }
+        private void HandleVisual(ZenithOrbitCD orbit)
+        {
+            if (end)
+                return;
+            bool reverse = orbit.ShortAxis < 0;
+            float halfWidth = 0.75f;
+            float trailMark = olds[^1].LifeRatio;
+            //int trailCount = ZenithBalance.TrailCount;
+            int trailIndex = 0;
+            int maxMeshPoints = math.min(olds.Count, TrailLength);
+            int meshVerticeCount = 0;
+            float trailInterval = 1f / 6;
+            for (int i = 0; i < maxMeshPoints; i++)
+            {
+                int index = olds.Count - 1 - i;
+                var old = olds[index];
+                var center = old.RelativePos;
+                var dir = old.Rot;
+                var lifeRatio = old.LifeRatio;
+                var ellipse = old.Ellipse;
+                float3 a2 = (center - 2f * halfWidth * dir).X0Y();
+                float3 b2 = (center + 1f * halfWidth * dir).X0Y();
+                float lifeFade = math.clamp(lifeRatio / 0.166f, 0f, 1f) * math.clamp((0.566f - lifeRatio) / 0.066f, 0f, 1f);
+                var trailFix = Mathf.Pow(0.5f, trailIndex);
+                float mainOpacity = math.clamp(lifeRatio / 0.05f, 0f, 1f) * math.clamp((1f - lifeRatio) / 0.05f, 0f, 1f);
+                float finalFix = trailFix * lifeFade * mainOpacity;
+                if (lifeRatio <= trailMark && trailIndex < 4)
+                {
+                    trailMark -= trailInterval;
+                    while (Trails.Count <= trailIndex)
+                    {
+                        Trails.Add(Instantiate(Trails[0], Trails[0].transform.parent));
+                    }
+                    var trail = Trails[trailIndex];
+
+                    // 【第二层：全局寿命淡入淡出】
+                    // 剑刚出生时 (LifeRatio 接近 0) 淡入，快死时 (LifeRatio 接近 1) 淡出
+                    // 原版是前 20 帧淡入，60~68 帧淡出。对应到你的 0~1 比例就是：
+                    if (finalFix < 0.01f)
+                    {
+                        trail.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        trail.gameObject.SetActive(true);
+                        SpriteRenderer sr = trail.Sprite;
+                        sr.flipX = reverse;
+                        float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+                        // 修正位置和旋转
+                        trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
+                        sr.color = new(1, 1, 1, finalFix);
+                    }
+                    if (trailIndex == 0)
+                    {
+                        if (lifeFade < 0.01f)
+                        {
+                            Star.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            Star.gameObject.SetActive(true);
+                            Star.Set(currentColor, lifeFade, lifeRatio);
+                            Star.transform.localPosition = b2;
+                        }
+                        if (ellipse >= 1)
+                        {
+                            Light.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            Light.gameObject.SetActive(true);
+                            Light.emissiveColor = currentColor * 0.5f;
+                            Light.emissiveColor.a = mainOpacity * 0.5f; // 这里的 mainOpacity 对应原版的 Opacity
+                            Light.transform.localPosition = new Vector3(center.x, /*-0.4f*/0, center.y);
+                            // 抛物线密度：0.5 的时候最密，0 和 1 的时候没有
+                            if (Rng.value < 0.11f)
+                            {
+                                float density = 1f - math.abs(ellipse * 2f - 1f);
+
+                                // 基础数量（根据距离），假设 orbit.LongAxis 是半径
+                                int baseCount = 1 + (int)(orbit.LongAxis * 2f / 7.5f);
+                                int attempts = math.max(1, (int)(baseCount * density));
+                                var vel = ZenithBalance.Rotate(dir, (reverse ? -1 : 1) * math.PI / 2);
+                                for (int k = 0; k < attempts; k++)
+                                {
+                                    float randomOffset = Rng.Range(0.5f, 1f);
+
+                                    // 直接用 b2 的 XZ 加上偏移，或者用 center + dir * 宽度
+                                    // 因为你的 b2 已经是带偏移的剑尖坐标了
+                                    float3 spawnPos = transform.position.ToFloat3() + (center + halfWidth * randomOffset * dir).X0Y();
+
+                                    // 传入的切线方向就是 dir，粒子会顺着剑尖方向飞
+                                    SpawnDust(spawnPos, vel, currentColor);
+                                }
+                            }
+                        }
+                    }
+                    trailIndex++;
+                }
+                float stripProgress = (trailMark + trailInterval - lifeRatio) / lifeRatio /*(float)i / (maxMeshPoints - 1)*/;
+
+                // 原版颜色公式：1 - (progress / 0.98)
+                float stripFade = /*math.clamp(1f - (stripProgress / 0.98f), 0f, 1f)*/trailFix;
+
+                // ★ 核心：直接乘！千万不要乱加 lifeFade，也不要乱乘 trailFix！
+                Color c = currentColor * stripFade;
+                // ★ 核心：Alpha 减半（原版 result.A /= 2）
+                //c.a *= 0.5f;
+                int v = meshVerticeCount * 2;
+                if (v + 1 < _vertices.Length)
+                {
+                    _vertices[v] = a2;
+                    _uvs[v] = new Vector2(stripProgress, 1f);
+                    _colors[v] = c;
+
+                    _vertices[v + 1] = b2;
+                    _uvs[v + 1] = new Vector2(stripProgress, 0f);
+                    _colors[v + 1] = c;
+
+                    meshVerticeCount++;
+                }
+            }
+            int tri = 0;
+            for (int k = 0; k < meshVerticeCount - 1; k++)
+            {
+                int v = k * 2;
+                // 因为是倒序遍历生成的顶点，所以索引顺序要反过来，保证法线朝外（正面）
+                // 如果你发现画出来是透明的（背面剔除），把下面 0,1,2 改成 0,2,1 即可
+                _triangles[tri++] = v;
+                _triangles[tri++] = v + 1;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 2;
+                _triangles[tri++] = v + 1;
+                _triangles[tri++] = v + 3;
+            }
+
+            // 注意：这里传的是 meshVerticeCount * 2，而不是 tri * 2
+            int verticeCount = meshVerticeCount * 2;
+
+            _mesh.Clear();
+            _mesh.SetVertices(_vertices, 0, verticeCount);
+            _mesh.SetColors(_colors, 0, verticeCount);
+            _mesh.SetUVs(0, _uvs, 0, verticeCount);
+            _mesh.SetTriangles(_triangles, 0, tri, 0, true, 0);
+            _mesh.RecalculateBounds();
+            Ribbon.sharedMesh = _mesh;
+        }
+        private void SpawnDust(float3 worldPos, float2 tangent, Color color)
+        {
+            // 1. 原版一次生成 1 到 3 个粒子 (Main.rand.Next(1, 4))
+            int count = Rng.Range(1, 4);
+
+            for (int j = 0; j < count; j++)
+            {
+                // 从对象池中找闲置的粒子
+                int i = Dusts.FindIndex(0, x => !x.gameObject.activeSelf);
+                if (i < 0)
+                {
+                    Dusts.Add(Instantiate(Dusts[0], Dusts[0].transform.parent));
+                    i = Dusts.Count - 1;
+                }
+                ZenithDust dust = Dusts[i];
+                dust.gameObject.SetActive(true);
+
+                // 2. 颜色微调：原版是 Color.Lerp(trailColor, Color.White, rand * 0.3f)
+                // 这会让粒子有一点泛白的高光感
+                Color dustColor = Color.Lerp(color, Color.white, Rng.Range(0f, 0.3f));
+
+                // 3. 速度：原版是沿切线方向，速度 3~7
+                // 不要加随机乱飞的抖动 (randomJitter)，原版的粒子是顺着轨道飞的
+                float speed = Rng.Range(3f, 7f)/* * 3*/;
+                float2 velocity = tangent * speed;
+
+                // 传给 Init
+                dust.Init(worldPos, velocity, dustColor);
+
+                // 4. (可选，根据你的 ZenithDust 组件) 
+                // 原版的粒子缩放是 0.4，fadeIn 是 0.4~0.7
+                // 如果你的 Init 没处理，你需要在这里或者 Init 里设置
+                // dust.transform.localScale = Vector3.one * 0.4f; 
+            }
+        }
+
+        private void EnsureMesh()
+        {
+            if (Ribbon == null)
+                return;
+            if (_mesh != null)
+                return;
+
+            _mesh = new Mesh
+            {
+                name = "ZenithBladeLight"
+            };
+            _mesh.MarkDynamic();
+            Ribbon.sharedMesh = _mesh;
+
+            int maxCapacity = TrailLength;
+            _vertices = new Vector3[maxCapacity * 2];
+            _colors = new Color[maxCapacity * 2];
+            _uvs = new Vector2[maxCapacity * 2];
+            _triangles = new int[(maxCapacity - 1) * 6];
+        }
+
         private void CheckSlash(int vari)
         {
             if (oldVari == vari)
@@ -83,54 +315,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
             Light.emissiveColor = currentColor * 0.5f;
             Light.emissiveColor.a = 1;
         }
-        public override void ManagedLateUpdate()
-        {
-            base.ManagedLateUpdate();
-            var manager = world.EntityManager;
-            var orbit = manager.GetComponentData<ZenithOrbitCD>(entity);
-            SimulateOrbit(orbit, manager.GetBuffer<ZenithTrail>(entity));
-            BuildRibbonAndTrail(orbit);
-        }
-
-        private void EnsureMesh()
-        {
-            if (Ribbon == null)
-                return;
-            if (_mesh != null)
-                return;
-
-            _mesh = new Mesh
-            {
-                name = "ZenithBladeLight"
-            };
-            _mesh.MarkDynamic();
-            Ribbon.sharedMesh = _mesh;
-
-            int maxCapacity = TrailLength;
-            _vertices = new Vector3[maxCapacity * 2];
-            _colors = new Color[maxCapacity * 2];
-            _uvs = new Vector2[maxCapacity * 2];
-            _triangles = new int[(maxCapacity - 1) * 6];
-        }
-
-        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
-        {
-            int j = 0;
-            for (int i = zenithTrails.Length - 1; i >= 0; i--)
-            {
-                if (j >= 33)
-                    break;
-                while (Colliders.Count <= j)
-                {
-                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
-                }
-                var collider = Colliders[j];
-                collider.color = currentColor;
-                collider.gameObject.SetActive(true);
-                collider.transform.localPosition = zenithTrails[i].Pos.X0Y();
-                j++;
-            }
-        }
 
         private void HideTrail()
         {
@@ -139,256 +323,33 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 Trails[i].gameObject.SetActive(false);
             }
             Star.gameObject.SetActive(false);
+            Light.gameObject.SetActive(false);
             foreach (var go in Colliders)
             {
                 go.gameObject.SetActive(false);
             }
-        }
-
-        private void SimulateOrbit(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
-        {
-            float longAxis = orbit.LongAxis;
-            float shortAxis = orbit.ShortAxis;
-            /*if (longAxis != oldLong || shortAxis != oldShort)
-            {
-                Debug.Log($"跳变！ long:{oldLong} {longAxis}, short:{oldShort} {shortAxis} timer:{timer} ");
-                oldLong = longAxis;
-                oldShort = shortAxis;
-            }*/
-            int updateCount = ZenithBalance.UpdateCount;
-            float killTime = ZenithBalance.TimeLeft * updateCount;
-            float step = Time.deltaTime * ZenithBalance.NearFix(longAxis) * updateCount;
-            float targetTimer = math.min(timer + step, killTime);
-            float life;
-            float sampler = 1 / 60f;
-            if (timer >= killTime)
-            {
-                HideTrail();
-                return;
-            }
-            //DebugCollider(zenithTrails);
-            while (timer < targetTimer)
-            {
-                timer = math.min(timer + sampler, killTime);
-                life = timer / killTime;
-
-                //在一半的时间内就完成一圈，剩余的时间给拖尾
-                float progress = math.clamp(life / 0.5f, 0f, 1f);
-                float x = progress * math.PI * 2f;
-
-                math.sincos(x, out var sin, out var cos);
-                float2 basePos = new(cos, (shortAxis > 0 ? 1 : -1) * sin);
-                float2 localPos = basePos * new float2(longAxis, math.abs(shortAxis));
-
-                float lead = 1f - math.clamp(progress / 0.5f, 0f, 1f);
-                float2 leadOffset = lead * new float2(-longAxis * 0.1f, shortAxis * 0.3f);
-                localPos += leadOffset;
-                var rot = ZenithBalance.Rotate(basePos, orbit.Rotation);
-                float2 worldPos = ZenithBalance.Rotate(localPos, orbit.Rotation);
-                oldPos.Add(worldPos);
-                oldRot.Add(rot);
-                oldLife.Add(life);
-            }
-        }
-        private void BuildRibbonAndTrail(ZenithOrbitCD orbit)
-        {
-            int i = oldPos.Count - 1;
-            if (i < 2)
-                return;
-            float halfWidth = 0.75f;
-            int killTime = ZenithBalance.UpdateCount * ZenithBalance.TimeLeft;
-
-            float fix = Mathf.Clamp01(timer / killTime);
-            fix = Mathf.Clamp01((1f - fix) / 0.25f);
-            bool reverse = orbit.ShortAxis < 0;
-
-            int trailCount = ZenithBalance.TrailCount;
-            float lifePerTrail = 1f / trailCount;
-            float trailOpacity = 1 + lifePerTrail;
-            int trailIndex = -1;
-            int trailInterval;
-            int trailStart = i;
-            int trailEnd = 0;
-            int j = 0;
-            float nextInterval = oldLife[^1];
-            int total = TrailLength * 2;
-            while (i > 0)
-            {
-                float2 center = oldPos[i];
-                float2 dir = oldRot[i];
-                float life = oldLife[i];
-                bool mark = false;
-                if (life <= nextInterval)
-                {
-                    trailIndex++;
-                    if (trailIndex >= trailCount)
-                        break;
-                    mark = true;
-                    trailOpacity -= lifePerTrail;//模拟从1开始
-                    trailStart = i;
-                    nextInterval -= lifePerTrail;
-                    bool find = false;
-                    for (int k = i - 1; k > 0; k--)
-                    {
-                        if (oldLife[k] <= nextInterval)
-                        {
-                            trailEnd = k;
-                            find = true;
-                            break;
-                        }
-                    }
-                    if (!find)
-                        trailEnd = 0;
-                }
-                trailInterval = trailStart - trailEnd;
-                if (trailInterval < 1)
-                    break;
-                float fadeIn = Mathf.Clamp01(life / 0.2f);
-                float fadeOut = Mathf.Clamp01((0.6f - life) / 0.1f);
-                float baseAlpha = fadeIn * fadeOut * fix;
-                float trailProgress = 1 - (i - trailEnd) / (float)trailInterval;
-                float currentOpacity = trailOpacity - math.lerp(lifePerTrail, 0, trailProgress);
-                currentOpacity *= baseAlpha;
-                Color c = currentColor;
-                c.a = currentOpacity;
-                int amount = 1;
-                float3 a2 = (center - 2f * halfWidth * dir).X0Y();
-                float3 b2 = (center + 1f * halfWidth * dir).X0Y();
-                if (mark)
-                {
-                    amount = 2;
-                    while (Trails.Count <= trailIndex)
-                    {
-                        Trails.Add(Instantiate(Trails[0], Trails[0].transform.parent));
-                    }
-                    var trail = Trails[trailIndex];
-                    if (baseAlpha <= 0.01f)
-                    {
-                        trail.gameObject.SetActive(false);
-                    }
-                    else
-                    {
-                        trail.gameObject.SetActive(true);
-                        SpriteRenderer sr = trail.Sprite;
-                        sr.flipX = reverse;
-                        float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-
-                        // 修正位置和旋转
-                        trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
-                        Color finalTrailColor = new(1, 1, 1, currentOpacity);
-                        sr.color = finalTrailColor;
-
-                        if (trailIndex == 0)
-                        {
-                            var star = Star;
-                            // 2. 设定脉冲缩放
-                            // 原版效果：星星有一个先变大再变小的过程，我们利用 progress 来模拟
-                            // 假设 progress 0->1 是一把剑的寿命。
-                            // 我们让它在 0.2 之前变大，0.6 之后缩小。
-                            life /= 0.5f;
-                            float starScale = Mathf.Clamp01((life - 0.25f) / 0.25f) * Mathf.Clamp01((0.75f - life) / 0.25f);
-                            starScale = Mathf.Lerp(0.5f, 1.5f, starScale); // 最小 0.5，最大 1.5 倍缩放
-                            if (life >= 1)
-                            {
-                                star.gameObject.SetActive(false);
-                                Light.gameObject.SetActive(false);
-                            }
-                            else
-                            {
-                                star.gameObject.SetActive(true);
-                                star.transform.localPosition = b2;
-                                star.transform.localScale = new float3(starScale, starScale, 1);
-                                Color s = currentColor;
-                                s.a = baseAlpha * 0.5f;   // 或 baseAlpha * 0.5f 对齐原版 trailColor.A/=2
-                                star.Set(s, starScale);
-                                Light.emissiveColor = currentColor * 0.5f;
-                                Light.emissiveColor.a = 1f;
-                                //Light.color.a = s.a;
-                                Light.gameObject.SetActive(true);
-                                Light.transform.localPosition = new Vector3(b2.x, -0.4f, b2.z);
-                            }
-                            if (life <= 0.5f) // 只在半程前生成
-                            {
-                                int count = 1; // 如果觉得稀可以改成 2 或 3
-                                var dustDir = ZenithBalance.Rotate(dir, (reverse ? -1 : 1) * math.PI / 2f);
-                                for (int k = 0; k < count; k++)
-                                {
-                                    float randomOffset = Rng.Range(0.5f, 1f);
-                                    // 这里 worldPos 是相对坐标，需要加上弹幕实际的世界位置
-                                    float3 spawnPos = transform.position.ToFloat3() + (center + halfWidth * randomOffset * dustDir).X0Y();
-
-                                    // 传 forward，让 SpawnDust 去算切线速度
-                                    SpawnDust(spawnPos, dustDir, currentColor);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                for (int l = 0; l < amount; l++)
-                {
-                    if (l == 1)
-                    {
-                        c.a = 0;
-                    }
-                    int v = j * 2;
-                    if (v + 1 < total)
-                    {
-                        _vertices[v] = a2;
-                        _vertices[v + 1] = b2;
-                        _uvs[v] = new Vector2(trailProgress, 1f);
-                        _uvs[v + 1] = new Vector2(trailProgress, 0f);
-                        _colors[v] = c;
-                        _colors[v + 1] = c;
-                        j++;
-                    }
-                }
-                i--;
-            }
-            int tri = 0;
-            for (int k = 0; k < j - 1; k++)
-            {
-                int v = k * 2;
-                _triangles[tri++] = v;
-                _triangles[tri++] = v + 1;
-                _triangles[tri++] = v + 2;
-                _triangles[tri++] = v + 2;
-                _triangles[tri++] = v + 1;
-                _triangles[tri++] = v + 3;
-            }
-
             _mesh.Clear();
-            _mesh.SetVertices(_vertices, 0, j * 2);
-            _mesh.SetColors(_colors, 0, j * 2);
-            _mesh.SetUVs(0, _uvs, 0, j * 2);
-            _mesh.SetTriangles(_triangles, 0, tri, 0, true, 0);
-            _mesh.RecalculateBounds();
-            Ribbon.sharedMesh = _mesh;
         }
-        private void SpawnDust(float3 worldPos, float2 tangent, Color color)
+        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
         {
-            if (Rng.value >= 0.2f)
-                return;
-            for (int j = 0; j < 5; j++)
+            int j = 0;
+            for (int i = zenithTrails.Length - 1; i >= 0; i--)
             {
-                int i = Dusts.FindIndex(0, x => !x.gameObject.activeSelf);
-                if (i < 0)
+                var trail = zenithTrails[i];
+                if (!trail.CanDamage)
+                    continue;
+                while (Colliders.Count <= j)
                 {
-                    Dusts.Add(Instantiate(Dusts[0], Dusts[0].transform.parent));
-                    i = Dusts.Count - 1;
+                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
                 }
-                ZenithDust dust = Dusts[i];
-                dust.gameObject.SetActive(true);
-                // 让 Dust 继承弹幕的颜色
-                dust.SR.color = color;
+                var collider = Colliders[j];
 
-                // 2. 随机速度大小 + 抖动
-                float speed = Rng.Range(5.5f, 10.5f) * (0.6f + 0.2f * j);
-                float2 randomJitter = new float2(Rng.Range(-1f, 1f), Rng.Range(-1f, 1f)) * 3.5f;
-                float2 velocity = (tangent * speed) + randomJitter;
-
-                // 传给 Init
-                dust.Init(worldPos, velocity);
+                var color = currentColor;
+                color.a = 0.5f;
+                collider.color = color;
+                collider.gameObject.SetActive(true);
+                collider.transform.localPosition = trail.Pos.X0Y();
+                j++;
             }
         }
 
