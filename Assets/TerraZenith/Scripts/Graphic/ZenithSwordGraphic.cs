@@ -34,7 +34,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private int totalUpdate;
         private ZenithOrbitCD orbit;
         private float nearFix;
-        private const int TrailLength = 512;
+        private const int TrailLength = 180;
         private readonly List<ZenithTrailData> olds = new();
         private bool end;
         protected override void OnSpawn()
@@ -56,6 +56,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             CheckSlash(vari);
             Light.gameObject.SetActive(false);
             Light.emissiveColor = Color.white;
+            Debug.Log("target frame rate " + Manager.prefs.targetFrameRate);
         }
         public override void ManagedLateUpdate()
         {
@@ -90,11 +91,11 @@ namespace Assets.TerraZenith.Scripts.Graphic
             bool reverse = orbit.ShortAxis < 0;
             float halfWidth = 0.75f;
             float trailMark = olds[^1].LifeRatio;
-            //int trailCount = ZenithBalance.TrailCount;
             int trailIndex = 0;
             int maxMeshPoints = math.min(olds.Count, TrailLength);
             int meshVerticeCount = 0;
             float trailInterval = 1f / 6;
+
             for (int i = 0; i < maxMeshPoints; i++)
             {
                 int index = olds.Count - 1 - i;
@@ -103,12 +104,11 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 var dir = old.Rot;
                 var lifeRatio = old.LifeRatio;
                 var ellipse = old.Ellipse;
-                float3 a2 = (center - 2f * halfWidth * dir).X0Y();
-                float3 b2 = (center + 1f * halfWidth * dir).X0Y();
+                float3 a2 = (center - halfWidth * dir).X0Y();
+                float3 b2 = (center + halfWidth * dir).X0Y();
                 float lifeFade = math.clamp(lifeRatio / 0.166f, 0f, 1f) * math.clamp((0.566f - lifeRatio) / 0.066f, 0f, 1f);
-                var trailFix = Mathf.Pow(0.5f, trailIndex);
                 float mainOpacity = math.clamp(lifeRatio / 0.05f, 0f, 1f) * math.clamp((1f - lifeRatio) / 0.05f, 0f, 1f);
-                float finalFix = trailFix * lifeFade * mainOpacity;
+
                 if (lifeRatio <= trailMark && trailIndex < 4)
                 {
                     trailMark -= trailInterval;
@@ -118,9 +118,14 @@ namespace Assets.TerraZenith.Scripts.Graphic
                     }
                     var trail = Trails[trailIndex];
 
-                    // 【第二层：全局寿命淡入淡出】
-                    // 剑刚出生时 (LifeRatio 接近 0) 淡入，快死时 (LifeRatio 接近 1) 淡出
-                    // 原版是前 20 帧淡入，60~68 帧淡出。对应到你的 0~1 比例就是：
+                    /*// 原版残影亮度：num157 = 8 - num152（num152 = 1,3,5,7）
+                    // 这里 i 从 0 开始，对应原版 num152 = i + 1；lerpValue3 = num157 / 60
+                    int num157 = 7 - i * 2;                       // i=0→7, i=1→5, i=2→3, i=3→1
+                    float lerpValue3 = math.clamp(num157 / 60f, 0f, 1f);
+                    float t = lifeRatio * 120f - (i * 2 + 1);     // 原版 t = localAI[0] - num152
+                    float num162 = math.clamp(t / 20f, 0f, 1f) * math.clamp((68f - t) / 8f, 0f, 1f);
+                    float finalFix = lerpValue3 * num162 * mainOpacity;
+
                     if (finalFix < 0.01f)
                     {
                         trail.gameObject.SetActive(false);
@@ -131,10 +136,9 @@ namespace Assets.TerraZenith.Scripts.Graphic
                         SpriteRenderer sr = trail.Sprite;
                         sr.flipX = reverse;
                         float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-                        // 修正位置和旋转
                         trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
                         sr.color = new(1, 1, 1, finalFix);
-                    }
+                    }*/
                     if (trailIndex == 0)
                     {
                         if (lifeFade < 0.01f)
@@ -155,26 +159,18 @@ namespace Assets.TerraZenith.Scripts.Graphic
                         {
                             Light.gameObject.SetActive(true);
                             Light.emissiveColor = currentColor * 0.5f;
-                            Light.emissiveColor.a = mainOpacity * 0.5f; // 这里的 mainOpacity 对应原版的 Opacity
-                            Light.transform.localPosition = new Vector3(center.x, /*-0.4f*/0, center.y);
-                            // 抛物线密度：0.5 的时候最密，0 和 1 的时候没有
+                            Light.emissiveColor.a = mainOpacity * 0.5f;
+                            Light.transform.localPosition = new Vector3(center.x, 0, center.y);
                             if (Rng.value < 0.11f)
                             {
                                 float density = 1f - math.abs(ellipse * 2f - 1f);
-
-                                // 基础数量（根据距离），假设 orbit.LongAxis 是半径
                                 int baseCount = 1 + (int)(orbit.LongAxis * 2f / 7.5f);
                                 int attempts = math.max(1, (int)(baseCount * density));
                                 var vel = ZenithBalance.Rotate(dir, (reverse ? -1 : 1) * math.PI / 2);
                                 for (int k = 0; k < attempts; k++)
                                 {
                                     float randomOffset = Rng.Range(0.5f, 1f);
-
-                                    // 直接用 b2 的 XZ 加上偏移，或者用 center + dir * 宽度
-                                    // 因为你的 b2 已经是带偏移的剑尖坐标了
                                     float3 spawnPos = transform.position.ToFloat3() + (center + halfWidth * randomOffset * dir).X0Y();
-
-                                    // 传入的切线方向就是 dir，粒子会顺着剑尖方向飞
                                     SpawnDust(spawnPos, vel, currentColor);
                                 }
                             }
@@ -182,15 +178,14 @@ namespace Assets.TerraZenith.Scripts.Graphic
                     }
                     trailIndex++;
                 }
-                float stripProgress = (trailMark + trailInterval - lifeRatio) / lifeRatio /*(float)i / (maxMeshPoints - 1)*/;
 
-                // 原版颜色公式：1 - (progress / 0.98)
-                float stripFade = /*math.clamp(1f - (stripProgress / 0.98f), 0f, 1f)*/trailFix;
+                // 原版 progressOnStrip = i / (expectedVertexPairsAmount - 1) = i / 59
+                float stripProgress = i / (float)(TrailLength - 1);
+                // 原版 StripColors：1 - GetLerpValue(0, 0.98, progress)
+                float stripFade = 1f - math.clamp(stripProgress / 0.98f, 0f, 1f);
+                Color c = currentColor * stripFade;
+                c.a *= 0.5f;
 
-                // ★ 核心：直接乘！千万不要乱加 lifeFade，也不要乱乘 trailFix！
-                Color c = currentColor * stripFade * 1.5f;
-                // ★ 核心：Alpha 减半（原版 result.A /= 2）
-                //c.a *= 0.5f;
                 int v = meshVerticeCount * 2;
                 if (v + 1 < _vertices.Length)
                 {
@@ -209,8 +204,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
             for (int k = 0; k < meshVerticeCount - 1; k++)
             {
                 int v = k * 2;
-                // 因为是倒序遍历生成的顶点，所以索引顺序要反过来，保证法线朝外（正面）
-                // 如果你发现画出来是透明的（背面剔除），把下面 0,1,2 改成 0,2,1 即可
                 _triangles[tri++] = v;
                 _triangles[tri++] = v + 1;
                 _triangles[tri++] = v + 2;
@@ -219,9 +212,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 _triangles[tri++] = v + 3;
             }
 
-            // 注意：这里传的是 meshVerticeCount * 2，而不是 tri * 2
             int verticeCount = meshVerticeCount * 2;
-
             _mesh.Clear();
             _mesh.SetVertices(_vertices, 0, verticeCount);
             _mesh.SetColors(_colors, 0, verticeCount);

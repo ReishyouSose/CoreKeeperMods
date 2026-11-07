@@ -13,7 +13,7 @@ Shader "Zenith/ZenithBladeLight"
         Cull Off
         ZWrite Off
         // 原版使用的是非预乘的 Alpha 混合，或者 Additive 混合
-        Blend SrcAlpha OneMinusSrcAlpha 
+        Blend One OneMinusSrcAlpha
 
         Pass
         {
