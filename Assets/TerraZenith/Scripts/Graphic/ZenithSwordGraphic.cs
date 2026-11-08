@@ -28,15 +28,17 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private Vector3[] _vertices;
         private Color[] _colors;
         private Vector2[] _uvs;
+        private readonly int[] trailTargets = new int[4];
         private int[] _triangles;
         private float progress;
         private float killTime;
         private int totalUpdate;
         private ZenithOrbitCD orbit;
         private float nearFix;
-        private const int TrailLength = 180;
+        private int frameRate;
         private readonly List<ZenithTrailData> olds = new();
         private bool end;
+        private float opacity;
         protected override void OnSpawn()
         {
             base.OnSpawn();
@@ -56,7 +58,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
             CheckSlash(vari);
             Light.gameObject.SetActive(false);
             Light.emissiveColor = Color.white;
-            Debug.Log("target frame rate " + Manager.prefs.targetFrameRate);
         }
         public override void ManagedLateUpdate()
         {
@@ -75,6 +76,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             {
                 progress += step;
                 ZenithBalance.CalculateOrbit(orbit, progress, killTime, totalUpdate, out float lifeRatio, out float ellipse, out float2 basePos, out float2 relativePos);
+                opacity = math.clamp(lifeRatio / 0.05f, 0f, 1f) * math.clamp((1f - lifeRatio) / 0.05f, 0f, 1f);
                 if (lifeRatio >= 1)
                 {
                     HideTrail();
@@ -84,49 +86,39 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 olds.Add(new ZenithTrailData { RelativePos = relativePos, Rot = ZenithBalance.Rotate(basePos, orbit.Rotation), LifeRatio = lifeRatio, Ellipse = ellipse });
             }
         }
+        private float LifeFade(float lifeRatio)
+            => math.clamp(lifeRatio / 0.166f, 0f, 1f) * math.clamp((0.566f - lifeRatio) / 0.066f, 0f, 1f);
         private void HandleVisual(ZenithOrbitCD orbit)
         {
             if (end)
                 return;
             bool reverse = orbit.ShortAxis < 0;
             float halfWidth = 0.75f;
-            float trailMark = olds[^1].LifeRatio;
-            int trailIndex = 0;
-            int maxMeshPoints = math.min(olds.Count, TrailLength);
+            int maxMeshPoints = math.min(olds.Count, frameRate);
             int meshVerticeCount = 0;
-            float trailInterval = 1f / 6;
-
+            int trailIndex = 0;
+            int trailCount = ZenithBalance.TrailCount;
             for (int i = 0; i < maxMeshPoints; i++)
             {
                 int index = olds.Count - 1 - i;
                 var old = olds[index];
                 var center = old.RelativePos;
                 var dir = old.Rot;
-                var lifeRatio = old.LifeRatio;
                 var ellipse = old.Ellipse;
                 float3 a2 = (center - halfWidth * dir).X0Y();
                 float3 b2 = (center + halfWidth * dir).X0Y();
-                float lifeFade = math.clamp(lifeRatio / 0.166f, 0f, 1f) * math.clamp((0.566f - lifeRatio) / 0.066f, 0f, 1f);
-                float mainOpacity = math.clamp(lifeRatio / 0.05f, 0f, 1f) * math.clamp((1f - lifeRatio) / 0.05f, 0f, 1f);
-
-                if (lifeRatio <= trailMark && trailIndex < 4)
+                var lifeRatio = old.LifeRatio;
+                if (trailIndex < trailCount && i == trailTargets[trailIndex])
                 {
-                    trailMark -= trailInterval;
+                    float lifeFade = LifeFade(lifeRatio);
+                    float trailOpacity = (trailCount - trailIndex) / (float)trailCount;
+                    Color trailColor = Color.white * trailOpacity * opacity * lifeFade;
                     while (Trails.Count <= trailIndex)
                     {
                         Trails.Add(Instantiate(Trails[0], Trails[0].transform.parent));
                     }
-                    var trail = Trails[trailIndex];
-
-                    /*// 原版残影亮度：num157 = 8 - num152（num152 = 1,3,5,7）
-                    // 这里 i 从 0 开始，对应原版 num152 = i + 1；lerpValue3 = num157 / 60
-                    int num157 = 7 - i * 2;                       // i=0→7, i=1→5, i=2→3, i=3→1
-                    float lerpValue3 = math.clamp(num157 / 60f, 0f, 1f);
-                    float t = lifeRatio * 120f - (i * 2 + 1);     // 原版 t = localAI[0] - num152
-                    float num162 = math.clamp(t / 20f, 0f, 1f) * math.clamp((68f - t) / 8f, 0f, 1f);
-                    float finalFix = lerpValue3 * num162 * mainOpacity;
-
-                    if (finalFix < 0.01f)
+                    var trail = Trails[trailIndex++];
+                    if (trailColor.a < 0.01f)
                     {
                         trail.gameObject.SetActive(false);
                     }
@@ -136,10 +128,10 @@ namespace Assets.TerraZenith.Scripts.Graphic
                         SpriteRenderer sr = trail.Sprite;
                         sr.flipX = reverse;
                         float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-                        trail.transform.SetLocalPositionAndRotation(new Vector3(center.x, 0, center.y), Quaternion.Euler(0, 0, angleDeg));
-                        sr.color = new(1, 1, 1, finalFix);
-                    }*/
-                    if (trailIndex == 0)
+                        trail.transform.SetLocalPositionAndRotation(center.X0Y(), Quaternion.Euler(0, 0, angleDeg));
+                        sr.color = trailColor;
+                    }
+                    if (i == 0)
                     {
                         if (lifeFade < 0.01f)
                         {
@@ -159,7 +151,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                         {
                             Light.gameObject.SetActive(true);
                             Light.emissiveColor = currentColor * 0.5f;
-                            Light.emissiveColor.a = mainOpacity * 0.5f;
+                            Light.emissiveColor.a = opacity * 0.5f;
                             Light.transform.localPosition = new Vector3(center.x, 0, center.y);
                             if (Rng.value < 0.11f)
                             {
@@ -176,11 +168,10 @@ namespace Assets.TerraZenith.Scripts.Graphic
                             }
                         }
                     }
-                    trailIndex++;
                 }
 
                 // 原版 progressOnStrip = i / (expectedVertexPairsAmount - 1) = i / 59
-                float stripProgress = i / (float)(TrailLength - 1);
+                float stripProgress = i / (float)(frameRate - 1);
                 // 原版 StripColors：1 - GetLerpValue(0, 0.98, progress)
                 float stripFade = 1f - math.clamp(stripProgress / 0.98f, 0f, 1f);
                 Color c = currentColor * stripFade;
@@ -213,13 +204,13 @@ namespace Assets.TerraZenith.Scripts.Graphic
             }
 
             int verticeCount = meshVerticeCount * 2;
-            _mesh.Clear();
+            //_mesh.Clear();
             _mesh.SetVertices(_vertices, 0, verticeCount);
             _mesh.SetColors(_colors, 0, verticeCount);
             _mesh.SetUVs(0, _uvs, 0, verticeCount);
-            _mesh.SetTriangles(_triangles, 0, tri, 0, true, 0);
+            _mesh.SetTriangles(_triangles, 0, tri, 0, false, 0);
             _mesh.RecalculateBounds();
-            Ribbon.sharedMesh = _mesh;
+            //Ribbon.sharedMesh = _mesh;
         }
         private void SpawnDust(float3 worldPos, float2 tangent, Color color)
         {
@@ -261,21 +252,36 @@ namespace Assets.TerraZenith.Scripts.Graphic
         {
             if (Ribbon == null)
                 return;
-            if (_mesh != null)
-                return;
-
-            _mesh = new Mesh
+            if (_mesh == null)
             {
-                name = "ZenithBladeLight"
-            };
-            _mesh.MarkDynamic();
-            Ribbon.sharedMesh = _mesh;
+                _mesh = new Mesh
+                {
+                    name = "ZenithBladeLight"
+                };
+                _mesh.MarkDynamic();
+                Ribbon.sharedMesh = _mesh;
+            }
 
-            int maxCapacity = TrailLength;
-            _vertices = new Vector3[maxCapacity * 2];
-            _colors = new Color[maxCapacity * 2];
-            _uvs = new Vector2[maxCapacity * 2];
-            _triangles = new int[(maxCapacity - 1) * 6];
+            int maxCapacity = Manager.prefs.targetFrameRate;
+            if (frameRate != maxCapacity)
+            {
+                _vertices = new Vector3[maxCapacity * 2];
+                _colors = new Color[maxCapacity * 2];
+                _uvs = new Vector2[maxCapacity * 2];
+                _triangles = new int[(maxCapacity - 1) * 6];
+                frameRate = maxCapacity;
+                int j = 0;
+                int count = ZenithBalance.TrailCount;
+                for (int i = 0; i < maxCapacity; i++)
+                {
+                    float phase = i / (float)maxCapacity * count;
+                    if (phase >= j)
+                    {
+                        trailTargets[j] = i;
+                        j++;
+                    }
+                }
+            }
         }
 
         private void CheckSlash(int vari)
@@ -301,7 +307,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
             foreach (var trail in Trails)
             {
                 trail.Sprite.sprite = target;
-                trail.Mask.transform.localPosition = new(-offset.x, 0, -offset.y);
+                trail.Sprite.transform.localPosition = offset.X0Y();
             }
             Light.emissiveColor = currentColor * 0.5f;
             Light.emissiveColor.a = 1;

@@ -95,7 +95,6 @@ MonoBehaviour:
   Light: {fileID: 4720193335393572953}
   Colliders:
   - {fileID: 8986264883160931775}
-  ribbonRenderer: {fileID: 710001053}
   PrimaryColor: {r: 0.69803923, g: 1, b: 0.7058824, a: 1}
   PrimarySprite: {fileID: 21300000, guid: 7f10d7f71b3de7348a6569435fee4149, type: 3}
   PrimaryOffset:
@@ -1185,15 +1184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SR: {fileID: 2940085902372068809}
-  Vel:
-    x: 0
-    y: 0
-    z: 0
-  Pos:
-    x: 0
-    y: 0
-    z: 0
-  Scale: 0
 --- !u!114 &2940085902372068809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,7 +1446,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.25, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6420001191020277606}

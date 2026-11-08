@@ -166,7 +166,7 @@ namespace Assets.TerraZenith.Scripts.System
                             //Debug.Log("no health");
                             continue;
                         }
-                        if (!enemyLookup.HasComponent(target))
+                        if (!hitTile && !enemyLookup.HasComponent(target))
                         {
                             //Debug.Log("no emeny");
                             continue;

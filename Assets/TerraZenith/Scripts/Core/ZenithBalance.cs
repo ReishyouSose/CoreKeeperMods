@@ -30,6 +30,7 @@ namespace Assets.TerraZenith.Scripts.Core
         public const float LongAxisGrowth = 40 * Terra_PxFix;
         public const float MinLongAxis = 60 * Terra_PxFix;   // 60px 换算
         public const int ShortAxisRandom = 100;
+        public const int TrailCount = 4;
 
         public static ZenithSlashColorDataBlock[] Slashs;
 
