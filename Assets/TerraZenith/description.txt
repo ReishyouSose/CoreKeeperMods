@@ -3,5 +3,6 @@ Will gradually add Terraria items (though I'm pretty lazy, of course)
 
 [h2][b]Current Items[/b][/h2]
 [list]
-Zenith (parchment drops at 1% from Core Commander and bosses of later progression)
+Zenith (parchment drops at 1% from Core Commander and bosses of later progression.
+If it doesn't drop, the next drop rate increases by 1% until it drops, then resets to 1%)
 [/list]
