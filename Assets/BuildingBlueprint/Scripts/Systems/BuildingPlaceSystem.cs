@@ -175,6 +175,23 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
 
             return amount;
         }
+        // Same test as BuildingPlaceServer uses for tilled soil: any hoe in the inventory will do
+        public bool HasAnyHoe(Entity player)
+        {
+            if (!containerLookup.TryGetBuffer(player, out var inv))
+            {
+                return false;
+            }
+            for (int i = 0; i < inv.Length; i++)
+            {
+                var slot = inv[i];
+                if (slot.objectID != ObjectID.None && PugDatabase.GetEntityObjectInfo(slot.objectID, database, slot.variation).objectType == ObjectType.Hoe)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     [UpdateInGroup(typeof(SimulationSystemGroup))]
     [WorldSystemFilter(WorldSystemFilterFlags.ServerSimulation)]

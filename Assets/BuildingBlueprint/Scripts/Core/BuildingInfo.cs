@@ -66,7 +66,8 @@ namespace Assets.BuildingBlueprint.Scripts.Core
                             variation = tileObj.variation,
                         };
                         requires.TryGetValue(obj, out int value);
-                        requires[obj] = ++value;
+                        // Tilled soil needs one hoe of any kind, which is not used up (see BuildingPlaceServer)
+                        requires[obj] = tileObj.objectID == ObjectID.WoodHoe ? 1 : ++value;
                     }
                 }
                 foreach (var (require, stack) in requires)
@@ -86,7 +87,9 @@ namespace Assets.BuildingBlueprint.Scripts.Core
                 for (int i = 0; i < materials.Count; i++)
                 {
                     var material = materials[i];
-                    int available = client.GetExistObjectAmount(player.entity, material.objectID, this.variations[i]);
+                    int available = material.objectID == ObjectID.WoodHoe
+                        ? (client.HasAnyHoe(player.entity) ? 1 : 0)
+                        : client.GetExistObjectAmount(player.entity, material.objectID, this.variations[i]);
                     materials[i] = new(material.objectID, material.amountNeeded, available, Entity.Null, null);
                 }
             }
