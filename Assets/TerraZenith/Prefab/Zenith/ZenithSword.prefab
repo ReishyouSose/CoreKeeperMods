@@ -112,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 2026792211, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageRadius: 0.5
-  damageRadiusClient: 0.5
-  tileDamageRadius: 0.5
+  damageRadius: 0.625
+  damageRadiusClient: 0.625
+  tileDamageRadius: 0.625
   piercesEnemies: 1
   piercesWallTypes: 
   damagesTiles: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   ExplodeOnEnemyCollision: 0
   collideWithNonWalkableTiles: 0
   maxBounceCount: 0
-  onlyAttackEveryXSecond: 0.125
+  onlyAttackEveryXSecond: 0.1
 --- !u!114 &451002009
 MonoBehaviour:
   m_ObjectHideFlags: 0

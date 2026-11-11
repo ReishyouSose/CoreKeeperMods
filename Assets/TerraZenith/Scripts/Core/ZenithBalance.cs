@@ -29,6 +29,7 @@ namespace Assets.TerraZenith.Scripts.Core
         // 原版长轴后半段额外扩张：40px
         public const float LongAxisGrowth = 40 * Terra_PxFix;
         public const float MinLongAxis = 60 * Terra_PxFix;   // 60px 换算
+        public readonly static float2 HitBox = new float2(40, 10) * Terra_PxFix;
         public const int ShortAxisRandom = 100;
         public const int TrailCount = 4;
 
@@ -70,6 +71,7 @@ namespace Assets.TerraZenith.Scripts.Core
 
             // 原版：longAxis = velocity.Length() + GetLerpValue(0.5,1,lerp) * 40
             float longAxisNow = orbit.LongAxis + math.clamp((ellipse - 0.5f) / 0.5f, 0f, 1f) * LongAxisGrowth;
+            longAxisNow = math.max(MinLongAxis, longAxisNow);
 
             // 原版：shortAxis = ai[0] * Lerp(2, 1, lerp)
             float shortAxisNow = orbit.ShortAxis * math.lerp(2f, 1f, ellipse);
@@ -101,10 +103,10 @@ namespace Assets.TerraZenith.Scripts.Core
         /// maxDistanceSq <= 0  -> 不做距离限制（视为无限范围）。
         /// </summary>
         public static bool FindTarget(NativeArray<Entity> enemies, float2 center, float maxDistanceSq, bool findNearest,
-            ComponentLookup<HealthCD> healthLookup, ComponentLookup<LocalTransform> transformLookup,
-            ComponentLookup<DisablePhysicsCD> disablePhysicsLookup, ComponentLookup<ImmuneToDamageCD> immuneLookup,
-            BufferLookup<SummarizedConditionEffectsBuffer> summarizedConditionsLookup,
-            out Entity target, out float2 targetPos, out float targetDisSq)
+            ComponentLookup<HealthCD> healthLookup, ComponentLookup<LocalTransform> transformLookup, ComponentLookup<EnemyCD> enemyLookup,
+            ComponentLookup<CattleCD> cattleLookup, ComponentLookup<DisablePhysicsCD> disablePhysicsLookup,
+            ComponentLookup<ImmuneToDamageCD> immuneLookup, BufferLookup<SummarizedConditionEffectsBuffer> summarizedConditionsLookup,
+            out Entity target, out float2 targetPos, out float targetDisSq, bool requireEnemy = true, bool ignoreCattle = true)
         {
             target = Entity.Null;
             targetPos = float2.zero;
@@ -118,8 +120,8 @@ namespace Assets.TerraZenith.Scripts.Core
                 if (e == Entity.Null)
                     continue;
 
-                if (!IsTargetable(e, healthLookup, transformLookup, disablePhysicsLookup, immuneLookup,
-                                  summarizedConditionsLookup, out float2 pos))
+                if (!IsTargetable(e, healthLookup, transformLookup, enemyLookup, cattleLookup, disablePhysicsLookup, immuneLookup,
+                                  summarizedConditionsLookup, out float2 pos, requireEnemy, ignoreCattle))
                     continue;
 
                 float dis = math.lengthsq(pos - center);
@@ -151,16 +153,24 @@ namespace Assets.TerraZenith.Scripts.Core
         /// 判定顺序：存活 -> 位置 -> 物理开启 -> 免疫允许 -> 护甲已破。
         /// 注意：不排除 mainEntity == self 的主体（否则 SpiderRobot 腿全坏后本体打不到，Boss 打不死）。
         /// </summary>
-        public static bool IsTargetable(Entity entity, ComponentLookup<HealthCD> healthLookup,
-            ComponentLookup<LocalTransform> transformLookup, ComponentLookup<DisablePhysicsCD> disablePhysicsLookup,
-            ComponentLookup<ImmuneToDamageCD> immuneLookup,
-            BufferLookup<SummarizedConditionEffectsBuffer> summarizedConditionsLookup, out float2 position)
+        public static bool IsTargetable(Entity entity, ComponentLookup<HealthCD> healthLookup, ComponentLookup<LocalTransform> transformLookup,
+            ComponentLookup<EnemyCD> enemyLookup, ComponentLookup<CattleCD> cattleLookup, ComponentLookup<DisablePhysicsCD> disablePhysicsLookup, ComponentLookup<ImmuneToDamageCD> immuneLookup, BufferLookup<SummarizedConditionEffectsBuffer> summarizedConditionsLookup,
+            out float2 position, bool requireEnemy = true, bool ignoreCattle = true)
         {
             position = float2.zero;
 
             if (!healthLookup.TryGetComponent(entity, out var health) || health.health <= 0)
                 return false;
-
+            if (requireEnemy)
+            {
+                if (enemyLookup.HasComponent(entity))
+                {
+                    if (ignoreCattle && cattleLookup.HasComponent(entity))
+                        return false;
+                }
+                else
+                    return false;
+            }
             if (!transformLookup.TryGetComponent(entity, out var trans))
                 return false;
             position = trans.Position.ToFloat2();
@@ -195,6 +205,12 @@ namespace Assets.TerraZenith.Scripts.Core
             float angle = rng.NextFloat(0f, math.PI2);
             float r = math.sqrt(rng.NextFloat()) * radius;
             return new float2(math.cos(angle), math.sin(angle)) * r;
+        }
+        public static float GetCDFix(float cd, uint tickRate, out uint targetTicks)
+        {
+            float unfixCD = cd * tickRate;
+            targetTicks = (uint)math.floor(unfixCD);
+            return targetTicks / unfixCD;
         }
     }
 }

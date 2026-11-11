@@ -93,6 +93,8 @@ namespace Assets.TerraZenith.Scripts.System
             var transLookup = this.transLookup;
             var healthLookup = this.healthLookup;
             var immuneLookup = this.immuneLookup;
+            var enemyLookup = this.enemyLookup;
+            var cattleLookup = this.cattleLookup;
             var noPhysicsLookup = this.noPhysicsLookup;
             var levelEntitiesLookup = this.levelEntitiesLookup;
             var effectLookup = this.effectLookup;
@@ -108,7 +110,6 @@ namespace Assets.TerraZenith.Scripts.System
             float jitterRadius = ZenithBalance.JitterRadius;
             var shortAxisRandom = ZenithBalance.ShortAxisRandom;
             var terraFx = ZenithBalance.Terra_PxFix;
-            var minLongAxis = ZenithBalance.MinLongAxis;
             lookups.Update(ref CheckedStateRef);
             var players = PlayerQueue.ToEntityListAsync(Allocator.TempJob, out var jobWait);
             shared.Update(ref CheckedStateRef, ecb, players);
@@ -144,8 +145,8 @@ namespace Assets.TerraZenith.Scripts.System
                 if (vari)
                 {
                     bool shouldJitter = true;
-                    if (ZenithBalance.FindTarget(enemies, mouse, searchSQ, true, healthLookup, transLookup,
-                        noPhysicsLookup, immuneLookup, effectLookup, out _, out float2 targetPos, out _))
+                    if (ZenithBalance.FindTarget(enemies, mouse, searchSQ, true, healthLookup, transLookup, enemyLookup,
+                        cattleLookup, noPhysicsLookup, immuneLookup, effectLookup, out _, out float2 targetPos, out _))
                     {
                         target = targetPos - playerPos;
                         shouldJitter = count == 2;
@@ -184,14 +185,14 @@ namespace Assets.TerraZenith.Scripts.System
 
                 // 轨道参数（严格对齐原版 velocity = vector42 / 2）t
                 target *= 0.5f;
-                float dist = math.length(target);
+                float longAxis = math.length(target);
                 float rot = math.atan2(target.y, target.x);
 
                 Entity projectile = ecb.Instantiate(projectilePrefab);
                 var orbit = new ZenithOrbitCD
                 {
                     Offset = target,
-                    LongAxis = math.max(minLongAxis, dist),
+                    LongAxis = longAxis,
                     ShortAxis = shortAxis,
                     // 发射端 +PI；CalculateOrbit 的 x 从 0 起步，两者抵消原版的 PI 起始
                     Rotation = rot + math.PI,

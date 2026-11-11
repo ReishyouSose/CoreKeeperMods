@@ -44,13 +44,15 @@ namespace Assets.PointShop.Scripts.Systems
                 if (rw.IsValid)
                 {
                     ref var chance = ref rw.ValueRW.AdditiveChance;
-                    if (random.Value.NextInt(100) < chance)
+                    if (random.Value.NextInt(100) <= chance)
                     {
-                        chance = 1;
+                        chance = 0;
                         EntityUtility.CreateAndDropItem(recipe, 0, 1, trans.Position, Entity.Null, database, ecb);
                     }
                     else
-                        chance++;
+                    {
+                        chance += random.Value.NextInt(1, 6);
+                    }
                 }
 
             })

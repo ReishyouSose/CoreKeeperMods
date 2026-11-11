@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: -1465117922, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontCalculateValuesFromLevel: 1
+  dontCalculateValuesFromLevel: 0
   givesConditionsWhenHeldInHand: 1
   isArmor: 0
   givesConditionsWhenEquipped:
@@ -170,8 +170,8 @@ MonoBehaviour:
   m_Script: {fileID: -963874711, guid: 3392f4c23e1d8662d749dabb2361ee02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 185
-  damageMultiplier: 1.3
+  damage: 242
+  damageMultiplier: 1.7
   isRange: 0
   isMagic: 0
   level: {fileID: 451001008}

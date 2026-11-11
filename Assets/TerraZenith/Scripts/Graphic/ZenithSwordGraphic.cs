@@ -28,7 +28,8 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private Vector3[] _vertices;
         private Color[] _colors;
         private Vector2[] _uvs;
-        private readonly int[] trailTargets = new int[4];
+        private readonly int[] trailTargets = new int[ZenithBalance.TrailCount];
+        private readonly int[] trailTargets_simulate = new int[ZenithBalance.TrailCount];
         private int[] _triangles;
         private float progress;
         private float killTime;
@@ -39,9 +40,11 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private readonly List<ZenithTrailData> olds = new();
         private bool end;
         private float opacity;
+        private int tickRate;
         protected override void OnSpawn()
         {
             base.OnSpawn();
+            tickRate = PlatformConfiguration.Instance.SessionConfiguration.SimulationTickRate;
             EnsureMesh();
             HideTrail();
             olds.Clear();
@@ -62,6 +65,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
         public override void ManagedLateUpdate()
         {
             base.ManagedLateUpdate();
+            DebugCollider(world.EntityManager.GetComponentData<ZenithOrbitCD>(entity), world.EntityManager.GetBuffer<ZenithTrail>(entity));
             if (end)
                 return;
             SimulateOrbit(orbit);
@@ -281,6 +285,16 @@ namespace Assets.TerraZenith.Scripts.Graphic
                         j++;
                     }
                 }
+                j = 0;
+                for (int i = 0; i < tickRate; i++)
+                {
+                    float phase = i / (float)tickRate * count;
+                    if (phase >= j)
+                    {
+                        trailTargets_simulate[j] = i;
+                        j++;
+                    }
+                }
             }
         }
 
@@ -327,26 +341,31 @@ namespace Assets.TerraZenith.Scripts.Graphic
             }
             _mesh.Clear();
         }
-        private void DebugCollider(DynamicBuffer<ZenithTrail> zenithTrails)
+        private void DebugCollider(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
         {
-            int j = 0;
-            for (int i = zenithTrails.Length - 1; i >= 0; i--)
+            var length = zenithTrails.Length;
+            //Debug.Log("current life " + orbit.LifeRatio);
+            for (int i = 0; i < trailTargets_simulate.Length; i++)
             {
-                var trail = zenithTrails[i];
-                if (!trail.CanDamage)
-                    continue;
-                while (Colliders.Count <= j)
+                int index = length - 1 - trailTargets_simulate[i];
+                if (index < 0)
+                    return;
+                var trail = zenithTrails[index];
+                var delta = orbit.LifeRatio - trail.LifeRatio;
+                //Debug.Log(delta);
+                if (delta is >= 0 and <= 0.5f)
                 {
-                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
+                    while (Colliders.Count <= i)
+                    {
+                        Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
+                    }
+                    var collider = Colliders[i];
+                    var color = currentColor;
+                    color.a = 0.5f;
+                    collider.color = color;
+                    collider.gameObject.SetActive(true);
+                    collider.transform.localPosition = trail.Pos.X0Y();
                 }
-                var collider = Colliders[j];
-
-                var color = currentColor;
-                color.a = 0.5f;
-                collider.color = color;
-                collider.gameObject.SetActive(true);
-                collider.transform.localPosition = trail.Pos.X0Y();
-                j++;
             }
         }
 

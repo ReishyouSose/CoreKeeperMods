@@ -56,20 +56,20 @@ namespace Assets.TerraZenith.Scripts.System
                 float step = ticksElapsed * tickRate * ZenithBalance.NearFix(longAxis);
                 var totalProgress = killProgress.Max;
                 int totalUpdates = updateCount;
-
+                var rot = orbit.Rotation;
                 while (updateCount-- > 0)
                 {
                     ref float progress = ref killProgress.Current;
                     progress += step;
                     ZenithBalance.CalculateOrbit(orbit, progress, totalProgress, totalUpdates,
-                        out float lifeRatio, out float ellipse, out _, out float2 relativePos);
-
+                        out float lifeRatio, out _, out float2 basePos, out float2 relativePos);
+                    orbit.LifeRatio = lifeRatio;
                     if (lifeRatio >= 1)
                     {
                         ecb.SetComponentEnabled<EntityDestroyedCD>(entity, true);
                         return;
                     }
-                    trail.Add(new ZenithTrail { Pos = relativePos, CanDamage = ellipse < 1 });
+                    trail.Add(new ZenithTrail { Pos = relativePos, Rot = ZenithBalance.Rotate(basePos, rot), LifeRatio = lifeRatio });
                 }
 
                 // 实体只做“椭圆中心”容器，随玩家实时位置移动
