@@ -96,5 +96,63 @@ namespace Assets.BuildingBlueprint.Scripts.Core
             variations = this.variations;
             return materials;
         }
+
+        private readonly List<MaterialInfo> shown = new();
+        private readonly List<int> shownVariations = new();
+        private readonly List<int> order = new();
+        private Comparison<int> missingFirst;
+        private float sortedAt = float.NaN;
+        private int sortedRows;
+
+        private static int TooltipRows()
+        {
+            var tooltip = Manager.ui != null && Manager.ui.mouse != null ? Manager.ui.mouse.slotHoverTooltip : null;
+            return tooltip != null && tooltip.hoverMaterials != null ? tooltip.hoverMaterials.Count : int.MaxValue;
+        }
+
+        // How many kinds of items GetTooltipMaterials leaves out, for a "+N" line in the description
+        public int GetHiddenTooltipCount()
+        {
+            return materials == null ? 0 : Math.Max(0, materials.Count - TooltipRows());
+        }
+
+        private int MissingFirst(int a, int b)
+        {
+            bool missingA = materials[a].amountAvailable < materials[a].amountNeeded;
+            bool missingB = materials[b].amountAvailable < materials[b].amountNeeded;
+            return missingA == missingB ? a.CompareTo(b) : (missingA ? -1 : 1);
+        }
+
+        // The game's tooltip has a fixed number of item rows (SlotHoverTooltip.hoverMaterials) and logs an
+        // error every frame when it gets more. Show the items the player is missing first; drop the rest.
+        public List<MaterialInfo> GetTooltipMaterials(out List<int> variations)
+        {
+            var all = GetMaterails(out variations);
+            int rows = TooltipRows();
+            if (all == null || all.Count <= rows)
+                return all;
+            // The amounts change only when GetMaterails recounts, so sort again only then
+            if (sortedAt == countedAt && sortedRows == rows)
+            {
+                variations = shownVariations;
+                return shown;
+            }
+            sortedAt = countedAt;
+            sortedRows = rows;
+            order.Clear();
+            for (int i = 0; i < all.Count; i++)
+                order.Add(i);
+            missingFirst ??= MissingFirst;
+            order.Sort(missingFirst);
+            shown.Clear();
+            shownVariations.Clear();
+            for (int k = 0; k < rows; k++)
+            {
+                shown.Add(all[order[k]]);
+                shownVariations.Add(variations[order[k]]);
+            }
+            variations = shownVariations;
+            return shown;
+        }
     }
 }
