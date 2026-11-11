@@ -341,16 +341,17 @@ namespace Assets.TerraZenith.Scripts.Graphic
             }
             _mesh.Clear();
         }
-        private void DebugCollider(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> zenithTrails)
+        private void DebugCollider(ZenithOrbitCD orbit, DynamicBuffer<ZenithTrail> trails)
         {
-            var length = zenithTrails.Length;
+            var length = trails.Length;
             //Debug.Log("current life " + orbit.LifeRatio);
             for (int i = 0; i < trailTargets_simulate.Length; i++)
             {
-                int index = length - 1 - trailTargets_simulate[i];
-                if (index < 0)
-                    return;
-                var trail = zenithTrails[index];
+                int j = length - 1 - trailTargets_simulate[i];
+                if (j - 2 < 0)
+                    continue;
+                var trail = trails[j];
+                var perTrail = trails[j - 2];
                 var delta = orbit.LifeRatio - trail.LifeRatio;
                 //Debug.Log(delta);
                 if (delta is >= 0 and <= 0.5f)
@@ -359,12 +360,19 @@ namespace Assets.TerraZenith.Scripts.Graphic
                     {
                         Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
                     }
+                    var trailPos = trail.Pos;
+                    float2 prePos = perTrail.Pos;
+                    float2 castStart = prePos;
+                    var totar = trailPos - prePos;
+                    var dir = math.normalize(totar);
                     var collider = Colliders[i];
                     var color = currentColor;
                     color.a = 0.5f;
                     collider.color = color;
+                    collider.size = new(1.25f, math.length(totar));
                     collider.gameObject.SetActive(true);
-                    collider.transform.localPosition = trail.Pos.X0Y();
+                    float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+                    collider.transform.SetLocalPositionAndRotation((castStart + totar / 2f).X0Y(), Quaternion.Euler(0, 0, angleDeg));
                 }
             }
         }

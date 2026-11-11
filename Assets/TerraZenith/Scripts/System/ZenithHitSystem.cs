@@ -148,10 +148,10 @@ namespace Assets.TerraZenith.Scripts.System
                 for (int i = 0; i < trailTargets.Length; i++)
                 {
                     int j = trailLength - 1 - trailTargets[i];
-                    if (j - 1 < 0)
+                    if (j - 2 < 0)
                         continue;
                     var trail = trails[j];
-                    var perTrail = trails[j - 1];
+                    var perTrail = trails[j - 2];
                     var delta = lifeRatio - trail.LifeRatio;
                     //Debug.Log("lifeDelta: " + delta);
                     if (delta < 0 || delta > 0.5f)
