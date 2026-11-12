@@ -66,12 +66,12 @@ namespace Assets.TerraZenith.Scripts.System
             RequireForUpdate<WorldInfoCD>();
             RequireForUpdate<LocalHitCoolDownCD>();
             Debug.LogWarning("cd exist " + SystemAPI.TryGetSingleton<LocalHitCoolDownCD>(out _));
-            trailTargets = new(4, Allocator.Persistent);
-            int j = 0;
             int count = ZenithBalance.TrailCount;
+            trailTargets = new(count + 1, Allocator.Persistent);
+            int j = 0;
             for (int i = 0; i < tickRate; i++)
             {
-                float phase = i / (float)tickRate * count;
+                float phase = (i + 1) / (float)tickRate * count;
                 if (phase >= j)
                 {
                     trailTargets[j] = i;
@@ -114,12 +114,12 @@ namespace Assets.TerraZenith.Scripts.System
             var collision = attackHelper.physicsWorld.CollisionWorld;
             var manager = EntityManager;
             var trailTargets = this.trailTargets;
-            var hitbox = ZenithBalance.HitBox;
-            var width = hitbox.x;
-            var height = hitbox.y;
             Entities.ForEach((Entity e, ref ContinouslyDamagingProjectileCD attackCD, in ProjectileSetupCD setup, in ZenithOrbitCD orbit,
                 in ProjectileCD proj, in LocalTransform trans, in BehaviourTagsCD behaviourTags, in DynamicBuffer<ZenithTrail> trails) =>
             {
+                var lifeRatio = orbit.LifeRatio;
+                if (lifeRatio >= 1)
+                    return;
                 // ===== 1. 频率控制：冷却未到直接跳过/另外把原版冷却设为最大值来跳过穿透弹幕的逻辑 =====
                 ref var cd = ref attackCD.attackCooldown;
                 if (!cd.isRunning)
@@ -135,7 +135,8 @@ namespace Assets.TerraZenith.Scripts.System
                 var hitTiles = new NativeHashSet<int2>(32, Allocator.Temp);
                 var castHits = new NativeList<ColliderCastHit>(16, Allocator.Temp);
                 var hitInfos = new NativeList<ZenithHitInfo>(16, Allocator.Temp);
-                float3 origin = trans.Position + up;
+                float3 center = trans.Position;
+                float3 origin = center + up;
                 var tileDamage = orbit.TileDamage;
                 bool hitTile = tileDamage > 0;
                 var collidesWith = 1 << 3 | 1 << 4;//EnemyTrigger和EnemyCollider
@@ -143,23 +144,23 @@ namespace Assets.TerraZenith.Scripts.System
                     collidesWith |= 1 << 0;//DefaultCollider
                 var filter = new CollisionFilter { BelongsTo = uint.MaxValue, CollidesWith = (uint)collidesWith };
                 var trailLength = trails.Length;
-                var lifeRatio = orbit.LifeRatio;
                 //Debug.Log("lifeRatio: " + lifeRatio);
                 for (int i = 0; i < trailTargets.Length; i++)
                 {
-                    int j = trailLength - 1 - trailTargets[i];
-                    if (j - 2 < 0)
-                        continue;
+                    int p = trailTargets[i];
+                    int j = trailLength - 1 - p;
+                    if (j < 0)
+                        break;
                     var trail = trails[j];
-                    var perTrail = trails[j - 2];
-                    var delta = lifeRatio - trail.LifeRatio;
-                    //Debug.Log("lifeDelta: " + delta);
-                    if (delta < 0 || delta > 0.5f)
+                    if (!ZenithBalance.CanAttack(trail.LifeRatio, p, tickRate))
                         continue;
+                    int old = ZenithBalance.GetOldIndex(j);
+                    var perTrail = trails[old];
                     var trailPos = trail.Pos;
                     var rot = trail.Rot;
                     float3 pos = trailPos.X0Y() + origin;
-                    var dir = (rot * width).X0Y();
+                    float rad = proj.tileDamageRadius;
+                    var dir = (rot * rad).X0Y();
                     if (hitTile)
                     {
                         for (int k = -1; k <= 1; k++)
@@ -191,10 +192,10 @@ namespace Assets.TerraZenith.Scripts.System
                     float2 prePos = perTrail.Pos;
                     float3 castStart = prePos.X0Y() + origin;
                     var totar = trailPos - prePos;
-                    dir = math.normalize(totar).X0Y();
-
+                    dir = math.normalizesafe(totar, float2.zero).X0Y();
+                    rad = proj.damageRadius;
                     castHits.Clear();
-                    bool hitAny = collision.SphereCastAll(castStart, width, dir, math.length(totar), ref castHits, filter);
+                    collision.SphereCastAll(castStart, rad, dir, math.length(totar), ref castHits, filter);
                     //Debug.Log("hit any " + hitAny);
                     foreach (var hit in castHits)
                     {
@@ -229,13 +230,13 @@ namespace Assets.TerraZenith.Scripts.System
                 }
                 hitTiles.Dispose();
                 castHits.Dispose();
+                hitEntities.Dispose();
 
                 // ===== 4. 排序（从左到右、从上到下） =====
                 hitInfos.Sort();
 
                 // ===== 5. 逐段构造扫掠体，对每个目标调 Attack =====
                 int n = hitInfos.Length;
-                float3 center = trans.Position;
                 var attackType = hitTile ? CanOnlyAttackType.All : CanOnlyAttackType.EnemyAndPlayer;
                 var damage = (int)math.round(setup.damage * damageFix);
                 for (int i = 0; i < n; i++)
@@ -261,11 +262,11 @@ namespace Assets.TerraZenith.Scripts.System
 
                     attackHelper.Attack(ecb, in p);
                 }
+                hitInfos.Dispose();
 
                 // ===== 6. 冷却 =====
 
                 // ===== 7. 清理 =====
-                hitEntities.Dispose();
             })
                 .WithName("ZenitHitSystem")
                 .WithBurst()

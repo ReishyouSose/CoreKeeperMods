@@ -57,7 +57,7 @@ namespace Assets.TerraZenith.Scripts.System
                     entityRemoves.Add(key);
                     continue;
                 }
-                if (destroyedLookup.HasComponent(target) || destroyedLookup.HasComponent(entity))
+                if (destroyedLookup.IsComponentEnabled(target) || destroyedLookup.IsComponentEnabled(entity))
                 {
                     entityRemoves.Add(key);
                     continue;
@@ -81,7 +81,7 @@ namespace Assets.TerraZenith.Scripts.System
                     wallRemoves.Add(key);
                     continue;
                 }
-                if (destroyedLookup.HasComponent(entity))
+                if (destroyedLookup.IsComponentEnabled(entity))
                 {
                     wallRemoves.Add(key);
                     continue;

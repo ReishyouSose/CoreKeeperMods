@@ -29,7 +29,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
         private Color[] _colors;
         private Vector2[] _uvs;
         private readonly int[] trailTargets = new int[ZenithBalance.TrailCount];
-        private readonly int[] trailTargets_simulate = new int[ZenithBalance.TrailCount];
+        private readonly int[] trailTargets_simulate = new int[ZenithBalance.TrailCount + 1];
         private int[] _triangles;
         private float progress;
         private float killTime;
@@ -65,7 +65,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
         public override void ManagedLateUpdate()
         {
             base.ManagedLateUpdate();
-            DebugCollider(world.EntityManager.GetComponentData<ZenithOrbitCD>(entity), world.EntityManager.GetBuffer<ZenithTrail>(entity));
+            //DebugCollider(world.EntityManager.GetComponentData<ZenithOrbitCD>(entity), world.EntityManager.GetBuffer<ZenithTrail>(entity));
             if (end)
                 return;
             SimulateOrbit(orbit);
@@ -288,13 +288,14 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 j = 0;
                 for (int i = 0; i < tickRate; i++)
                 {
-                    float phase = i / (float)tickRate * count;
+                    float phase = (i + 1) / (float)tickRate * count;
                     if (phase >= j)
                     {
                         trailTargets_simulate[j] = i;
                         j++;
                     }
                 }
+                //Debug.Log(tickRate);
             }
         }
 
@@ -345,35 +346,44 @@ namespace Assets.TerraZenith.Scripts.Graphic
         {
             var length = trails.Length;
             //Debug.Log("current life " + orbit.LifeRatio);
+            var lifeRatio = orbit.LifeRatio;
+            if (lifeRatio >= 1)
+                return;
+            //Debug.Log("current " + lifeRatio);
             for (int i = 0; i < trailTargets_simulate.Length; i++)
             {
-                int j = length - 1 - trailTargets_simulate[i];
-                if (j - 2 < 0)
-                    continue;
+                int p = trailTargets_simulate[i];
+                int j = length - 1 - p;
+                if (j < 0)
+                    return;
+                //Debug.Log(j);
+                int old = ZenithBalance.GetOldIndex(j);
+                if (old == 0)
+                    return;
                 var trail = trails[j];
-                var perTrail = trails[j - 2];
-                var delta = orbit.LifeRatio - trail.LifeRatio;
-                //Debug.Log(delta);
-                if (delta is >= 0 and <= 0.5f)
+                if (!ZenithBalance.CanAttack(trail.LifeRatio, p, tickRate))
                 {
-                    while (Colliders.Count <= i)
-                    {
-                        Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
-                    }
-                    var trailPos = trail.Pos;
-                    float2 prePos = perTrail.Pos;
-                    float2 castStart = prePos;
-                    var totar = trailPos - prePos;
-                    var dir = math.normalize(totar);
-                    var collider = Colliders[i];
-                    var color = currentColor;
-                    color.a = 0.5f;
-                    collider.color = color;
-                    collider.size = new(1.25f, math.length(totar));
-                    collider.gameObject.SetActive(true);
-                    float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-                    collider.transform.SetLocalPositionAndRotation((castStart + totar / 2f).X0Y(), Quaternion.Euler(0, 0, angleDeg));
+                    //Debug.Log("cant attack");
+                    continue;
                 }
+                var perTrail = trails[old];
+                while (Colliders.Count <= i)
+                {
+                    Colliders.Add(Instantiate(Colliders[0], Colliders[0].transform.parent));
+                }
+                var trailPos = trail.Pos;
+                float2 prePos = perTrail.Pos;
+                float2 castStart = prePos;
+                var totar = trailPos - prePos;
+                var dir = math.normalize(totar);
+                var collider = Colliders[i];
+                var color = currentColor;
+                color.a = 0.5f;
+                collider.color = color;
+                collider.size = new(1.25f, math.length(totar));
+                collider.gameObject.SetActive(true);
+                float angleDeg = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+                collider.transform.SetLocalPositionAndRotation((castStart + totar / 2f).X0Y(), Quaternion.Euler(0, 0, angleDeg));
             }
         }
 

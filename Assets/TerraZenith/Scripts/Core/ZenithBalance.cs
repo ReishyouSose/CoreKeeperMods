@@ -212,5 +212,21 @@ namespace Assets.TerraZenith.Scripts.Core
             targetTicks = (uint)math.floor(unfixCD);
             return targetTicks / unfixCD;
         }
+
+        //对标 progress 拖尾i 拖尾length
+        public static bool CanAttack(float current, int index, float tickRate)
+        {
+            //return (current - index / tickRate) is >= 0 and <= 0.5f;
+            return current <= 0.5f;
+        }
+        public static int GetOldIndex(int current)
+        {
+            int old = current - 2;
+            while (old < 0)
+            {
+                old++;
+            }
+            return old;
+        }
     }
 }
