@@ -28,9 +28,12 @@ namespace Assets.BuildingBlueprint.Scripts.Core
         public List<MaterialInfo> GetMaterails(out List<int> variations)
         {
             var player = Manager.main.player;
-            variations = null;
             if (player == null)
-                return null;
+            {
+                // No player to count for: return what is cached, as before
+                variations = this.variations;
+                return materials;
+            }
             if (materials == null)
             {
                 variations = new();
