@@ -20,7 +20,5 @@ namespace Assets.TerraZenith.Scripts.Component
         public int TileDamage;
         [GhostField]
         public NetworkTick LastUpdateTick;   // 上次推进的 tick\
-        [GhostField]
-        public float LifeRatio;
     }
 }

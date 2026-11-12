@@ -11,6 +11,6 @@ namespace Assets.TerraZenith.Scripts.Component
         [GhostField]
         public float2 Rot;
         [GhostField]
-        public float LifeRatio;
+        public bool CanDamage;
     }
 }

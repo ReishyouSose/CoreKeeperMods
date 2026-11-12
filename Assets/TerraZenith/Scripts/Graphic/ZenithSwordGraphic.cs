@@ -346,9 +346,6 @@ namespace Assets.TerraZenith.Scripts.Graphic
         {
             var length = trails.Length;
             //Debug.Log("current life " + orbit.LifeRatio);
-            var lifeRatio = orbit.LifeRatio;
-            if (lifeRatio >= 1)
-                return;
             //Debug.Log("current " + lifeRatio);
             for (int i = 0; i < trailTargets_simulate.Length; i++)
             {
@@ -361,7 +358,7 @@ namespace Assets.TerraZenith.Scripts.Graphic
                 if (old == 0)
                     return;
                 var trail = trails[j];
-                if (!ZenithBalance.CanAttack(trail.LifeRatio, p, tickRate))
+                if (!trail.CanDamage)
                 {
                     //Debug.Log("cant attack");
                     continue;

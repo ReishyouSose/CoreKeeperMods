@@ -117,9 +117,6 @@ namespace Assets.TerraZenith.Scripts.System
             Entities.ForEach((Entity e, ref ContinouslyDamagingProjectileCD attackCD, in ProjectileSetupCD setup, in ZenithOrbitCD orbit,
                 in ProjectileCD proj, in LocalTransform trans, in BehaviourTagsCD behaviourTags, in DynamicBuffer<ZenithTrail> trails) =>
             {
-                var lifeRatio = orbit.LifeRatio;
-                if (lifeRatio >= 1)
-                    return;
                 // ===== 1. 频率控制：冷却未到直接跳过/另外把原版冷却设为最大值来跳过穿透弹幕的逻辑 =====
                 ref var cd = ref attackCD.attackCooldown;
                 if (!cd.isRunning)
@@ -152,7 +149,7 @@ namespace Assets.TerraZenith.Scripts.System
                     if (j < 0)
                         break;
                     var trail = trails[j];
-                    if (!ZenithBalance.CanAttack(trail.LifeRatio, p, tickRate))
+                    if (!trail.CanDamage)
                         continue;
                     int old = ZenithBalance.GetOldIndex(j);
                     var perTrail = trails[old];
