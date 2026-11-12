@@ -112,16 +112,14 @@ namespace Assets.TerraZenith.Scripts.System
             // 更新 Attack Helper 的 lookup + 历史碰撞世界
             attackHelper.Update(ref CheckedStateRef, currentTick, this.tickRate);
             var collision = attackHelper.physicsWorld.CollisionWorld;
-            var manager = EntityManager;
             var trailTargets = this.trailTargets;
             Entities.ForEach((Entity e, ref ContinouslyDamagingProjectileCD attackCD, in ProjectileSetupCD setup, in ZenithOrbitCD orbit,
                 in ProjectileCD proj, in LocalTransform trans, in BehaviourTagsCD behaviourTags, in DynamicBuffer<ZenithTrail> trails) =>
             {
-                // ===== 1. 频率控制：冷却未到直接跳过/另外把原版冷却设为最大值来跳过穿透弹幕的逻辑 =====
                 ref var cd = ref attackCD.attackCooldown;
                 if (!cd.isRunning)
                 {
-                    cd.Start(currentTick, uint.MaxValue);
+                    cd.Start(currentTick, attackCD.attackEveryXSecond, tickRate);
                     //Debug.Log("Set inf cd");
                 }
                 // ===== 2. 碰撞世界 =====

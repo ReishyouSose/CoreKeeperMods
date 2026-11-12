@@ -8,6 +8,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.NetCode;
 using Unity.Transforms;
+using UnityEngine;
 
 namespace Assets.TerraZenith.Scripts.System
 {
@@ -198,8 +199,8 @@ namespace Assets.TerraZenith.Scripts.System
                     Rotation = rot + math.PI,
                     LastUpdateTick = currentTick,
                     TileDamage = input.IsButtonStateSet(CommandInputButtonStateNames.SecondInteract_HeldDown)
-                        ? (int)math.round(effectBuffer[(int)ConditionEffect.Mining].value
-                            * math.max(1f + effectBuffer[(int)ConditionEffect.MiningPercentage].value / 100f, 0)) : 0,
+                        ? ((int)math.round(effectBuffer[(int)ConditionEffect.Mining].value
+                            * math.max(1f + effectBuffer[(int)ConditionEffect.MiningPercentage].value / 100f, 0))) : 0,
                 };
                 ecb.SetComponent(projectile, orbit);
                 ecb.SetComponent(projectile, new ProjectileSetupCD
