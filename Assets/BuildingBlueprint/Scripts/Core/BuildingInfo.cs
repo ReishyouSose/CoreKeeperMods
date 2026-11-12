@@ -20,15 +20,19 @@ namespace Assets.BuildingBlueprint.Scripts.Core
         public int2 Size;
         private List<MaterialInfo> materials;
         private List<int> variations;
+        private float countedAt = float.NegativeInfinity;
+        private const float RecountSeconds = 0.25f;
 
+        // The required items are worked out once and cached. How many the player carries is counted again
+        // when the tooltip asks, at most every RecountSeconds, so the list follows the inventory.
         public List<MaterialInfo> GetMaterails(out List<int> variations)
         {
+            var player = Manager.main.player;
+            variations = null;
+            if (player == null)
+                return null;
             if (materials == null)
             {
-                var player = Manager.main.player;
-                variations = null;
-                if (player == null)
-                    return null;
                 variations = new();
                 List<MaterialInfo> list = new();
                 Dictionary<ObjectDataCD, int> requires = new();
@@ -64,11 +68,24 @@ namespace Assets.BuildingBlueprint.Scripts.Core
                 }
                 foreach (var (require, stack) in requires)
                 {
-                    list.Add(new(require.objectID, stack, BuildingPlaceClient.Ins.GetExistObjectAmount(player.entity, require.objectID, require.variation), Entity.Null, null));
+                    list.Add(new(require.objectID, stack, 0, Entity.Null, null));
                     variations.Add(require.variation);
                 }
                 materials = list;
                 this.variations = variations;
+            }
+            // The tooltip asks every frame, so recount at most a few times a second
+            float now = UnityEngine.Time.unscaledTime;
+            if (now - countedAt >= RecountSeconds)
+            {
+                countedAt = now;
+                var client = BuildingPlaceClient.Ins;
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    var material = materials[i];
+                    int available = client.GetExistObjectAmount(player.entity, material.objectID, this.variations[i]);
+                    materials[i] = new(material.objectID, material.amountNeeded, available, Entity.Null, null);
+                }
             }
             variations = this.variations;
             return materials;
