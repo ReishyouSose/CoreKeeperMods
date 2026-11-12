@@ -126,6 +126,9 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         Pos = entities.Position + origin,
                         Direction = entity.Direction,
                         Color = entity.Color,
+                        FilterType = entity.FilterType,
+                        FilterObject = entity.FilterObject,
+                        FilterVariation = entity.FilterVariation,
                         Player = player,
                     });
                     counter.Count_5++;
@@ -496,6 +499,14 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         if (entity.Color != PaintableColor.Unpainted)
                         {
                             ecb.SetComponent(create, new PaintableObjectCD() { color = entity.Color });
+                        }
+                        // Only what the game itself sets (InventoryUtility.AddFilter): a whitelist of one item.
+                        // SetComponent does nothing on an object without a filter, so a filter in the file
+                        // never adds one to, say, a chest. (AddComponent would, and it would not set the value
+                        // on objects that already have one, like robot arms.)
+                        if (entity.FilterType == FilterType.Whitelist && entity.FilterObject != ObjectID.None)
+                        {
+                            ecb.SetComponent(create, new ObjectFilteringCD() { filterType = FilterType.Whitelist, filterObject = entity.FilterObject, filterVariation = entity.FilterVariation });
                         }
                         if (dontConsume)
                             return;

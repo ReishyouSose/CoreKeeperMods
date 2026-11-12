@@ -14,6 +14,9 @@ namespace Assets.BuildingBlueprint.Scripts.Components
         public int2 Direction;
         public Entity Player;
         public PaintableColor Color;
+        public FilterType FilterType;
+        public ObjectID FilterObject;
+        public int FilterVariation;
         public Entity Entity;
         [DontSerializeForCommand]
         public TickTimer Timer;
