@@ -160,6 +160,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         public int GetExistObjectAmount(Entity player, ObjectID id, int variation)
         {
             int amount = 0;
+            containerLookup.Update(this);
             if (!containerLookup.TryGetBuffer(player, out var inv))
             {
                 return 0;
