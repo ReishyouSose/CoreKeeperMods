@@ -96,13 +96,13 @@ MonoBehaviour:
       guid: 
     - path: Scripts/Generated/GhostComponentSerializerCollection.cs
       guid: 
-    - path: Bundles/TerraZenith_Windows.assetbundle
-      guid: 
-    - path: Bundles/TerraZenith_Windows.assetbundle.manifest
-      guid: 
     - path: Bundles/TerraZenith_Linux.assetbundle
       guid: 
     - path: Bundles/TerraZenith_Linux.assetbundle.manifest
+      guid: 
+    - path: Bundles/TerraZenith_Windows.assetbundle
+      guid: 
+    - path: Bundles/TerraZenith_Windows.assetbundle.manifest
       guid: 
     dependencies:
     - modName: CoreLib

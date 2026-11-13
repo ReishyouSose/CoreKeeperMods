@@ -119,7 +119,7 @@ namespace Assets.TerraZenith.Scripts.System
                 ref var cd = ref attackCD.attackCooldown;
                 if (!cd.isRunning)
                 {
-                    cd.Start(currentTick, attackCD.attackEveryXSecond, tickRate);
+                    cd.Start(currentTick, 60, tickRate);//very long cd to prevent vanilla check
                     //Debug.Log("Set inf cd");
                 }
                 // ===== 2. 碰撞世界 =====
