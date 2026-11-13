@@ -19,6 +19,13 @@ namespace Assets.BuildingBlueprint.Scripts.Core
         public Entity Entity;
         public int2 Direction;
         public PaintableColor Color;
+        // Robot arm or item collector filter (the game's ObjectFilteringCD); left out of the file when unset
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public FilterType FilterType;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ObjectID FilterObject;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int FilterVariation;
         public readonly float2 GetEntityOffset(out int2 size)
         {
             size = new(X, Y);

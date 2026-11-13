@@ -94,11 +94,11 @@ namespace Assets.BuildingBlueprint.Scripts.UI
         }
         public override List<PugDatabase.MaterialInfo> GetRequiredMaterials(bool isRepairing, bool isReinforcing)
         {
-            return info.GetMaterails(out variations);
+            return info.GetTooltipMaterials(out variations);
         }
         public override List<TextAndFormatFields> GetHoverDescription()
         {
-            return new()
+            var lines = new List<TextAndFormatFields>
             {
                 new()
                 {
@@ -110,6 +110,11 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                     dontLocalize = true
                 }
             };
+            // Item kinds that did not fit in the tooltip's rows; no words, so it needs no translation
+            int hidden = info.GetHiddenTooltipCount();
+            if (hidden > 0)
+                lines.Add(new() { text = $"+{hidden} …", dontLocalize = true });
+            return lines;
         }
         public override bool ShowRequiredMaterialsAmountNumberColor() => true;
 

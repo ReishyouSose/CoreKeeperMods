@@ -38,7 +38,8 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             tileArchetype = EntityManager.CreateArchetype(typeof(PlaceTileRpc), typeof(SendRpcCommandRequest));
             startArchetype = EntityManager.CreateArchetype(typeof(StartPlaceRPC), typeof(SendRpcCommandRequest));
             dropSpecificVariationLookup = SystemAPI.GetComponentLookup<AlwaysDropSpecificVariationCD>();
-            containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>();
+            // Read only: a read-write lookup marks the inventory as changed on every read
+            containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>(true);
             RequireForUpdate<TileWithTilesetToObjectDataMapCD>();
             NeedDatabase();
             base.OnCreate();
@@ -125,6 +126,9 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         Pos = entities.Position + origin,
                         Direction = entity.Direction,
                         Color = entity.Color,
+                        FilterType = entity.FilterType,
+                        FilterObject = entity.FilterObject,
+                        FilterVariation = entity.FilterVariation,
                         Player = player,
                     });
                     counter.Count_5++;
@@ -160,7 +164,6 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         public int GetExistObjectAmount(Entity player, ObjectID id, int variation)
         {
             int amount = 0;
-            containerLookup.Update(this);
             if (!containerLookup.TryGetBuffer(player, out var inv))
             {
                 return 0;
@@ -174,6 +177,23 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             }
 
             return amount;
+        }
+        // Same test as BuildingPlaceServer uses for tilled soil: any hoe in the inventory will do
+        public bool HasAnyHoe(Entity player)
+        {
+            if (!containerLookup.TryGetBuffer(player, out var inv))
+            {
+                return false;
+            }
+            for (int i = 0; i < inv.Length; i++)
+            {
+                var slot = inv[i];
+                if (slot.objectID != ObjectID.None && PugDatabase.GetEntityObjectInfo(slot.objectID, database, slot.variation).objectType == ObjectType.Hoe)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
     [UpdateInGroup(typeof(SimulationSystemGroup))]
@@ -479,6 +499,14 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         if (entity.Color != PaintableColor.Unpainted)
                         {
                             ecb.SetComponent(create, new PaintableObjectCD() { color = entity.Color });
+                        }
+                        // Only what the game itself sets (InventoryUtility.AddFilter): a whitelist of one item.
+                        // SetComponent does nothing on an object without a filter, so a filter in the file
+                        // never adds one to, say, a chest. (AddComponent would, and it would not set the value
+                        // on objects that already have one, like robot arms.)
+                        if (entity.FilterType == FilterType.Whitelist && entity.FilterObject != ObjectID.None)
+                        {
+                            ecb.SetComponent(create, new ObjectFilteringCD() { filterType = FilterType.Whitelist, filterObject = entity.FilterObject, filterVariation = entity.FilterVariation });
                         }
                         if (dontConsume)
                             return;

@@ -32,6 +32,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         private ComponentLookup<ObjectDataCD> objLookup;
         private ComponentLookup<LocalTransform> transLookup;
         private ComponentLookup<PaintableObjectCD> paintLookup;
+        private ComponentLookup<ObjectFilteringCD> filterLookup;
         private TileAccessor tileAccessor;
 
         protected override void OnCreate()
@@ -48,6 +49,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             objLookup = SystemAPI.GetComponentLookup<ObjectDataCD>();
             transLookup = SystemAPI.GetComponentLookup<LocalTransform>();
             paintLookup = SystemAPI.GetComponentLookup<PaintableObjectCD>();
+            filterLookup = SystemAPI.GetComponentLookup<ObjectFilteringCD>(true);
             var e = EntityManager.CreateSingletonBuffer<TileTargetBuffer>("TileTargetBuffer");
             var buffer = EntityManager.GetBuffer<TileTargetBuffer>(e);
             if (ScriptableData.TryGetDataBlocks<TileTargetDataBlock>(out var dataBlocks))
@@ -67,6 +69,20 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         {
             tileAccessor = CreateTileAccessor();
             base.OnStartRunning();
+        }
+        // Copy a robot arm's or item collector's filter into the blueprint. SelectedEntityBuffer does not
+        // carry it, so read it from the object itself: ObjectFilteringCD is sent to clients. Only what the
+        // paste accepts is copied (a whitelist of one item, as InventoryUtility.AddFilter sets).
+        private EntityCD WithFilter(EntityCD cd, Entity entity)
+        {
+            if (filterLookup.TryGetComponent(entity, out var filter)
+                && filter.filterType == FilterType.Whitelist && filter.filterObject != ObjectID.None)
+            {
+                cd.FilterType = filter.filterType;
+                cd.FilterObject = filter.filterObject;
+                cd.FilterVariation = filter.filterVariation;
+            }
+            return cd;
         }
         protected override void OnUpdate()
         {
@@ -117,7 +133,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                                 List<EntityCD> list = new();
                                 for (int i = 0; i < entities.Length; i++)
                                 {
-                                    list.Add(entities[i]);
+                                    list.Add(WithFilter(entities[i], entities[i].Entity));
                                 }
                                 ui.BoxOperate(selectArea, list, op);
                             }
@@ -172,7 +188,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                                 var box = MiscHelper.GetEntityRect(cd, database);
                                 if (box.Contains(mouse.ToVec2Int()))
                                 {
-                                    info.Entities.Add(cd);
+                                    info.Entities.Add(WithFilter(cd, entity));
                                     hover = true;
                                 }
                             }
