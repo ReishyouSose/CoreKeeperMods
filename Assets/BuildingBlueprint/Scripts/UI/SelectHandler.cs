@@ -1,5 +1,6 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Components;
 using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using Assets.BuildingBlueprint.Scripts.Systems;
 using PugTilemap;
 using System;

@@ -1,4 +1,4 @@
-﻿namespace Assets.BuildingBlueprint.Scripts.Core
+﻿namespace Assets.BuildingBlueprint.Scripts.Enums
 {
     public enum SelectionLayer
     {

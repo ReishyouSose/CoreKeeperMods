@@ -1,4 +1,5 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using Assets.BuildingBlueprint.Scripts.Systems;
 using CoreLib.Submodule.UserInterface.Interface;
 using Pug.UnityExtensions;
@@ -37,10 +38,10 @@ namespace Assets.BuildingBlueprint.Scripts.UI
         private List<UISingleSlot> entityList;
         private List<UITileTypeSelector> tileSelectors;
         private List<SpriteRenderer> marks;
-        private Dictionary<int2, EntityInfo> entityPreview;
-        private Dictionary<int2, EntityInfo> entityRecord;
-        private Dictionary<int2, TilesInfo> tilePreview;
-        private Dictionary<int2, TilesInfo> tileRecord;
+        private Dictionary<int2, SerializeEntities> entityPreview;
+        private Dictionary<int2, SerializeEntities> entityRecord;
+        private Dictionary<int2, SelectedTiles> tilePreview;
+        private Dictionary<int2, SelectedTiles> tileRecord;
         private Dictionary<TileCD, bool> currentTile;
         private bool open;
         private const string PopKey = "BuildingBlueprint/NoSelected";
@@ -112,9 +113,9 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             entityRecord = entityPreview.ToDictionary(x => x.Key, x => x.Value);
             tileRecord = tilePreview.ToDictionary(x => x.Key, x => x.Value);
         }
-        public void BoxOperate(Rect rect, List<EntityCD> selected, BoxOperator op)
+        public void BoxOperate(Rect rect, List<SelectedEntity> selected, BoxOperator op)
         {
-            Dictionary<int2, EntityInfo> s = new();
+            Dictionary<int2, SerializeEntities> s = new();
             foreach (var select in selected)
             {
                 var pos = select.Position;
@@ -149,7 +150,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                     }
                     break;
                 case BoxOperator.Intersect:
-                    var dict = new Dictionary<int2, EntityInfo>(entityPreview.Count);
+                    var dict = new Dictionary<int2, SerializeEntities>(entityPreview.Count);
                     foreach (var (k, v) in s)
                     {
                         if (entityPreview.TryGetValue(k, out var previewInfo))
@@ -157,7 +158,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                             var intersected = previewInfo.Entities.Intersect(v.Entities);
                             if (intersected.Any())
                             {
-                                dict[k] = new EntityInfo
+                                dict[k] = new SerializeEntities
                                 {
                                     Position = k,
                                     Entities = intersected.ToHashSet()
@@ -172,7 +173,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             SelectBorder.transform.localPosition = new(rect.x, rect.y, 0);
             SelectBorder.size = rect.size;
         }
-        public void BoxOperate(Rect rect, List<TilesInfo> selected, BoxOperator op)
+        public void BoxOperate(Rect rect, List<SelectedTiles> selected, BoxOperator op)
         {
             var s = selected.ToDictionary(x => x.Position);
             tilePreview = tileRecord.ToDictionary(x => x.Key, x => x.Value);
@@ -198,7 +199,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             SelectBorder.size = rect.size;
         }
 
-        public void ClickOperate(bool hover, EntityInfo info, bool click, ClickOperator op)
+        public void ClickOperate(bool hover, SerializeEntities info, bool click, ClickOperator op)
         {
             if (Manager.ui.currentSelectedUIElement || !hover)
             {
@@ -221,7 +222,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                 RefreshVisual(entityRecord);
             }
         }
-        public void ClickOperate(bool hover, TilesInfo info, bool click, ClickOperator op)
+        public void ClickOperate(bool hover, SelectedTiles info, bool click, ClickOperator op)
         {
             if (Manager.ui.currentSelectedUIElement || !hover)
             {
@@ -244,7 +245,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                 RefreshVisual(tileRecord);
             }
         }
-        private void RefreshVisual(Dictionary<int2, EntityInfo> entities)
+        private void RefreshVisual(Dictionary<int2, SerializeEntities> entities)
         {
             int i = 0;
             foreach (var info in entities.Values)
@@ -257,7 +258,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             }
             DeactiveExcessSlot(i);
         }
-        private void RefreshVisual(Dictionary<int2, TilesInfo> tiles)
+        private void RefreshVisual(Dictionary<int2, SelectedTiles> tiles)
         {
             int i = 0;
             foreach (var info in tiles.Values)
@@ -275,11 +276,11 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             else
                 RefreshVisual(tileRecord);
         }
-        public void SetPosition(SpriteRenderer mark, EntityCD info)
+        public void SetPosition(SpriteRenderer mark, SelectedEntity info)
         {
             SetPosition(mark, info.Position, info.GetEntityOffset(out var size), size);
         }
-        public void SetPosition(SpriteRenderer mark, TilesInfo info)
+        public void SetPosition(SpriteRenderer mark, SelectedTiles info)
         {
             SetPosition(mark, info.Position, float2.zero, new(1, 1));
         }
@@ -338,7 +339,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             if (!hover)
                 HoverMark.gameObject.SetActive(false);
         }
-        private void CheckTilesInfo(TilesInfo info)
+        private void CheckTilesInfo(SelectedTiles info)
         {
             ShowInfoContainer();
             EntityLayout.gameObject.SetActive(false);
@@ -361,7 +362,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                 tileSelectors[j].gameObject.SetActive(false);
             TileLayout.RenderUIComponent(true);
         }
-        private void CheckEntityInfo(EntityInfo info)
+        private void CheckEntityInfo(SerializeEntities info)
         {
             ShowInfoContainer();
             TileLayout.gameObject.SetActive(false);
@@ -425,6 +426,8 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                 return;
             }
             float minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue;
+            List<IPlaceCommand> result = new();
+            List<TileCommand> tiles = new();
             foreach (var (pos, entity) in entityRecord)
             {
                 var x = pos.x;
@@ -448,42 +451,39 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             }
             int oriX = (int)minX;
             int oriY = (int)minY;
-            List<EntityInfo> entityInfos = new();
             bool any = false;
-            foreach (var (pos, entity) in entityRecord)
-            {
-                var info = entity;
-                var origin = info.Position = new(pos.x - oriX, pos.y - oriY);
-                var list = info.Entities = new();
-                foreach (var e in entity.Entities)
-                {
-                    var ori = e;
-                    ori.Position = origin;
-                    list.Add(ori);
-                    any = true;
-                }
-                entityInfos.Add(info);
-            }
-            List<SerializeTileInfo> tileInfos = new();
+            var client = BuildingSelectClient.Ins;
+            int2 origin;
             var except = SelectHandler.ExceptTiles;
             foreach (var (pos, tile) in tileRecord)
             {
-                SerializeTileInfo info = new()
+                SerializeTiles info = new()
                 {
                     Position = pos,
                 };
-                var tiles = info.Tiles = new();
-                info.Position = new(pos.x - oriX, pos.y - oriY);
+                origin = new(pos.x - oriX, pos.y - oriY);
                 foreach (var (t, state) in tile.Tiles)
                 {
                     if (!state)
                         continue;
                     if (except.Contains(t.tileType))
                         continue;
-                    tiles.Add(t);
+                    //result.Add(new TileCommand() { TileCD = t, Pos = origin });
+                    tiles.Add(new TileCommand() { TileCD = t, Pos = origin });
                     any = true;
                 }
-                tileInfos.Add(info);
+            }
+            foreach (var tile in tiles.OrderBy(x => MiscHelper.GetPlaceOrder(x.TileCD.tileType)))
+                result.Add(tile);
+            origin = new(oriX, oriY);
+            foreach (var (pos, entity) in entityRecord)
+            {
+                foreach (var e in entity.Entities)
+                {
+                    var commands = client.GetCommands(e, origin);
+                    result.AddRange(commands);
+                    any = true;
+                }
             }
             if (!any)
             {
@@ -493,8 +493,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             SavesHandler.gameObject.SetActive(true);
             SavesHandler.Save(new()
             {
-                EntityInfos = entityInfos,
-                TileInfos = tileInfos,
+                Commands = result.ConvertAll(x => x.Write()),
                 Size = new((int)(maxX - minX), (int)(maxY - minY)),
             });
             ClearRecord();
@@ -603,6 +602,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
             PreviewWindow.Refresh(building);
             PlaceHanlder.RefreshPreview(building);
             BlueprintStateChangeClient.SwitchState(BlueprintUIAction.Place, 1);
+            BuildingPlaceClient.Ins.SendCache(building);
             Exit.SetActive(true);
             SelectHandler.gameObject.SetActive(false);
         }

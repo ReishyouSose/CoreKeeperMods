@@ -1,4 +1,5 @@
-﻿using Assets.BuildingBlueprint.Scripts.Core;
+﻿using Assets.BuildingBlueprint.Scripts.Components;
+using Assets.BuildingBlueprint.Scripts.Core;
 using I2.Loc;
 using Newtonsoft.Json;
 using PugMod;
@@ -24,7 +25,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
         private static readonly WaitForSeconds waitForSeconds0_1 = new(0.1f);
         private static readonly JsonSerializerSettings jsonSettings = new()
         {
-            Converters = new List<JsonConverter>() { new Int2JsonConverter() }
+            Converters = new List<JsonConverter>() { new Int2JsonConverter(), new PlaceCommand.Converter(), new BuildingInfo.Converter() }
         };
         private readonly string FolderOrderPath = Path.Combine(SAVE_HEADER, FOLDER_ORDER_FILE);
         #endregion

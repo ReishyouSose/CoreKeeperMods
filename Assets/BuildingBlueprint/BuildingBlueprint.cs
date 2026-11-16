@@ -18,6 +18,7 @@ namespace Assets.BuildingBlueprint
         internal static ConfigEntry<bool> DestoryPrivileges;
         internal static ConfigEntry<bool> ClearSelected;
         internal static ConfigEntry<bool> ExitPlaceMode;
+        internal static ConfigEntry<bool> HideMaterialWhenEnough;
         public void EarlyInit()
         {
             CoreLibMod.LoadSubmodule(typeof(UserInterfaceModule));
@@ -29,6 +30,7 @@ namespace Assets.BuildingBlueprint
             DestoryPrivileges = file.Bind("General", nameof(DestoryPrivileges), true, scope: new(ConfigAccessLevel.Admin));
             ClearSelected = file.Bind("OnUIOpen", nameof(ClearSelected), true, scope: new(ConfigAccessLevel.Client));
             ExitPlaceMode = file.Bind("OnUIOpen", nameof(ExitPlaceMode), true, scope: new(ConfigAccessLevel.Client));
+            HideMaterialWhenEnough = file.Bind("General", nameof(HideMaterialWhenEnough), false, scope: new(ConfigAccessLevel.Client));
         }
 
         private void Authoring_OnObjectTypeAdded(Unity.Entities.Entity entity, GameObject authoringData, Unity.Entities.EntityManager entityManager)

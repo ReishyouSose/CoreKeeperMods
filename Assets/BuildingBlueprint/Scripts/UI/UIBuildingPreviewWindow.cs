@@ -1,7 +1,7 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using PugTilemap;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -20,6 +20,8 @@ namespace Assets.BuildingBlueprint.Scripts.UI
         private BuildingInfo info;
 
         private Dictionary<TileCD, Color> tileColors;
+        private readonly Dictionary<float3, Color> map = new();
+        private readonly Dictionary<int2, TileCD> tiles = new();
         private List<int> variations;
         private void Awake()
         {
@@ -45,37 +47,56 @@ namespace Assets.BuildingBlueprint.Scripts.UI
         }
         private void Refresh()
         {
-            Dictionary<float3, Color> map = new();
-            var size = -info.Size / 2;
-            foreach (var tile in info.TileInfos)
+            var origin = -info.Size / 2;
+            EntityCommand entity = default;
+            int2 pos = default;
+            foreach (var command in info.Commands)
             {
-                var top = tile.Tiles.Aggregate((a, b) => a.tileType.GetSurfacePriority() > b.tileType.GetSurfacePriority() ? a : b);
-                var pos = tile.Position + size;
-                tileColors.TryGetValue(top, out var color);
-                map[new(pos.x, pos.y, 0)] = color;
-            }
-            foreach (var entities in info.EntityInfos)
-            {
-                foreach (var entity in entities.Entities)
+                switch (command.Op)
                 {
-                    var pos = entity.Position + size;
-                    var color = PugDatabase.GetObjectInfo(entity.ObjectID, entity.Variation).mapColor;
-                    for (int x = 0; x < entity.X; x++)
-                    {
-                        for (int y = 0; y < entity.Y; y++)
+                    case PlaceOperator.Tile:
+                        var tile = command.ReadAs<TileCommand>();
+                        pos = tile.Pos + origin;
+                        var tileCD = tile.TileCD;
+                        if (!tiles.TryGetValue(pos, out var t) || t.tileType.GetSurfacePriority() < tileCD.tileType.GetSurfacePriority())
+                            tiles[pos] = tileCD;
+                        break;
+                    case PlaceOperator.Entity:
+                        entity = command.ReadAs<EntityCommand>();
+                        pos = entity.Pos + origin;
+                        break;
+                    case PlaceOperator.Size:
+                        var size = command.ReadAs<SizeCommand>();
+                        var color = PugDatabase.GetObjectInfo(entity.ObjectID, entity.Variation).mapColor;
+                        for (int x = 0; x < size.X; x++)
                         {
-                            map[new(pos.x + x, pos.y + y, 0)] = color;
+                            for (int y = 0; y < size.Y; y++)
+                            {
+                                map[new(pos.x + x, pos.y + y, 0)] = color;
+                            }
                         }
-                    }
+                        break;
+                }
+
+            }
+            foreach (var (p, tile) in tiles)
+            {
+                float3 key = new(p.x, p.y, 0);
+                if (!map.ContainsKey(key))
+                {
+                    tileColors.TryGetValue(tile, out var color);
+                    map[key] = color;
                 }
             }
             int i = 0;
-            foreach (var (pos, color) in map)
+            foreach (var (p, color) in map)
             {
                 var slot = GetOrCreateSlot(i++);
                 slot.color = color;
-                slot.transform.localPosition = pos / 8;
+                slot.transform.localPosition = p / 8;
             }
+            tiles.Clear();
+            map.Clear();
             DeactiveExcessSlot(i);
         }
         private SpriteRenderer GetOrCreateSlot(int index)

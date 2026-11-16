@@ -1,5 +1,6 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Components;
 using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using Assets.BuildingBlueprint.Scripts.UI;
 using PlayerEquipment;
 using Pug.UnityExtensions;
@@ -33,7 +34,42 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         private ComponentLookup<LocalTransform> transLookup;
         private ComponentLookup<PaintableObjectCD> paintLookup;
         private ComponentLookup<ObjectFilteringCD> filterLookup;
+        private BufferLookup<ContainedObjectsBuffer> containerLookup;
+        private BufferLookup<InventoryBuffer> invLookup;
+        private ComponentLookup<InventoryAutoTransferEnabledCD> decorLookup;
         private TileAccessor tileAccessor;
+        public IEnumerable<IPlaceCommand> GetCommands(SelectedEntity cd, int2 origin)
+        {
+            yield return new EntityCommand() { ObjectID = cd.ObjectID, Pos = cd.Position - origin, Variation = cd.Variation };
+            yield return new SizeCommand() { X = cd.X, Y = cd.Y };
+            yield return new DirectionCommand() { Direction = cd.Direction };
+            var entity = cd.Entity;
+            if (paintLookup.TryGetComponent(entity, out var paint))
+                yield return new PaintCommand() { Color = paint.color };
+            if (filterLookup.TryGetComponent(entity, out var filter) && filter.filterObject != ObjectID.None && filter.filterType == FilterType.Whitelist)
+                yield return new ObjFilterCommand()
+                {
+                    Object = filter.filterObject,
+                    Type = filter.filterType,
+                    Variation = filter.filterVariation
+                };
+            if (!decorLookup.HasComponent(entity) && containerLookup.TryGetBuffer(entity, out var container) && invLookup.TryGetBuffer(entity, out var invs))
+            {
+                int start;
+                int end;
+                foreach (var inv in invs)
+                {
+                    start = inv.startIndex;
+                    end = start + inv.size;
+                    for (int i = start; i < end; i++)
+                    {
+                        var slot = container[i];
+                        if (slot.objectID != ObjectID.None)
+                            yield return new ContainerCommand() { Index = i, ObjectID = slot.objectID, Variation = slot.variation };
+                    }
+                }
+            }
+        }
 
         protected override void OnCreate()
         {
@@ -50,6 +86,9 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             transLookup = SystemAPI.GetComponentLookup<LocalTransform>();
             paintLookup = SystemAPI.GetComponentLookup<PaintableObjectCD>();
             filterLookup = SystemAPI.GetComponentLookup<ObjectFilteringCD>(true);
+            decorLookup = SystemAPI.GetComponentLookup<InventoryAutoTransferEnabledCD>(true);
+            containerLookup = SystemAPI.GetBufferLookup<ContainedObjectsBuffer>(true);
+            invLookup = SystemAPI.GetBufferLookup<InventoryBuffer>(true);
             var e = EntityManager.CreateSingletonBuffer<TileTargetBuffer>("TileTargetBuffer");
             var buffer = EntityManager.GetBuffer<TileTargetBuffer>(e);
             if (ScriptableData.TryGetDataBlocks<TileTargetDataBlock>(out var dataBlocks))
@@ -70,20 +109,6 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             tileAccessor = CreateTileAccessor();
             base.OnStartRunning();
         }
-        // Copy a robot arm's or item collector's filter into the blueprint. SelectedEntityBuffer does not
-        // carry it, so read it from the object itself: ObjectFilteringCD is sent to clients. Only what the
-        // paste accepts is copied (a whitelist of one item, as InventoryUtility.AddFilter sets).
-        private EntityCD WithFilter(EntityCD cd, Entity entity)
-        {
-            if (filterLookup.TryGetComponent(entity, out var filter)
-                && filter.filterType == FilterType.Whitelist && filter.filterObject != ObjectID.None)
-            {
-                cd.FilterType = filter.filterType;
-                cd.FilterObject = filter.filterObject;
-                cd.FilterVariation = filter.filterVariation;
-            }
-            return cd;
-        }
         protected override void OnUpdate()
         {
             if (!Manager.main.player)
@@ -100,6 +125,10 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
             var input = inputLookup[player];
             bool click = input.IsButtonStateSet(CommandInputButtonStateNames.Interact_Pressed);
             var layer = option.Layer;
+            var directionLookup = this.directionLookup;
+            var objLookup = this.objLookup;
+            var transLookup = this.transLookup;
+            var database = this.database;
             switch (option.Mode)
             {
                 case SelectionMode.Box:
@@ -130,16 +159,34 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                             Rect selectArea = new(min.x, min.y, max.x - min.x, max.y - min.y);
                             if (layer == SelectionLayer.Entity)
                             {
-                                List<EntityCD> list = new();
-                                for (int i = 0; i < entities.Length; i++)
+                                List<SelectedEntity> list = new();
+                                foreach (SelectedEntityBuffer se in entities)
                                 {
-                                    list.Add(WithFilter(entities[i], entities[i].Entity));
+                                    var entity = se.Entity;
+                                    directionLookup.TryGetComponent(entity, out var direction);
+                                    if (!objLookup.TryGetComponent(entity, out var obj))
+                                        continue;
+                                    if (!transLookup.TryGetComponent(entity, out var trans))
+                                        continue;
+                                    ref var info = ref PugDatabase.GetEntityObjectInfo(obj.objectID, database, obj.variation);
+                                    var size = direction.GetPrefabTileSize(info.prefabTileSize);
+                                    var cd = new SelectedEntityBuffer()
+                                    {
+                                        Entity = entity,
+                                        ObjectID = obj.objectID,
+                                        X = size.x,
+                                        Y = size.y,
+                                        Direction = direction.direction.RoundToInt2(),
+                                        Position = trans.Position.RoundToInt2(),
+                                        Variation = obj.variation,
+                                    };
+                                    list.Add(cd);
                                 }
                                 ui.BoxOperate(selectArea, list, op);
                             }
                             else
                             {
-                                Dictionary<int2, TilesInfo> dict = new();
+                                Dictionary<int2, SelectedTiles> dict = new();
                                 for (int i = 0; i < tiles.Length; i++)
                                 {
                                     var tile = tiles[i];
@@ -161,7 +208,7 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                         if (layer == SelectionLayer.Entity)
                         {
                             using var queryE = query.ToEntityArray(Allocator.Temp);
-                            EntityInfo info = new()
+                            SerializeEntities eInfo = new()
                             {
                                 Position = mouse,
                                 Entities = new()
@@ -173,30 +220,30 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                                     continue;
                                 if (!transLookup.TryGetComponent(entity, out var trans))
                                     continue;
-                                paintLookup.TryGetComponent(entity, out var paint);
-                                var size = direction.GetPrefabTileSize(PugDatabase.GetEntityObjectInfo(obj.objectID, database, obj.variation).prefabTileSize);
+                                ref var info = ref PugDatabase.GetEntityObjectInfo(obj.objectID, database, obj.variation);
+                                var size = direction.GetPrefabTileSize(info.prefabTileSize);
                                 var cd = new SelectedEntityBuffer()
                                 {
+                                    Entity = entity,
                                     ObjectID = obj.objectID,
                                     X = size.x,
                                     Y = size.y,
                                     Direction = direction.direction.RoundToInt2(),
                                     Position = trans.Position.RoundToInt2(),
                                     Variation = obj.variation,
-                                    Color = paint.color
                                 };
-                                var box = MiscHelper.GetEntityRect(cd, database);
+                                var box = MiscHelper.GetEntityRect(cd, ref info);
                                 if (box.Contains(mouse.ToVec2Int()))
                                 {
-                                    info.Entities.Add(WithFilter(cd, entity));
+                                    eInfo.Entities.Add(cd);
                                     hover = true;
                                 }
                             }
-                            ui.ClickOperate(hover, info, click, op);
+                            ui.ClickOperate(hover, eInfo, click, op);
                         }
                         else
                         {
-                            TilesInfo info = new() { Position = mouse, Tiles = new() };
+                            SelectedTiles info = new() { Position = mouse, Tiles = new() };
                             var tileTarget = SystemAPI.GetSingletonBuffer<TileTargetBuffer>();
                             NativeHashSet<int> targets = new(tileTarget.Length, Allocator.Temp);
                             for (int i = 0; i < tileTarget.Length; i++)
@@ -323,7 +370,6 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                             directionLookup.TryGetComponent(entity, out var direction);
                             if (!transLookup.TryGetComponent(entity, out var trans))
                                 continue;
-                            paintLookup.TryGetComponent(entity, out var paint);
                             var size = direction.GetPrefabTileSize(info.prefabTileSize);
                             var cd = new SelectedEntityBuffer()
                             {
@@ -333,10 +379,9 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                                 Direction = direction.direction.RoundToInt2(),
                                 Position = trans.Position.RoundToInt2(),
                                 Variation = obj.variation,
-                                Color = paint.color,
                                 Entity = entity,
                             };
-                            var box = MiscHelper.GetEntityRect(cd, database);
+                            var box = MiscHelper.GetEntityRect(cd, ref info);
                             if (selectArea.Contains(box))
                             {
                                 entities.Add(cd);
@@ -383,21 +428,18 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
                 .Schedule();
             base.OnUpdate();
         }
-        public static float2 MouseWorld => EntityMonoBehaviour.ToWorldFromRender(Manager.ui.mouse.GetMouseGameViewPosition()).ToFloat2();
         internal static void MarkPlaceable(Entity entity, GameObject authoringData, EntityManager entityManager)
         {
             if (authoringData.TryGetComponent<TileAuthoring>(out _))
                 return;
             if (authoringData.TryGetComponent<MineableAuthoring>(out _) || authoringData.TryGetComponent<DiggableAuthoring>(out _))
             {
-                string id = string.Empty;
                 if (authoringData.TryGetComponent(out EntityMonoBehaviourData data))
                 {
                     if (data.objectInfo.icon == null)
                         return;
                     if (data.objectInfo.objectType == ObjectType.Critter)
                         return;
-                    id = data.objectInfo.objectID.ToString();
                 }
                 else if (!authoringData.TryGetComponent(out InventoryItemAuthoring _))
                     return;
@@ -408,7 +450,6 @@ namespace Assets.BuildingBlueprint.Scripts.Systems
         {
             if (authoringData.TryGetComponent(out PlayerAuthoring _))
             {
-                entityManager.AddBuffer<PlaceValidateBuffer>(entity);
                 entityManager.AddComponent<SelectionOptionCD>(entity);
                 entityManager.AddBuffer<SelectedEntityBuffer>(entity);
                 entityManager.AddBuffer<SelectedTileBuffer>(entity);

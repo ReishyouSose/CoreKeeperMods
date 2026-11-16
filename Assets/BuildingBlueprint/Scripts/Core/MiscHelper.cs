@@ -1,12 +1,6 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Components;
 using Pug.UnityExtensions;
 using PugTilemap;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -14,11 +8,11 @@ namespace Assets.BuildingBlueprint.Scripts.Core
 {
     public static class MiscHelper
     {
-        public static Rect GetEntityRect(SelectedEntityBuffer info, BlobAssetReference<PugDatabase.PugDatabaseBank> database)
+        public static Rect GetEntityRect(SelectedEntityBuffer buffer, ref PugDatabase.EntityObjectInfo info)
         {
-            var offset = info.GetEntityOffset(database, out var size);
+            var offset = buffer.GetEntityOffset(ref info, out var size);
             Vector2 s = size.ToVec2Int();
-            var origin = info.Position.ToFloat2() + offset - (float2)s / 2f;
+            var origin = buffer.Position.ToFloat2() + offset - (float2)s / 2f;
             return new Rect(origin, s);
         }
 
@@ -56,6 +50,16 @@ namespace Assets.BuildingBlueprint.Scripts.Core
                     };
             }
             return PugDatabase.TryGetTileItemInfo(type, (Tileset)tile.tileset, tileSetMap);
+        }
+        public static int GetPlaceOrder(TileType tileType)
+        {
+            return tileType switch
+            {
+                TileType.pit or TileType.water or TileType.ground => 0,
+                TileType.dugUpGround or TileType.smallGrass or TileType.floorCrack or TileType.bridge => 1,
+                TileType.wallGrass or TileType.wallCrack or TileType.ore or TileType.ancientCrystal => 3,
+                _ => 2,
+            };
         }
     }
 }

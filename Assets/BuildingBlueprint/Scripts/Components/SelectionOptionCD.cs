@@ -1,4 +1,4 @@
-﻿using Assets.BuildingBlueprint.Scripts.Core;
+﻿using Assets.BuildingBlueprint.Scripts.Enums;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;

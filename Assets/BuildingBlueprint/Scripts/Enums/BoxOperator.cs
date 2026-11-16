@@ -1,4 +1,4 @@
-﻿namespace Assets.BuildingBlueprint.Scripts.Core
+﻿namespace Assets.BuildingBlueprint.Scripts.Enums
 {
     /// <summary>
     /// 选区运算(用于<see cref="SelectionMode.Box"/>模式）

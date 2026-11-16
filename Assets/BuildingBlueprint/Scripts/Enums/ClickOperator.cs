@@ -1,4 +1,4 @@
-﻿namespace Assets.BuildingBlueprint.Scripts.Core
+﻿namespace Assets.BuildingBlueprint.Scripts.Enums
 {
     /// <summary>
     /// 点选运算（用于<see cref="SelectionMode.Point"/>模式）

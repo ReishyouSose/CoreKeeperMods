@@ -1,4 +1,4 @@
-﻿namespace Assets.BuildingBlueprint.Scripts.Core
+﻿namespace Assets.BuildingBlueprint.Scripts.Enums
 {
     /// <summary>
     /// 选区绘制模式

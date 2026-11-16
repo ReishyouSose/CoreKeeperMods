@@ -1,4 +1,5 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using Assets.BuildingBlueprint.Scripts.Systems;
 using Pug.UnityExtensions;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace Assets.BuildingBlueprint.Scripts.UI
                 Template
             };
         }
+        private readonly HashSet<(Vector3, Vector2)> exist = new();
         public void RefreshPreview(BuildingInfo info)
         {
             int i = 0;
@@ -32,30 +34,46 @@ namespace Assets.BuildingBlueprint.Scripts.UI
 
             // 计算pivot偏移量
             int2 pivot = GetPivotOffset(info);
-
-            foreach (var entity in info.EntityInfos)
+            EntityCommand entity = default;
+            SpriteRenderer slot;
+            Vector3 srPos;
+            int2 pos;
+            foreach (var command in info.Commands)
             {
-                var pos = entity.Position;
-                var x = pos.x;
-                var y = pos.y;
-                foreach (var e in entity.Entities)
+                switch (command.Op)
                 {
-                    var offset = new Vector2(e.X - 1, e.Y - 1) / 2f;
-                    Vector2 size = new(e.X, e.Y);
-                    var slot = GetOrCreateSlot(i++);
-                    slot.sprite = Entity;
-                    slot.size = size;
-                    slot.transform.localPosition = new Vector3(x + offset.x + pivot.x, y + offset.y + pivot.y, 0);
+                    case PlaceOperator.Entity:
+                        entity = command.ReadAs<EntityCommand>();
+                        break;
+                    case PlaceOperator.Size:
+                        var size = command.ReadAs<SizeCommand>();
+                        pos = entity.Pos;
+                        Vector2 s = new(size.X, size.Y);
+                        var offset = new Vector2(size.X - 1, size.Y - 1) / 2f;
+                        srPos = new(pos.x + offset.x + pivot.x, pos.y + offset.y + pivot.y, 0);
+                        if (exist.Add((srPos, s)))
+                        {
+                            slot = GetOrCreateSlot(i++);
+                            slot.sprite = Entity;
+                            slot.size = s;
+                            slot.transform.localPosition = srPos;
+                        }
+                        break;
+                    case PlaceOperator.Tile:
+                        var tile = command.ReadAs<TileCommand>();
+                        pos = tile.Pos;
+                        srPos = new(pos.x + pivot.x, pos.y + pivot.y, 0);
+                        if (exist.Add((srPos, Vector2.one)))
+                        {
+                            slot = GetOrCreateSlot(i++);
+                            slot.sprite = Tile;
+                            slot.size = Vector2.one;
+                            slot.transform.localPosition = srPos;
+                        }
+                        break;
                 }
             }
-            foreach (var tile in info.TileInfos)
-            {
-                var pos = tile.Position;
-                var slot = GetOrCreateSlot(i++);
-                slot.sprite = Tile;
-                slot.size = Vector2.one;
-                slot.transform.localPosition = new Vector3(pos.x + pivot.x, pos.y + pivot.y, 0);
-            }
+            exist.Clear();
             DeactiveExcessSlot(i);
         }
 

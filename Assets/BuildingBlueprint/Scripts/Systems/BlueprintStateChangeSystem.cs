@@ -1,5 +1,5 @@
 ﻿using Assets.BuildingBlueprint.Scripts.Components;
-using Assets.BuildingBlueprint.Scripts.Core;
+using Assets.BuildingBlueprint.Scripts.Enums;
 using CoreLib.Util.Extension;
 using Unity.Collections;
 using Unity.Entities;

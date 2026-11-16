@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEngine;
 
 namespace Assets.BuildingBlueprint.Scripts.Core
 {
     [Serializable]
-    public struct EntityInfo
+    public struct SerializeEntities
     {
-        public HashSet<EntityCD> Entities;
+        public HashSet<SelectedEntity> Entities;
         public int2 Position;
     }
 }

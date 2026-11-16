@@ -10,22 +10,21 @@ namespace Assets.BuildingBlueprint.Scripts.Components
     {
         [GhostField]
         public Entity Entity;
-        [GhostField]
-        public ObjectID ObjectID;
-        [GhostField]
-        public int X;
-        [GhostField]
-        public int Y;
-        [GhostField]
-        public int Variation;
-        [GhostField]
-        public int2 Position;
-        [GhostField]
-        public int2 Direction;
-        [GhostField]
-        public PaintableColor Color;
 
-        public static implicit operator EntityCD(SelectedEntityBuffer buffer)
+        [GhostField(SendData = false)]
+        public ObjectID ObjectID;
+        [GhostField(SendData = false)]
+        public int X;
+        [GhostField(SendData = false)]
+        public int Y;
+        [GhostField(SendData = false)]
+        public int Variation;
+        [GhostField(SendData = false)]
+        public int2 Position;
+        [GhostField(SendData = false)]
+        public int2 Direction;
+
+        public static implicit operator SelectedEntity(SelectedEntityBuffer buffer)
         {
             return new()
             {
@@ -35,16 +34,15 @@ namespace Assets.BuildingBlueprint.Scripts.Components
                 Variation = buffer.Variation,
                 Position = buffer.Position,
                 Direction = buffer.Direction,
-                Color = buffer.Color,
                 Entity = buffer.Entity,
             };
         }
-        public readonly float2 GetEntityOffset(BlobAssetReference<PugDatabase.PugDatabaseBank> database, out int2 size)
+        public readonly float2 GetEntityOffset(ref PugDatabase.EntityObjectInfo info, out int2 size)
         {
             size = new(X, Y);
             var offset = new float2(X - 1, Y - 1) / 2f;
             //var corner = GetEntityOffset(ObjectID, Variation, Direction);
-            int2 corner = PugDatabase.GetEntityObjectInfo(ObjectID, database, Variation).prefabCornerOffset;
+            int2 corner = info.prefabCornerOffset;
             return new(corner.x + offset.x, corner.y + offset.y);
         }
     }
